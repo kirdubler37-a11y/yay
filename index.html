@@ -42,7 +42,6 @@
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        /* Навигация вкладок */
         .tabs {
             display: flex;
             gap: 10px;
@@ -144,7 +143,6 @@
         .rarity-restricted { border-bottom-color: #8847ff; background: linear-gradient(180deg, #1e202b 60%, rgba(136,71,255,0.15)); }
         .rarity-mil-spec { border-bottom-color: #4b69ff; background: linear-gradient(180deg, #1e202b 60%, rgba(75,105,255,0.15)); }
 
-        /* Кнопки */
         .btn-main {
             background: linear-gradient(135deg, #ff9d00, #ed6c02);
             color: #fff;
@@ -182,7 +180,6 @@
         }
         .upgrade-slot.active { border-style: solid; border-color: #ff9d00; }
         
-        /* Круг анимации апгрейда */
         .upgrade-circle-wrap {
             position: relative;
             width: 120px;
@@ -238,10 +235,9 @@
 
     <div class="container">
         
-        <!-- Вкладки меню -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('case-tab', this)">📦 Открытие Кейсов</button>
-            <button class="tab-btn" onclick="switchTab('upgrade-tab', this)">⚡ Апгрейды</button>
+            <button class="tab-btn active" id="tab-c-btn" onclick="switchTab('case-tab', this)">📦 Открытие Кейсов</button>
+            <button class="tab-btn" id="tab-u-btn" onclick="switchTab('upgrade-tab', this)">⚡ Апгрейды</button>
         </div>
 
         <!-- ВКЛАДКА КЕЙСОВ -->
@@ -262,7 +258,6 @@
             <h3>⚡ СИСТЕМА УЛУЧШЕНИЙ (UPGRADE)</h3>
             
             <div class="upgrade-grid">
-                <!-- Ваш предмет -->
                 <div>
                     <div class="upgrade-selector-title">Ваш предмет (выберите в инвентаре ниже)</div>
                     <div id="slot-user" class="upgrade-slot">
@@ -270,14 +265,12 @@
                     </div>
                 </div>
 
-                <!-- Процент успеха -->
                 <div class="upgrade-circle-wrap">
                     <div class="upgrade-circle" id="upg-circle">
                         <div class="upgrade-percent" id="upg-pct">0%</div>
                     </div>
                 </div>
 
-                <!-- Цель -->
                 <div>
                     <div class="upgrade-selector-title">Желаемый предмет</div>
                     <div id="slot-target" class="upgrade-slot">
@@ -292,3 +285,9 @@
             </div>
 
             <div style="margin-top: 25px;">
+                <button class="btn-main" id="upgrade-btn" onclick="doUpgrade()" disabled>НАЧАТЬ АПГРЕЙД</button>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>🎒 Ваш инвентарь (Кликните на скин для Апгрейда)</h3>
