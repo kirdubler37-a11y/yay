@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS:GO Case Battle Simulator</title>
+    <style>
+        body {
+            background-color: #12131a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            padding: 15px;
+            background: #1a1c24;
+            border-radius: 10px;
+            border-bottom: 3px solid #ff9d00;
+        }
+        .balance {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff9d00;
+        }
+        .case-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #1a1c24;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        /* Стили рулетки */
+        .roulette-wrapper {
+            position: relative;
+            width: 100%;
+            height: 130px;
+            background: #111217;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid #2d313f;
+        }
+        .pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #ff9d00;
+            z-index: 10;
+            box-shadow: 0 0 10px #ff9d00;
+        }
+        .roulette-tape {
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
+            will-change: transform;
+        }
+        .skin-card {
+            width: 110px;
+            height: 110px;
+            margin: 0 5px;
+            background: #1e202b;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            padding: 5px;
+            box-sizing: border-box;
+            border-bottom: 4px solid #fff;
+            flex-shrink: 0;
+        }
+        .skin-card img {
+            width: 75px;
+            height: 55px;
+            object-fit: contain;
+        }
+        .skin-name {
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            margin-top: 5px;
+        }
+        /* Редкости скинов */
+        .rarity-covert { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, #1e202b 60%, rgba(235,75,75,0.15)); }
+        .rarity-classified { border-bottom-color: #d32ce6; background: linear-gradient(180deg, #1e202b 60%, rgba(211,44,230,0.15)); }
+        .rarity-restricted { border-bottom-color: #8847ff; background: linear-gradient(180deg, #1e202b 60%, rgba(136,71,255,0.15)); }
+        .rarity-mil-spec { border-bottom-color: #4b69ff; background: linear-gradient(180deg, #1e202b 60%, rgba(75,105,255,0.15)); }
+
+        .btn-open {
+            background: linear-gradient(135deg, #ff9d00, #ed6c02);
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(237,108,2,0.4);
+            transition: 0.2s;
+        }
+        .btn-open:hover { transform: scale(1.05); }
+        .btn-open:disabled { background: #444; box-shadow: none; cursor: not-allowed; }
+
+        .inventory {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            background: #1a1c24;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .inventory-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2>CASE-BATTLE <span style="color:#ff9d00">SIM</span></h2>
+        <div class="balance">Баланс: <span id="balance-val">1000</span> Фст.</div>
+    </header>
+
+    <div class="case-container">
+        <h3>🔥 КЕЙС «ЛУЧШИЙ ВЫБОР»</h3>
+        <p>Стоимость открытия: <span style="color:#ff9d00">100 Фст.</span></p>
+        
+        <div class="roulette-wrapper">
+            <div class="pointer"></div>
+            <div class="roulette-tape" id="tape"></div>
+        </div>
+
+        <button class="btn-open" id="open-btn" onclick="openCase()">ОТКРЫТЬ КЕЙС</button>
+    </div>
+
+    <div class="inventory">
+        <h3>🎒 Ваш инвентарь</h3>
+        <div class="inventory-grid" id="inv-grid">
+            <p style="color:#666" id="empty-msg">Здесь будут ваши выбитые скины...</p>
+        </div>
+    </div>
+
+    <script>
+        // База скинов (с реальными картинками из Steam)
+        const skins = [
+            { name: "AWP | Dragon Lore", rarity: "covert", img: "https://steamstatic.com" },
+            { name: "M4A4 | Howl", rarity: "covert", img: "https://steamstatic.com" },
+            { name: "AK-47 | Поверхностная закалка", rarity: "classified", img: "https://steamstatic.com" },
+            { name: "Desert Eagle | Код красного", rarity: "classified", img: "https://steamstatic.com" },
+            { name: "Glock-18 | Королева пуль", rarity: "restricted", img: "https://steamstatic.com" },
+            { name: "USP-S | Сайрекс", rarity: "restricted", img: "https://steamstatic.com" },
+            { name: "M4A1-S | Взгляд в прошлое", rarity: "mil-spec", img: "https://steamstatic.com" }
+        ];
+
+        let balance = 1000;
+        const cardWidth = 120; // Ширина карточки скина + отступы
+
+        function generateTapeItems() {
+            const tape = document.getElementById('tape');
+            tape.innerHTML = '';
+            // Создаем 40 случайных скинов для эффекта прокрутки
+            for (let i = 0; i < 40; i++) {
+                const randomSkin = skins[Math.floor(Math.random() * skins.length)];
+                const card = document.createElement('div');
+                card.className = `skin-card rarity-${randomSkin.rarity}`;
+                card.innerHTML = `
+                    <img src="${randomSkin.img}" alt="${randomSkin.name}">
+                    <div class="skin-name">${randomSkin.name}</div>
+                `;
+                tape.appendChild(card);
+            }
+        }
+
+        // Первичная генерация ленты при загрузке
+        generateTapeItems();
+
+        function openCase() {
+            if (balance < 100) {
+                alert("Недостаточно Фаст-монет для открытия!");
+                return;
+            }
+
+            balance -= 100;
+            document.getElementById('balance-val').innerText = balance;
+            
+            const btn = document.getElementById('open-btn');
+            btn.disabled = true;
+
+            const tape = document.getElementById('tape');
+            // Сбрасываем ленту в начальное положение
+            tape.style.transition = 'none';
+            tape.style.transform = 'translateX(0px)';
+            
+            // Генерируем новый набор скинов
+            generateTapeItems();
+
+            // Выбираем победный скин (пусть это будет 32-й элемент в ленте)
+            const winningIndex = 32;
+            const winningSkin = skins[Math.floor(Math.random() * skins.length)];
+            
+            // Вставляем наш победный скин на нужную позицию в ленте
+            const cards = tape.getElementsByClassName('skin-card');
+            cards[winningIndex].className = `skin-card rarity-${winningSkin.rarity}`;
+            cards[winningIndex].innerHTML = `
+                <img src="${winningSkin.img}" alt="${winningSkin.name}">
+                <div class="skin-name">${winningSkin.name}</div>
+            `;
+
+            // Считаем сдвиг, чтобы победный скин оказался ровно по центру
+            const wrapperWidth = document.querySelector('.roulette-wrapper').offsetWidth;
+            const targetLeft = -(winningIndex * cardWidth) + (wrapperWidth / 2) - (cardWidth / 2);
+
