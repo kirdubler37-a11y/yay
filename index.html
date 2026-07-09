@@ -83,10 +83,9 @@
             border-bottom: 4px solid #fff;
             flex-shrink: 0;
         }
-        .skin-card img {
-            width: 75px;
-            height: 55px;
-            object-fit: contain;
+        .skin-icon {
+            font-size: 32px;
+            margin-bottom: 5px;
         }
         .skin-name {
             font-weight: bold;
@@ -160,15 +159,16 @@
     </div>
 
     <script>
-        // База скинов (с реальными картинками из Steam)
+        // База скинов с текстовыми эмодзи вместо картинок
         const skins = [
-            { name: "AWP | Dragon Lore", rarity: "covert", img: "https://steamstatic.com" },
-            { name: "M4A4 | Howl", rarity: "covert", img: "https://steamstatic.com" },
-            { name: "AK-47 | Поверхностная закалка", rarity: "classified", img: "https://steamstatic.com" },
-            { name: "Desert Eagle | Код красного", rarity: "classified", img: "https://steamstatic.com" },
-            { name: "Glock-18 | Королева пуль", rarity: "restricted", img: "https://steamstatic.com" },
-            { name: "USP-S | Сайрекс", rarity: "restricted", img: "https://steamstatic.com" },
-            { name: "M4A1-S | Взгляд в прошлое", rarity: "mil-spec", img: "https://steamstatic.com" }
+            { name: "AWP | Dragon Lore", rarity: "covert", icon: "👑" },
+            { name: "M4A4 | Howl", rarity: "covert", icon: "🐺" },
+            { name: "Керамбит | Градиент", rarity: "covert", icon: "🔪" },
+            { name: "AK-47 | Вулканический", rarity: "classified", icon: "🔥" },
+            { name: "Desert Eagle | Код красный", rarity: "classified", icon: "🔫" },
+            { name: "Glock-18 | Королева", rarity: "restricted", icon: "👸" },
+            { name: "USP-S | Сайрекс", rarity: "restricted", icon: "⚡" },
+            { name: "M4A1-S | Взгляд", rarity: "mil-spec", icon: "👁️" }
         ];
 
         let balance = 1000;
@@ -183,7 +183,7 @@
                 const card = document.createElement('div');
                 card.className = `skin-card rarity-${randomSkin.rarity}`;
                 card.innerHTML = `
-                    <img src="${randomSkin.img}" alt="${randomSkin.name}">
+                    <div class="skin-icon">${randomSkin.icon}</div>
                     <div class="skin-name">${randomSkin.name}</div>
                 `;
                 tape.appendChild(card);
@@ -221,7 +221,7 @@
             const cards = tape.getElementsByClassName('skin-card');
             cards[winningIndex].className = `skin-card rarity-${winningSkin.rarity}`;
             cards[winningIndex].innerHTML = `
-                <img src="${winningSkin.img}" alt="${winningSkin.name}">
+                <div class="skin-icon">${winningSkin.icon}</div>
                 <div class="skin-name">${winningSkin.name}</div>
             `;
 
@@ -229,3 +229,34 @@
             const wrapperWidth = document.querySelector('.roulette-wrapper').offsetWidth;
             const targetLeft = -(winningIndex * cardWidth) + (wrapperWidth / 2) - (cardWidth / 2);
 
+            // Запускаем плавную анимацию кручения
+            setTimeout(() => {
+                tape.style.transition = 'transform 4s cubic-bezier(0.1, 1, 0.1, 1)';
+                const innerRandom = Math.floor(Math.random() * 40) - 20; 
+                tape.style.transform = `translateX(${targetLeft + innerRandom}px)`;
+            }, 50);
+
+            // Когда рулетка остановилась
+            setTimeout(() => {
+                btn.disabled = false;
+                addToInventory(winningSkin);
+            }, 4150);
+        }
+
+        function addToInventory(skin) {
+            const grid = document.getElementById('inv-grid');
+            const emptyMsg = document.getElementById('empty-msg');
+            if (emptyMsg) emptyMsg.remove();
+
+            const card = document.createElement('div');
+            card.className = `skin-card rarity-${skin.rarity}`;
+            card.style.margin = '5px';
+            card.innerHTML = `
+                <div class="skin-icon">${skin.icon}</div>
+                <div class="skin-name">${skin.name}</div>
+            `;
+            grid.insertBefore(card, grid.firstChild);
+        }
+    </script>
+</body>
+</html>
