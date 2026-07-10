@@ -111,7 +111,120 @@
 <div class="modal-overlay" id="adminModal" style="display:none;"><div class="modal"><h2 style="color:var(--gold);">⚡ АДМИН</h2><input type="text" id="admUser" placeholder="Ник"><input type="number" id="admAmt" placeholder="Сумма" min="1"><button class="btn btn-a" onclick="giveCoins()" style="width:100%;">💸 ВЫДАТЬ</button><div id="admMsg" style="font-size:12px;margin-top:8px;"></div><button onclick="closeModals()" style="margin-top:8px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
 
 <script>
-// Firebase
+// ============================================================
+// ЗВУКИ (Web Audio API)
+// ============================================================
+const SFX = {
+    ctx: null,
+    init() {
+        if (!this.ctx) this.ctx = new(window.AudioContext || window.webkitAudioContext)();
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+    },
+    play(type) {
+        this.init();
+        const ctx = this.ctx;
+        const now = ctx.currentTime;
+
+        const tone = (freq, dur, vol = 0.1, waveform = 'sine', delay = 0) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = waveform;
+            osc.frequency.setValueAtTime(freq, now + delay);
+            gain.gain.setValueAtTime(vol, now + delay);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + delay + dur);
+            osc.start(now + delay);
+            osc.stop(now + delay + dur);
+        };
+
+        const noise = (dur = 0.3, vol = 0.05) => {
+            const bufSize = ctx.sampleRate * dur;
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) {
+                data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufSize * 5);
+            }
+            const src = ctx.createBufferSource();
+            const gn = ctx.createGain();
+            src.buffer = buf;
+            src.connect(gn);
+            gn.connect(ctx.destination);
+            gn.gain.setValueAtTime(vol, now);
+            gn.gain.exponentialRampToValueAtTime(0.001, now + dur);
+            src.start(now);
+            src.stop(now + dur);
+        };
+
+        switch (type) {
+            case 'case_open': // Звук открытия кейса (металлический щелчок + свист)
+                noise(0.4, 0.06);
+                tone(800, 0.15, 0.08, 'square', 0.05);
+                tone(1100, 0.1, 0.06, 'square', 0.12);
+                tone(1400, 0.08, 0.04, 'sine', 0.2);
+                setTimeout(() => tone(600, 0.12, 0.06, 'triangle', 0), 150);
+                break;
+
+            case 'case_scroll': // Звук прокрутки (короткий клик)
+                noise(0.06, 0.03);
+                tone(2000, 0.03, 0.04, 'square');
+                break;
+
+            case 'case_stop': // Звук остановки (глухой удар)
+                noise(0.2, 0.06);
+                tone(150, 0.25, 0.1, 'triangle');
+                tone(100, 0.3, 0.08, 'sine', 0.05);
+                break;
+
+            case 'legendary': // Эпичный звук для легендарок (фанфары)
+                [523, 659, 784, 1047, 1318].forEach((f, i) => {
+                    setTimeout(() => tone(f, 0.3, 0.1, 'sine'), i * 80);
+                });
+                noise(0.5, 0.04);
+                break;
+
+            case 'sell': // Звук продажи (монетки)
+                tone(1200, 0.05, 0.06, 'triangle');
+                tone(800, 0.05, 0.06, 'triangle', 0.06);
+                tone(600, 0.05, 0.06, 'triangle', 0.12);
+                tone(400, 0.08, 0.04, 'sine', 0.18);
+                break;
+
+            case 'upgrade_success': // Успешный апгрейд
+                [523, 659, 784, 1047].forEach((f, i) => {
+                    setTimeout(() => tone(f, 0.2, 0.1, 'sine'), i * 60);
+                });
+                noise(0.3, 0.04);
+                break;
+
+            case 'upgrade_fail': // Провал апгрейда
+                tone(300, 0.4, 0.12, 'sawtooth');
+                tone(200, 0.35, 0.1, 'square', 0.1);
+                noise(0.5, 0.06);
+                break;
+
+            case 'contract': // Контракт (бумажный шелест + печать)
+                noise(0.2, 0.04);
+                [400, 500, 600, 700, 800].forEach((f, i) => {
+                    setTimeout(() => tone(f, 0.04, 0.05, 'square'), i * 40);
+                });
+                tone(1000, 0.1, 0.06, 'triangle', 0.25);
+                break;
+
+            case 'click': // Клик по кнопке
+                tone(2000, 0.04, 0.05, 'square');
+                noise(0.04, 0.02);
+                break;
+        }
+    }
+};
+
+// Инициализация аудио при первом клике пользователя
+document.addEventListener('click', () => SFX.init(), { once: true });
+
+// ============================================================
+// FIREBASE
+// ============================================================
 const fc={apiKey:"AIzaSyCiJGNpJByCCbwcufI-NFUFzXjo0HeGd8E",authDomain:"skinvalut.firebaseapp.com",databaseURL:"https://skinvalut-default-rtdb.firebaseio.com",projectId:"skinvalut",storageBucket:"skinvalut.firebasestorage.app",messagingSenderId:"560114772930",appId:"1:560114772930:web:8aa0a87f3c791b27d6845b"};
 firebase.initializeApp(fc);
 const db=firebase.database(),onlineR=db.ref('online'),dropsR=db.ref('drops'),usersR=db.ref('users');
@@ -139,7 +252,7 @@ function rndItem(cs){if(CASES[caseI]?.id==='yolo'){const r=Math.random()*100;if(
 function skinByPrice(tp){let b=SKINS[0],bd=Infinity;for(const s of SKINS){const d=Math.abs(s.p-tp);if(d<bd){bd=d;b=s;}}return b;}
 
 // ============================================================
-// РУЛЕТКА - НОВАЯ РАБОТАЮЩАЯ ВЕРСИЯ
+// РУЛЕТКА СО ЗВУКОМ
 // ============================================================
 function genTape(win,cs){
     const tape=ge('tape');if(!tape)return;
@@ -164,14 +277,24 @@ function spin(){
         const target=-(32*cw)+(ww/2)-(cw/2);
         const ro=Math.random()*30-15;
         
-        // Принудительная перерисовка
         tape.offsetHeight;
         
-        // Анимация
+        // Звук прокрутки
+        let clicks=0;
+        const clickInt=setInterval(()=>{
+            SFX.play('case_scroll');
+            clicks++;
+            if(clicks>30)clearInterval(clickInt);
+        },100);
+        
         tape.style.transition='transform 3.2s cubic-bezier(0.08,0.85,0.15,1)';
         tape.style.transform=`translateX(${target+ro}px)`;
         
-        setTimeout(resolve,3400);
+        setTimeout(()=>{
+            clearInterval(clickInt);
+            SFX.play('case_stop');
+            resolve();
+        },3400);
     });
 }
 
@@ -187,14 +310,18 @@ async function openCase(){
     bal-=c.p;
     updBal();
     
+    SFX.play('case_open');
+    
     const win=rndItem(c.s);
     genTape(win,c.s);
-    await new Promise(r=>setTimeout(r,200));
+    await new Promise(r=>setTimeout(r,300));
     await spin();
     
     inv.push({...win,id:idC++});
     hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});
     dropLater(win.n,win.i,win.p,win.r);
+    
+    if(win.r==='legendary')SFX.play('legendary');
     
     const profit=win.p-c.p;
     ge('result').style.display='block';
@@ -209,20 +336,20 @@ async function openCase(){
 }
 
 // UI
-function nav(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));if(p==='cases'){ge('p-cases').classList.add('active');renderCases();}else{ge('p-'+p).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(p))renderAll();if(p==='profile')renderProf();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-p="${p}"]`);if(nb)nb.classList.add('active');}
+function nav(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));if(p==='cases'){ge('p-cases').classList.add('active');renderCases();}else{ge('p-'+p).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(p))renderAll();if(p==='profile')renderProf();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-p="${p}"]`);if(nb)nb.classList.add('active');SFX.play('click');}
 function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}"><span class="icon">${s.i}</span><div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
 function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="case-item" onclick="openCP(${i})"><span class="icon">${c.i}</span><div class="name">${c.n}</div><div class="price">${c.p} <i class="fas fa-coins coin"></i></div></div>`).join('');}
 function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Инвентарь пуст</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item"><span class="icon">${i.i}</span><div class="name">${i.n}</div><div class="price">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm sell" onclick="sell(${i.id})">Продать</button></div>`).join('');}renderUpInv();renderConInv();upUI();conUI();}
 function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}"><span class="icon">${i.i}</span><div class="name">${i.n}</div><div class="price">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}"><span class="icon">${i.i}</span><div class="name">${i.n}</div><div class="price">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderProf(){ge('profContent').innerHTML=`<h2>👤 ПРОФИЛЬ</h2><div style="padding:16px;background:rgba(10,14,24,0.7);border-radius:12px;margin:15px 0;"><div>Привет, <strong style="color:var(--gold);">${curUser||'Гость'}</strong>!</div><div style="color:var(--text2);">Баланс: <strong style="color:#fff;">${bal}</strong> <i class="fas fa-coins coin"></i></div><div style="color:var(--text2);">Скинов: <strong style="color:#fff;">${inv.length}</strong></div></div><h3>📋 ИСТОРИЯ</h3><div style="max-height:350px;overflow-y:auto;">${hist.length?hist.slice().reverse().slice(0,50).map(h=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(20,26,42,0.5);border-radius:8px;margin-bottom:3px;font-size:11px;"><span style="font-size:22px;">${h.t==='case'?'💎':'⚡'}</span><div style="flex:1;"><div>${h.skin}</div><div style="font-size:9px;color:var(--text2);">${new Date(h.time).toLocaleString()}</div></div><div style="color:var(--gold);">${h.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="text-align:center;padding:30px;">Пусто</div>'}</div>`;}
-function sell(id){const idx=inv.findIndex(i=>i.id===id);if(idx===-1)return;bal+=inv[idx].p;updBal();inv.splice(idx,1);sUp.delete(id);sCon.delete(id);renderAll();saveGame();}
+function sell(id){const idx=inv.findIndex(i=>i.id===id);if(idx===-1)return;bal+=inv[idx].p;updBal();inv.splice(idx,1);sUp.delete(id);sCon.delete(id);renderAll();saveGame();SFX.play('sell');}
 function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAll();}
 function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?alert('Максимум 10!'):sCon.add(id));renderAll();}
 function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp;if(si.length===0){ge('upInp').innerHTML='<span style="color:var(--text2);">Выберите скины</span>';ge('upRes').innerHTML='<span style="color:var(--text2);">Ожидание...</span>';}else{ge('upInp').innerHTML=si.map(i=>`<span style="display:inline-block;background:rgba(20,26,42,0.8);padding:4px 8px;border-radius:6px;margin:2px;font-size:12px;">${i.i} ${i.p}🪙</span>`).join('');const ts=skinByPrice(tp*mult);ge('upRes').innerHTML=`<div style="font-size:45px;">${ts.i}</div><div style="font-weight:700;">${ts.n}</div><div style="color:var(--gold);">${ts.p} <i class="fas fa-coins coin"></i></div><div style="color:var(--text2);font-size:10px;">Шанс: ${ch}%</div>`;ge('upRes').dataset.ts=JSON.stringify(ts);}ge('upgradeBtn').disabled=si.length<1||uping;}
-function doUpgrade(){if(uping)return;const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите скин!');uping=true;ge('upgradeBtn').disabled=true;setTimeout(()=>{const ok=Math.random()*100<ch;if(ok){const td=JSON.parse(ge('upRes').dataset.ts||'null');if(td){inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();const ni={...td,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);}}else{inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();}uping=false;renderAll();saveGame();},1000);}
+function doUpgrade(){if(uping)return;const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите скин!');uping=true;ge('upgradeBtn').disabled=true;setTimeout(()=>{const ok=Math.random()*100<ch;if(ok){SFX.play('upgrade_success');const td=JSON.parse(ge('upRes').dataset.ts||'null');if(td){inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();const ni={...td,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);}}else{SFX.play('upgrade_fail');inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();}uping=false;renderAll();saveGame();},1000);}
 function conUI(){const si=inv.filter(i=>sCon.has(i.id));ge('conCount').textContent=si.length;ge('conSum').textContent=si.reduce((s,i)=>s+i.p,0);ge('contractBtn').disabled=si.length<3||si.length>10||coning;}
-function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*2+0.5));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`<div style="font-size:45px;">${ni.i}</div><div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
+function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;SFX.play('contract');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*2+0.5));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`<div style="font-size:45px;">${ni.i}</div><div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
 function updBal(){ge('balDisplay').textContent=bal;}
 
 // Firebase users
