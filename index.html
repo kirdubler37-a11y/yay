@@ -8,16 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #050510; color: #fff; font-family: 'Inter', sans-serif;
-            min-height: 100vh; padding: 20px;
-            background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(255, 106, 0, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(123, 47, 190, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 60%, rgba(0, 255, 255, 0.06) 0%, transparent 40%);
-            position: relative; overflow-x: hidden;
-        }
+        body { background: #050510; color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; padding: 20px; background-image: radial-gradient(ellipse at 20% 50%, rgba(255, 106, 0, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(123, 47, 190, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(0, 255, 255, 0.06) 0%, transparent 40%); position: relative; overflow-x: hidden; }
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
         .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .bg-particle { position: absolute; border-radius: 50%; animation: floatParticle 20s ease-in-out infinite; }
@@ -50,31 +41,16 @@
         .tab-content { position: relative; z-index: 10; display: none; animation: tabFade 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .tab-content.active { display: block; }
         @keyframes tabFade { 0% { opacity: 0; transform: translateY(20px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-
-        /* Стили для регистрации */
-        .btn-register {
-            background: linear-gradient(135deg, #7b2fbe, #5a1a8a);
-            border: none; color: #fff; padding: 12px 24px; border-radius: 25px;
-            font-size: 14px; font-weight: 700; cursor: pointer;
-            font-family: 'Inter', sans-serif; transition: 0.3s;
-            box-shadow: 0 4px 20px rgba(123, 47, 190, 0.3);
-        }
+        .btn-register { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); border: none; color: #fff; padding: 12px 24px; border-radius: 25px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: 0.3s; box-shadow: 0 4px 20px rgba(123, 47, 190, 0.3); }
         .btn-register:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(123, 47, 190, 0.5); }
-        .btn-logout {
-            background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.3);
-            color: #ff4444; padding: 8px 16px; border-radius: 20px;
-            font-size: 12px; cursor: pointer; font-weight: 600;
-            font-family: 'Inter', sans-serif; transition: 0.3s;
-        }
+        .btn-logout { background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.3); color: #ff4444; padding: 8px 16px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; transition: 0.3s; }
         .btn-logout:hover { background: rgba(255,68,68,0.4); }
         .user-nickname { color: #ffaa00; font-weight: 700; font-size: 16px; }
-
         .multi-spin-controls { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
         .multi-spin-btn { background: rgba(20, 24, 38, 0.8); border: 2px solid rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); padding: 10px 18px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
         .multi-spin-btn:hover { border-color: rgba(255, 106, 0, 0.4); color: #fff; }
         .multi-spin-btn.active { border-color: #ff6a00; background: rgba(255, 106, 0, 0.15); color: #ffaa00; box-shadow: 0 0 30px rgba(255, 106, 0, 0.1); }
         .spin-count-display { color: #ffaa00; font-weight: 700; font-size: 18px; min-width: 30px; text-align: center; }
-
         .case-selector { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
         .case-option { background: rgba(18, 22, 36, 0.8); backdrop-filter: blur(15px); border: 2px solid rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 18px 24px; cursor: pointer; transition: 0.3s; text-align: center; min-width: 130px; position: relative; overflow: hidden; }
         .case-option::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255, 106, 0, 0.08), transparent); opacity: 0; transition: 0.3s; }
@@ -87,7 +63,6 @@
         .case-option .case-name { font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
         .case-option .case-price { color: #ffaa00; font-size: 15px; font-weight: 700; margin-top: 4px; }
         .case-option .case-skins { color: rgba(255, 255, 255, 0.3); font-size: 11px; margin-top: 2px; }
-
         .case-container { max-width: 900px; margin: 0 auto; background: rgba(15, 18, 28, 0.8); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); padding: 35px; border-radius: 24px; box-shadow: 0 15px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.06); }
         .case-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
         .case-header h3 { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
@@ -96,7 +71,6 @@
         .case-stats { display: flex; gap: 20px; align-items: center; font-size: 13px; color: rgba(255,255,255,0.25); }
         .case-stats .stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .case-stats .stat-value { color: #ffaa00; font-weight: 700; font-size: 18px; }
-
         .all-roulettes-wrapper { display: flex; flex-direction: column; gap: 6px; margin: 15px auto; max-height: 55vh; overflow-y: auto; padding: 4px; }
         .all-roulettes-wrapper::-webkit-scrollbar { width: 5px; } .all-roulettes-wrapper::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; } .all-roulettes-wrapper::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
         .single-roulette-item { position: relative; width: 100%; height: 100px; background: rgba(8, 10, 18, 0.9); overflow: hidden; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); flex-shrink: 0; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5); }
@@ -113,7 +87,6 @@
         .rarity-rare { border-bottom-color: #8847ff !important; }
         .rarity-uncommon { border-bottom-color: #4b69ff !important; }
         .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5) !important; }
-
         .btn-row { display: flex; gap: 12px; max-width: 340px; margin: 15px auto 0; }
         .btn-primary { background: linear-gradient(135deg, #ff6a00, #ff3c00); color: #fff; border: none; padding: 18px 30px; font-size: 18px; font-weight: 700; border-radius: 14px; cursor: pointer; box-shadow: 0 6px 30px rgba(238, 60, 0, 0.4); transition: 0.3s; font-family: 'Inter', sans-serif; flex: 1; position: relative; overflow: hidden; letter-spacing: 1px; text-transform: uppercase; }
         .btn-primary::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.08), transparent); transform: rotate(45deg); transition: 0.6s; }
@@ -121,7 +94,6 @@
         .btn-primary:hover::before { left: 100%; }
         .btn-primary:active { transform: translateY(0) scale(0.98); }
         .btn-primary:disabled { background: rgba(42, 47, 58, 0.8); box-shadow: none; cursor: not-allowed; transform: none; }
-
         .case-skins-list { margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
         .case-skins-list .list-title { color: rgba(255, 255, 255, 0.35); font-size: 13px; margin-bottom: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
         .case-skins-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-height: 200px; overflow-y: auto; padding: 6px; }
@@ -131,7 +103,6 @@
         .case-skin-preview .icon { font-size: 22px; display: block; }
         .case-skin-preview .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .case-skin-preview .price { font-size: 8px; color: rgba(255, 255, 255, 0.3); }
-
         .inventory-section, .upgrade-section, .contract-section { max-width: 1200px; margin: 0 auto; background: rgba(15, 18, 28, 0.8); backdrop-filter: blur(25px); padding: 30px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 15px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
         .inventory-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
         .inventory-header h3 { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 700; color: rgba(255, 255, 255, 0.85); letter-spacing: 1px; }
@@ -149,11 +120,82 @@
         .btn-sell:hover { background: #ff6a00; color: #050510; border-color: #ff6a00; box-shadow: 0 0 30px rgba(255, 106, 0, 0.3); transform: scale(1.05); }
         .empty-inv { grid-column: 1 / -1; color: rgba(255, 255, 255, 0.1); text-align: center; padding: 50px 20px; font-size: 18px; }
         .empty-inv i { font-size: 60px; display: block; margin-bottom: 15px; opacity: 0.2; }
-
+        /* Upgrade & Contract styles */
+        .upgrade-title, .contract-title { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #ff6a00, #ffaa00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; letter-spacing: 1px; }
+        .upgrade-title small, .contract-title small { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; color: rgba(255, 255, 255, 0.2); -webkit-text-fill-color: rgba(255, 255, 255, 0.2); }
+        .upgrade-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 25px; align-items: stretch; margin-bottom: 25px; }
+        .upgrade-box { background: rgba(10, 12, 22, 0.8); border-radius: 18px; padding: 25px; border: 1px solid rgba(255, 255, 255, 0.06); min-height: 220px; position: relative; overflow: hidden; transition: 0.3s; }
+        .upgrade-box:hover { border-color: rgba(255, 106, 0, 0.2); box-shadow: 0 0 40px rgba(255, 106, 0, 0.05); }
+        .upgrade-box .box-title { font-size: 13px; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-align: center; }
+        .upgrade-box .box-title strong { color: rgba(255, 255, 255, 0.6); }
+        .input-skins { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; min-height: 90px; align-items: center; }
+        .input-skin-item { background: rgba(20, 24, 38, 0.8); border-radius: 10px; padding: 10px 12px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.04); width: 85px; animation: flyIn 0.4s ease-out; }
+        @keyframes flyIn { 0% { transform: scale(0.5) rotate(-15deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+        .input-skin-item .icon { font-size: 30px; display: block; }
+        .input-skin-item .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .input-skin-item .price { font-size: 9px; color: rgba(255, 255, 255, 0.3); }
+        .input-skin-item .remove-btn { background: rgba(255, 68, 68, 0.3); border: none; color: #ff4444; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; margin-top: 4px; transition: 0.2s; }
+        .input-skin-item .remove-btn:hover { background: #ff4444; color: #fff; box-shadow: 0 0 20px rgba(255, 68, 68, 0.4); }
+        .input-placeholder { color: rgba(255, 255, 255, 0.1); font-size: 15px; text-align: center; width: 100%; padding: 25px 0; }
+        .upgrade-arrow-center { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 0 10px; }
+        .upgrade-arrow-center .arrow { font-size: 55px; color: #ff6a00; transition: 0.3s; text-shadow: 0 0 40px rgba(255, 106, 0, 0.3); animation: arrowGlow 2s ease-in-out infinite; }
+        @keyframes arrowGlow { 0%, 100% { text-shadow: 0 0 40px rgba(255, 106, 0, 0.3); } 50% { text-shadow: 0 0 60px rgba(255, 106, 0, 0.5); } }
+        .upgrade-arrow-center .arrow.spinning { animation: arrowSpin 0.5s ease-in-out infinite; }
+        .upgrade-arrow-center .arrow.success { color: #4caf50; text-shadow: 0 0 50px rgba(76, 175, 80, 0.5); }
+        .upgrade-arrow-center .arrow.fail { color: #f44336; text-shadow: 0 0 50px rgba(244, 67, 54, 0.5); }
+        @keyframes arrowSpin { 0% { transform: rotate(-20deg) scale(1.15); } 50% { transform: rotate(20deg) scale(1.15); } 100% { transform: rotate(-20deg) scale(1.15); } }
+        .chance-selector { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0; }
+        .chance-btn { background: rgba(20, 24, 38, 0.8); border: 2px solid rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.5); padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
+        .chance-btn:hover { border-color: rgba(255, 106, 0, 0.4); color: rgba(255, 255, 255, 0.8); }
+        .chance-btn.active { border-color: #ff6a00; background: rgba(255, 106, 0, 0.15); color: #ffaa00; box-shadow: 0 0 40px rgba(255, 106, 0, 0.1); }
+        .chance-btn .multiplier { display: block; font-size: 11px; color: rgba(255, 255, 255, 0.25); }
+        .result-skin { text-align: center; padding: 20px; }
+        .result-skin .icon { font-size: 55px; display: block; margin-bottom: 8px; }
+        .result-skin .name { font-size: 18px; font-weight: 700; }
+        .result-skin .price { font-size: 16px; color: rgba(255, 255, 255, 0.35); margin-top: 6px; }
+        .result-skin .rarity-badge { display: inline-block; padding: 4px 18px; border-radius: 25px; font-size: 12px; font-weight: 700; margin-top: 8px; letter-spacing: 1px; }
+        .rarity-badge.legendary { background: rgba(255, 68, 68, 0.2); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3); }
+        .rarity-badge.epic { background: rgba(211, 44, 230, 0.2); color: #d32ce6; border: 1px solid rgba(211, 44, 230, 0.3); }
+        .rarity-badge.rare { background: rgba(136, 71, 255, 0.2); color: #8847ff; border: 1px solid rgba(136, 71, 255, 0.3); }
+        .rarity-badge.uncommon { background: rgba(75, 105, 255, 0.2); color: #4b69ff; border: 1px solid rgba(75, 105, 255, 0.3); }
+        .rarity-badge.common { background: rgba(107, 122, 138, 0.15); color: rgba(255, 255, 255, 0.5); border: 1px solid rgba(107, 122, 138, 0.2); }
+        .result-placeholder { color: rgba(255, 255, 255, 0.1); font-size: 15px; text-align: center; padding: 35px 0; }
+        .upgrade-actions { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .btn-upgrade { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); color: #fff; border: none; padding: 16px 50px; font-size: 17px; font-weight: 700; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); letter-spacing: 1px; text-transform: uppercase; }
+        .btn-upgrade:hover { transform: translateY(-4px); box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
+        .btn-upgrade:disabled { background: rgba(42, 47, 58, 0.6); box-shadow: none; cursor: not-allowed; transform: none; }
+        .btn-clear { background: rgba(30, 35, 48, 0.6); color: #fff; border: 1px solid rgba(255, 255, 255, 0.08); padding: 16px 35px; font-size: 15px; font-weight: 600; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
+        .btn-clear:hover { background: rgba(30, 35, 48, 0.8); border-color: rgba(255, 255, 255, 0.15); }
+        .upgrade-select-section { margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+        .upgrade-select-section .section-title { color: rgba(255, 255, 255, 0.3); font-size: 14px; margin-bottom: 18px; letter-spacing: 1px; }
+        .upgrade-select-section .section-title strong { color: #fff; }
+        .upgrade-result-overlay { margin-top: 18px; padding: 25px; border-radius: 16px; text-align: center; animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes resultPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .upgrade-result-overlay.success { background: rgba(76, 175, 80, 0.08); border: 1px solid rgba(76, 175, 80, 0.25); }
+        .upgrade-result-overlay.fail { background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.25); }
+        .upgrade-result-overlay .big-icon { font-size: 70px; display: block; animation: bounce 0.8s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .contract-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding: 20px 25px; background: rgba(10, 12, 22, 0.6); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.04); }
+        .contract-info .selected-count { color: rgba(255, 255, 255, 0.35); }
+        .contract-info .selected-count strong { color: #ffaa00; }
+        .contract-info .total-value { font-size: 20px; font-weight: 700; }
+        .contract-info .total-value span { color: #ffaa00; }
+        .btn-contract { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); color: #fff; border: none; padding: 16px 50px; font-size: 17px; font-weight: 700; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); letter-spacing: 1px; text-transform: uppercase; }
+        .btn-contract:hover { transform: translateY(-4px); box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
+        .btn-contract:disabled { background: rgba(42, 47, 58, 0.6); box-shadow: none; cursor: not-allowed; transform: none; }
+        .contract-result { margin-top: 25px; padding: 25px; border-radius: 16px; text-align: center; animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: none; border: 1px solid transparent; }
+        .contract-result.show { display: block; }
+        .contract-result.success { background: rgba(76, 175, 80, 0.06); border-color: rgba(76, 175, 80, 0.2); }
+        .contract-result .big-icon { font-size: 70px; display: block; }
+        .contract-animation { display: none; text-align: center; padding: 35px; }
+        .contract-animation.show { display: block; }
+        .contract-animation .spinner { font-size: 55px; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         @media (max-width: 768px) {
             .single-roulette-item { height: 75px; }
             .single-roulette-item .mini-skin-card { width: 65px; height: 55px; }
             .single-roulette-item .mini-skin-card .icon { font-size: 22px; }
+            .upgrade-grid { grid-template-columns: 1fr; gap: 18px; }
             .case-option { min-width: 105px; padding: 14px 20px; }
             .logo { font-size: 22px; }
             .balance { font-size: 16px; padding: 10px 18px; }
@@ -162,6 +204,44 @@
             .case-container { padding: 22px; }
         }
     </style>
+    <!-- ДОБАВЬ В <head> -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<script>
+// КОНФИГ FIREBASE (получи на console.firebase.google.com)
+const firebaseConfig = {
+    apiKey: "ТВОЙ_API_KEY",
+    authDomain: "твой-проект.firebaseapp.com",
+    projectId: "твой-проект",
+    storageBucket: "твой-проект.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abc123"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+// Вход через Google
+function loginWithGoogle() {
+    auth.signInWithPopup(googleProvider)
+        .then((result) => {
+            const user = result.user;
+            currentUser = user.uid;
+            showUserInfo(user.displayName || user.email);
+            document.getElementById('registerModal').remove();
+            // Загружаем данные из Firestore (нужно настроить)
+            loadUserData(user.uid);
+        })
+        .catch((error) => {
+            alert('Ошибка входа: ' + error.message);
+        });
+}
+
+// Кнопка Google в модалке
+// <button onclick="loginWithGoogle()">🚀 Войти через Google</button>
+</script>
 </head>
 <body>
     <div class="bg-particles">
@@ -259,37 +339,11 @@
     const SoundFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(type){this.init();const ctx=this.ctx,now=ctx.currentTime;const playTone=(freq,dur,vol=.12,type='sine',delay=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(freq,now+delay);g.gain.setValueAtTime(vol,now+delay);g.gain.exponentialRampToValueAtTime(.001,now+delay+dur);o.start(now+delay);o.stop(now+delay+dur)};const noiseBurst=(dur=.3,vol=.06)=>{const bufferSize=ctx.sampleRate*dur,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4);const noise=ctx.createBufferSource(),ng=ctx.createGain();noise.buffer=buffer;noise.connect(ng);ng.connect(ctx.destination);ng.gain.setValueAtTime(vol,now);ng.gain.exponentialRampToValueAtTime(.001,now+dur);noise.start(now);noise.stop(now+dur)};switch(type){case'case_open':noiseBurst(.35,.06);playTone(800,.12,.08,'square',.05);playTone(1100,.08,.05,'square',.15);playTone(1400,.06,.03,'sine',.25);break;case'case_scroll':noiseBurst(.06,.02);playTone(1500,.02,.03,'triangle',.01);break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.1),i*100));noiseBurst(.6,.04);break;case'sell':playTone(1200,.06,.06,'triangle');playTone(800,.06,.06,'triangle',.06);playTone(600,.06,.06,'triangle',.12);break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,.1),i*80));noiseBurst(.4,.03);break;case'upgrade_fail':playTone(250,.4,.12,'sawtooth');playTone(200,.3,.08,'square',.1);noiseBurst(.5,.05);break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>playTone(f,.05,.05,'square'),i*50));noiseBurst(.25,.03);break}}};
 
     // ============================================================
-    //  СКИНЫ
+    //  СКИНЫ И КЕЙСЫ
     // ============================================================
-    const ALL_SKINS=[
-        {name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},{name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},{name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},
-        {name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"★ M9 Bayonet | Crimson Web",rarity:"legendary",icon:"🗡️",price:1800.00},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200.00},{name:"★ Karambit | Marble Fade",rarity:"legendary",icon:"🔪",price:1600.00},{name:"★ Skeleton Knife | Slaughter",rarity:"legendary",icon:"💀",price:950.00},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200.00},{name:"★ Specialist Gloves | Crimson Kimono",rarity:"legendary",icon:"🧤",price:2800.00},
-        {name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145.00},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48.00},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85.00},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35.00},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28.00},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18.00},{name:"SSG 08 | Dragonfire",rarity:"epic",icon:"🐉",price:32.00},{name:"AUG | Akihabara Accept",rarity:"epic",icon:"🎌",price:95.00},{name:"FAMAS | Commemoration",rarity:"epic",icon:"🎖️",price:22.00},{name:"Galil AR | Chatterbox",rarity:"epic",icon:"💀",price:15.00},{name:"P90 | Asiimov",rarity:"epic",icon:"🤖",price:25.00},{name:"MP9 | Bulldozer",rarity:"epic",icon:"🚜",price:12.00},
-        {name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42.00},{name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28.00},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35.00},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15.00},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8.00},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6.00},{name:"Five-SeveN | Case Hardened",rarity:"rare",icon:"🔵",price:12.00},{name:"Tec-9 | Toxic",rarity:"rare",icon:"☣️",price:5.00},{name:"MAC-10 | Graven",rarity:"rare",icon:"👹",price:4.50},{name:"MP7 | Nemesis",rarity:"rare",icon:"🐍",price:7.00},{name:"UMP-45 | Blaze",rarity:"rare",icon:"🔥",price:9.00},{name:"PP-Bizon | Judgement of Anubis",rarity:"rare",icon:"⚖️",price:4.00},
-        {name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.50},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5.00},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2.00},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.50},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.50},{name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.20},{name:"Desert Eagle | Naga",rarity:"uncommon",icon:"🐍",price:3.00},{name:"MP9 | Dark Age",rarity:"uncommon",icon:"🏰",price:1.00},{name:"MAG-7 | Heaven Guard",rarity:"uncommon",icon:"😇",price:1.80},{name:"Nova | Tempest",rarity:"uncommon",icon:"🌊",price:1.50},{name:"XM1014 | Blue Steel",rarity:"uncommon",icon:"🔫",price:2.00},{name:"SCAR-20 | Cardiac",rarity:"uncommon",icon:"❤️",price:1.20},
-        {name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.20},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15},{name:"MP7 | Groundwater",rarity:"common",icon:"💧",price:0.10},{name:"UMP-45 | Urban DDPAT",rarity:"common",icon:"🏙️",price:0.14},{name:"PP-Bizon | Sand Dashed",rarity:"common",icon:"🏜️",price:0.08},{name:"Galil AR | Sage Spray",rarity:"common",icon:"🌿",price:0.12},{name:"FAMAS | Colony",rarity:"common",icon:"🐜",price:0.10},{name:"SG 553 | Army Sheen",rarity:"common",icon:"🪖",price:0.16},{name:"G3SG1 | Safari Mesh",rarity:"common",icon:"🦒",price:0.11},
-    ];
+    const ALL_SKINS=[{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},{name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},{name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"★ M9 Bayonet | Crimson Web",rarity:"legendary",icon:"🗡️",price:1800.00},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200.00},{name:"★ Karambit | Marble Fade",rarity:"legendary",icon:"🔪",price:1600.00},{name:"★ Skeleton Knife | Slaughter",rarity:"legendary",icon:"💀",price:950.00},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200.00},{name:"★ Specialist Gloves | Crimson Kimono",rarity:"legendary",icon:"🧤",price:2800.00},{name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145.00},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48.00},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85.00},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35.00},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28.00},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18.00},{name:"SSG 08 | Dragonfire",rarity:"epic",icon:"🐉",price:32.00},{name:"AUG | Akihabara Accept",rarity:"epic",icon:"🎌",price:95.00},{name:"FAMAS | Commemoration",rarity:"epic",icon:"🎖️",price:22.00},{name:"Galil AR | Chatterbox",rarity:"epic",icon:"💀",price:15.00},{name:"P90 | Asiimov",rarity:"epic",icon:"🤖",price:25.00},{name:"MP9 | Bulldozer",rarity:"epic",icon:"🚜",price:12.00},{name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42.00},{name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28.00},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35.00},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15.00},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8.00},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6.00},{name:"Five-SeveN | Case Hardened",rarity:"rare",icon:"🔵",price:12.00},{name:"Tec-9 | Toxic",rarity:"rare",icon:"☣️",price:5.00},{name:"MAC-10 | Graven",rarity:"rare",icon:"👹",price:4.50},{name:"MP7 | Nemesis",rarity:"rare",icon:"🐍",price:7.00},{name:"UMP-45 | Blaze",rarity:"rare",icon:"🔥",price:9.00},{name:"PP-Bizon | Judgement of Anubis",rarity:"rare",icon:"⚖️",price:4.00},{name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.50},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5.00},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2.00},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.50},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.50},{name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.20},{name:"Desert Eagle | Naga",rarity:"uncommon",icon:"🐍",price:3.00},{name:"MP9 | Dark Age",rarity:"uncommon",icon:"🏰",price:1.00},{name:"MAG-7 | Heaven Guard",rarity:"uncommon",icon:"😇",price:1.80},{name:"Nova | Tempest",rarity:"uncommon",icon:"🌊",price:1.50},{name:"XM1014 | Blue Steel",rarity:"uncommon",icon:"🔫",price:2.00},{name:"SCAR-20 | Cardiac",rarity:"uncommon",icon:"❤️",price:1.20},{name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.20},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15},{name:"MP7 | Groundwater",rarity:"common",icon:"💧",price:0.10},{name:"UMP-45 | Urban DDPAT",rarity:"common",icon:"🏙️",price:0.14},{name:"PP-Bizon | Sand Dashed",rarity:"common",icon:"🏜️",price:0.08},{name:"Galil AR | Sage Spray",rarity:"common",icon:"🌿",price:0.12},{name:"FAMAS | Colony",rarity:"common",icon:"🐜",price:0.10},{name:"SG 553 | Army Sheen",rarity:"common",icon:"🪖",price:0.16},{name:"G3SG1 | Safari Mesh",rarity:"common",icon:"🦒",price:0.11}];
+    const CASES=[{id:'dreams_and_nightmares',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>['AWP | Gungnir','AK-47 | Case Hardened (661)','★ Butterfly Knife | Fade','M4A4 | Howl','Desert Eagle | Blaze'].some(n=>s.name.includes(n))),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'gamma_doppler',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},{id:'operation_bravo',name:'🔥 Operation Bravo',icon:'🔥',price:250,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,3)]},{id:'standard',name:'📦 Стандартный',icon:'📦',price:45,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(5,10),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'starter',name:'🚀 Стартовый',icon:'🚀',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(6,10),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},{id:'yolo',name:'💀 YOLO',icon:'💀',price:100,skins:[{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,8)]},{id:'glove_case',name:'🧤 Glove Case',icon:'🧤',price:95,skins:[...ALL_SKINS.filter(s=>s.name.includes('Gloves')),...ALL_SKINS.filter(s=>s.name.includes('★')).slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4)]},{id:'chroma',name:'🌈 Chroma Case',icon:'🌈',price:55,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'snakebite',name:'🐍 Snakebite Case',icon:'🐍',price:35,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'fracture',name:'💥 Fracture Case',icon:'💥',price:25,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(4,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},{id:'prisma2',name:'💠 Prisma 2 Case',icon:'💠',price:40,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]}];
 
-    // ============================================================
-    //  КЕЙСЫ
-    // ============================================================
-    const CASES=[
-        {id:'dreams_and_nightmares',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>['AWP | Gungnir','AK-47 | Case Hardened (661)','★ Butterfly Knife | Fade','M4A4 | Howl','Desert Eagle | Blaze'].some(n=>s.name.includes(n))),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
-        {id:'gamma_doppler',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},
-        {id:'operation_bravo',name:'🔥 Operation Bravo',icon:'🔥',price:250,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,3)]},
-        {id:'standard',name:'📦 Стандартный',icon:'📦',price:45,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(5,10),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},
-        {id:'starter',name:'🚀 Стартовый',icon:'🚀',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(6,10),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},
-        {id:'yolo',name:'💀 YOLO',icon:'💀',price:100,skins:[{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,8)]},
-        {id:'glove_case',name:'🧤 Glove Case',icon:'🧤',price:95,skins:[...ALL_SKINS.filter(s=>s.name.includes('Gloves')),...ALL_SKINS.filter(s=>s.name.includes('★')).slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4)]},
-        {id:'chroma',name:'🌈 Chroma Case',icon:'🌈',price:55,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
-        {id:'snakebite',name:'🐍 Snakebite Case',icon:'🐍',price:35,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},
-        {id:'fracture',name:'💥 Fracture Case',icon:'💥',price:25,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(4,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},
-        {id:'prisma2',name:'💠 Prisma 2 Case',icon:'💠',price:40,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
-    ];
-
-    // ============================================================
-    //  ФУНКЦИИ
-    // ============================================================
     function getRarityWeights(cs){const rc={};cs.forEach(s=>{rc[s.rarity]=(rc[s.rarity]||0)+1});let w={};if(rc.legendary&&rc.legendary>=5)w={legendary:3,epic:rc.epic?12:0,rare:rc.rare?25:0,uncommon:rc.uncommon?30:0,common:rc.common?30:0};else if(rc.legendary&&rc.legendary>=3)w={legendary:2,epic:rc.epic?10:0,rare:rc.rare?25:0,uncommon:rc.uncommon?33:0,common:rc.common?30:0};else if(rc.legendary)w={legendary:1,epic:rc.epic?8:0,rare:rc.rare?20:0,uncommon:rc.uncommon?35:0,common:rc.common?36:0};else if(rc.epic)w={legendary:0,epic:15,rare:rc.rare?30:0,uncommon:rc.uncommon?30:0,common:rc.common?25:0};else w={legendary:0,epic:0,rare:rc.rare?35:0,uncommon:rc.uncommon?40:0,common:rc.common?25:0};const t=Object.values(w).reduce((a,b)=>a+b,0);if(t>0)for(const k in w)w[k]=(w[k]/t)*100;return w;}
     function getRandomItem(cs){if(CASES[currentCaseIndex].id==='yolo'){const r=Math.random()*100;if(r<1)return cs.find(s=>s.name.includes('Sapphire'))||cs[0];else if(r<4)return cs.find(s=>s.name.includes('Dragon Lore'))||cs[0];else if(r<8)return cs.find(s=>s.name.includes('Fire Serpent'))||cs[0];else{const c=cs.filter(s=>s.rarity==='common');return c[Math.floor(Math.random()*c.length)];}}const w=getRarityWeights(cs),r=Math.random()*100;let cum=0,sr='common';for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){sr=ra;break;}}const p=cs.filter(s=>s.rarity===sr);return p.length?p[Math.floor(Math.random()*p.length)]:cs[Math.floor(Math.random()*cs.length)];}
     function getSkinByPrice(tp){let b=ALL_SKINS[0],bd=Infinity;for(const s of ALL_SKINS){const d=Math.abs(s.price-tp);if(d<bd){bd=d;b=s;}}return b;}
@@ -302,30 +356,20 @@
     const MINI_CARD_WIDTH=93;
     const $=id=>document.getElementById(id);
     const openBtn=$('openBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid'),allRoulettes=$('allRoulettes');
-    const invCount=$('invCount'),invTotalCount=$('invTotalCount'),invTotalPrice=$('invTotalPrice');
     const caseSelector=$('caseSelector'),caseName=$('caseName'),casePrice=$('casePrice'),caseSkinCount=$('caseSkinCount'),caseSkinsGrid=$('caseSkinsGrid');
-    const spinCountDisplay=$('spinCountDisplay');
+    const spinCountDisplay=$('spinCountDisplay'),invCount=$('invCount'),invTotalCount=$('invTotalCount'),invTotalPrice=$('invTotalPrice');
+    const upgradeInventoryGrid=$('upgradeInventoryGrid'),contractInventoryGrid=$('contractInventoryGrid');
+    const upgradeBtn=$('upgradeBtn'),clearUpgradeBtn=$('clearUpgradeBtn'),contractBtn=$('contractBtn');
+    const contractCount=$('contractCount'),contractTotalPrice=$('contractTotalPrice');
+    const inputSkinsContainer=$('inputSkinsContainer'),inputCount=$('inputCount'),inputTotalPrice=$('inputTotalPrice');
+    const resultContainer=$('resultContainer'),upgradeResultMessage=$('upgradeResultMessage'),upgradeArrow=$('upgradeArrow');
+    const upgradeSelectCount=$('upgradeSelectCount'),multiplierDisplay=$('multiplierDisplay');
+    const contractAnimation=$('contractAnimation'),contractResultEl=$('contractResult');
 
-    function createRouletteElement(index,winSkin,caseSkins){
-        const rd=document.createElement('div');rd.className='single-roulette-item';
-        rd.innerHTML=`<div class="roulette-number">#${index+1}</div><div class="mini-pointer"></div><div class="mini-tape"></div>`;
-        const te=rd.querySelector('.mini-tape');te.innerHTML='';
-        for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);const c=document.createElement('div');c.className='mini-skin-card rarity-'+item.rarity;c.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;te.appendChild(c);}
-        return{rouletteDiv:rd,tapeEl:te};
-    }
-
+    function createRouletteElement(index,winSkin,caseSkins){const rd=document.createElement('div');rd.className='single-roulette-item';rd.innerHTML=`<div class="roulette-number">#${index+1}</div><div class="mini-pointer"></div><div class="mini-tape"></div>`;const te=rd.querySelector('.mini-tape');te.innerHTML='';for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);const c=document.createElement('div');c.className='mini-skin-card rarity-'+item.rarity;c.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;te.appendChild(c);}return{rouletteDiv:rd,tapeEl:te};}
     function spinSingleRoulette(rouletteEl,tapeEl){return new Promise(resolve=>{const ww=rouletteEl.offsetWidth,targetLeft=-(32*MINI_CARD_WIDTH)+(ww/2)-(MINI_CARD_WIDTH/2);let cp=0;const si=setInterval(()=>{cp-=14;tapeEl.style.transform=`translateX(${cp}px)`;SoundFX.play('case_scroll');if(cp<-1800){clearInterval(si);setTimeout(()=>{tapeEl.style.transition='transform 3.5s cubic-bezier(0.06, 0.84, 0.16, 1)';tapeEl.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;},30);}},13);setTimeout(()=>resolve(),3700);});}
 
-    async function performSpin(count){
-        if(isSpinning)return;const c=CASES[currentCaseIndex],totalCost=c.price*count;
-        if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}
-        isSpinning=!0;openBtn.disabled=!0;balance-=totalCost;updateBalanceUI();SoundFX.play('case_open');
-        const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));
-        allRoulettes.innerHTML='';const rd=[];for(let i=0;i<count;i++){const r=createRouletteElement(i,wins[i],c.skins);allRoulettes.appendChild(r.rouletteDiv);rd.push(r);}
-        await Promise.all(rd.map(r=>spinSingleRoulette(r.rouletteDiv,r.tapeEl)));
-        let totalGot=0;wins.forEach(ws=>{inventory.push({...ws,id:idCounter++});totalGot+=ws.price;if(ws.rarity==='legendary')SoundFX.play('legendary');});
-        renderAllInventory();saveGame();isSpinning=!1;openBtn.disabled=!1;
-    }
+    async function performSpin(count){if(isSpinning)return;const c=CASES[currentCaseIndex],totalCost=c.price*count;if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}isSpinning=!0;openBtn.disabled=!0;balance-=totalCost;updateBalanceUI();SoundFX.play('case_open');const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));allRoulettes.innerHTML='';const rd=[];for(let i=0;i<count;i++){const r=createRouletteElement(i,wins[i],c.skins);allRoulettes.appendChild(r.rouletteDiv);rd.push(r);}await Promise.all(rd.map(r=>spinSingleRoulette(r.rouletteDiv,r.tapeEl)));let totalGot=0;wins.forEach(ws=>{inventory.push({...ws,id:idCounter++});totalGot+=ws.price;if(ws.rarity==='legendary')SoundFX.play('legendary');});renderAllInventory();saveGame();isSpinning=!1;openBtn.disabled=!1;}
 
     function renderCaseSkins(){const c=CASES[currentCaseIndex];caseSkinCount.textContent=c.skins.length;caseSkinsGrid.innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className='case-skin-preview rarity-'+s.rarity;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;caseSkinsGrid.appendChild(d);});}
     function renderCases(){caseSelector.innerHTML='';CASES.forEach((c,i)=>{const d=document.createElement('div');d.className=`case-option ${i===currentCaseIndex?'active':''}`;d.innerHTML=`<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;d.addEventListener('click',()=>{currentCaseIndex=i;renderCases();updateCaseUI();renderCaseSkins();});caseSelector.appendChild(d);});updateCaseUI();renderCaseSkins();}
@@ -333,94 +377,286 @@
 
     function renderAllInventory(){invCount.textContent=inventory.length;invTotalCount.textContent=inventory.length;invTotalPrice.textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)inventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div>';else{inventoryGrid.innerHTML='';inventory.forEach(i=>inventoryGrid.appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
     function createInventoryItem(item,um,cm){const d=document.createElement('div');d.className='inv-item rarity-'+item.rarity;const us=selectedForUpgrade.has(item.id),cs=selectedForContract.has(item.id);if(us)d.style.borderColor='#ff6a00';if(cs)d.style.borderColor='#7b2fbe';let btns='';if(um)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${us?'rgba(255,106,0,0.3)':'rgba(30,35,48,0.9)'};border-color:${us?'#ff6a00':'rgba(255,255,255,0.06)'};">${us?'✓ Выбран':'Выбрать'}</button>`;else if(cm)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${cs?'rgba(123,47,190,0.3)':'rgba(30,35,48,0.9)'};border-color:${cs?'#7b2fbe':'rgba(255,255,255,0.06)'};">${cs?'✓ Выбран':'Выбрать'}</button>`;else btns=`<button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>`;d.innerHTML=`<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><div class="btn-group">${btns}</div>`;d.querySelectorAll('.btn-sell').forEach(b=>b.addEventListener('click',function(e){e.stopPropagation();const id=parseInt(this.dataset.id),act=this.dataset.action;if(act==='sell')sellItem(id);else if(act==='toggleUpgrade')toggleUpgradeSelection(id);else if(act==='toggleContract')toggleContractSelection(id);}));return d;}
-    function renderUpgradeInventory(){if(inventory.length===0)document.getElementById('upgradeInventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{document.getElementById('upgradeInventoryGrid').innerHTML='';inventory.forEach(i=>document.getElementById('upgradeInventoryGrid').appendChild(createInventoryItem(i,!0,!1)));}}
-    function renderContractInventory(){if(inventory.length===0)document.getElementById('contractInventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{document.getElementById('contractInventoryGrid').innerHTML='';inventory.forEach(i=>document.getElementById('contractInventoryGrid').appendChild(createInventoryItem(i,!1,!0)));}}
+    function renderUpgradeInventory(){if(inventory.length===0)upgradeInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{upgradeInventoryGrid.innerHTML='';inventory.forEach(i=>upgradeInventoryGrid.appendChild(createInventoryItem(i,!0,!1)));}}
+    function renderContractInventory(){if(inventory.length===0)contractInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{contractInventoryGrid.innerHTML='';inventory.forEach(i=>contractInventoryGrid.appendChild(createInventoryItem(i,!1,!0)));}}
     function sellItem(id){const idx=inventory.findIndex(i=>i.id===id);if(idx===-1)return;balance+=inventory[idx].price;updateBalanceUI();inventory.splice(idx,1);selectedForUpgrade.delete(id);selectedForContract.delete(id);renderAllInventory();SoundFX.play('sell');saveGame();}
     function toggleUpgradeSelection(id){if(isUpgrading)return;selectedForUpgrade.has(id)?selectedForUpgrade.delete(id):selectedForUpgrade.add(id);renderAllInventory();}
     function toggleContractSelection(id){if(isContracting)return;selectedForContract.has(id)?selectedForContract.delete(id):(selectedForContract.size>=10?alert('Максимум 10!'):selectedForContract.add(id));renderAllInventory();}
-    function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));document.getElementById('inputCount').textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);document.getElementById('inputTotalPrice').textContent=tp.toFixed(2);if(si.length===0)document.getElementById('inputSkinsContainer').innerHTML='<div class="input-placeholder">Выберите скины</div>';else{document.getElementById('inputSkinsContainer').innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className='input-skin-item rarity-'+i.rarity;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});document.getElementById('inputSkinsContainer').appendChild(d);});}document.getElementById('upgradeBtn').disabled=si.length<1||isUpgrading;document.getElementById('upgradeSelectCount').textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);document.getElementById('resultContainer').innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;document.getElementById('multiplierDisplay').textContent=`×${selectedMultiplier.toFixed(2)}`;document.getElementById('resultContainer').dataset.targetSkin=JSON.stringify(ts);document.getElementById('resultContainer').dataset.totalPrice=tp;document.getElementById('upgradeResultMessage').innerHTML='';}else{document.getElementById('resultContainer').innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';document.getElementById('upgradeResultMessage').innerHTML='';}}
-    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;document.getElementById('upgradeBtn').disabled=!0;document.getElementById('upgradeArrow').classList.add('spinning');document.getElementById('upgradeResultMessage').innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;document.getElementById('upgradeArrow').classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');document.getElementById('upgradeArrow').className='arrow success';document.getElementById('upgradeArrow').textContent='✅';const td=JSON.parse(document.getElementById('resultContainer').dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);document.getElementById('upgradeResultMessage').innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');document.getElementById('upgradeArrow').className='arrow fail';document.getElementById('upgradeArrow').textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();document.getElementById('upgradeResultMessage').innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();saveGame();setTimeout(()=>{document.getElementById('upgradeArrow').className='arrow';document.getElementById('upgradeArrow').textContent='⚡';},3000);},1500);}
-    function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));document.getElementById('contractCount').textContent=si.length;document.getElementById('contractTotalPrice').textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);document.getElementById('contractBtn').disabled=si.length<3||si.length>10||isContracting;}
-    function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;document.getElementById('contractBtn').disabled=!0;SoundFX.play('contract');document.getElementById('contractResult').classList.remove('show');document.getElementById('contractAnimation').classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);document.getElementById('contractAnimation').classList.remove('show');document.getElementById('contractResult').classList.add('show','success');document.getElementById('contractResultIcon').textContent='📜';document.getElementById('contractResultName').textContent=rs.icon+' '+rs.name;document.getElementById('contractResultPrice').textContent=rs.price.toFixed(2)+' ₽';document.getElementById('contractResultMultiplier').innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();saveGame();setTimeout(()=>document.getElementById('contractResult').classList.remove('show'),6000);},2000);}
+    
+    function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));inputCount.textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);inputTotalPrice.textContent=tp.toFixed(2);if(si.length===0)inputSkinsContainer.innerHTML='<div class="input-placeholder">Выберите скины</div>';else{inputSkinsContainer.innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className='input-skin-item rarity-'+i.rarity;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});inputSkinsContainer.appendChild(d);});}upgradeBtn.disabled=si.length<1||isUpgrading;upgradeSelectCount.textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);resultContainer.innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;multiplierDisplay.textContent=`×${selectedMultiplier.toFixed(2)}`;resultContainer.dataset.targetSkin=JSON.stringify(ts);resultContainer.dataset.totalPrice=tp;upgradeResultMessage.innerHTML='';}else{resultContainer.innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';upgradeResultMessage.innerHTML='';}}
+
+    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;upgradeBtn.disabled=!0;upgradeArrow.classList.add('spinning');upgradeResultMessage.innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;upgradeArrow.classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');upgradeArrow.className='arrow success';upgradeArrow.textContent='✅';const td=JSON.parse(resultContainer.dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');upgradeArrow.className='arrow fail';upgradeArrow.textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();saveGame();setTimeout(()=>{upgradeArrow.className='arrow';upgradeArrow.textContent='⚡';},3000);},1500);}
+
+    function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));contractCount.textContent=si.length;contractTotalPrice.textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);contractBtn.disabled=si.length<3||si.length>10||isContracting;}
+    
+    function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;contractBtn.disabled=!0;SoundFX.play('contract');contractResultEl.classList.remove('show');contractAnimation.classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);contractAnimation.classList.remove('show');contractResultEl.classList.add('show','success');document.getElementById('contractResultIcon').textContent='📜';document.getElementById('contractResultName').textContent=rs.icon+' '+rs.name;document.getElementById('contractResultPrice').textContent=rs.price.toFixed(2)+' ₽';document.getElementById('contractResultMultiplier').innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();saveGame();setTimeout(()=>contractResultEl.classList.remove('show'),6000);},2000);}
+
     function updateBalanceUI(){balanceSpan.textContent=balance.toFixed(0);}
-    function setupTabs(){document.querySelectorAll('.tab-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+this.dataset.tab).classList.add('active');if(['inventory','upgrade','contract'].includes(this.dataset.tab))renderAllInventory();}));}
+    function setupTabs(){document.querySelectorAll('.tab-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));$('tab-'+this.dataset.tab).classList.add('active');if(['inventory','upgrade','contract'].includes(this.dataset.tab))renderAllInventory();}));}
     function setupMultiSpin(){document.querySelectorAll('.multi-spin-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.multi-spin-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');multiSpinCount=parseInt(this.dataset.count);spinCountDisplay.textContent=multiSpinCount;}));}
     function setupChanceSelector(){document.querySelectorAll('.chance-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedChance=parseInt(this.dataset.chance);selectedMultiplier=parseFloat(this.dataset.multiplier);updateUpgradeUI();}));}
 
-    // ============================================================
-    //  РЕГИСТРАЦИЯ И СОХРАНЕНИЕ
-    // ============================================================
-    function loadGame(){
-        const saved=localStorage.getItem('skinVault_save');
-        if(saved){const data=JSON.parse(saved);balance=data.balance;inventory=data.inventory;idCounter=data.idCounter;renderAllInventory();updateBalanceUI();return!0;}return!1;
+   // ============================================================
+//  ЗАМЕНИТЕ ВСЮ СЕКЦИЮ "РЕГИСТРАЦИЯ И СОХРАНЕНИЕ" НА ЭТО:
+// ============================================================
+
+// База пользователей в localStorage
+function getUsersDB() {
+    const db = localStorage.getItem('skinVault_users_db');
+    return db ? JSON.parse(db) : {};
+}
+
+function saveUsersDB(db) {
+    localStorage.setItem('skinVault_users_db', JSON.stringify(db));
+}
+
+// Хеширование пароля (простое, для демо)
+function hashPassword(password) {
+    let hash = 0;
+    for (let i = 0; i < password.length; i++) {
+        const char = password.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
     }
-    function saveGame(){
-        const data={balance:balance,inventory:inventory,idCounter:idCounter,timestamp:new Date().toISOString()};
-        localStorage.setItem('skinVault_save',JSON.stringify(data));
+    return 'h_' + Math.abs(hash).toString(16);
+}
+
+// Текущий пользователь
+let currentUser = null;
+
+// Загрузка данных пользователя
+function loadUserData(username) {
+    const usersDB = getUsersDB();
+    const userData = usersDB[username];
+    if (userData && userData.saveData) {
+        balance = userData.saveData.balance || 1000;
+        inventory = userData.saveData.inventory || [];
+        idCounter = userData.saveData.idCounter || 0;
+        currentUser = username;
+        renderAllInventory();
+        updateBalanceUI();
+        showUserInfo(username);
+        return true;
     }
-    function showUserInfo(nickname){
-        document.getElementById('registerBtn').style.display='none';
-        document.getElementById('userInfo').style.display='flex';
-        document.getElementById('userNickname').textContent='👑 '+nickname;
-    }
-    function hideUserInfo(){
-        document.getElementById('registerBtn').style.display='block';
-        document.getElementById('userInfo').style.display='none';
-    }
-    function showRegisterModal(){
-        const old=document.getElementById('registerModal');if(old)old.remove();
-        const modal=document.createElement('div');modal.id='registerModal';
-        modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
-        modal.innerHTML=`
-            <div style="background:linear-gradient(145deg,rgba(20,24,38,0.98),rgba(15,18,30,0.98));backdrop-filter:blur(30px);padding:40px;border-radius:24px;border:1px solid rgba(255,106,0,0.2);text-align:center;max-width:420px;width:90%;box-shadow:0 20px 80px rgba(0,0,0,0.7);">
-                <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;background:linear-gradient(135deg,#ff6a00,#ff3c00,#7b2fbe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;">⭐ SKINVAULT</div>
-                <div style="color:rgba(255,255,255,0.4);margin-bottom:30px;font-size:14px;">Создай аккаунт чтобы сохранять прогресс</div>
-                <div style="text-align:left;margin-bottom:20px;">
-                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;letter-spacing:1px;">НИКНЕЙМ</label>
-                    <input type="text" id="regNickname" placeholder="Введи никнейм..." style="width:100%;padding:14px 18px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-size:16px;outline:none;font-family:'Inter',sans-serif;transition:0.3s;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <div id="regError" style="color:#ff4444;font-size:13px;margin-bottom:15px;display:none;text-align:center;"></div>
-                <div style="display:flex;gap:10px;">
-                    <button onclick="registerUser()" style="flex:1;padding:14px;background:linear-gradient(135deg,#ff6a00,#ff3c00);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 25px rgba(238,60,0,0.3);transition:0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">✅ РЕГИСТРАЦИЯ</button>
-                </div>
-                <button onclick="document.getElementById('registerModal').remove()" style="margin-top:15px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;transition:0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">✕ Закрыть</button>
-                <div style="margin-top:20px;color:rgba(255,255,255,0.2);font-size:11px;">Данные сохраняются локально в браузере 🔒</div>
+    return false;
+}
+
+// Сохранение данных пользователя
+function saveGame() {
+    if (!currentUser) return;
+    const usersDB = getUsersDB();
+    if (!usersDB[currentUser]) usersDB[currentUser] = { password: '', saveData: {} };
+    usersDB[currentUser].saveData = {
+        balance: balance,
+        inventory: inventory,
+        idCounter: idCounter,
+        timestamp: new Date().toISOString()
+    };
+    saveUsersDB(usersDB);
+}
+
+// Показать форму логина
+function showRegisterModal() {
+    const old = document.getElementById('registerModal');
+    if (old) old.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'registerModal';
+    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = `
+        <div style="background:linear-gradient(145deg,rgba(20,24,38,0.98),rgba(15,18,30,0.98));backdrop-filter:blur(30px);padding:40px;border-radius:24px;border:1px solid rgba(255,106,0,0.2);text-align:center;max-width:420px;width:90%;box-shadow:0 20px 80px rgba(0,0,0,0.7);">
+            <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:linear-gradient(135deg,#ff6a00,#ff3c00,#7b2fbe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">⭐ SKINVAULT</div>
+            
+            <!-- Табы -->
+            <div style="display:flex;gap:10px;margin-bottom:25px;">
+                <button id="tabLogin" onclick="switchAuthTab('login')" style="flex:1;padding:10px;background:rgba(255,106,0,0.2);border:1px solid #ff6a00;border-radius:10px;color:#ffaa00;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">ВХОД</button>
+                <button id="tabRegister" onclick="switchAuthTab('register')" style="flex:1;padding:10px;background:rgba(20,24,38,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:rgba(255,255,255,0.5);font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">РЕГИСТРАЦИЯ</button>
             </div>
-        `;
-        document.body.appendChild(modal);
-        setTimeout(()=>document.getElementById('regNickname').focus(),100);
-        document.getElementById('regNickname').addEventListener('keypress',(e)=>{if(e.key==='Enter')registerUser();});
-        modal.addEventListener('click',(e)=>{if(e.target===modal)modal.remove();});
+            
+            <!-- Форма входа -->
+            <div id="loginForm">
+                <div style="text-align:left;margin-bottom:15px;">
+                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ЛОГИН</label>
+                    <input type="text" id="loginUsername" placeholder="Введи логин..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div style="text-align:left;margin-bottom:15px;">
+                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ПАРОЛЬ</label>
+                    <input type="password" id="loginPassword" placeholder="Введи пароль..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <button onclick="loginUser()" style="width:100%;padding:14px;background:linear-gradient(135deg,#ff6a00,#ff3c00);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 25px rgba(238,60,0,0.3);">🔑 ВОЙТИ</button>
+            </div>
+            
+            <!-- Форма регистрации -->
+            <div id="registerForm" style="display:none;">
+                <div style="text-align:left;margin-bottom:15px;">
+                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ЛОГИН</label>
+                    <input type="text" id="regUsername" placeholder="Придумай логин..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div style="text-align:left;margin-bottom:15px;">
+                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ПАРОЛЬ</label>
+                    <input type="password" id="regPassword" placeholder="Придумай пароль..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div style="text-align:left;margin-bottom:15px;">
+                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ПОВТОРИ ПАРОЛЬ</label>
+                    <input type="password" id="regPassword2" placeholder="Повтори пароль..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <button onclick="registerUser()" style="width:100%;padding:14px;background:linear-gradient(135deg,#7b2fbe,#5a1a8a);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 25px rgba(123,47,190,0.3);">✅ СОЗДАТЬ АККАУНТ</button>
+            </div>
+            
+            <div id="authError" style="color:#ff4444;font-size:13px;margin-top:15px;display:none;text-align:center;"></div>
+            <button onclick="document.getElementById('registerModal').remove()" style="margin-top:15px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">✕ Закрыть</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Enter для отправки
+    document.getElementById('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginUser(); });
+    document.getElementById('regPassword2').addEventListener('keypress', (e) => { if (e.key === 'Enter') registerUser(); });
+    
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+}
+
+// Переключение табов
+function switchAuthTab(tab) {
+    document.getElementById('tabLogin').style.background = tab === 'login' ? 'rgba(255,106,0,0.2)' : 'rgba(20,24,38,0.8)';
+    document.getElementById('tabLogin').style.borderColor = tab === 'login' ? '#ff6a00' : 'rgba(255,255,255,0.1)';
+    document.getElementById('tabLogin').style.color = tab === 'login' ? '#ffaa00' : 'rgba(255,255,255,0.5)';
+    document.getElementById('tabRegister').style.background = tab === 'register' ? 'rgba(123,47,190,0.2)' : 'rgba(20,24,38,0.8)';
+    document.getElementById('tabRegister').style.borderColor = tab === 'register' ? '#7b2fbe' : 'rgba(255,255,255,0.1)';
+    document.getElementById('tabRegister').style.color = tab === 'register' ? '#d32ce6' : 'rgba(255,255,255,0.5)';
+    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+    document.getElementById('authError').style.display = 'none';
+}
+
+// Вход
+function loginUser() {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const err = document.getElementById('authError');
+    
+    if (!username || !password) {
+        err.textContent = '❌ Заполни все поля!';
+        err.style.display = 'block';
+        return;
     }
-    function registerUser(){
-        const nickname=document.getElementById('regNickname').value.trim(),err=document.getElementById('regError');
-        if(!nickname){err.textContent='❌ Введи никнейм!';err.style.display='block';return;}
-        if(nickname.length<2){err.textContent='❌ Минимум 2 символа!';err.style.display='block';return;}
-        if(nickname.length>20){err.textContent='❌ Максимум 20 символов!';err.style.display='block';return;}
-        if(!/^[a-zA-Z0-9а-яА-ЯёЁ_\- ]+$/.test(nickname)){err.textContent='❌ Только буквы, цифры и _-';err.style.display='block';return;}
-        localStorage.setItem('skinVault_nickname',nickname);saveGame();showUserInfo(nickname);
-        document.getElementById('registerModal').remove();
+    
+    const usersDB = getUsersDB();
+    const hashedPass = hashPassword(password);
+    
+    if (!usersDB[username]) {
+        err.textContent = '❌ Пользователь не найден!';
+        err.style.display = 'block';
+        return;
     }
-    function logoutUser(){
-        saveGame();hideUserInfo();
+    
+    if (usersDB[username].password !== hashedPass) {
+        err.textContent = '❌ Неверный пароль!';
+        err.style.display = 'block';
+        return;
     }
-    setInterval(()=>{if(localStorage.getItem('skinVault_nickname'))saveGame();},15000);
-    window.addEventListener('beforeunload',()=>saveGame());
+    
+    // Успешный вход
+    document.getElementById('registerModal').remove();
+    loadUserData(username);
+}
+
+// Регистрация
+function registerUser() {
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const password2 = document.getElementById('regPassword2').value;
+    const err = document.getElementById('authError');
+    
+    if (!username || !password) {
+        err.textContent = '❌ Заполни все поля!';
+        err.style.display = 'block';
+        return;
+    }
+    
+    if (username.length < 3) {
+        err.textContent = '❌ Логин минимум 3 символа!';
+        err.style.display = 'block';
+        return;
+    }
+    
+    if (password.length < 4) {
+        err.textContent = '❌ Пароль минимум 4 символа!';
+        err.style.display = 'block';
+        return;
+    }
+    
+    if (password !== password2) {
+        err.textContent = '❌ Пароли не совпадают!';
+        err.style.display = 'block';
+        return;
+    }
+    
+    const usersDB = getUsersDB();
+    
+    if (usersDB[username]) {
+        err.textContent = '❌ Этот логин уже занят!';
+        err.style.display = 'block';
+        return;
+    }
+    
+    // Создаём пользователя
+    usersDB[username] = {
+        password: hashPassword(password),
+        saveData: {
+            balance: 1000,
+            inventory: [],
+            idCounter: 0
+        }
+    };
+    saveUsersDB(usersDB);
+    
+    // Авто-вход
+    document.getElementById('registerModal').remove();
+    loadUserData(username);
+}
+
+// Выход
+function logoutUser() {
+    saveGame();
+    currentUser = null;
+    hideUserInfo();
+}
+
+function showUserInfo(username) {
+    document.getElementById('registerBtn').style.display = 'none';
+    document.getElementById('userInfo').style.display = 'flex';
+    document.getElementById('userNickname').textContent = '👑 ' + username;
+}
+
+function hideUserInfo() {
+    document.getElementById('registerBtn').style.display = 'block';
+    document.getElementById('userInfo').style.display = 'none';
+}
+
+// Инициализация
+function initGame() {
+    const usersDB = getUsersDB();
+    // Автоматически не входим — показываем кнопку регистрации
+    renderCases();
+    setupTabs();
+    setupMultiSpin();
+    setupChanceSelector();
+    openBtn.addEventListener('click', () => performSpin(multiSpinCount));
+    upgradeBtn.addEventListener('click', performUpgrade);
+    contractBtn.addEventListener('click', performContract);
+    clearUpgradeBtn.addEventListener('click', () => { selectedForUpgrade.clear(); renderAllInventory(); });
+    document.addEventListener('click', () => SoundFX.init(), { once: true });
+}
+
+// Автосохранение
+setInterval(() => { if (currentUser) saveGame(); }, 15000);
+window.addEventListener('beforeunload', () => { if (currentUser) saveGame(); });
 
     // ============================================================
     //  ЗАПУСК
     // ============================================================
-    function initGame(){
-        const saved=loadGame(),nickname=localStorage.getItem('skinVault_nickname');
-        if(!saved&&!nickname){setTimeout(showRegisterModal,500);}
-        if(nickname)showUserInfo(nickname);
-        renderCases();setupTabs();setupMultiSpin();setupChanceSelector();
-        openBtn.addEventListener('click',()=>performSpin(multiSpinCount));
-        document.getElementById('upgradeBtn').addEventListener('click',performUpgrade);
-        document.getElementById('contractBtn').addEventListener('click',performContract);
-        document.getElementById('clearUpgradeBtn').addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});
-        document.addEventListener('click',()=>SoundFX.init(),{once:!0});
-    }
+    function initGame(){const saved=loadGame(),nickname=localStorage.getItem('skinVault_nickname');if(!saved&&!nickname){setTimeout(showRegisterModal,500);}if(nickname)showUserInfo(nickname);renderCases();setupTabs();setupMultiSpin();setupChanceSelector();openBtn.addEventListener('click',()=>performSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
     initGame();
     </script>
 </body>
