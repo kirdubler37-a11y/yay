@@ -183,11 +183,12 @@
         .skin-card .name { font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 10px; }
         .skin-card .price { font-size: 10px; color: #6b7a8a; margin-top: 2px; }
 
-        .rarity-legendary { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, #1a1f2a 60%, rgba(235,75,75,0.12)); }
-        .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, #1a1f2a 60%, rgba(211,44,230,0.12)); }
-        .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, #1a1f2a 60%, rgba(136,71,255,0.12)); }
-        .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, #1a1f2a 60%, rgba(75,105,255,0.12)); }
-        .rarity-common { border-bottom-color: #6b7a8a; background: linear-gradient(180deg, #1a1f2a 60%, rgba(107,122,138,0.12)); }
+        /* Редкости — ВАЖНО: правильные цвета */
+        .rarity-legendary { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, #1a1f2a 60%, rgba(235,75,75,0.15)); }
+        .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, #1a1f2a 60%, rgba(211,44,230,0.15)); }
+        .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, #1a1f2a 60%, rgba(136,71,255,0.15)); }
+        .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, #1a1f2a 60%, rgba(75,105,255,0.15)); }
+        .rarity-common { border-bottom-color: #6b7a8a; background: linear-gradient(180deg, #1a1f2a 60%, rgba(107,122,138,0.15)); }
 
         .btn-primary {
             background: linear-gradient(135deg, #ff6a00, #ee3c00);
@@ -858,21 +859,21 @@
         //  СКИНЫ
         // ============================================================
         const ALL_SKINS = [
-            // LEGENDARY
+            // LEGENDARY (красные)
             { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
             { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
             { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
             { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
             { name: "AWP | Gungnir", rarity: "legendary", icon: "⚡", price: 720.00 },
             { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
-            // EPIC
+            // EPIC (фиолетовые)
             { name: "AK-47 | Вулканический", rarity: "epic", icon: "🌋", price: 145.00 },
             { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 98.00 },
             { name: "M4A1-S | Кибер", rarity: "epic", icon: "💻", price: 75.00 },
             { name: "AWP | Электричество", rarity: "epic", icon: "⚡", price: 120.00 },
             { name: "USP-S | Убийца", rarity: "epic", icon: "🎯", price: 62.00 },
             { name: "SSG 08 | Смерть", rarity: "epic", icon: "💀", price: 50.00 },
-            // RARE
+            // RARE (синие)
             { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 35.00 },
             { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 28.00 },
             { name: "AK-47 | Красная линия", rarity: "rare", icon: "🔴", price: 42.00 },
@@ -880,7 +881,7 @@
             { name: "Desert Eagle | Мечта", rarity: "rare", icon: "🌙", price: 25.00 },
             { name: "AWP | Фуксия", rarity: "rare", icon: "🌸", price: 45.00 },
             { name: "P250 | Вспышка", rarity: "rare", icon: "💥", price: 18.00 },
-            // UNCOMMON
+            // UNCOMMON (зелёные)
             { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
             { name: "AK-47 | Водяной", rarity: "uncommon", icon: "💧", price: 15.00 },
             { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
@@ -888,7 +889,7 @@
             { name: "Five-SeveN | Серебро", rarity: "uncommon", icon: "🔩", price: 11.00 },
             { name: "SSG 08 | Абисс", rarity: "uncommon", icon: "🌊", price: 14.00 },
             { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
-            // COMMON
+            // COMMON (серые)
             { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
             { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
             { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
@@ -910,7 +911,7 @@
                 name: '🔥 ПРЕМИУМ КЕЙС',
                 icon: '💎',
                 price: 250,
-                description: 'Шанс на окупаемый скин ~5%',
+                description: 'Шанс на Dragon Lore 1%',
                 skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic' || s.rarity === 'rare')
             },
             {
@@ -977,13 +978,54 @@
                 return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
             }
             
-            // ПРЕМИУМ — пониженные шансы на окупаемый скин (~5%)
+            // ПРЕМИУМ — Dragon Lore 1%, все легендарки 3%
             if (currentCase?.id === 'premium') {
-                return { legendary: 2, epic: 3, rare: 10, uncommon: 35, common: 50 };
+                return { legendary: 3, epic: 7, rare: 15, uncommon: 30, common: 45 };
             }
             
             // Остальные
             return { legendary: 3, epic: 8, rare: 20, uncommon: 30, common: 39 };
+        }
+
+        // ============================================================
+        //  КОНТРАКТ — ПОИСК СКИНА ПО ЦЕНЕ
+        // ============================================================
+        function getSkinForContract(targetPrice) {
+            // Ищем скин с ценой в диапазоне ±20% от targetPrice
+            const minPrice = targetPrice * 0.8;
+            const maxPrice = targetPrice * 1.2;
+            
+            let candidates = ALL_SKINS.filter(s => s.price >= minPrice && s.price <= maxPrice);
+            
+            // Если есть подходящие — выбираем случайный
+            if (candidates.length > 0) {
+                return candidates[Math.floor(Math.random() * candidates.length)];
+            }
+            
+            // Если нет — берём самый дорогой доступный
+            const sorted = [...ALL_SKINS].sort((a, b) => a.price - b.price);
+            
+            // Если targetPrice меньше самого дешёвого — берём самый дешёвый
+            if (targetPrice < sorted[0].price) {
+                return sorted[0];
+            }
+            
+            // Если targetPrice больше самого дорогого — берём самый дорогой
+            if (targetPrice > sorted[sorted.length - 1].price) {
+                return sorted[sorted.length - 1];
+            }
+            
+            // Иначе ищем ближайший
+            let best = sorted[0];
+            let bestDiff = Infinity;
+            for (const skin of sorted) {
+                const diff = Math.abs(skin.price - targetPrice);
+                if (diff < bestDiff) {
+                    bestDiff = diff;
+                    best = skin;
+                }
+            }
+            return best;
         }
 
         // ============================================================
@@ -1068,21 +1110,6 @@
                 }
             }
             return best;
-        }
-
-        function getWeightedSkin(targetPrice) {
-            const weighted = ALL_SKINS.map(skin => {
-                const diff = Math.abs(skin.price - targetPrice);
-                const weight = 1 / (diff + 0.1);
-                return { skin, weight };
-            });
-            const totalWeight = weighted.reduce((sum, w) => sum + w.weight, 0);
-            let rand = Math.random() * totalWeight;
-            for (const item of weighted) {
-                rand -= item.weight;
-                if (rand <= 0) return item.skin;
-            }
-            return weighted[0].skin;
         }
 
         // ============================================================
@@ -1549,7 +1576,7 @@
         }
 
         // ============================================================
-        //  КОНТРАКТЫ — 60% НЕОКУП
+        //  КОНТРАКТЫ — ИСПРАВЛЕННАЯ ВЕРСИЯ
         // ============================================================
         function toggleContractSelection(id) {
             if (isContracting) return;
@@ -1623,8 +1650,15 @@
                 multiplier = 2.5 + Math.random() * 1.0;
             }
             
+            // РАСЧЁТНАЯ ЦЕНА
             const resultPrice = totalPrice * multiplier;
-            const resultSkin = getWeightedSkin(resultPrice);
+            
+            // ИЩЕМ СКИН, БЛИЗКИЙ К РАСЧЁТНОЙ ЦЕНЕ
+            const resultSkin = getSkinForContract(resultPrice);
+            
+            // РЕАЛЬНАЯ ЦЕНА СКИНА
+            const actualPrice = resultSkin.price;
+            const actualMultiplier = actualPrice / totalPrice;
 
             setTimeout(() => {
                 const idsToRemove = Array.from(selectedForContract);
@@ -1639,10 +1673,10 @@
                 
                 let status = '';
                 let statusColor = '';
-                if (multiplier < 0.95) {
+                if (actualMultiplier < 0.95) {
                     status = '❌ УБЫТОК';
                     statusColor = '#f44336';
-                } else if (multiplier < 1.05) {
+                } else if (actualMultiplier < 1.05) {
                     status = '➖ ОКУПАЕМОСТЬ';
                     statusColor = '#ff9800';
                 } else {
@@ -1653,11 +1687,12 @@
                 contractResult.className = 'contract-result show success';
                 contractResultIcon.textContent = '📜';
                 contractResultName.textContent = resultSkin.icon + ' ' + resultSkin.name;
-                contractResultPrice.textContent = resultSkin.price.toFixed(2) + ' ₽';
+                contractResultPrice.textContent = actualPrice.toFixed(2) + ' ₽';
                 contractResultMultiplier.innerHTML = `
-                    Множитель: <strong style="color:${statusColor};">x${multiplier.toFixed(2)}</strong> 
-                    (было: ${totalPrice.toFixed(2)} ₽ → стало: ${resultSkin.price.toFixed(2)} ₽)
+                    Множитель: <strong style="color:${statusColor};">x${actualMultiplier.toFixed(2)}</strong> 
+                    (было: ${totalPrice.toFixed(2)} ₽ → стало: ${actualPrice.toFixed(2)} ₽)
                     <br><span style="color:${statusColor}; font-size:16px; font-weight:bold;">${status}</span>
+                    <br><span style="font-size:11px; color:#6b7a8a;">Расчётный множитель: x${multiplier.toFixed(2)}</span>
                 `;
 
                 isContracting = false;
@@ -1665,7 +1700,7 @@
 
                 setTimeout(() => {
                     contractResult.classList.remove('show');
-                }, 5000);
+                }, 6000);
             }, 2000);
         }
 
@@ -1701,6 +1736,15 @@
             balance = amount;
             updateBalanceUI();
             console.log(`✅ Баланс: ${balance}`);
+        };
+
+        window.addDragonLore = function() {
+            const dl = ALL_SKINS.find(s => s.name.includes('Dragon Lore'));
+            if (dl) {
+                inventory.push({ ...dl, id: idCounter++ });
+                renderAllInventory();
+                console.log('🐉 Dragon Lore добавлен!');
+            }
         };
 
         // ============================================================
