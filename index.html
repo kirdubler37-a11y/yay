@@ -565,6 +565,266 @@
 
     function init(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupChanceSelector();setupMultiSpin();openBtn.addEventListener('click',()=>performSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
     init();
+
+       
+
+// ========== СИСТЕМА РЕГИСТРАЦИИ И СОХРАНЕНИЯ ==========
+
+// Загрузка данных при запуске
+function loadUserData() {
+    const saved = localStorage.getItem('skinVault_user');
+    if (saved) {
+        const data = JSON.parse(saved);
+        balance = data.balance || 1000;
+        inventory = data.inventory || [];
+        idCounter = data.idCounter || 0;
+        renderAllInventory();
+        updateBalanceUI();
+        return true;
+    }
+    return false;
+}
+
+// Сохранение данных
+function saveUserData() {
+    const data = {
+        balance: balance,
+        inventory: inventory,
+        idCounter: idCounter,
+        lastSaved: new Date().toISOString()
+    };
+    localStorage.setItem('skinVault_user', JSON.stringify(data));
+}
+
+// Автосохранение каждые 10 секунд
+setInterval(saveUserData, 10000);
+
+// Сохранять при важных действиях
+const originalOpenCase = openBtn ? openBtn.onclick : null;
+
+// Модифицируем performSpin для сохранения
+const originalPerformSpin = performSpin;
+performSpin = async function(count) {
+    await originalPerformSpin(count);
+    saveUserData();
+};
+
+// Модифицируем sellItem для сохранения
+const originalSellItem = sellItem;
+sellItem = function(id) {
+    originalSellItem(id);
+    saveUserData();
+};
+
+// Модифицируем performUpgrade для сохранения
+const originalPerformUpgrade = performUpgrade;
+performUpgrade = function() {
+    originalPerformUpgrade();
+    saveUserData();
+};
+
+// Модифицируем performContract для сохранения
+const originalPerformContract = performContract;
+performContract = function() {
+    originalPerformContract();
+    saveUserData();
+};
+
+// Окно регистрации
+function showRegisterModal() {
+    const modal = document.createElement('div');
+    modal.id = 'registerModal';
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 1000;
+        display: flex; align-items: center; justify-content: center;
+    `;
+    modal.innerHTML = `
+        <div style="
+            background: rgba(20,24,38,0.95); backdrop-filter: blur(30px);
+            padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);
+            text-align: center; max-width: 400px; width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        ">
+            <div style="font-family:'Orbitron',sans-serif; font-size:24px; font-weight:700; margin-bottom:10px;">
+                ⭐ SKINVAULT
+            </div>
+            <div style="color:rgba(255,255,255,0.5); margin-bottom:25px; font-size:14px;">
+                Введи никнейм чтобы начать игру
+            </div>
+            <input type="text" id="nicknameInput" placeholder="Твой никнейм"
+                style="
+                    width: 100%; padding: 14px 20px; background: rgba(10,12,22,0.8);
+                    border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+                    color: #fff; font-size: 16px; text-align: center;
+                    margin-bottom: 20px; outline: none;
+                    font-family: 'Inter', sans-serif;
+                "
+            >
+            <div style="display: flex; gap: 10px;">
+                <button onclick="startGame()" style="
+                    flex: 1; padding: 14px; background: linear-gradient(135deg, #ff6a00, #ff3c00);
+                    border: none; border-radius: 12px; color: #fff; font-weight: 700;
+                    font-size: 16px; cursor: pointer; font-family: 'Inter', sans-serif;
+                    box-shadow: 0 4px 20px rgba(238,60,0,0.3);
+                ">🎮 ИГРАТЬ</button>
+                <button onclick="resetGame()" style="
+                    padding: 14px 20px; background: rgba(255,68,68,0.2);
+                    border: 1px solid rgba(255,68,68,0.3); border-radius: 12px;
+                    color: #ff4444; font-weight: 600; font-size: 14px;
+                    cursor: pointer; font-family: 'Inter', sans-serif;
+                ">🔄 Сброс</button>
+            </div>
+            <div id="registerError" style="color: #ff4444; margin-top: 15px; font-size: 13px; display: none;"></div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('nicknameInput').focus();
+    
+    // Enter для подтверждения
+    document.getElementById('nicknameInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') startGame();
+    });
+}
+
+function startGame() {
+    const nickname = document.getElementById('nicknameInput').value.trim();
+    const errorDiv = document.getElementById('registerError');
+    
+    if (!nickname) {
+        errorDiv.textContent = '❌ Введи никнейм!';
+        errorDiv.style.display = 'block';
+        return;
+    }
+    if (nickname.length < 3) {
+        errorDiv.textContent = '❌ Никнейм должен быть от 3 символов!';
+        errorDiv.style.display = 'block';
+        return;
+    }
+    if (nickname.length > 20) {
+        errorDiv.textContent = '❌ Никнейм слишком длинный (макс 20)!';
+        errorDiv.style.display = 'block';
+        return;
+    }
+    
+    // Сохраняем пользователя
+    localStorage.setItem('skinVault_nickname', nickname);
+    localStorage.setItem('skinVault_registered', 'true');
+    
+    // Закрываем модалку
+    document.getElementById('registerModal').remove();
+    
+    // Показываем приветствие
+    showNotification(`🎉 Добро пожаловать, ${nickname}!`, 'success');
+}
+
+function resetGame() {
+    if (confirm('Точно сбросить весь прогресс? Баланс и инвентарь будут потеряны!')) {
+        localStorage.removeItem('skinVault_user');
+        localStorage.removeItem('skinVault_nickname');
+        localStorage.removeItem('skinVault_registered');
+        balance = 1000;
+        inventory = [];
+        idCounter = 0;
+        selectedForUpgrade.clear();
+        selectedForContract.clear();
+        renderAllInventory();
+        updateBalanceUI();
+        document.getElementById('registerModal').remove();
+        showRegisterModal();
+    }
+}
+
+function showNotification(message, type) {
+    const notif = document.createElement('div');
+    notif.style.cssText = `
+        position: fixed; top: 20px; right: 20px; z-index: 2000;
+        padding: 16px 24px; border-radius: 12px; font-weight: 600;
+        font-family: 'Inter', sans-serif; font-size: 14px;
+        animation: slideIn 0.4s ease-out;
+        max-width: 350px;
+    `;
+    if (type === 'success') {
+        notif.style.background = 'rgba(76,175,80,0.9)';
+        notif.style.color = '#fff';
+    } else if (type === 'error') {
+        notif.style.background = 'rgba(244,67,54,0.9)';
+        notif.style.color = '#fff';
+    }
+    notif.textContent = message;
+    document.body.appendChild(notif);
+    setTimeout(() => {
+        notif.style.transition = '0.3s';
+        notif.style.opacity = '0';
+        notif.style.transform = 'translateX(50px)';
+        setTimeout(() => notif.remove(), 300);
+    }, 2500);
+}
+
+// Добавляем стиль для анимации
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        0% { transform: translateX(100px); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+    }
+`;
+document.head.appendChild(style);
+
+// Кнопка выхода в хедере
+function addLogoutButton() {
+    const header = document.querySelector('header');
+    const nickname = localStorage.getItem('skinVault_nickname');
+    
+    if (nickname) {
+        const logoutBtn = document.createElement('div');
+        logoutBtn.innerHTML = `
+            <span style="color: rgba(255,255,255,0.5); margin-right: 8px;">👤 ${nickname}</span>
+            <button onclick="logout()" style="
+                background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.3);
+                color: #ff4444; padding: 6px 14px; border-radius: 20px;
+                font-size: 12px; cursor: pointer; font-weight: 600;
+                font-family: 'Inter', sans-serif;
+            ">Выйти</button>
+        `;
+        logoutBtn.style.display = 'flex';
+        logoutBtn.style.alignItems = 'center';
+        logoutBtn.style.gap = '8px';
+        header.appendChild(logoutBtn);
+    }
+}
+
+function logout() {
+    if (confirm('Выйти из аккаунта? Данные сохранятся.')) {
+        saveUserData();
+        showNotification('👋 До встречи, ' + localStorage.getItem('skinVault_nickname') + '!', 'success');
+        setTimeout(() => location.reload(), 500);
+    }
+}
+
+// ========== ЗАПУСК ==========
+function initGame() {
+    const isRegistered = localStorage.getItem('skinVault_registered');
+    const hasData = loadUserData();
+    
+    if (!isRegistered) {
+        // Новый пользователь
+        showRegisterModal();
+    } else if (!hasData) {
+        // Зарегистрирован но данных нет - создаём новые
+        balance = 1000;
+        inventory = [];
+        idCounter = 0;
+    }
+    
+    addLogoutButton();
+    renderAllInventory();
+    updateBalanceUI();
+}
+
+// Заменяем обычный init на initGame
+// Найди строчку init(); и замени на:
+// initGame();
     </script>
 </body>
 </html>
