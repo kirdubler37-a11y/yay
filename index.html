@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⭐ SKINVAULT | Кейсы CS2</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -13,17 +14,29 @@
             box-sizing: border-box;
         }
         body {
-            background: #0a0a12;
+            background: #050510;
             color: #fff;
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             padding: 20px;
             background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(123, 47, 190, 0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(255, 106, 0, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 100%, rgba(123, 47, 190, 0.04) 0%, transparent 40%);
+                radial-gradient(ellipse at 20% 50%, rgba(255, 106, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(123, 47, 190, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(0, 255, 255, 0.06) 0%, transparent 40%);
             position: relative;
             overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
         }
         .bg-particles {
             position: fixed;
@@ -38,90 +51,162 @@
         .bg-particle {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 106, 0, 0.3), transparent);
             animation: floatParticle 20s ease-in-out infinite;
         }
-        .bg-particle:nth-child(1) { width: 300px; height: 300px; top: -100px; left: -100px; animation-delay: 0s; }
-        .bg-particle:nth-child(2) { width: 400px; height: 400px; bottom: -200px; right: -200px; animation-delay: -5s; background: radial-gradient(circle, rgba(123, 47, 190, 0.2), transparent); }
-        .bg-particle:nth-child(3) { width: 200px; height: 200px; top: 50%; left: 50%; animation-delay: -10s; background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent); }
+        .bg-particle:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: -150px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(255, 106, 0, 0.25), transparent 70%);
+            animation-delay: 0s;
+        }
+        .bg-particle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            bottom: -250px;
+            right: -250px;
+            background: radial-gradient(circle, rgba(123, 47, 190, 0.2), transparent 70%);
+            animation-delay: -7s;
+        }
+        .bg-particle:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: 60%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.12), transparent 70%);
+            animation-delay: -14s;
+        }
+        .bg-particle:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            top: 10%;
+            right: 30%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent 70%);
+            animation-delay: -3s;
+        }
+        .bg-particle:nth-child(5) {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(255, 50, 150, 0.12), transparent 70%);
+            animation-delay: -10s;
+        }
         @keyframes floatParticle {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-            25% { transform: translate(30px, -20px) scale(1.1); opacity: 0.7; }
-            50% { transform: translate(-20px, 40px) scale(0.9); opacity: 0.4; }
-            75% { transform: translate(40px, 10px) scale(1.05); opacity: 0.6; }
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            25% { transform: translate(40px, -30px) scale(1.15); opacity: 0.8; }
+            50% { transform: translate(-30px, 50px) scale(0.9); opacity: 0.5; }
+            75% { transform: translate(50px, 15px) scale(1.08); opacity: 0.7; }
         }
         header {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto 30px;
-            padding: 16px 28px;
-            background: rgba(20, 24, 32, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            padding: 18px 32px;
+            background: rgba(15, 18, 28, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
             flex-wrap: wrap;
             gap: 15px;
         }
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 900;
-            background: linear-gradient(135deg, #ff6a00, #ff3c00, #7b2fbe);
+            background: linear-gradient(135deg, #ff6a00, #ff3c00, #ff6a00, #ffaa00);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
+            animation: gradientShift 4s ease infinite;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 0 20px rgba(255, 106, 0, 0.3));
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .logo i {
             -webkit-text-fill-color: #ff6a00;
-            margin-right: 10px;
-            filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.3));
+            margin-right: 12px;
+            animation: crownGlow 2s ease-in-out infinite;
+        }
+        @keyframes crownGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 25px rgba(255, 106, 0, 0.8)); }
         }
         .balance {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255, 106, 0, 0.1);
-            padding: 10px 22px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 106, 0, 0.2);
-            font-weight: 600;
-            font-size: 18px;
-            color: #ff6a00;
+            gap: 12px;
+            background: rgba(255, 106, 0, 0.12);
+            padding: 12px 26px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 106, 0, 0.25);
+            font-weight: 700;
+            font-size: 20px;
+            color: #ffaa00;
             transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .balance::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            animation: balanceShine 3s linear infinite;
+        }
+        @keyframes balanceShine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
         }
         .balance:hover {
-            background: rgba(255, 106, 0, 0.18);
-            border-color: rgba(255, 106, 0, 0.4);
-            box-shadow: 0 0 30px rgba(255, 106, 0, 0.1);
+            background: rgba(255, 106, 0, 0.2);
+            border-color: rgba(255, 106, 0, 0.5);
+            box-shadow: 0 0 40px rgba(255, 106, 0, 0.2);
+            transform: scale(1.02);
         }
-        .balance i { font-size: 20px; }
-        .balance span { color: #fff; margin-left: 4px; }
+        .balance i {
+            font-size: 22px;
+            animation: coinSpin 4s linear infinite;
+        }
+        @keyframes coinSpin {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+        }
+        .balance span { color: #fff; margin-left: 6px; font-size: 22px; }
         .tabs {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             display: flex;
-            gap: 6px;
+            gap: 8px;
             max-width: 1200px;
             margin: 0 auto 25px;
             flex-wrap: wrap;
-            background: rgba(20, 24, 32, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 14px;
-            padding: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(15, 18, 28, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
         .tab-btn {
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.4);
-            padding: 10px 26px;
-            border-radius: 10px;
+            padding: 12px 28px;
+            border-radius: 12px;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
@@ -129,54 +214,69 @@
             font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #ff6a00;
+            transition: 0.3s;
+            transform: translateX(-50%);
         }
         .tab-btn:hover {
-            color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
         }
+        .tab-btn:hover::after { width: 60%; }
         .tab-btn.active {
             color: #fff;
-            background: linear-gradient(135deg, rgba(255, 106, 0, 0.25), rgba(123, 47, 190, 0.15));
-            box-shadow: 0 0 30px rgba(255, 106, 0, 0.05);
-            border: 1px solid rgba(255, 106, 0, 0.15);
+            background: linear-gradient(135deg, rgba(255, 106, 0, 0.3), rgba(123, 47, 190, 0.2));
+            box-shadow: 0 0 30px rgba(255, 106, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 106, 0, 0.2);
         }
+        .tab-btn.active::after { width: 80%; background: #ff6a00; }
         .tab-btn .badge {
-            background: rgba(255, 106, 0, 0.2);
-            color: #ff6a00;
-            border-radius: 50%;
-            padding: 1px 8px;
-            font-size: 11px;
-            margin-left: 4px;
+            background: rgba(255, 106, 0, 0.25);
+            color: #ffaa00;
+            border-radius: 50px;
+            padding: 2px 10px;
+            font-size: 12px;
+            font-weight: 700;
         }
         .tab-content {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             display: none;
-            animation: tabFade 0.4s ease;
+            animation: tabFade 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .tab-content.active { display: block; }
         @keyframes tabFade {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .case-selector {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .case-option {
-            background: rgba(26, 31, 42, 0.7);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(42, 47, 58, 0.5);
-            border-radius: 14px;
-            padding: 14px 22px;
+            background: rgba(18, 22, 36, 0.8);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 18px 24px;
             cursor: pointer;
             transition: 0.3s;
             text-align: center;
-            min-width: 120px;
+            min-width: 130px;
             position: relative;
             overflow: hidden;
         }
@@ -187,43 +287,44 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 106, 0, 0.05), transparent);
+            background: linear-gradient(135deg, rgba(255, 106, 0, 0.08), transparent);
             opacity: 0;
             transition: 0.3s;
         }
         .case-option:hover {
-            border-color: rgba(255, 106, 0, 0.4);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 106, 0, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 106, 0, 0.1);
         }
         .case-option:hover::before { opacity: 1; }
         .case-option.active {
             border-color: #ff6a00;
-            background: rgba(255, 106, 0, 0.08);
-            box-shadow: 0 0 40px rgba(255, 106, 0, 0.08), inset 0 0 30px rgba(255, 106, 0, 0.03);
+            background: rgba(255, 106, 0, 0.12);
+            box-shadow: 0 0 50px rgba(255, 106, 0, 0.15), inset 0 0 40px rgba(255, 106, 0, 0.05);
+            animation: casePulse 2s ease-in-out infinite;
         }
-        .case-option .case-icon { font-size: 32px; display: block; margin-bottom: 4px; }
-        .case-option .case-name { font-weight: 600; font-size: 13px; }
-        .case-option .case-price { color: #ff6a00; font-size: 13px; font-weight: 600; }
-        .case-option .case-skins { color: rgba(255, 255, 255, 0.3); font-size: 11px; }
-        .case-option .case-ev { 
-            font-size: 10px; 
-            margin-top: 2px;
-            font-weight: 600;
+        @keyframes casePulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(255, 106, 0, 0.15); }
+            50% { box-shadow: 0 0 70px rgba(255, 106, 0, 0.25); }
         }
-        .case-ev.positive { color: #4caf50; }
-        .case-ev.negative { color: #f44336; }
-        .case-ev.neutral { color: #ff9800; }
+        .case-option .case-icon { font-size: 38px; display: block; margin-bottom: 6px; animation: iconBounce 2s ease-in-out infinite; }
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .case-option .case-name { font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+        .case-option .case-price { color: #ffaa00; font-size: 15px; font-weight: 700; margin-top: 4px; }
+        .case-option .case-skins { color: rgba(255, 255, 255, 0.3); font-size: 11px; margin-top: 2px; }
         .case-container {
             max-width: 900px;
             margin: 0 auto;
-            background: rgba(20, 24, 32, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(15, 18, 28, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 15px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
         .case-header {
             display: flex;
@@ -231,45 +332,47 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .case-header h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
-        .case-header .sub { color: rgba(255, 255, 255, 0.3); font-size: 14px; }
-        .case-header .sub .price-tag { color: #ff6a00; font-weight: 600; }
+        .case-header .sub { color: rgba(255, 255, 255, 0.35); font-size: 14px; }
+        .case-header .sub .price-tag { color: #ffaa00; font-weight: 700; }
         .case-stats {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             align-items: center;
             font-size: 13px;
-            color: rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.25);
         }
         .case-stats .stat-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            gap: 4px;
         }
         .case-stats .stat-value {
-            color: #ff6a00;
-            font-weight: 600;
-            font-size: 16px;
+            color: #ffaa00;
+            font-weight: 700;
+            font-size: 18px;
         }
         .roulette-wrapper {
             position: relative;
             width: 100%;
-            height: 140px;
-            background: rgba(12, 15, 22, 0.8);
-            margin: 20px auto;
+            height: 150px;
+            background: rgba(8, 10, 18, 0.9);
+            margin: 25px auto;
             overflow: hidden;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5);
         }
         .roulette-wrapper::after {
             content: '';
@@ -278,7 +381,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, rgba(10, 10, 18, 0.8) 0%, transparent 8%, transparent 92%, rgba(10, 10, 18, 0.8) 100%);
+            background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 10%, transparent 90%, rgba(5, 5, 16, 0.9) 100%);
             pointer-events: none;
             z-index: 5;
         }
@@ -289,83 +392,92 @@
             transform: translateX(-50%);
             width: 4px;
             height: 100%;
-            background: #ff6a00;
+            background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00);
             z-index: 10;
-            box-shadow: 0 0 25px #ff6a00, 0 0 50px rgba(255, 106, 0, 0.3);
+            box-shadow: 0 0 30px #ff6a00, 0 0 60px rgba(255, 106, 0, 0.4), 0 0 90px rgba(255, 106, 0, 0.2);
             border-radius: 2px;
         }
         .pointer::before {
             content: '▼';
             position: absolute;
-            top: -10px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
-            color: #ff6a00;
-            font-size: 14px;
-            text-shadow: 0 0 20px #ff6a00;
+            color: #ffaa00;
+            font-size: 18px;
+            text-shadow: 0 0 30px #ff6a00;
         }
         .pointer::after {
             content: '▼';
             position: absolute;
-            bottom: -10px;
+            bottom: -14px;
             left: 50%;
             transform: translateX(-50%) rotate(180deg);
-            color: #ff6a00;
-            font-size: 14px;
-            text-shadow: 0 0 20px #ff6a00;
+            color: #ffaa00;
+            font-size: 18px;
+            text-shadow: 0 0 30px #ff6a00;
         }
         .roulette-tape {
             display: flex;
             position: absolute;
             left: 0;
-            top: 10px;
+            top: 15px;
             transition: transform 4s cubic-bezier(0.08, 0.82, 0.17, 1);
             will-change: transform;
         }
         .skin-card {
-            width: 110px;
-            height: 110px;
-            margin: 0 5px;
-            background: rgba(26, 31, 42, 0.8);
-            border-radius: 10px;
+            width: 120px;
+            height: 115px;
+            margin: 0 6px;
+            background: rgba(20, 24, 38, 0.9);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             font-size: 11px;
-            padding: 8px;
+            padding: 10px;
             box-sizing: border-box;
             border-bottom: 4px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
             transition: 0.3s;
         }
-        .skin-card .icon { font-size: 36px; margin-bottom: 4px; }
+        .skin-card .icon { font-size: 40px; margin-bottom: 5px; }
         .skin-card .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 10px; }
-        .skin-card .price { font-size: 10px; color: rgba(255, 255, 255, 0.3); margin-top: 2px; }
-        .rarity-legendary { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(235, 75, 75, 0.12)); }
-        .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(211, 44, 230, 0.12)); }
-        .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(136, 71, 255, 0.12)); }
-        .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(75, 105, 255, 0.12)); }
-        .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5); background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(107, 122, 138, 0.06)); }
+        .skin-card .price { font-size: 10px; color: rgba(255, 255, 255, 0.35); margin-top: 3px; }
+        .rarity-legendary {
+            border-bottom-color: #ff4444;
+            background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(255, 68, 68, 0.15));
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.1);
+        }
+        .rarity-epic {
+            border-bottom-color: #d32ce6;
+            background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(211, 44, 230, 0.15));
+            box-shadow: 0 0 20px rgba(211, 44, 230, 0.1);
+        }
+        .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(136, 71, 255, 0.12)); }
+        .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(75, 105, 255, 0.12)); }
+        .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5); background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(107, 122, 138, 0.08)); }
         .btn-primary {
-            background: linear-gradient(135deg, #ff6a00, #ee3c00);
+            background: linear-gradient(135deg, #ff6a00, #ff3c00);
             color: #fff;
             border: none;
-            padding: 16px 44px;
+            padding: 18px 50px;
             font-size: 18px;
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
-            box-shadow: 0 4px 25px rgba(238, 60, 0, 0.35);
+            box-shadow: 0 6px 30px rgba(238, 60, 0, 0.4);
             transition: 0.3s;
             font-family: 'Inter', sans-serif;
             width: 100%;
-            max-width: 320px;
-            margin: 10px auto 0;
+            max-width: 340px;
+            margin: 15px auto 0;
             display: block;
             position: relative;
             overflow: hidden;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         .btn-primary::before {
             content: '';
@@ -374,13 +486,13 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.08), transparent);
             transform: rotate(45deg);
             transition: 0.6s;
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 8px 40px rgba(238, 60, 0, 0.5);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 50px rgba(238, 60, 0, 0.6);
         }
         .btn-primary:hover::before { left: 100%; }
         .btn-primary:active { transform: translateY(0) scale(0.98); }
@@ -391,54 +503,52 @@
             transform: none;
         }
         .case-skins-list {
-            margin-top: 22px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
         .case-skins-list .list-title {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.35);
             font-size: 13px;
-            margin-bottom: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
         .case-skins-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            max-height: 180px;
+            max-height: 200px;
             overflow-y: auto;
-            padding: 4px;
+            padding: 6px;
         }
-        .case-skins-grid::-webkit-scrollbar { width: 3px; }
-        .case-skins-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
+        .case-skins-grid::-webkit-scrollbar { width: 4px; }
+        .case-skins-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; }
         .case-skins-grid::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
         .case-skin-preview {
-            background: rgba(26, 31, 42, 0.6);
-            border-radius: 8px;
-            padding: 6px 10px;
+            background: rgba(20, 24, 38, 0.8);
+            border-radius: 10px;
+            padding: 8px 12px;
             text-align: center;
             border-bottom: 3px solid rgba(255, 255, 255, 0.05);
-            width: 80px;
+            width: 85px;
             transition: 0.2s;
         }
-        .case-skin-preview:hover {
-            transform: translateY(-2px);
-            border-color: rgba(255, 106, 0, 0.3);
-        }
-        .case-skin-preview .icon { font-size: 20px; display: block; }
-        .case-skin-preview .name { font-size: 8px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .case-skin-preview .price { font-size: 7px; color: rgba(255, 255, 255, 0.25); }
-        .inventory-section {
+        .case-skin-preview:hover { transform: translateY(-3px); border-color: rgba(255, 106, 0, 0.4); }
+        .case-skin-preview .icon { font-size: 22px; display: block; }
+        .case-skin-preview .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .case-skin-preview .price { font-size: 8px; color: rgba(255, 255, 255, 0.3); }
+        .inventory-section, .upgrade-section, .contract-section {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(20, 24, 32, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(15, 18, 28, 0.8);
+            backdrop-filter: blur(25px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 15px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
         .inventory-header {
             display: flex;
@@ -446,56 +556,54 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
         .inventory-header h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 1px;
         }
-        .inventory-header .stats {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 13px;
-        }
+        .inventory-header .stats { color: rgba(255, 255, 255, 0.35); font-size: 14px; }
         .inventory-header .stats strong { color: #fff; }
         .inventory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            max-height: 500px;
+            grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+            gap: 16px;
+            max-height: 520px;
             overflow-y: auto;
-            padding: 4px;
+            padding: 6px;
         }
-        .inventory-grid::-webkit-scrollbar { width: 4px; }
-        .inventory-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
-        .inventory-grid::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
+        .inventory-grid::-webkit-scrollbar { width: 5px; }
+        .inventory-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; }
+        .inventory-grid::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ff6a00, #ff3c00); border-radius: 10px; }
         .inv-item {
-            background: rgba(26, 31, 42, 0.6);
-            border-radius: 12px;
-            padding: 14px 10px;
+            background: rgba(20, 24, 38, 0.8);
+            border-radius: 14px;
+            padding: 16px 12px;
             text-align: center;
-            border-bottom: 4px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             transition: 0.3s;
             position: relative;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
         .inv-item:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
             border-color: #ff6a00;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 106, 0, 0.15);
         }
-        .inv-item .icon { font-size: 34px; display: block; margin-bottom: 4px; }
-        .inv-item .name { font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .inv-item .price { font-size: 11px; color: rgba(255, 255, 255, 0.3); margin: 4px 0 8px; }
-        .inv-item .btn-group { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
+        .inv-item .icon { font-size: 38px; display: block; margin-bottom: 6px; }
+        .inv-item .name { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .inv-item .price { font-size: 12px; color: rgba(255, 255, 255, 0.35); margin: 6px 0 10px; }
+        .inv-item .btn-group { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
         .btn-sell {
-            background: rgba(42, 47, 58, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(30, 35, 48, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             color: #fff;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 7px 16px;
+            border-radius: 25px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
@@ -503,219 +611,219 @@
         }
         .btn-sell:hover {
             background: #ff6a00;
-            color: #0a0a12;
+            color: #050510;
             border-color: #ff6a00;
-            box-shadow: 0 0 25px rgba(255, 106, 0, 0.2);
+            box-shadow: 0 0 30px rgba(255, 106, 0, 0.3);
+            transform: scale(1.05);
         }
         .empty-inv {
             grid-column: 1 / -1;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.1);
             text-align: center;
-            padding: 40px 20px;
-            font-size: 16px;
+            padding: 50px 20px;
+            font-size: 18px;
         }
-        .empty-inv i { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.2; }
-        .upgrade-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(20, 24, 32, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .upgrade-title {
+        .empty-inv i { font-size: 60px; display: block; margin-bottom: 15px; opacity: 0.2; }
+        /* UPGRADE */
+        .upgrade-title, .contract-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            color: #ff6a00;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6a00, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
         }
-        .upgrade-title small {
+        .upgrade-title small, .contract-title small {
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.2);
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.2);
         }
         .upgrade-grid {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
+            gap: 25px;
             align-items: stretch;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .upgrade-box {
-            background: rgba(12, 15, 22, 0.6);
-            border-radius: 14px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            min-height: 200px;
+            background: rgba(10, 12, 22, 0.8);
+            border-radius: 18px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            min-height: 220px;
             position: relative;
             overflow: hidden;
+            transition: 0.3s;
+        }
+        .upgrade-box:hover {
+            border-color: rgba(255, 106, 0, 0.2);
+            box-shadow: 0 0 40px rgba(255, 106, 0, 0.05);
         }
         .upgrade-box .box-title {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.25);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
             text-align: center;
         }
-        .upgrade-box .box-title strong { color: rgba(255, 255, 255, 0.5); }
+        .upgrade-box .box-title strong { color: rgba(255, 255, 255, 0.6); }
         .input-skins {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            min-height: 80px;
+            min-height: 90px;
             align-items: center;
         }
         .input-skin-item {
-            background: rgba(26, 31, 42, 0.6);
-            border-radius: 8px;
-            padding: 8px 10px;
+            background: rgba(20, 24, 38, 0.8);
+            border-radius: 10px;
+            padding: 10px 12px;
             text-align: center;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.05);
-            width: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            width: 85px;
             animation: flyIn 0.4s ease-out;
         }
         @keyframes flyIn {
             0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
             100% { transform: scale(1) rotate(0); opacity: 1; }
         }
-        .input-skin-item .icon { font-size: 28px; display: block; }
+        .input-skin-item .icon { font-size: 30px; display: block; }
         .input-skin-item .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .input-skin-item .price { font-size: 8px; color: rgba(255, 255, 255, 0.25); }
+        .input-skin-item .price { font-size: 9px; color: rgba(255, 255, 255, 0.3); }
         .input-skin-item .remove-btn {
-            background: rgba(42, 47, 58, 0.6);
+            background: rgba(255, 68, 68, 0.3);
             border: none;
-            color: #ff6a00;
+            color: #ff4444;
             border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
             cursor: pointer;
-            margin-top: 3px;
+            margin-top: 4px;
             transition: 0.2s;
         }
         .input-skin-item .remove-btn:hover {
-            background: #ff6a00;
-            color: #0a0a12;
+            background: #ff4444;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.4);
         }
         .input-placeholder {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 15px;
             text-align: center;
             width: 100%;
-            padding: 20px 0;
+            padding: 25px 0;
         }
         .upgrade-arrow-center {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             padding: 0 10px;
         }
         .upgrade-arrow-center .arrow {
-            font-size: 48px;
+            font-size: 55px;
             color: #ff6a00;
             transition: 0.3s;
-            text-shadow: 0 0 30px rgba(255, 106, 0, 0.2);
+            text-shadow: 0 0 40px rgba(255, 106, 0, 0.3);
+            animation: arrowGlow 2s ease-in-out infinite;
         }
-        .upgrade-arrow-center .arrow.spinning {
-            animation: arrowSpin 0.5s ease-in-out infinite;
+        @keyframes arrowGlow {
+            0%, 100% { text-shadow: 0 0 40px rgba(255, 106, 0, 0.3); }
+            50% { text-shadow: 0 0 60px rgba(255, 106, 0, 0.5); }
         }
-        .upgrade-arrow-center .arrow.success { color: #4caf50; text-shadow: 0 0 30px rgba(76, 175, 80, 0.3); }
-        .upgrade-arrow-center .arrow.fail { color: #f44336; text-shadow: 0 0 30px rgba(244, 67, 54, 0.3); }
+        .upgrade-arrow-center .arrow.spinning { animation: arrowSpin 0.5s ease-in-out infinite; }
+        .upgrade-arrow-center .arrow.success { color: #4caf50; text-shadow: 0 0 50px rgba(76, 175, 80, 0.5); }
+        .upgrade-arrow-center .arrow.fail { color: #f44336; text-shadow: 0 0 50px rgba(244, 67, 54, 0.5); }
         @keyframes arrowSpin {
-            0% { transform: rotate(-15deg) scale(1.1); }
-            50% { transform: rotate(15deg) scale(1.1); }
-            100% { transform: rotate(-15deg) scale(1.1); }
+            0% { transform: rotate(-20deg) scale(1.15); }
+            50% { transform: rotate(20deg) scale(1.15); }
+            100% { transform: rotate(-20deg) scale(1.15); }
         }
         .chance-selector {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 10px 0;
+            margin: 15px 0;
         }
         .chance-btn {
-            background: rgba(26, 31, 42, 0.6);
-            border: 2px solid rgba(42, 47, 58, 0.5);
-            color: rgba(255, 255, 255, 0.4);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
+            background: rgba(20, 24, 38, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Inter', sans-serif;
         }
         .chance-btn:hover {
-            border-color: rgba(255, 106, 0, 0.3);
-            color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 106, 0, 0.4);
+            color: rgba(255, 255, 255, 0.8);
         }
         .chance-btn.active {
             border-color: #ff6a00;
-            background: rgba(255, 106, 0, 0.1);
-            color: #ff6a00;
-            box-shadow: 0 0 30px rgba(255, 106, 0, 0.05);
+            background: rgba(255, 106, 0, 0.15);
+            color: #ffaa00;
+            box-shadow: 0 0 40px rgba(255, 106, 0, 0.1);
         }
-        .chance-btn .multiplier {
-            display: block;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.2);
-        }
+        .chance-btn .multiplier { display: block; font-size: 11px; color: rgba(255, 255, 255, 0.25); }
         .result-skin {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
         }
-        .result-skin .icon { font-size: 48px; display: block; margin-bottom: 6px; }
-        .result-skin .name { font-size: 16px; font-weight: 700; }
-        .result-skin .price { font-size: 14px; color: rgba(255, 255, 255, 0.3); margin-top: 4px; }
+        .result-skin .icon { font-size: 55px; display: block; margin-bottom: 8px; }
+        .result-skin .name { font-size: 18px; font-weight: 700; }
+        .result-skin .price { font-size: 16px; color: rgba(255, 255, 255, 0.35); margin-top: 6px; }
         .result-skin .rarity-badge {
             display: inline-block;
-            padding: 2px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 6px;
+            padding: 4px 18px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 8px;
+            letter-spacing: 1px;
         }
-        .rarity-badge.legendary { background: rgba(235, 75, 75, 0.2); color: #eb4b4b; }
-        .rarity-badge.epic { background: rgba(211, 44, 230, 0.2); color: #d32ce6; }
-        .rarity-badge.rare { background: rgba(136, 71, 255, 0.2); color: #8847ff; }
-        .rarity-badge.uncommon { background: rgba(75, 105, 255, 0.2); color: #4b69ff; }
-        .rarity-badge.common { background: rgba(107, 122, 138, 0.15); color: rgba(255, 255, 255, 0.4); }
-        .result-placeholder {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 14px;
-            text-align: center;
-            padding: 30px 0;
-        }
+        .rarity-badge.legendary { background: rgba(255, 68, 68, 0.2); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3); }
+        .rarity-badge.epic { background: rgba(211, 44, 230, 0.2); color: #d32ce6; border: 1px solid rgba(211, 44, 230, 0.3); }
+        .rarity-badge.rare { background: rgba(136, 71, 255, 0.2); color: #8847ff; border: 1px solid rgba(136, 71, 255, 0.3); }
+        .rarity-badge.uncommon { background: rgba(75, 105, 255, 0.2); color: #4b69ff; border: 1px solid rgba(75, 105, 255, 0.3); }
+        .rarity-badge.common { background: rgba(107, 122, 138, 0.15); color: rgba(255, 255, 255, 0.5); border: 1px solid rgba(107, 122, 138, 0.2); }
+        .result-placeholder { color: rgba(255, 255, 255, 0.1); font-size: 15px; text-align: center; padding: 35px 0; }
         .upgrade-actions {
             display: flex;
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 15px;
+            margin-top: 20px;
         }
         .btn-upgrade {
-            background: linear-gradient(135deg, #7b2fbe, #4a1a7a);
+            background: linear-gradient(135deg, #7b2fbe, #5a1a8a);
             color: #fff;
             border: none;
-            padding: 14px 45px;
+            padding: 16px 50px;
             font-size: 17px;
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 25px rgba(123, 47, 190, 0.3);
+            box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         .btn-upgrade:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 40px rgba(123, 47, 190, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6);
         }
         .btn-upgrade:disabled {
             background: rgba(42, 47, 58, 0.6);
@@ -724,55 +832,43 @@
             transform: none;
         }
         .btn-clear {
-            background: rgba(42, 47, 58, 0.4);
+            background: rgba(30, 35, 48, 0.6);
             color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 14px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 35px;
             font-size: 15px;
             font-weight: 600;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Inter', sans-serif;
         }
-        .btn-clear:hover {
-            background: rgba(42, 47, 58, 0.6);
-            border-color: rgba(255, 255, 255, 0.08);
-        }
+        .btn-clear:hover { background: rgba(30, 35, 48, 0.8); border-color: rgba(255, 255, 255, 0.15); }
         .upgrade-select-section {
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
         .upgrade-select-section .section-title {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 13px;
-            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
         }
         .upgrade-select-section .section-title strong { color: #fff; }
         .upgrade-result-overlay {
-            margin-top: 15px;
-            padding: 20px;
-            border-radius: 14px;
+            margin-top: 18px;
+            padding: 25px;
+            border-radius: 16px;
             text-align: center;
             animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .upgrade-result-overlay.success {
-            background: rgba(76, 175, 80, 0.06);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-        }
-        .upgrade-result-overlay.fail {
-            background: rgba(244, 67, 54, 0.06);
-            border: 1px solid rgba(244, 67, 54, 0.2);
-        }
-        .upgrade-result-overlay .big-icon {
-            font-size: 64px;
-            display: block;
-            animation: bounce 0.8s ease-in-out infinite;
-        }
+        .upgrade-result-overlay.success { background: rgba(76, 175, 80, 0.08); border: 1px solid rgba(76, 175, 80, 0.25); }
+        .upgrade-result-overlay.fail { background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.25); }
+        .upgrade-result-overlay .big-icon { font-size: 70px; display: block; animation: bounce 0.8s ease-in-out infinite; }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
         .particle {
             position: absolute;
@@ -783,60 +879,40 @@
             0% { transform: translate(0, 0) scale(1); opacity: 1; }
             100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
-        .contract-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(20, 24, 32, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .contract-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #ff6a00;
-            margin-bottom: 20px;
-        }
-        .contract-title small {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.2);
-        }
         .contract-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px 20px;
-            background: rgba(12, 15, 22, 0.4);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 25px;
+            padding: 20px 25px;
+            background: rgba(10, 12, 22, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
-        .contract-info .selected-count { color: rgba(255, 255, 255, 0.3); }
-        .contract-info .selected-count strong { color: #ff6a00; }
-        .contract-info .total-value { font-size: 18px; font-weight: 700; }
-        .contract-info .total-value span { color: #ff6a00; }
+        .contract-info .selected-count { color: rgba(255, 255, 255, 0.35); }
+        .contract-info .selected-count strong { color: #ffaa00; }
+        .contract-info .total-value { font-size: 20px; font-weight: 700; }
+        .contract-info .total-value span { color: #ffaa00; }
         .btn-contract {
-            background: linear-gradient(135deg, #7b2fbe, #4a1a7a);
+            background: linear-gradient(135deg, #7b2fbe, #5a1a8a);
             color: #fff;
             border: none;
-            padding: 14px 45px;
+            padding: 16px 50px;
             font-size: 17px;
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 25px rgba(123, 47, 190, 0.3);
+            box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         .btn-contract:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 40px rgba(123, 47, 190, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6);
         }
         .btn-contract:disabled {
             background: rgba(42, 47, 58, 0.6);
@@ -845,54 +921,57 @@
             transform: none;
         }
         .contract-result {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 14px;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 16px;
             text-align: center;
             animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: none;
             border: 1px solid transparent;
         }
         .contract-result.show { display: block; }
-        .contract-result.success {
-            background: rgba(76, 175, 80, 0.06);
-            border-color: rgba(76, 175, 80, 0.2);
-        }
-        .contract-result .big-icon { font-size: 64px; display: block; }
+        .contract-result.success { background: rgba(76, 175, 80, 0.06); border-color: rgba(76, 175, 80, 0.2); }
+        .contract-result .big-icon { font-size: 70px; display: block; }
         .contract-animation {
             display: none;
             text-align: center;
-            padding: 30px;
+            padding: 35px;
         }
         .contract-animation.show { display: block; }
         .contract-animation .spinner {
-            font-size: 48px;
+            font-size: 55px;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes resultPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
         @media (max-width: 768px) {
-            .upgrade-grid { grid-template-columns: 1fr; gap: 15px; }
-            .upgrade-arrow-center { flex-direction: row; padding: 10px 0; }
-            .upgrade-arrow-center .arrow { font-size: 32px; }
-            .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-            .skin-card { width: 80px; height: 90px; }
-            .skin-card .icon { font-size: 28px; }
-            .roulette-wrapper { height: 110px; }
-            .case-option { min-width: 100px; padding: 12px 18px; }
-            .case-skin-preview { width: 70px; }
-            .case-skin-preview .icon { font-size: 20px; }
-            .logo { font-size: 20px; }
-            .balance { font-size: 15px; padding: 8px 16px; }
-            .tab-btn { padding: 8px 16px; font-size: 13px; }
-            header { padding: 12px 18px; }
-            .case-container { padding: 20px; }
-            .case-header h3 { font-size: 18px; }
+            .upgrade-grid { grid-template-columns: 1fr; gap: 18px; }
+            .upgrade-arrow-center { flex-direction: row; padding: 12px 0; }
+            .upgrade-arrow-center .arrow { font-size: 36px; }
+            .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); }
+            .skin-card { width: 85px; height: 95px; }
+            .skin-card .icon { font-size: 30px; }
+            .roulette-wrapper { height: 115px; }
+            .case-option { min-width: 105px; padding: 14px 20px; }
+            .case-skin-preview { width: 75px; }
+            .case-skin-preview .icon { font-size: 22px; }
+            .logo { font-size: 22px; }
+            .balance { font-size: 16px; padding: 10px 18px; }
+            .tab-btn { padding: 10px 18px; font-size: 13px; }
+            header { padding: 14px 20px; }
+            .case-container { padding: 22px; }
+            .case-header h3 { font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
     <div class="bg-particles">
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
         <div class="bg-particle"></div>
         <div class="bg-particle"></div>
         <div class="bg-particle"></div>
@@ -913,6 +992,7 @@
         <button class="tab-btn" data-tab="contract"><i class="fas fa-file-signature"></i> Контракт</button>
     </div>
 
+    <!-- TAB: CASE -->
     <div class="tab-content active" id="tab-case">
         <div class="case-container">
             <div class="case-selector" id="caseSelector"></div>
@@ -925,14 +1005,6 @@
                     <div class="stat-item">
                         <span>Скинов</span>
                         <span class="stat-value" id="caseSkinCount">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Средняя цена</span>
-                        <span class="stat-value" id="caseAvgPrice">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Окупаемость</span>
-                        <span class="stat-value" id="caseEV">0%</span>
                     </div>
                 </div>
             </div>
@@ -949,6 +1021,7 @@
         </div>
     </div>
 
+    <!-- TAB: INVENTORY -->
     <div class="tab-content" id="tab-inventory">
         <div class="inventory-section">
             <div class="inventory-header">
@@ -967,49 +1040,50 @@
         </div>
     </div>
 
+    <!-- TAB: UPGRADE -->
     <div class="tab-content" id="tab-upgrade">
         <div class="upgrade-section">
             <div class="upgrade-title">
-                ⚡ АПГРЕЙД ОРУЖИЯ 2.0
-                <small>— выбери шанс и скины</small>
+                ⚡ АПГРЕЙД ОРУЖИЯ
+                <small>— рискни и умножь</small>
             </div>
 
-            <div style="text-align:center; margin-bottom:15px;">
-                <span style="color:rgba(255,255,255,0.3); font-size:14px;">Выбери шанс на успех:</span>
+            <div style="text-align:center; margin-bottom:20px;">
+                <span style="color:rgba(255,255,255,0.35); font-size:14px;">Выбери шанс на успех:</span>
                 <div class="chance-selector" id="chanceSelector">
                     <button class="chance-btn active" data-chance="50" data-multiplier="2">
-                        50% <span class="multiplier">×2</span>
+                        🎯 50% <span class="multiplier">×2</span>
                     </button>
                     <button class="chance-btn" data-chance="25" data-multiplier="4">
-                        25% <span class="multiplier">×4</span>
+                        🎲 25% <span class="multiplier">×4</span>
                     </button>
                     <button class="chance-btn" data-chance="75" data-multiplier="1.33">
-                        75% <span class="multiplier">×1.33</span>
+                        🛡️ 75% <span class="multiplier">×1.33</span>
                     </button>
                     <button class="chance-btn" data-chance="10" data-multiplier="10">
-                        10% <span class="multiplier">×10</span>
+                        💀 10% <span class="multiplier">×10</span>
                     </button>
                 </div>
             </div>
 
             <div class="upgrade-grid">
                 <div class="upgrade-box" id="inputBox">
-                    <div class="box-title">📦 <strong>Входные скины:</strong> <span id="inputCount">0</span> шт.</div>
+                    <div class="box-title">📦 <strong>ВХОД</strong> — <span id="inputCount">0</span> шт.</div>
                     <div class="input-skins" id="inputSkinsContainer">
                         <div class="input-placeholder">Выберите скины для апгрейда</div>
                     </div>
-                    <div style="margin-top:10px; text-align:center; font-size:12px; color:rgba(255,255,255,0.2);">
-                        Сумма: <span id="inputTotalPrice" style="color:#ff6a00;">0.00</span> ₽
+                    <div style="margin-top:12px; text-align:center; font-size:13px; color:rgba(255,255,255,0.25);">
+                        Сумма: <span id="inputTotalPrice" style="color:#ffaa00; font-weight:700;">0.00</span> ₽
                     </div>
                 </div>
 
                 <div class="upgrade-arrow-center">
-                    <div class="arrow" id="upgradeArrow">➡️</div>
-                    <div style="font-size:12px; color:rgba(255,255,255,0.2);" id="multiplierDisplay">×2</div>
+                    <div class="arrow" id="upgradeArrow">⚡</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.25);" id="multiplierDisplay">×2</div>
                 </div>
 
                 <div class="upgrade-box" id="resultBox">
-                    <div class="box-title">🎯 <strong>Результат</strong></div>
+                    <div class="box-title">🎯 <strong>РЕЗУЛЬТАТ</strong></div>
                     <div id="resultContainer">
                         <div class="result-placeholder">Ожидание</div>
                     </div>
@@ -1019,7 +1093,7 @@
 
             <div class="upgrade-actions">
                 <button class="btn-upgrade" id="upgradeBtn" disabled>
-                    <i class="fas fa-arrow-up"></i> АПГРЕЙДНУТЬ
+                    <i class="fas fa-bolt"></i> АПГРЕЙДНУТЬ
                 </button>
                 <button class="btn-clear" id="clearUpgradeBtn">
                     <i class="fas fa-times"></i> Очистить
@@ -1028,7 +1102,7 @@
 
             <div class="upgrade-select-section">
                 <div class="section-title">
-                    <i class="fas fa-hand-pointer"></i> Выберите скины для апгрейда: <strong id="upgradeSelectCount">0</strong> выбрано
+                    <i class="fas fa-hand-pointer"></i> Твой инвентарь: <strong id="upgradeSelectCount">0</strong> выбрано
                 </div>
                 <div class="inventory-grid" id="upgradeInventoryGrid">
                     <div class="empty-inv">
@@ -1040,40 +1114,41 @@
         </div>
     </div>
 
+    <!-- TAB: CONTRACT -->
     <div class="tab-content" id="tab-contract">
         <div class="contract-section">
             <div class="contract-title">
                 📜 СИСТЕМА КОНТРАКТОВ
-                <small>— выбери от 3 до 10 скинов</small>
+                <small>— обменяй кучу на один</small>
             </div>
 
             <div class="contract-info">
                 <div class="selected-count">
-                    Выбрано: <strong id="contractCount">0</strong> / <span id="contractMaxCount">10</span> скинов
+                    Выбрано: <strong id="contractCount">0</strong> / <span id="contractMaxCount">10</span>
                 </div>
                 <div class="total-value">
                     Сумма: <span id="contractTotalPrice">0.00</span> ₽
                 </div>
                 <button class="btn-contract" id="contractBtn" disabled>
-                    <i class="fas fa-file-signature"></i> ЗАКЛЮЧИТЬ КОНТРАКТ
+                    <i class="fas fa-handshake"></i> КОНТРАКТ
                 </button>
             </div>
 
             <div class="contract-animation" id="contractAnimation">
                 <div class="spinner">🔄</div>
-                <div style="margin-top:10px; color:#ff6a00;">Заключаем контракт...</div>
+                <div style="margin-top:12px; color:#ffaa00; font-weight:600;">Заключаем контракт...</div>
             </div>
 
             <div class="contract-result" id="contractResult">
                 <span class="big-icon" id="contractResultIcon">🎉</span>
-                <div style="font-size:22px; font-weight:bold;" id="contractResultName">Новый скин</div>
-                <div style="font-size:18px; color:rgba(255,255,255,0.3);" id="contractResultPrice">0.00 ₽</div>
-                <div style="font-size:13px; margin-top:6px; color:rgba(255,255,255,0.2);" id="contractResultMultiplier">Множитель: x0</div>
+                <div style="font-size:24px; font-weight:800; margin-top:8px;" id="contractResultName">Новый скин</div>
+                <div style="font-size:20px; color:rgba(255,255,255,0.35); margin-top:6px;" id="contractResultPrice">0.00 ₽</div>
+                <div style="font-size:14px; margin-top:8px; color:rgba(255,255,255,0.25);" id="contractResultMultiplier">Множитель: x0</div>
             </div>
 
-            <div style="margin-top:20px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.04);">
-                <div style="color:rgba(255,255,255,0.25); font-size:14px; margin-bottom:15px;">
-                    <i class="fas fa-hand-pointer"></i> Выберите скины для контракта:
+            <div style="margin-top:25px; padding-top:25px; border-top:1px solid rgba(255,255,255,0.06);">
+                <div style="color:rgba(255,255,255,0.3); font-size:14px; margin-bottom:18px; letter-spacing:1px;">
+                    <i class="fas fa-hand-pointer"></i> Твой инвентарь:
                 </div>
                 <div class="inventory-grid" id="contractInventoryGrid">
                     <div class="empty-inv">
@@ -1086,91 +1161,46 @@
     </div>
 
     <script>
-        // ============================================================
-        //  ЗВУКИ
-        // ============================================================
         const SoundFX = {
             ctx: null,
-            init() {
-                if (!this.ctx) this.ctx = new(window.AudioContext || window.webkitAudioContext)();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-            },
+            init() { if (!this.ctx) this.ctx = new(window.AudioContext || window.webkitAudioContext)(); if (this.ctx.state === 'suspended') this.ctx.resume(); },
             play(type) {
                 this.init();
                 const ctx = this.ctx;
                 const now = ctx.currentTime;
-                const playTone = (freq, dur, vol = 0.15, type = 'sine', delay = 0) => {
+                const playTone = (freq, dur, vol = 0.12, type = 'sine', delay = 0) => {
                     const o = ctx.createOscillator();
                     const g = ctx.createGain();
-                    o.connect(g);
-                    g.connect(ctx.destination);
-                    o.type = type;
-                    o.frequency.setValueAtTime(freq, now + delay);
+                    o.connect(g); g.connect(ctx.destination);
+                    o.type = type; o.frequency.setValueAtTime(freq, now + delay);
                     g.gain.setValueAtTime(vol, now + delay);
                     g.gain.exponentialRampToValueAtTime(0.001, now + delay + dur);
-                    o.start(now + delay);
-                    o.stop(now + delay + dur);
+                    o.start(now + delay); o.stop(now + delay + dur);
                 };
-                const noiseBurst = (dur = 0.3, vol = 0.08) => {
+                const noiseBurst = (dur = 0.3, vol = 0.06) => {
                     const bufferSize = ctx.sampleRate * dur;
                     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                     const data = buffer.getChannelData(0);
                     for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize * 4);
                     const noise = ctx.createBufferSource();
                     const ng = ctx.createGain();
-                    noise.buffer = buffer;
-                    noise.connect(ng);
-                    ng.connect(ctx.destination);
-                    ng.gain.setValueAtTime(vol, now);
-                    ng.gain.exponentialRampToValueAtTime(0.001, now + dur);
-                    noise.start(now);
-                    noise.stop(now + dur);
+                    noise.buffer = buffer; noise.connect(ng); ng.connect(ctx.destination);
+                    ng.gain.setValueAtTime(vol, now); ng.gain.exponentialRampToValueAtTime(0.001, now + dur);
+                    noise.start(now); noise.stop(now + dur);
                 };
-
                 switch (type) {
-                    case 'case_open':
-                        noiseBurst(0.35, 0.07);
-                        playTone(800, 0.12, 0.1, 'square', 0.05);
-                        playTone(1100, 0.08, 0.06, 'square', 0.15);
-                        playTone(1400, 0.06, 0.04, 'sine', 0.25);
-                        setTimeout(() => { playTone(600, 0.1, 0.08, 'sawtooth', 0); }, 180);
-                        setTimeout(() => { playTone(950, 0.07, 0.05, 'triangle', 0); }, 260);
-                        break;
-                    case 'case_scroll':
-                        noiseBurst(0.12, 0.03);
-                        playTone(1500, 0.04, 0.05, 'triangle', 0.02);
-                        break;
-                    case 'legendary':
-                        [523, 659, 784, 1047, 1318].forEach((f, i) => setTimeout(() => playTone(f, 0.25, 0.12), i * 100));
-                        noiseBurst(0.6, 0.05);
-                        break;
-                    case 'sell':
-                        playTone(1200, 0.06, 0.07, 'triangle');
-                        playTone(800, 0.06, 0.07, 'triangle', 0.06);
-                        playTone(600, 0.06, 0.07, 'triangle', 0.12);
-                        break;
-                    case 'upgrade_success':
-                        [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, 0.2, 0.12), i * 80));
-                        noiseBurst(0.4, 0.04);
-                        break;
-                    case 'upgrade_fail':
-                        playTone(250, 0.4, 0.15, 'sawtooth');
-                        playTone(200, 0.3, 0.1, 'square', 0.1);
-                        noiseBurst(0.5, 0.06);
-                        break;
-                    case 'contract':
-                        [400, 500, 600, 700, 800].forEach((f, i) => setTimeout(() => playTone(f, 0.05, 0.06, 'square'), i * 50));
-                        noiseBurst(0.25, 0.04);
-                        break;
+                    case 'case_open': noiseBurst(0.35, 0.06); playTone(800, 0.12, 0.08, 'square', 0.05); playTone(1100, 0.08, 0.05, 'square', 0.15); playTone(1400, 0.06, 0.03, 'sine', 0.25); break;
+                    case 'case_scroll': noiseBurst(0.1, 0.02); playTone(1500, 0.03, 0.04, 'triangle', 0.02); break;
+                    case 'legendary': [523, 659, 784, 1047, 1318].forEach((f, i) => setTimeout(() => playTone(f, 0.25, 0.1), i * 100)); noiseBurst(0.6, 0.04); break;
+                    case 'sell': playTone(1200, 0.06, 0.06, 'triangle'); playTone(800, 0.06, 0.06, 'triangle', 0.06); playTone(600, 0.06, 0.06, 'triangle', 0.12); break;
+                    case 'upgrade_success': [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, 0.2, 0.1), i * 80)); noiseBurst(0.4, 0.03); break;
+                    case 'upgrade_fail': playTone(250, 0.4, 0.12, 'sawtooth'); playTone(200, 0.3, 0.08, 'square', 0.1); noiseBurst(0.5, 0.05); break;
+                    case 'contract': [400, 500, 600, 700, 800].forEach((f, i) => setTimeout(() => playTone(f, 0.05, 0.05, 'square'), i * 50)); noiseBurst(0.25, 0.03); break;
                 }
             }
         };
 
-        // ============================================================
-        //  СКИНЫ
-        // ============================================================
         const ALL_SKINS = [
-            // LEGENDARY
             { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
             { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
             { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
@@ -1181,7 +1211,6 @@
             { name: "Керамбит | Сапфир", rarity: "legendary", icon: "🔪", price: 3200.00 },
             { name: "Керамбит | Изумруд", rarity: "legendary", icon: "🔪", price: 5000.00 },
             { name: "AWP | Медведь", rarity: "legendary", icon: "🐻", price: 1400.00 },
-            // EPIC
             { name: "AK-47 | Вулканический", rarity: "epic", icon: "🌋", price: 145.00 },
             { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 98.00 },
             { name: "M4A1-S | Кибер", rarity: "epic", icon: "💻", price: 75.00 },
@@ -1189,7 +1218,6 @@
             { name: "USP-S | Убийца", rarity: "epic", icon: "🎯", price: 62.00 },
             { name: "Glock-18 | Феникс", rarity: "epic", icon: "🔥", price: 55.00 },
             { name: "SSG 08 | Смерть", rarity: "epic", icon: "💀", price: 50.00 },
-            // RARE
             { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 35.00 },
             { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 28.00 },
             { name: "AK-47 | Красная линия", rarity: "rare", icon: "🔴", price: 42.00 },
@@ -1197,7 +1225,6 @@
             { name: "AWP | Фуксия", rarity: "rare", icon: "🌸", price: 45.00 },
             { name: "Desert Eagle | Мечта", rarity: "rare", icon: "🌙", price: 25.00 },
             { name: "P250 | Вспышка", rarity: "rare", icon: "💥", price: 18.00 },
-            // UNCOMMON
             { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
             { name: "AK-47 | Водяной", rarity: "uncommon", icon: "💧", price: 15.00 },
             { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
@@ -1206,7 +1233,6 @@
             { name: "Five-SeveN | Серебро", rarity: "uncommon", icon: "🔩", price: 11.00 },
             { name: "SSG 08 | Абисс", rarity: "uncommon", icon: "🌊", price: 14.00 },
             { name: "MP7 | Иней", rarity: "uncommon", icon: "❄️", price: 7.50 },
-            // COMMON
             { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
             { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
             { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
@@ -1219,249 +1245,76 @@
             { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
         ];
 
-        // ============================================================
-        //  КЕЙСЫ
-        // ============================================================
-        function calculateCaseEV(casePrice, skins) {
-            const weights = getRarityWeights(skins);
-            let expectedValue = 0;
-            
-            for (const [rarity, weight] of Object.entries(weights)) {
-                const raritySkins = skins.filter(s => s.rarity === rarity);
-                if (raritySkins.length > 0 && weight > 0) {
-                    const avgPrice = raritySkins.reduce((sum, s) => sum + s.price, 0) / raritySkins.length;
-                    expectedValue += (weight / 100) * avgPrice;
-                }
-            }
-            
-            return {
-                expectedValue: expectedValue,
-                evPercent: ((expectedValue - casePrice) / casePrice) * 100,
-                avgSkinPrice: expectedValue
-            };
-        }
-
         const CASES = [
-            {
-                id: 'premium',
-                name: '🔥 ПРЕМИУМ КЕЙС',
-                icon: '💎',
-                price: 699,
-                description: 'Только легендарки и эпики',
-                skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic')
-            },
-            {
-                id: 'legendary_hunt',
-                name: '⭐ ЛЕГЕНДАРНАЯ ОХОТА',
-                icon: '⭐',
-                price: 250,
-                description: 'Повышенный шанс легендарок',
-                skins: [
-                    ...ALL_SKINS.filter(s => s.rarity === 'legendary'),
-                    ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 3),
-                    ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5),
-                    ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 4)
-                ]
-            },
-            {
-                id: 'mixed',
-                name: '🎲 МИКС КЕЙС',
-                icon: '🎲',
-                price: 149,
-                description: 'Все редкости',
-                skins: ALL_SKINS
-            },
-            {
-                id: 'sniper',
-                name: '🎯 СНАЙПЕРСКИЙ',
-                icon: '🎯',
-                price: 349,
-                description: 'AWP + SSG + редкие',
-                skins: [
-                    ...ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG')),
-                    ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 4),
-                    ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 2)
-                ]
-            },
-            {
-                id: 'starter',
-                name: '🚀 СТАРТОВЫЙ',
-                icon: '🚀',
-                price: 15,
-                description: 'Дешево, можно окупить',
-                skins: [
-                    ...ALL_SKINS.filter(s => s.rarity === 'rare'),
-                    ...ALL_SKINS.filter(s => s.rarity === 'uncommon'),
-                    ...ALL_SKINS.filter(s => s.rarity === 'common').slice(0, 3)
-                ]
-            },
-            {
-                id: 'knife',
-                name: '🗡️ НОЖЕВОЙ',
-                icon: '🗡️',
-                price: 299,
-                description: 'Шанс на дорогой нож',
-                skins: [
-                    ...ALL_SKINS.filter(s => s.name.includes('Керамбит') || s.name.includes('Bayonet')),
-                    ...ALL_SKINS.filter(s => s.rarity === 'epic'),
-                    ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5)
-                ]
-            },
-            {
-                id: 'profit',
-                name: '📈 ПРИБЫЛЬНЫЙ',
-                icon: '📈',
-                price: 45,
-                description: 'EV+ кейс',
-                skins: [
-                    ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 2),
-                    ...ALL_SKINS.filter(s => s.rarity === 'rare'),
-                    ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 6)
-                ]
-            },
-            {
-                id: 'yolo',
-                name: '💀 YOLO КЕЙС',
-                icon: '💀',
-                price: 100,
-                description: 'Всё или ничего',
-                skins: [
-                    { name: "Керамбит | Изумруд", rarity: "legendary", icon: "🔪", price: 5000.00 },
-                    { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
-                    ...ALL_SKINS.filter(s => s.rarity === 'common')
-                ]
-            }
+            { id: 'premium', name: '🔥 ПРЕМИУМ КЕЙС', icon: '💎', price: 699, description: 'Только легендарки и эпики', skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic') },
+            { id: 'legendary_hunt', name: '⭐ ЛЕГЕНДАРНАЯ ОХОТА', icon: '⭐', price: 250, description: 'Повышенный шанс легендарок', skins: [...ALL_SKINS.filter(s => s.rarity === 'legendary'), ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 3), ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5), ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 4)] },
+            { id: 'mixed', name: '🎲 МИКС КЕЙС', icon: '🎲', price: 149, description: 'Все редкости', skins: ALL_SKINS },
+            { id: 'sniper', name: '🎯 СНАЙПЕРСКИЙ', icon: '🎯', price: 349, description: 'AWP + SSG + редкие', skins: [...ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG')), ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 4), ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 2)] },
+            { id: 'starter', name: '🚀 СТАРТОВЫЙ', icon: '🚀', price: 15, description: 'Дешево, можно окупить', skins: [...ALL_SKINS.filter(s => s.rarity === 'rare'), ...ALL_SKINS.filter(s => s.rarity === 'uncommon'), ...ALL_SKINS.filter(s => s.rarity === 'common').slice(0, 3)] },
+            { id: 'knife', name: '🗡️ НОЖЕВОЙ', icon: '🗡️', price: 299, description: 'Шанс на дорогой нож', skins: [...ALL_SKINS.filter(s => s.name.includes('Керамбит') || s.name.includes('Bayonet')), ...ALL_SKINS.filter(s => s.rarity === 'epic'), ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5)] },
+            { id: 'yolo', name: '💀 YOLO КЕЙС', icon: '💀', price: 100, description: '1% на нож, 3% на лор', skins: [{ name: "Керамбит | Изумруд", rarity: "legendary", icon: "🔪", price: 5000.00 }, { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 }, ...ALL_SKINS.filter(s => s.rarity === 'common')] }
         ];
 
         function getRarityWeights(caseSkins) {
             const rarityCount = {};
-            caseSkins.forEach(skin => {
-                rarityCount[skin.rarity] = (rarityCount[skin.rarity] || 0) + 1;
-            });
-
+            caseSkins.forEach(skin => { rarityCount[skin.rarity] = (rarityCount[skin.rarity] || 0) + 1; });
             let weights = {};
-            
-            if (rarityCount.legendary && rarityCount.legendary >= 3) {
-                weights = { legendary: 5, epic: rarityCount.epic ? 15 : 0, rare: rarityCount.rare ? 25 : 0, uncommon: rarityCount.uncommon ? 30 : 0, common: rarityCount.common ? 25 : 0 };
-            } else if (rarityCount.legendary && rarityCount.legendary >= 2) {
-                weights = { legendary: 3, epic: rarityCount.epic ? 12 : 0, rare: rarityCount.rare ? 25 : 0, uncommon: rarityCount.uncommon ? 30 : 0, common: rarityCount.common ? 30 : 0 };
-            } else if (rarityCount.legendary) {
-                weights = { legendary: 2, epic: rarityCount.epic ? 10 : 0, rare: rarityCount.rare ? 20 : 0, uncommon: rarityCount.uncommon ? 33 : 0, common: rarityCount.common ? 35 : 0 };
-            } else if (rarityCount.epic) {
-                weights = { legendary: 0, epic: 15, rare: rarityCount.rare ? 30 : 0, uncommon: rarityCount.uncommon ? 30 : 0, common: rarityCount.common ? 25 : 0 };
-            } else {
-                weights = { legendary: 0, epic: 0, rare: rarityCount.rare ? 35 : 0, uncommon: rarityCount.uncommon ? 40 : 0, common: rarityCount.common ? 25 : 0 };
-            }
-
-            // Нормализация
+            if (rarityCount.legendary && rarityCount.legendary >= 3) weights = { legendary: 5, epic: rarityCount.epic ? 15 : 0, rare: rarityCount.rare ? 25 : 0, uncommon: rarityCount.uncommon ? 30 : 0, common: rarityCount.common ? 25 : 0 };
+            else if (rarityCount.legendary && rarityCount.legendary >= 2) weights = { legendary: 3, epic: rarityCount.epic ? 12 : 0, rare: rarityCount.rare ? 25 : 0, uncommon: rarityCount.uncommon ? 30 : 0, common: rarityCount.common ? 30 : 0 };
+            else if (rarityCount.legendary) weights = { legendary: 2, epic: rarityCount.epic ? 10 : 0, rare: rarityCount.rare ? 20 : 0, uncommon: rarityCount.uncommon ? 33 : 0, common: rarityCount.common ? 35 : 0 };
+            else if (rarityCount.epic) weights = { legendary: 0, epic: 15, rare: rarityCount.rare ? 30 : 0, uncommon: rarityCount.uncommon ? 30 : 0, common: rarityCount.common ? 25 : 0 };
+            else weights = { legendary: 0, epic: 0, rare: rarityCount.rare ? 35 : 0, uncommon: rarityCount.uncommon ? 40 : 0, common: rarityCount.common ? 25 : 0 };
             const total = Object.values(weights).reduce((a, b) => a + b, 0);
-            if (total > 0) {
-                for (const key in weights) {
-                    weights[key] = (weights[key] / total) * 100;
-                }
-            }
-            
+            if (total > 0) for (const key in weights) weights[key] = (weights[key] / total) * 100;
             return weights;
         }
 
         function getRandomItem(caseSkins) {
+            if (CASES[currentCaseIndex].id === 'yolo') {
+                const rand = Math.random() * 100;
+                if (rand < 1) return caseSkins.find(s => s.name.includes('Изумруд')) || caseSkins[0];
+                else if (rand < 4) return caseSkins.find(s => s.name.includes('Dragon Lore')) || caseSkins[0];
+                else { const commonSkins = caseSkins.filter(s => s.rarity === 'common'); return commonSkins[Math.floor(Math.random() * commonSkins.length)]; }
+            }
             const weights = getRarityWeights(caseSkins);
             const rand = Math.random() * 100;
-            let cumulative = 0;
-            let selectedRarity = 'common';
-
-            for (const [rarity, weight] of Object.entries(weights)) {
-                cumulative += weight;
-                if (rand <= cumulative) {
-                    selectedRarity = rarity;
-                    break;
-                }
-            }
-
+            let cumulative = 0, selectedRarity = 'common';
+            for (const [rarity, weight] of Object.entries(weights)) { cumulative += weight; if (rand <= cumulative) { selectedRarity = rarity; break; } }
             const pool = caseSkins.filter(item => item.rarity === selectedRarity);
             return pool.length ? pool[Math.floor(Math.random() * pool.length)] : caseSkins[Math.floor(Math.random() * caseSkins.length)];
         }
 
         function getSkinByPrice(targetPrice) {
-            let best = ALL_SKINS[0];
-            let bestDiff = Infinity;
-            for (const skin of ALL_SKINS) {
-                const diff = Math.abs(skin.price - targetPrice);
-                if (diff < bestDiff) {
-                    bestDiff = diff;
-                    best = skin;
-                }
-            }
+            let best = ALL_SKINS[0], bestDiff = Infinity;
+            for (const skin of ALL_SKINS) { const diff = Math.abs(skin.price - targetPrice); if (diff < bestDiff) { bestDiff = diff; best = skin; } }
             return best;
         }
 
-        // ============================================================
-        //  СОСТОЯНИЕ
-        // ============================================================
-        let balance = 500;
-        let inventory = [];
-        let idCounter = 0;
-        let isSpinning = false;
-        let isUpgrading = false;
-        let isContracting = false;
-        let selectedForUpgrade = new Set();
-        let selectedForContract = new Set();
-        let currentCaseIndex = 0;
-        let selectedChance = 50;
-        let selectedMultiplier = 2;
-        let scrollInterval = null;
+        let balance = 500, inventory = [], idCounter = 0, isSpinning = false, isUpgrading = false, isContracting = false;
+        let selectedForUpgrade = new Set(), selectedForContract = new Set(), currentCaseIndex = 0, selectedChance = 50, selectedMultiplier = 2, scrollInterval = null;
+        const CARD_WIDTH = 132;
 
-        const CARD_WIDTH = 120;
-        const tape = document.getElementById('tape');
-        const openBtn = document.getElementById('openBtn');
-        const balanceSpan = document.getElementById('balanceDisplay');
-        const inventoryGrid = document.getElementById('inventoryGrid');
-        const upgradeInventoryGrid = document.getElementById('upgradeInventoryGrid');
-        const contractInventoryGrid = document.getElementById('contractInventoryGrid');
-        const invCount = document.getElementById('invCount');
-        const invTotalCount = document.getElementById('invTotalCount');
-        const invTotalPrice = document.getElementById('invTotalPrice');
-        const upgradeBtn = document.getElementById('upgradeBtn');
-        const clearUpgradeBtn = document.getElementById('clearUpgradeBtn');
-        const contractBtn = document.getElementById('contractBtn');
-        const contractCount = document.getElementById('contractCount');
-        const contractMaxCount = document.getElementById('contractMaxCount');
-        const contractTotalPrice = document.getElementById('contractTotalPrice');
-        const contractAnimation = document.getElementById('contractAnimation');
-        const contractResult = document.getElementById('contractResult');
-        const contractResultIcon = document.getElementById('contractResultIcon');
-        const contractResultName = document.getElementById('contractResultName');
-        const contractResultPrice = document.getElementById('contractResultPrice');
-        const contractResultMultiplier = document.getElementById('contractResultMultiplier');
-        const inputSkinsContainer = document.getElementById('inputSkinsContainer');
-        const inputCount = document.getElementById('inputCount');
-        const inputTotalPrice = document.getElementById('inputTotalPrice');
-        const resultContainer = document.getElementById('resultContainer');
-        const upgradeResultMessage = document.getElementById('upgradeResultMessage');
-        const upgradeArrow = document.getElementById('upgradeArrow');
-        const upgradeSelectCount = document.getElementById('upgradeSelectCount');
-        const multiplierDisplay = document.getElementById('multiplierDisplay');
-        const caseSelector = document.getElementById('caseSelector');
-        const caseName = document.getElementById('caseName');
-        const casePrice = document.getElementById('casePrice');
-        const caseSkinCount = document.getElementById('caseSkinCount');
-        const caseSkinsGrid = document.getElementById('caseSkinsGrid');
-        const caseAvgPrice = document.getElementById('caseAvgPrice');
-        const caseEV = document.getElementById('caseEV');
+        const $ = id => document.getElementById(id);
+        const tape = $('tape'), openBtn = $('openBtn'), balanceSpan = $('balanceDisplay'), inventoryGrid = $('inventoryGrid');
+        const upgradeInventoryGrid = $('upgradeInventoryGrid'), contractInventoryGrid = $('contractInventoryGrid');
+        const invCount = $('invCount'), invTotalCount = $('invTotalCount'), invTotalPrice = $('invTotalPrice');
+        const upgradeBtn = $('upgradeBtn'), clearUpgradeBtn = $('clearUpgradeBtn'), contractBtn = $('contractBtn');
+        const contractCount = $('contractCount'), contractMaxCount = $('contractMaxCount'), contractTotalPrice = $('contractTotalPrice');
+        const contractAnimation = $('contractAnimation'), contractResult = $('contractResult'), contractResultIcon = $('contractResultIcon');
+        const contractResultName = $('contractResultName'), contractResultPrice = $('contractResultPrice'), contractResultMultiplier = $('contractResultMultiplier');
+        const inputSkinsContainer = $('inputSkinsContainer'), inputCount = $('inputCount'), inputTotalPrice = $('inputTotalPrice');
+        const resultContainer = $('resultContainer'), upgradeResultMessage = $('upgradeResultMessage'), upgradeArrow = $('upgradeArrow');
+        const upgradeSelectCount = $('upgradeSelectCount'), multiplierDisplay = $('multiplierDisplay');
+        const caseSelector = $('caseSelector'), caseName = $('caseName'), casePrice = $('casePrice'), caseSkinCount = $('caseSkinCount'), caseSkinsGrid = $('caseSkinsGrid');
 
-        function generateTapeItems(winSkin = null, caseSkins) {
+        function generateTapeItems(winSkin, caseSkins) {
             tape.innerHTML = '';
-            const count = 40;
-            const winIndex = 32;
+            const count = 40, winIndex = 32;
             for (let i = 0; i < count; i++) {
                 let item = (i === winIndex && winSkin) ? winSkin : getRandomItem(caseSkins);
                 const card = document.createElement('div');
                 card.className = `skin-card rarity-${item.rarity}`;
-                card.innerHTML = `
-                    <div class="icon">${item.icon}</div>
-                    <div class="name">${item.name}</div>
-                    <div class="price">${item.price.toFixed(2)} ₽</div>
-                `;
+                card.innerHTML = `<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;
                 tape.appendChild(card);
             }
         }
@@ -1470,18 +1323,10 @@
             const c = CASES[currentCaseIndex];
             caseSkinCount.textContent = c.skins.length;
             caseSkinsGrid.innerHTML = '';
-            const sorted = [...c.skins].sort((a, b) => {
-                const order = { legendary: 0, epic: 1, rare: 2, uncommon: 3, common: 4 };
-                return (order[a.rarity] || 5) - (order[b.rarity] || 5) || b.price - a.price;
-            });
-            sorted.forEach(skin => {
+            [...c.skins].sort((a, b) => { const order = { legendary: 0, epic: 1, rare: 2, uncommon: 3, common: 4 }; return (order[a.rarity] || 5) - (order[b.rarity] || 5) || b.price - a.price; }).forEach(skin => {
                 const div = document.createElement('div');
                 div.className = `case-skin-preview rarity-${skin.rarity}`;
-                div.innerHTML = `
-                    <span class="icon">${skin.icon}</span>
-                    <div class="name">${skin.name}</div>
-                    <div class="price">${skin.price.toFixed(2)} ₽</div>
-                `;
+                div.innerHTML = `<span class="icon">${skin.icon}</span><div class="name">${skin.name}</div><div class="price">${skin.price.toFixed(2)} ₽</div>`;
                 caseSkinsGrid.appendChild(div);
             });
         }
@@ -1489,355 +1334,157 @@
         function renderCases() {
             caseSelector.innerHTML = '';
             CASES.forEach((c, index) => {
-                const ev = calculateCaseEV(c.price, c.skins);
                 const div = document.createElement('div');
                 div.className = `case-option ${index === currentCaseIndex ? 'active' : ''}`;
-                
-                let evClass = 'neutral';
-                let evText = `${ev.evPercent.toFixed(1)}%`;
-                if (ev.evPercent > 5) {
-                    evClass = 'positive';
-                    evText = `+${ev.evPercent.toFixed(1)}%`;
-                } else if (ev.evPercent < -5) {
-                    evClass = 'negative';
-                    evText = `${ev.evPercent.toFixed(1)}%`;
-                }
-                
-                div.innerHTML = `
-                    <span class="case-icon">${c.icon}</span>
-                    <div class="case-name">${c.name}</div>
-                    <div class="case-price">${c.price} ₽</div>
-                    <div class="case-skins">${c.skins.length} скинов</div>
-                    <div class="case-ev ${evClass}">EV: ${evText}</div>
-                `;
-                div.addEventListener('click', () => {
-                    currentCaseIndex = index;
-                    renderCases();
-                    updateCaseUI();
-                    renderCaseSkins();
-                    generateTapeItems(null, CASES[currentCaseIndex].skins);
-                });
+                div.innerHTML = `<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;
+                div.addEventListener('click', () => { currentCaseIndex = index; renderCases(); updateCaseUI(); renderCaseSkins(); generateTapeItems(null, CASES[currentCaseIndex].skins); });
                 caseSelector.appendChild(div);
             });
-            updateCaseUI();
-            renderCaseSkins();
-            generateTapeItems(null, CASES[currentCaseIndex].skins);
+            updateCaseUI(); renderCaseSkins(); generateTapeItems(null, CASES[currentCaseIndex].skins);
         }
 
         function updateCaseUI() {
             const c = CASES[currentCaseIndex];
-            const ev = calculateCaseEV(c.price, c.skins);
-            
             caseName.textContent = c.icon + ' ' + c.name;
             casePrice.textContent = c.price;
-            caseAvgPrice.textContent = ev.avgSkinPrice.toFixed(2) + ' ₽';
-            
-            let evText = `${ev.evPercent.toFixed(1)}%`;
-            if (ev.evPercent > 0) evText = `+${ev.evPercent.toFixed(1)}%`;
-            
-            caseEV.textContent = evText;
-            
-            if (ev.evPercent > 5) {
-                caseEV.style.color = '#4caf50';
-            } else if (ev.evPercent < -5) {
-                caseEV.style.color = '#f44336';
-            } else {
-                caseEV.style.color = '#ff9800';
-            }
         }
 
         function openCase() {
             if (isSpinning) return;
-            const currentCase = CASES[currentCaseIndex];
-            if (balance < currentCase.price) {
-                alert('❌ Недостаточно средств!');
-                return;
-            }
-
-            balance -= currentCase.price;
-            updateBalanceUI();
-
-            SoundFX.play('case_open');
-
-            isSpinning = true;
-            openBtn.disabled = true;
-            openBtn.textContent = '🎰 КРУТИМ...';
-
-            const winSkin = getRandomItem(currentCase.skins);
-
-            tape.style.transition = 'none';
-            tape.style.transform = 'translateX(0px)';
-            generateTapeItems(winSkin, currentCase.skins);
-
-            const wrapper = document.querySelector('.roulette-wrapper');
-            const wrapperWidth = wrapper.offsetWidth;
-            const winIndex = 32;
+            const c = CASES[currentCaseIndex];
+            if (balance < c.price) { alert('❌ Недостаточно средств!'); return; }
+            balance -= c.price; updateBalanceUI(); SoundFX.play('case_open');
+            isSpinning = true; openBtn.disabled = true; openBtn.textContent = '🎰 КРУТИМ...';
+            const winSkin = getRandomItem(c.skins);
+            tape.style.transition = 'none'; tape.style.transform = 'translateX(0px)'; generateTapeItems(winSkin, c.skins);
+            const wrapper = document.querySelector('.roulette-wrapper'), wrapperWidth = wrapper.offsetWidth, winIndex = 32;
             const targetLeft = -(winIndex * CARD_WIDTH) + (wrapperWidth / 2) - (CARD_WIDTH / 2);
-
-            let currentPos = 0;
-            const speed = 15;
+            let currentPos = 0; const speed = 15;
             clearInterval(scrollInterval);
             scrollInterval = setInterval(() => {
-                currentPos -= speed;
-                tape.style.transform = `translateX(${currentPos}px)`;
-                SoundFX.play('case_scroll');
-                if (currentPos < -2000) {
-                    clearInterval(scrollInterval);
-                    setTimeout(() => {
-                        tape.style.transition = 'transform 4s cubic-bezier(0.08, 0.82, 0.17, 1)';
-                        const innerRandom = (Math.random() * 40) - 20;
-                        tape.style.transform = `translateX(${targetLeft + innerRandom}px)`;
-                    }, 50);
-                }
+                currentPos -= speed; tape.style.transform = `translateX(${currentPos}px)`; SoundFX.play('case_scroll');
+                if (currentPos < -2000) { clearInterval(scrollInterval); setTimeout(() => { tape.style.transition = 'transform 4s cubic-bezier(0.08, 0.82, 0.17, 1)'; tape.style.transform = `translateX(${targetLeft + (Math.random() * 40 - 20)}px)`; }, 50); }
             }, 16);
-
             setTimeout(() => {
-                const newItem = { ...winSkin, id: idCounter++ };
-                inventory.push(newItem);
-                renderAllInventory();
-
-                if (winSkin.rarity === 'legendary') {
-                    SoundFX.play('legendary');
-                }
-
-                isSpinning = false;
-                openBtn.disabled = false;
-                openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
+                inventory.push({ ...winSkin, id: idCounter++ }); renderAllInventory();
+                if (winSkin.rarity === 'legendary') SoundFX.play('legendary');
+                isSpinning = false; openBtn.disabled = false; openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
             }, 4200);
         }
 
         function renderAllInventory() {
-            invCount.textContent = inventory.length;
-            invTotalCount.textContent = inventory.length;
-            const total = inventory.reduce((sum, item) => sum + item.price, 0);
-            invTotalPrice.textContent = total.toFixed(2);
-
-            if (inventory.length === 0) {
-                inventoryGrid.innerHTML = `
-                    <div class="empty-inv">
-                        <i class="fas fa-box-open"></i>
-                        Инвентарь пуст<br>
-                        <span style="font-size:13px; color:rgba(255,255,255,0.1);">Открой кейс, чтобы получить скины</span>
-                    </div>
-                `;
-            } else {
-                inventoryGrid.innerHTML = '';
-                inventory.forEach(item => {
-                    const div = createInventoryItem(item, false, false);
-                    inventoryGrid.appendChild(div);
-                });
-            }
-
-            renderUpgradeInventory();
-            renderContractInventory();
-            updateUpgradeUI();
-            updateContractUI();
+            invCount.textContent = inventory.length; invTotalCount.textContent = inventory.length;
+            invTotalPrice.textContent = inventory.reduce((sum, i) => sum + i.price, 0).toFixed(2);
+            if (inventory.length === 0) inventoryGrid.innerHTML = '<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст<br><span style="font-size:13px; color:rgba(255,255,255,0.1);">Открой кейс, чтобы получить скины</span></div>';
+            else { inventoryGrid.innerHTML = ''; inventory.forEach(item => inventoryGrid.appendChild(createInventoryItem(item, false, false))); }
+            renderUpgradeInventory(); renderContractInventory(); updateUpgradeUI(); updateContractUI();
         }
 
         function createInventoryItem(item, isUpgradeMode, isContractMode) {
             const div = document.createElement('div');
             div.className = `inv-item rarity-${item.rarity}`;
-
-            const isUpgradeSelected = selectedForUpgrade.has(item.id);
-            const isContractSelected = selectedForContract.has(item.id);
-
+            const isUpgradeSelected = selectedForUpgrade.has(item.id), isContractSelected = selectedForContract.has(item.id);
             if (isUpgradeSelected) div.style.borderColor = '#ff6a00';
             if (isContractSelected) div.style.borderColor = '#7b2fbe';
-
             let buttons = '';
-            if (isUpgradeMode) {
-                buttons = `
-                    <button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${isUpgradeSelected ? 'rgba(255,106,0,0.3)' : 'rgba(42,47,58,0.6)'}; border-color:${isUpgradeSelected ? '#ff6a00' : 'transparent'};">
-                        ${isUpgradeSelected ? '✓ Выбран' : 'Выбрать'}
-                    </button>
-                `;
-            } else if (isContractMode) {
-                buttons = `
-                    <button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${isContractSelected ? 'rgba(123,47,190,0.3)' : 'rgba(42,47,58,0.6)'}; border-color:${isContractSelected ? '#7b2fbe' : 'transparent'};">
-                        ${isContractSelected ? '✓ Выбран' : 'Выбрать'}
-                    </button>
-                `;
-            } else {
-                buttons = `
-                    <button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>
-                `;
-            }
-
-            div.innerHTML = `
-                <span class="icon">${item.icon}</span>
-                <div class="name">${item.name}</div>
-                <div class="price">${item.price.toFixed(2)} ₽</div>
-                <div class="btn-group">${buttons}</div>
-            `;
-
-            div.querySelectorAll('.btn-sell').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const action = this.dataset.action;
-                    if (action === 'sell') sellItem(id);
-                    else if (action === 'toggleUpgrade') toggleUpgradeSelection(id);
-                    else if (action === 'toggleContract') toggleContractSelection(id);
-                });
-            });
-
+            if (isUpgradeMode) buttons = `<button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${isUpgradeSelected ? 'rgba(255,106,0,0.3)' : 'rgba(30,35,48,0.9)'}; border-color:${isUpgradeSelected ? '#ff6a00' : 'rgba(255,255,255,0.06)'};">${isUpgradeSelected ? '✓ Выбран' : 'Выбрать'}</button>`;
+            else if (isContractMode) buttons = `<button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${isContractSelected ? 'rgba(123,47,190,0.3)' : 'rgba(30,35,48,0.9)'}; border-color:${isContractSelected ? '#7b2fbe' : 'rgba(255,255,255,0.06)'};">${isContractSelected ? '✓ Выбран' : 'Выбрать'}</button>`;
+            else buttons = `<button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>`;
+            div.innerHTML = `<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><div class="btn-group">${buttons}</div>`;
+            div.querySelectorAll('.btn-sell').forEach(btn => btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = parseInt(this.dataset.id), action = this.dataset.action;
+                if (action === 'sell') sellItem(id);
+                else if (action === 'toggleUpgrade') toggleUpgradeSelection(id);
+                else if (action === 'toggleContract') toggleContractSelection(id);
+            }));
             return div;
         }
 
         function renderUpgradeInventory() {
-            if (inventory.length === 0) {
-                upgradeInventoryGrid.innerHTML = '<div class="empty-inv"><i class="fas fa-box-open"></i> Нет скинов для апгрейда</div>';
-                return;
-            }
-            upgradeInventoryGrid.innerHTML = '';
-            inventory.forEach(item => upgradeInventoryGrid.appendChild(createInventoryItem(item, true, false)));
+            if (inventory.length === 0) upgradeInventoryGrid.innerHTML = '<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов для апгрейда</div>';
+            else { upgradeInventoryGrid.innerHTML = ''; inventory.forEach(item => upgradeInventoryGrid.appendChild(createInventoryItem(item, true, false))); }
         }
 
         function renderContractInventory() {
-            if (inventory.length === 0) {
-                contractInventoryGrid.innerHTML = '<div class="empty-inv"><i class="fas fa-box-open"></i> Нет скинов для контракта</div>';
-                return;
-            }
-            contractInventoryGrid.innerHTML = '';
-            inventory.forEach(item => contractInventoryGrid.appendChild(createInventoryItem(item, false, true)));
+            if (inventory.length === 0) contractInventoryGrid.innerHTML = '<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов для контракта</div>';
+            else { contractInventoryGrid.innerHTML = ''; inventory.forEach(item => contractInventoryGrid.appendChild(createInventoryItem(item, false, true))); }
         }
 
         function sellItem(id) {
-            const index = inventory.findIndex(item => item.id === id);
+            const index = inventory.findIndex(i => i.id === id);
             if (index === -1) return;
-            const item = inventory[index];
-            balance += item.price;
-            updateBalanceUI();
-            inventory.splice(index, 1);
-            selectedForUpgrade.delete(id);
-            selectedForContract.delete(id);
-            renderAllInventory();
-            SoundFX.play('sell');
+            balance += inventory[index].price; updateBalanceUI();
+            inventory.splice(index, 1); selectedForUpgrade.delete(id); selectedForContract.delete(id);
+            renderAllInventory(); SoundFX.play('sell');
         }
 
         function setupChanceSelector() {
-            document.querySelectorAll('.chance-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.chance-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    selectedChance = parseInt(this.dataset.chance);
-                    selectedMultiplier = parseFloat(this.dataset.multiplier);
-                    updateUpgradeUI();
-                });
-            });
+            document.querySelectorAll('.chance-btn').forEach(btn => btn.addEventListener('click', function() {
+                document.querySelectorAll('.chance-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedChance = parseInt(this.dataset.chance); selectedMultiplier = parseFloat(this.dataset.multiplier);
+                updateUpgradeUI();
+            }));
         }
 
-        function toggleUpgradeSelection(id) {
-            if (isUpgrading) return;
-            if (selectedForUpgrade.has(id)) selectedForUpgrade.delete(id);
-            else selectedForUpgrade.add(id);
-            renderAllInventory();
-        }
+        function toggleUpgradeSelection(id) { if (isUpgrading) return; selectedForUpgrade.has(id) ? selectedForUpgrade.delete(id) : selectedForUpgrade.add(id); renderAllInventory(); }
+        function toggleContractSelection(id) { if (isContracting) return; selectedForContract.has(id) ? selectedForContract.delete(id) : (selectedForContract.size >= 10 ? alert('Максимум 10 скинов!') : selectedForContract.add(id)); renderAllInventory(); }
 
         function updateUpgradeUI() {
-            const selectedItems = inventory.filter(item => selectedForUpgrade.has(item.id));
-            const count = selectedItems.length;
-            inputCount.textContent = count;
-            const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            const selectedItems = inventory.filter(i => selectedForUpgrade.has(i.id));
+            inputCount.textContent = selectedItems.length;
+            const totalPrice = selectedItems.reduce((s, i) => s + i.price, 0);
             inputTotalPrice.textContent = totalPrice.toFixed(2);
-
-            if (count === 0) {
-                inputSkinsContainer.innerHTML = '<div class="input-placeholder">Выберите скины для апгрейда</div>';
-            } else {
+            if (selectedItems.length === 0) inputSkinsContainer.innerHTML = '<div class="input-placeholder">Выберите скины для апгрейда</div>';
+            else {
                 inputSkinsContainer.innerHTML = '';
                 selectedItems.forEach(item => {
                     const div = document.createElement('div');
                     div.className = `input-skin-item rarity-${item.rarity}`;
-                    div.innerHTML = `
-                        <span class="icon">${item.icon}</span>
-                        <div class="name">${item.name}</div>
-                        <div class="price">${item.price.toFixed(2)} ₽</div>
-                        <button class="remove-btn" data-id="${item.id}">✕</button>
-                    `;
-                    div.querySelector('.remove-btn').addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        selectedForUpgrade.delete(parseInt(this.dataset.id));
-                        renderAllInventory();
-                    });
+                    div.innerHTML = `<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${item.id}">✕</button>`;
+                    div.querySelector('.remove-btn').addEventListener('click', function(e) { e.stopPropagation(); selectedForUpgrade.delete(parseInt(this.dataset.id)); renderAllInventory(); });
                     inputSkinsContainer.appendChild(div);
                 });
             }
-
-            upgradeBtn.disabled = count < 1 || isUpgrading;
-            upgradeSelectCount.textContent = count;
-
-            if (count >= 1) {
-                const targetPrice = totalPrice * selectedMultiplier;
-                const targetSkin = getSkinByPrice(targetPrice);
-                resultContainer.innerHTML = `
-                    <div class="result-skin">
-                        <span class="icon">${targetSkin.icon}</span>
-                        <div class="name">${targetSkin.name}</div>
-                        <div class="price">${targetSkin.price.toFixed(2)} ₽</div>
-                        <span class="rarity-badge ${targetSkin.rarity}">${targetSkin.rarity.toUpperCase()}</span>
-                        <div style="font-size:11px; color:rgba(255,255,255,0.2); margin-top:4px;">×${selectedMultiplier.toFixed(2)} (${selectedChance}% шанс)</div>
-                    </div>
-                `;
+            upgradeBtn.disabled = selectedItems.length < 1 || isUpgrading;
+            upgradeSelectCount.textContent = selectedItems.length;
+            if (selectedItems.length >= 1) {
+                const targetSkin = getSkinByPrice(totalPrice * selectedMultiplier);
+                resultContainer.innerHTML = `<div class="result-skin"><span class="icon">${targetSkin.icon}</span><div class="name">${targetSkin.name}</div><div class="price">${targetSkin.price.toFixed(2)} ₽</div><span class="rarity-badge ${targetSkin.rarity}">${targetSkin.rarity.toUpperCase()}</span></div>`;
                 multiplierDisplay.textContent = `×${selectedMultiplier.toFixed(2)}`;
-                resultContainer.dataset.targetSkin = JSON.stringify(targetSkin);
-                resultContainer.dataset.totalPrice = totalPrice;
+                resultContainer.dataset.targetSkin = JSON.stringify(targetSkin); resultContainer.dataset.totalPrice = totalPrice;
                 upgradeResultMessage.innerHTML = '';
-            } else {
-                resultContainer.innerHTML = '<div class="result-placeholder">Выберите минимум 1 скин</div>';
-                upgradeResultMessage.innerHTML = '';
-            }
+            } else { resultContainer.innerHTML = '<div class="result-placeholder">Выберите минимум 1 скин</div>'; upgradeResultMessage.innerHTML = ''; }
         }
 
         function performUpgrade() {
             if (isUpgrading) return;
-            const selectedItems = inventory.filter(item => selectedForUpgrade.has(item.id));
+            const selectedItems = inventory.filter(i => selectedForUpgrade.has(i.id));
             if (selectedItems.length < 1) return alert('Выбери минимум 1 скин!');
-
-            isUpgrading = true;
-            upgradeBtn.disabled = true;
-            upgradeArrow.classList.add('spinning');
-            upgradeResultMessage.innerHTML = '<div style="padding:10px; color:#ff6a00;">🔄 Апгрейд...</div>';
-
+            isUpgrading = true; upgradeBtn.disabled = true; upgradeArrow.classList.add('spinning');
+            upgradeResultMessage.innerHTML = '<div style="padding:10px; color:#ffaa00;">⚡ Апгрейд...</div>';
             setTimeout(() => {
                 const success = Math.random() * 100 < selectedChance;
                 upgradeArrow.classList.remove('spinning');
-
                 if (success) {
-                    SoundFX.play('upgrade_success');
-                    upgradeArrow.className = 'arrow success';
-                    upgradeArrow.textContent = '✅';
+                    SoundFX.play('upgrade_success'); upgradeArrow.className = 'arrow success'; upgradeArrow.textContent = '✅';
                     const targetData = JSON.parse(resultContainer.dataset.targetSkin || 'null');
-                    inventory = inventory.filter(item => !selectedForUpgrade.has(item.id));
-                    selectedForUpgrade.clear();
-                    const newItem = { ...targetData, id: idCounter++ };
-                    inventory.push(newItem);
-                    upgradeResultMessage.innerHTML = `<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:bold; color:#4caf50;">УСПЕХ!</div><div>${newItem.icon} ${newItem.name}</div></div>`;
+                    inventory = inventory.filter(i => !selectedForUpgrade.has(i.id)); selectedForUpgrade.clear();
+                    const newItem = { ...targetData, id: idCounter++ }; inventory.push(newItem);
+                    upgradeResultMessage.innerHTML = `<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800; color:#4caf50; font-size:20px;">УСПЕХ!</div><div style="font-size:16px; margin-top:6px;">${newItem.icon} ${newItem.name}</div></div>`;
                 } else {
-                    SoundFX.play('upgrade_fail');
-                    upgradeArrow.className = 'arrow fail';
-                    upgradeArrow.textContent = '❌';
-                    inventory = inventory.filter(item => !selectedForUpgrade.has(item.id));
-                    selectedForUpgrade.clear();
-                    upgradeResultMessage.innerHTML = `<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:bold; color:#f44336;">ПРОВАЛ</div></div>`;
+                    SoundFX.play('upgrade_fail'); upgradeArrow.className = 'arrow fail'; upgradeArrow.textContent = '❌';
+                    inventory = inventory.filter(i => !selectedForUpgrade.has(i.id)); selectedForUpgrade.clear();
+                    upgradeResultMessage.innerHTML = `<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800; color:#f44336; font-size:20px;">ПРОВАЛ</div><div style="color:rgba(255,255,255,0.3); margin-top:6px;">Скины сгорели</div></div>`;
                 }
-                isUpgrading = false;
-                renderAllInventory();
-                setTimeout(() => { upgradeArrow.className = 'arrow'; upgradeArrow.textContent = '➡️'; }, 3000);
+                isUpgrading = false; renderAllInventory();
+                setTimeout(() => { upgradeArrow.className = 'arrow'; upgradeArrow.textContent = '⚡'; }, 3000);
             }, 1500);
         }
 
-        function toggleContractSelection(id) {
-            if (isContracting) return;
-            if (selectedForContract.has(id)) selectedForContract.delete(id);
-            else {
-                if (selectedForContract.size >= 10) return alert('Максимум 10 скинов!');
-                selectedForContract.add(id);
-            }
-            renderAllInventory();
-        }
-
         function updateContractUI() {
-            const selectedItems = inventory.filter(item => selectedForContract.has(item.id));
+            const selectedItems = inventory.filter(i => selectedForContract.has(i.id));
             contractCount.textContent = selectedItems.length;
             contractTotalPrice.textContent = selectedItems.reduce((s, i) => s + i.price, 0).toFixed(2);
             contractBtn.disabled = selectedItems.length < 3 || selectedItems.length > 10 || isContracting;
@@ -1845,69 +1492,47 @@
 
         function performContract() {
             if (isContracting) return;
-            const selectedItems = inventory.filter(item => selectedForContract.has(item.id));
+            const selectedItems = inventory.filter(i => selectedForContract.has(i.id));
             if (selectedItems.length < 3 || selectedItems.length > 10) return alert('Выбери от 3 до 10 скинов!');
-
-            isContracting = true;
-            contractBtn.disabled = true;
-            SoundFX.play('contract');
-            contractResult.classList.remove('show');
-            contractAnimation.classList.add('show');
-
+            isContracting = true; contractBtn.disabled = true; SoundFX.play('contract');
+            contractResult.classList.remove('show'); contractAnimation.classList.add('show');
             setTimeout(() => {
                 const totalPrice = selectedItems.reduce((s, i) => s + i.price, 0);
                 const rand = Math.random() * 100;
                 let multiplier = rand < 20 ? 0.2 + Math.random() * 0.3 : rand < 45 ? 0.5 + Math.random() * 0.3 : rand < 60 ? 0.8 + Math.random() * 0.15 : rand < 70 ? 0.95 + Math.random() * 0.1 : rand < 85 ? 1.05 + Math.random() * 0.45 : rand < 95 ? 1.5 + Math.random() * 1.0 : 2.5 + Math.random() * 1.0;
                 const resultSkin = getSkinByPrice(totalPrice * multiplier);
-
-                inventory = inventory.filter(item => !selectedForContract.has(item.id));
-                selectedForContract.clear();
-                const newItem = { ...resultSkin, id: idCounter++ };
-                inventory.push(newItem);
-
-                contractAnimation.classList.remove('show');
-                contractResult.classList.add('show', 'success');
-                contractResultIcon.textContent = '📜';
-                contractResultName.textContent = resultSkin.icon + ' ' + resultSkin.name;
+                inventory = inventory.filter(i => !selectedForContract.has(i.id)); selectedForContract.clear();
+                const newItem = { ...resultSkin, id: idCounter++ }; inventory.push(newItem);
+                contractAnimation.classList.remove('show'); contractResult.classList.add('show', 'success');
+                contractResultIcon.textContent = '📜'; contractResultName.textContent = resultSkin.icon + ' ' + resultSkin.name;
                 contractResultPrice.textContent = resultSkin.price.toFixed(2) + ' ₽';
                 contractResultMultiplier.innerHTML = `Множитель: <strong>x${(resultSkin.price / totalPrice).toFixed(2)}</strong>`;
-
-                isContracting = false;
-                renderAllInventory();
+                isContracting = false; renderAllInventory();
                 setTimeout(() => contractResult.classList.remove('show'), 6000);
             }, 2000);
         }
 
-        function updateBalanceUI() {
-            balanceSpan.textContent = balance.toFixed(0);
-        }
+        function updateBalanceUI() { balanceSpan.textContent = balance.toFixed(0); }
 
         function setupTabs() {
-            document.querySelectorAll('.tab-btn').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    document.getElementById('tab-' + this.dataset.tab).classList.add('active');
-                    if (['inventory', 'upgrade', 'contract'].includes(this.dataset.tab)) renderAllInventory();
-                });
-            });
+            document.querySelectorAll('.tab-btn').forEach(tab => tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+                if (['inventory', 'upgrade', 'contract'].includes(this.dataset.tab)) renderAllInventory();
+            }));
         }
 
         function init() {
-            renderCases();
-            renderAllInventory();
-            updateBalanceUI();
-            setupTabs();
-            setupChanceSelector();
-            openBtn.addEventListener('click', openCase);
-            upgradeBtn.addEventListener('click', performUpgrade);
+            renderCases(); renderAllInventory(); updateBalanceUI(); setupTabs(); setupChanceSelector();
+            openBtn.addEventListener('click', openCase); upgradeBtn.addEventListener('click', performUpgrade);
             contractBtn.addEventListener('click', performContract);
             clearUpgradeBtn.addEventListener('click', () => { selectedForUpgrade.clear(); renderAllInventory(); });
             document.addEventListener('click', () => SoundFX.init(), { once: true });
         }
-
         init();
     </script>
 </body>
 </html>
+```
