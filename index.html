@@ -19,15 +19,80 @@
         .bg-particle:nth-child(5) { width: 250px; height: 250px; bottom: 20%; left: 20%; background: radial-gradient(circle, rgba(255,50,150,0.12), transparent 70%); animation-delay: -10s; }
         @keyframes floatParticle { 0%,100% { transform: translate(0,0) scale(1); opacity: 0.6; } 25% { transform: translate(40px,-30px) scale(1.15); opacity: 0.8; } 50% { transform: translate(-30px,50px) scale(0.9); opacity: 0.5; } 75% { transform: translate(50px,15px) scale(1.08); opacity: 0.7; } }
 
-        /* Онлайн счётчик */
-        .online-counter {
-            position: fixed; top: 20px; left: 20px; z-index: 100;
-            background: rgba(15,18,28,0.9); backdrop-filter: blur(15px);
-            padding: 12px 18px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-            display: flex; align-items: center; gap: 10px;
-            font-size: 14px; font-weight: 600;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+       // ============================================================
+//  ОНЛАЙН СЧЁТЧИК (правильный)
+// ============================================================
+(function() {
+    const onlineKey = 'skinVault_online_users';
+    
+    // Генерируем уникальный ID для этой вкладки
+    const myId = 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    function updateOnline() {
+        let online = {};
+        
+        // Пробуем получить данные из localStorage
+        try {
+            online = JSON.parse(localStorage.getItem(onlineKey) || '{}');
+        } catch(e) {
+            online = {};
+        }
+        
+        // Обновляем время этой вкладки
+        online[myId] = Date.now();
+        
+        // Удаляем записи старше 10 секунд
+        const now = Date.now();
+        let changed = false;
+        for (const id in online) {
+            if (now - online[id] > 10000) {
+                delete online[id];
+                changed = true;
+            }
+        }
+        
+        // Сохраняем
+        localStorage.setItem(onlineKey, JSON.stringify(online));
+        
+        // Обновляем счётчик
+        const count = Object.keys(online).length;
+        document.getElementById('onlineCount').textContent = count;
+        document.title = count > 1 ? `⭐ SKINVAULT | ${count} онлайн` : '⭐ SKINVAULT | Кейсы CS2';
+    }
+    
+    // Обновляем каждые 3 секунды
+    updateOnline();
+    const interval = setInterval(updateOnline, 3000);
+    
+    // Слушаем изменения localStorage из других вкладок
+    window.addEventListener('storage', function(e) {
+        if (e.key === onlineKey) {
+            updateOnline();
+        }
+    });
+    
+    // Очистка при закрытии вкладки
+    window.addEventListener('beforeunload', function() {
+        let online = {};
+        try {
+            online = JSON.parse(localStorage.getItem(onlineKey) || '{}');
+        } catch(e) {}
+        
+        delete online[myId];
+        localStorage.setItem(onlineKey, JSON.stringify(online));
+    });
+    
+    // Дополнительно: слушаем событие pagehide для мобильных
+    window.addEventListener('pagehide', function() {
+        let online = {};
+        try {
+            online = JSON.parse(localStorage.getItem(onlineKey) || '{}');
+        } catch(e) {}
+        
+        delete online[myId];
+        localStorage.setItem(onlineKey, JSON.stringify(online));
+    });
+})();
         }
         .online-dot { width: 10px; height: 10px; background: #4caf50; border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 15px #4caf50; }
         @keyframes pulse { 0%,100% { box-shadow: 0 0 10px #4caf50; } 50% { box-shadow: 0 0 25px #4caf50, 0 0 40px rgba(76,175,80,0.5); } }
