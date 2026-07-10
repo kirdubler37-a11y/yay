@@ -13,13 +13,13 @@
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;display:flex;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1'/%3E%3C/svg%3E")}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:rgba(255,255,255,0.02)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px}
-        .coin-icon{color:var(--gold);font-size:13px;animation:coinSpin 4s linear infinite;filter:drop-shadow(0 0 8px rgba(255,184,0,0.4))}
+        .coin-icon{color:var(--gold);font-size:13px;animation:coinSpin 4s linear infinite}
         @keyframes coinSpin{0%,100%{transform:rotateY(0deg)}50%{transform:rotateY(180deg)}}
 
         .live-feed{position:fixed;right:0;top:0;width:250px;height:100vh;background:linear-gradient(180deg,rgba(10,12,22,0.98),rgba(15,18,30,0.95));backdrop-filter:blur(30px);border-left:1px solid var(--border);z-index:200;display:flex;flex-direction:column;padding:12px;overflow:hidden}
         .live-feed h3{font-family:'Orbitron',sans-serif;font-size:11px;background:linear-gradient(135deg,var(--gold),#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.08);letter-spacing:2px}
-        .live-feed-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:3px}
-        .live-item{background:rgba(20,24,38,0.5);border-radius:8px;padding:6px 8px;font-size:10px;animation:floatUp 0.5s ease;border-left:3px solid transparent;display:flex;align-items:center;gap:6px}
+        .live-feed-list{flex:1;overflow-y:auto;display:flex;flex-direction:column-reverse;gap:3px}
+        .live-item{background:rgba(20,24,38,0.5);border-radius:8px;padding:6px 8px;font-size:10px;animation:floatUp 0.5s ease;border-left:3px solid transparent;display:flex;align-items:center;gap:6px;flex-shrink:0}
         .live-item.legendary{border-left-color:#ff4444}.live-item.epic{border-left-color:#d32ce6}.live-item.rare{border-left-color:#8847ff}
         .live-item .live-icon{font-size:20px}.live-item .live-info{flex:1}.live-item .live-name{font-weight:600;font-size:9px}.live-item .live-user{color:var(--gold);font-size:8px}.live-item .live-price{color:var(--text2);font-size:8px}
         @keyframes floatUp{0%{transform:translateY(100%);opacity:0}100%{transform:translateY(0);opacity:1}}
@@ -64,18 +64,15 @@
         .btn-spin{background:linear-gradient(135deg,#ff6a00,#ff3c00);color:#fff;border:none;padding:14px 35px;font-size:15px;font-weight:700;border-radius:12px;cursor:pointer;box-shadow:0 6px 25px rgba(238,60,0,0.4);transition:0.3s;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:1px;width:100%;max-width:280px;margin:10px auto;display:block}.btn-spin:hover{transform:translateY(-2px)}.btn-spin:disabled{background:rgba(42,47,58,0.8);cursor:not-allowed;transform:none}
 
         .case-skins-pool{background:rgba(8,10,18,0.6);border-radius:12px;padding:12px;max-height:240px;overflow-y:auto;margin-top:10px;border:1px solid var(--border)}
-        .case-skins-pool h4{color:var(--text2);font-size:10px;margin-bottom:8px;letter-spacing:1px}
         .pool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px}
-        .pool-card{background:rgba(20,24,38,0.7);border-radius:8px;padding:8px 5px;text-align:center;border:1px solid rgba(255,255,255,0.03);border-bottom:2px solid transparent;transition:0.2s}.pool-card:hover{transform:translateY(-2px)}.pool-card .pool-icon{font-size:26px}.pool-card .pool-name{font-weight:600;font-size:8px}.pool-card .pool-price{color:var(--gold);font-size:8px}.pool-card.rarity-legendary{border-bottom-color:#ff4444}.pool-card.rarity-epic{border-bottom-color:#d32ce6}
+        .pool-card{background:rgba(20,24,38,0.7);border-radius:8px;padding:8px 5px;text-align:center;border:1px solid rgba(255,255,255,0.03);border-bottom:2px solid transparent}.pool-card .pool-icon{font-size:26px}.pool-card .pool-name{font-weight:600;font-size:8px}.pool-card .pool-price{color:var(--gold);font-size:8px}.pool-card.rarity-legendary{border-bottom-color:#ff4444}
 
         .inventory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;max-height:380px;overflow-y:auto}
-        .inv-item{background:rgba(20,24,38,0.7);border-radius:10px;padding:10px 6px;text-align:center;border:1px solid var(--border);transition:0.2s}.inv-item:hover{transform:translateY(-3px);border-color:var(--accent)}.inv-item .icon{font-size:28px}.inv-item .name{font-size:9px;font-weight:700}.inv-item .price{font-size:9px;color:var(--text2);margin:2px 0 5px}.btn-sm{padding:3px 8px;border-radius:8px;font-size:9px;cursor:pointer;border:none;font-family:'Inter',sans-serif}.btn-sell{background:rgba(30,35,48,0.9);color:#fff}.btn-sell:hover{background:var(--accent);color:#000}
+        .inv-item{background:rgba(20,24,38,0.7);border-radius:10px;padding:10px 6px;text-align:center;border:1px solid var(--border)}.inv-item .icon{font-size:28px}.inv-item .name{font-size:9px;font-weight:700}.inv-item .price{font-size:9px;color:var(--text2);margin:2px 0 5px}.btn-sm{padding:3px 8px;border-radius:8px;font-size:9px;cursor:pointer;border:none;font-family:'Inter',sans-serif}.btn-sell{background:rgba(30,35,48,0.9);color:#fff}.btn-sell:hover{background:var(--accent);color:#000}
 
         .profile-section{max-width:750px;margin:0 auto;background:var(--card);padding:20px;border-radius:18px;border:1px solid rgba(255,255,255,0.08)}
         .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center}
-        .modal{background:linear-gradient(145deg,#141824,#1a1f30);padding:25px;border-radius:18px;text-align:center;max-width:380px;width:90%;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 80px rgba(0,0,0,0.7)}.modal input{width:100%;padding:10px;margin-bottom:8px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:14px;font-family:'Inter',sans-serif}.modal input:focus{border-color:var(--accent);outline:none}
-
-        @media(max-width:768px){.live-feed{width:180px}.main-content{margin-right:180px}.skin-card{width:72px;height:95px}.roulette-wrapper{height:115px}.cases-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+        .modal{background:linear-gradient(145deg,#141824,#1a1f30);padding:25px;border-radius:18px;text-align:center;max-width:380px;width:90%;border:1px solid rgba(255,255,255,0.1)}.modal input{width:100%;padding:10px;margin-bottom:8px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:14px;font-family:'Inter',sans-serif}.modal input:focus{border-color:var(--accent);outline:none}
     </style>
 </head>
 <body>
@@ -108,19 +105,50 @@
 
 </div>
 
-<div class="modal-overlay" id="registerModal" style="display:none;"><div class="modal"><h2 style="margin-bottom:12px;font-family:'Orbitron',sans-serif;">⭐ SKINVAULT</h2><input type="text" id="loginUsername" placeholder="Логин"><input type="password" id="loginPassword" placeholder="Пароль"><button class="btn btn-purple" onclick="loginUser()" style="width:100%;margin-bottom:5px;background:linear-gradient(135deg,#ff6a00,#ff3c00);">🔑 ВОЙТИ</button><button class="btn btn-purple" onclick="registerUser()" style="width:100%;">✅ РЕГИСТРАЦИЯ</button><div id="authError" style="color:#ff4444;font-size:11px;margin-top:6px;display:none;"></div><button onclick="closeModal()" style="margin-top:8px;background:transparent;border:none;color:var(--text2);cursor:pointer;">✕ Закрыть</button></div></div>
+<div class="modal-overlay" id="registerModal" style="display:none;"><div class="modal"><h2>⭐ SKINVAULT</h2><input type="text" id="loginUsername" placeholder="Логин"><input type="password" id="loginPassword" placeholder="Пароль"><button class="btn btn-purple" onclick="loginUser()" style="width:100%;margin-bottom:5px;background:linear-gradient(135deg,#ff6a00,#ff3c00);">🔑 ВОЙТИ</button><button class="btn btn-purple" onclick="registerUser()" style="width:100%;">✅ РЕГИСТРАЦИЯ</button><div id="authError" style="color:#ff4444;font-size:11px;margin-top:6px;display:none;"></div><button onclick="closeModal()" style="margin-top:8px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
 <div class="modal-overlay" id="adminModal" style="display:none;"><div class="modal"><h2 style="color:var(--gold);">⚡ Админ-панель</h2><input type="text" id="adminTargetUser" placeholder="Ник получателя"><input type="number" id="adminAmount" placeholder="Сумма монет" min="1"><button class="btn btn-admin" onclick="adminGiveCoins()" style="width:100%;">💸 Выдать монеты</button><div id="adminMsg" style="font-size:11px;margin-top:6px;"></div><button onclick="document.getElementById('adminModal').style.display='none'" style="margin-top:8px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
 
 <script>
 // Firebase
 const fbCfg={apiKey:"AIzaSyCiJGNpJByCCbwcufI-NFUFzXjo0HeGd8E",authDomain:"skinvalut.firebaseapp.com",databaseURL:"https://skinvalut-default-rtdb.firebaseio.com",projectId:"skinvalut",storageBucket:"skinvalut.firebasestorage.app",messagingSenderId:"560114772930",appId:"1:560114772930:web:8aa0a87f3c791b27d6845b"};
-firebase.initializeApp(fbCfg);const fbDb=firebase.database(),onlineRef=fbDb.ref('online'),dropsRef=fbDb.ref('drops'),usersRef=fbDb.ref('users');
+firebase.initializeApp(fbCfg);
+const fbDb=firebase.database(),onlineRef=fbDb.ref('online'),dropsRef=fbDb.ref('drops'),usersRef=fbDb.ref('users');
 const myId='u_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);
+
+// Онлайн
 setInterval(()=>onlineRef.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP}),5000);
 onlineRef.on('value',s=>{const d=s.val()||{};const n=Date.now();let c=0;for(const id in d){if(d[id].t&&(n-d[id].t<15000))c++;else onlineRef.child(id).remove();}$('onlineCount').textContent=c;});
 window.addEventListener('beforeunload',()=>{onlineRef.child(myId).remove();});
-dropsRef.orderByChild('time').limitToLast(30).on('value',s=>{const drops=[];s.forEach(c=>drops.push(c.val()));drops.reverse();$('liveFeedList').innerHTML=drops.length?drops.map(d=>`<div class="live-item ${d.rarity||''}"><span class="live-icon">${d.icon||'🎁'}</span><div class="live-info"><div class="live-name">${d.skin||'?'}</div><div class="live-user">${d.user||'?'}</div></div><div class="live-price">${(d.price||0)} <i class="fas fa-coins coin-icon"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';});
-function addDrop(skin,icon,price,rarity){dropsRef.push({skin,icon,price,rarity,user:currentUser||'Аноним',time:firebase.database.ServerValue.TIMESTAMP});}
+
+// ЛЕНТА ДРОПОВ - ИСПРАВЛЕНА
+dropsRef.orderByChild('time').limitToLast(30).on('value',s=>{
+    const drops=[];
+    s.forEach(c=>{
+        const d=c.val();
+        if(d) drops.push(d);
+    });
+    drops.sort((a,b)=>(b.time||0)-(a.time||0));
+    $('liveFeedList').innerHTML=drops.length?drops.map(d=>`
+        <div class="live-item ${d.rarity||''}">
+            <span class="live-icon">${d.icon||'🎁'}</span>
+            <div class="live-info">
+                <div class="live-name">${d.skin||'?'}</div>
+                <div class="live-user">${d.user||'?'}</div>
+            </div>
+            <div class="live-price">${(d.price||0)} <i class="fas fa-coins coin-icon"></i></div>
+        </div>
+    `).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';
+});
+function addDrop(skin,icon,price,rarity){
+    dropsRef.push({
+        skin:skin,
+        icon:icon,
+        price:price,
+        rarity:rarity,
+        user:currentUser||'Аноним',
+        time:firebase.database.ServerValue.TIMESTAMP
+    });
+}
 
 const ALL_SKINS=[{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"AK-47 | Case Hardened Blue Gem",rarity:"legendary",icon:"💎",price:2800},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},{name:"★ Керамбит | Doppler Sapphire",rarity:"legendary",icon:"🔪",price:8500},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200},{name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18},{name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6},{name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:4},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:2},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:3},{name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:1},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:1},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:1}];
 const CASES=[{id:'premium',name:'👑 Премиум',icon:'👑',price:500,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'gamma',name:'💚 Gamma Doppler',icon:'💚',price:800,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'bravo',name:'🔥 Operation Bravo',icon:'🔥',price:600,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},...ALL_SKINS.filter(s=>s.name.includes('★')).slice(0,2),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'glove',name:'🧤 Glove Case',icon:'🧤',price:500,skins:[...ALL_SKINS.filter(s=>s.name.includes('Gloves')||s.name.includes('★')).slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'chroma',name:'🌈 Chroma',icon:'🌈',price:200,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'standard',name:'📦 Стандартный',icon:'📦',price:100,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'sniper',name:'🎯 Снайперский',icon:'🎯',price:150,skins:[...ALL_SKINS.filter(s=>s.name.includes('AWP')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},{id:'prisma2',name:'💠 Prisma 2',icon:'💠',price:120,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(2,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'snakebite',name:'🐍 Snakebite',icon:'🐍',price:80,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(4,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'fracture',name:'💥 Fracture',icon:'💥',price:60,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(3,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'pistol',name:'🔫 Пистолетный',icon:'🔫',price:50,skins:[...ALL_SKINS.filter(s=>s.name.includes('Desert')||s.name.includes('Glock')||s.name.includes('USP')||s.name.includes('P250')),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4)]},{id:'starter',name:'🚀 Стартовый',icon:'🚀',price:30,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,4),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon')]},{id:'budget',name:'💸 Бюджетный',icon:'💸',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='rare').slice(2,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon'),...ALL_SKINS.filter(s=>s.rarity==='common')]},{id:'yolo',name:'💀 YOLO',icon:'💀',price:200,skins:[{name:"★ Керамбит | Doppler Sapphire",rarity:"legendary",icon:"🔪",price:8500},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200},...ALL_SKINS.filter(s=>s.rarity==='common')]}];
@@ -131,12 +159,9 @@ const $=id=>document.getElementById(id);
 
 function getRandomItem(cs){if(CASES[currentCaseIndex]?.id==='yolo'){const r=Math.random()*100;if(r<1)return cs.find(s=>s.name.includes('Sapphire'));if(r<4)return cs.find(s=>s.name.includes('Dragon Lore'));if(r<8)return cs.find(s=>s.name.includes('Vice'));return cs.filter(s=>s.rarity==='common')[Math.floor(Math.random()*cs.filter(s=>s.rarity==='common').length)];}const w={legendary:CASES[currentCaseIndex]?.id==='premium'?5:1,epic:15,rare:30,uncommon:30,common:20};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.rarity===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
 function getSkinByPrice(tp){let b=ALL_SKINS[0],bd=Infinity;for(const s of ALL_SKINS){const d=Math.abs(s.price-tp);if(d<bd){bd=d;b=s;}}return b;}
-
-// === ИСПРАВЛЕННАЯ РУЛЕТКА ===
 function generateTape(winSkin,caseSkins){const tape=$('rouletteTape');if(!tape)return;tape.innerHTML='';for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);const c=document.createElement('div');c.className='skin-card rarity-'+item.rarity;c.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price} <i class="fas fa-coins coin-icon"></i></div>`;tape.appendChild(c);}}
 function spinRoulette(){return new Promise(resolve=>{const container=$('rouletteContainer');const tape=$('rouletteTape');if(!container||!tape){resolve();return;}const ww=container.offsetWidth||700;const targetLeft=-(32*100)+(ww/2)-50;tape.style.transition='none';tape.style.transform='translateX(0px)';setTimeout(()=>{tape.style.transition='transform 3.5s cubic-bezier(0.08,0.82,0.17,1)';tape.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;setTimeout(()=>resolve(),3700);},150);});}
 async function performSpin(count){if(!currentUser){alert('❌ Сначала войди!');showRegisterModal();return;}if(isSpinning)return;const c=CASES[currentCaseIndex],tc=c.price*count;if(balance<tc){alert(`❌ Нужно ${tc} монет!`);return;}isSpinning=!0;$('openBtn').disabled=!0;balance-=tc;updateBalanceUI();const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));for(let i=0;i<count;i++){generateTape(wins[i],c.skins);await spinRoulette();inventory.push({...wins[i],id:idCounter++});history.push({type:'case',skin:wins[i].name,price:wins[i].price,time:new Date().toISOString()});addDrop(wins[i].name,wins[i].icon,wins[i].price,wins[i].rarity);}const tg=wins.reduce((s,w)=>s+w.price,0);$('totalResult').style.display='block';$('totalResult').innerHTML=`Потрачено: ${tc} <i class="fas fa-coins coin-icon"></i> | Получено: ${tg} <i class="fas fa-coins coin-icon"></i> | ${tg>tc?'+':''}${tg-tc} <i class="fas fa-coins coin-icon"></i>`;$('totalResult').style.color=tg>tc?'var(--green)':tg<tc?'var(--red)':'var(--text2)';renderAllInventory();saveGame();isSpinning=!1;$('openBtn').disabled=!1;}
-
 function updateSlider(){multiSpinCount=parseInt($('spinSlider').value);$('spinCountDisplay').textContent=multiSpinCount;}
 function navigateTo(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));if(page==='cases'){$('page-cases').classList.add('active');renderCasesGrid();}else{$('page-'+page).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(page))renderAllInventory();if(page==='profile')renderProfile();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-page="${page}"]`);if(nb)nb.classList.add('active');}
 function openCase(index){currentCaseIndex=index;const c=CASES[index];$('caseOpenTitle').textContent=c.icon+' '+c.name;$('caseOpenPrice').textContent=c.price;$('totalResult').style.display='none';$('poolContent').innerHTML=c.skins.map(s=>`<div class="pool-card rarity-${s.rarity}"><span class="pool-icon">${s.icon}</span><div class="pool-name">${s.name.split('|')[1]||s.name}</div><div class="pool-price">${s.price} <i class="fas fa-coins coin-icon"></i></div></div>`).join('');updateSlider();navigateTo('case-open');}
@@ -154,30 +179,249 @@ function updateContractUI(){const si=inventory.filter(i=>selCon.has(i.id));$('co
 function performContract(){if(isContracting)return;const si=inventory.filter(i=>selCon.has(i.id));if(si.length<3||si.length>10)return alert('Выбери 3-10!');isContracting=!0;$('contractBtn').disabled=!0;setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const mult=Math.random()*2+0.5;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selCon.has(i.id));selCon.clear();const ni={...rs,id:idCounter++};inventory.push(ni);history.push({type:'contract',skin:ni.name,price:ni.price,time:new Date().toISOString()});addDrop(ni.name,ni.icon,ni.price,ni.rarity);$('contractResult').style.display='block';$('contractResult').innerHTML=`<div style="font-size:35px;">${ni.icon}</div><div>${ni.name}</div><div style="color:var(--gold);">${ni.price} <i class="fas fa-coins coin-icon"></i></div>`;isContracting=!1;renderAllInventory();saveGame();},2000);}
 function updateBalanceUI(){$('balanceDisplay').textContent=balance;}
 
-// Firebase users
-function loadUserData(u){usersRef.child(u).once('value').then(sn=>{const ud=sn.val();if(ud&&ud.saveData){balance=ud.saveData.balance||1000;inventory=ud.saveData.inventory||[];idCounter=ud.saveData.idCounter||0;history=ud.saveData.history||[];currentUser=u;renderAllInventory();updateBalanceUI();$('registerBtn').style.display='none';$('userInfo').style.display='flex';$('userNickname').textContent='👑 '+u;if(u==='Admin'){$('adminBtn').style.display='block';$('userNickname').textContent='⚡ Admin';}localStorage.setItem('skinVault_lastUser',u);navigateTo('cases');}});}
-function saveGame(){if(!currentUser)return;usersRef.child(currentUser).update({saveData:{balance,inventory,idCounter,history}});}
-function adminGiveCoins(){const t=$('adminTargetUser').value.trim(),a=parseInt($('adminAmount').value),m=$('adminMsg');m.style.color='#ff4444';if(!t){m.textContent='❌ Введи ник!';return;}if(!a||a<1){m.textContent='❌ Введи сумму!';return;}usersRef.child(t).once('value').then(sn=>{if(!sn.exists()){m.textContent='❌ Пользователь не найден!';return;}const ud=sn.val()||{};const cb=(ud.saveData&&ud.saveData.balance)||1000;usersRef.child(t).child('saveData').update({balance:cb+a}).then(()=>{m.textContent=`✅ Выдано ${a} монет для ${t}!`;m.style.color='#4caf50';$('adminTargetUser').value='';$('adminAmount').value='';if(t===currentUser){balance=cb+a;updateBalanceUI();renderAllInventory();}});});}
-function showAdminPanel(){$('adminModal').style.display='flex';$('adminTargetUser').focus();}
-function hashPassword(pw){let h=0;for(let i=0;i<pw.length;i++){h=((h<<5)-h)+pw.charCodeAt(i);h=h&h;}return'h_'+Math.abs(h).toString(16);}
-function showRegisterModal(){$('registerModal').style.display='flex';$('loginUsername').focus();}function closeModal(){$('registerModal').style.display='none';}
-function loginUser(){const u=$('loginUsername').value.trim(),p=$('loginPassword').value,err=$('authError');if(!u||!p){err.textContent='❌ Заполни поля!';err.style.display='block';return;}usersRef.child(u).once('value').then(sn=>{if(!sn.exists()){registerUserDirect(u,p);return;}if(sn.val().password!==hashPassword(p)){err.textContent='❌ Неверный пароль!';err.style.display='block';return;}closeModal();loadUserData(u);});}
-function registerUser(){const u=$('loginUsername').value.trim(),p=$('loginPassword').value,err=$('authError');if(!u||!p){err.textContent='❌ Заполни поля!';err.style.display='block';return;}if(u.length<3){err.textContent='❌ Минимум 3 символа!';err.style.display='block';return;}if(p.length<4){err.textContent='❌ Минимум 4 символа!';err.style.display='block';return;}registerUserDirect(u,p);}
-function registerUserDirect(u,p){usersRef.child(u).once('value').then(sn=>{if(sn.exists()&&sn.val().password){alert('❌ Логин занят!');return;}usersRef.child(u).set({password:hashPassword(p),saveData:{balance:1000,inventory:[],idCounter:0,history:[]}}).then(()=>{closeModal();loadUserData(u);});});}
-function logoutUser(){saveGame();currentUser=null;$('registerBtn').style.display='block';$('userInfo').style.display='none';$('adminBtn').style.display='none';balance=1000;inventory=[];idCounter=0;history=[];selUp.clear();selCon.clear();renderAllInventory();updateBalanceUI();navigateTo('cases');}
+// Firebase users - ИСПРАВЛЕНО
+function loadUserData(u){
+    usersRef.child(u).once('value').then(sn=>{
+        const ud=sn.val();
+        if(ud && ud.saveData){
+            balance=ud.saveData.balance||1000;
+            inventory=ud.saveData.inventory||[];
+            idCounter=ud.saveData.idCounter||0;
+            history=ud.saveData.history||[];
+            currentUser=u;
+            renderAllInventory();
+            updateBalanceUI();
+            $('registerBtn').style.display='none';
+            $('userInfo').style.display='flex';
+            $('userNickname').textContent='👑 '+u;
+            if(u==='Admin'){
+                $('adminBtn').style.display='block';
+                $('userNickname').textContent='⚡ Admin';
+            }
+            localStorage.setItem('skinVault_lastUser',u);
+            navigateTo('cases');
+        }
+    }).catch(err=>{
+        console.error('Ошибка загрузки:',err);
+    });
+}
+
+function saveGame(){
+    if(!currentUser)return;
+    const saveData={
+        balance:balance,
+        inventory:inventory,
+        idCounter:idCounter,
+        history:history
+    };
+    usersRef.child(currentUser).child('saveData').set(saveData).catch(err=>{
+        console.error('Ошибка сохранения:',err);
+    });
+}
+
+// АДМИН-ПАНЕЛЬ - ПОЛНОСТЬЮ ИСПРАВЛЕНА
+function showAdminPanel(){
+    $('adminModal').style.display='flex';
+    $('adminTargetUser').focus();
+}
+
+function adminGiveCoins(){
+    const target=$('adminTargetUser').value.trim();
+    const amount=parseInt($('adminAmount').value);
+    const msg=$('adminMsg');
+    
+    msg.style.color='#ff4444';
+    msg.textContent='';
+    
+    if(!target){
+        msg.textContent='❌ Введи ник получателя!';
+        return;
+    }
+    if(!amount || amount<1 || isNaN(amount)){
+        msg.textContent='❌ Введи корректную сумму (минимум 1)!';
+        return;
+    }
+    if(amount>1000000){
+        msg.textContent='❌ Слишком большая сумма!';
+        return;
+    }
+    
+    // Ищем пользователя в Firebase
+    usersRef.child(target).once('value').then(sn=>{
+        if(!sn.exists()){
+            msg.textContent='❌ Пользователь "'+target+'" не найден в базе!';
+            return;
+        }
+        
+        const userData=sn.val()||{};
+        const saveData=userData.saveData||{};
+        const currentBalance=saveData.balance||1000;
+        const newBalance=currentBalance+amount;
+        
+        // Обновляем баланс
+        usersRef.child(target).child('saveData').update({
+            balance:newBalance
+        }).then(()=>{
+            msg.textContent='✅ Успешно! Выдано '+amount+' монет для '+target+' (было '+currentBalance+', стало '+newBalance+')';
+            msg.style.color='#4caf50';
+            $('adminTargetUser').value='';
+            $('adminAmount').value='';
+            
+            // Если админ выдал себе - обновляем локально
+            if(target===currentUser){
+                balance=newBalance;
+                updateBalanceUI();
+                renderAllInventory();
+            }
+        }).catch(err=>{
+            msg.textContent='❌ Ошибка Firebase: '+err.message;
+            console.error(err);
+        });
+    }).catch(err=>{
+        msg.textContent='❌ Ошибка соединения с базой данных';
+        console.error(err);
+    });
+}
+
+function hashPassword(pw){
+    let h=0;
+    for(let i=0;i<pw.length;i++){
+        h=((h<<5)-h)+pw.charCodeAt(i);
+        h=h&h;
+    }
+    return'h_'+Math.abs(h).toString(16);
+}
+
+function showRegisterModal(){$('registerModal').style.display='flex';$('loginUsername').focus();}
+function closeModal(){$('registerModal').style.display='none';}
+
+function loginUser(){
+    const u=$('loginUsername').value.trim();
+    const p=$('loginPassword').value;
+    const err=$('authError');
+    err.style.display='none';
+    
+    if(!u||!p){
+        err.textContent='❌ Заполни все поля!';
+        err.style.display='block';
+        return;
+    }
+    
+    usersRef.child(u).once('value').then(sn=>{
+        if(!sn.exists()){
+            // Авто-регистрация
+            registerUserDirect(u,p);
+            return;
+        }
+        const userData=sn.val();
+        if(userData.password!==hashPassword(p)){
+            err.textContent='❌ Неверный пароль!';
+            err.style.display='block';
+            return;
+        }
+        closeModal();
+        loadUserData(u);
+    }).catch(er=>{
+        err.textContent='❌ Ошибка соединения';
+        err.style.display='block';
+    });
+}
+
+function registerUser(){
+    const u=$('loginUsername').value.trim();
+    const p=$('loginPassword').value;
+    const err=$('authError');
+    err.style.display='none';
+    
+    if(!u||!p){
+        err.textContent='❌ Заполни все поля!';
+        err.style.display='block';
+        return;
+    }
+    if(u.length<3){
+        err.textContent='❌ Логин минимум 3 символа!';
+        err.style.display='block';
+        return;
+    }
+    if(p.length<4){
+        err.textContent='❌ Пароль минимум 4 символа!';
+        err.style.display='block';
+        return;
+    }
+    registerUserDirect(u,p);
+}
+
+function registerUserDirect(u,p){
+    usersRef.child(u).once('value').then(sn=>{
+        if(sn.exists()&&sn.val().password){
+            alert('❌ Логин занят!');
+            return;
+        }
+        usersRef.child(u).set({
+            password:hashPassword(p),
+            saveData:{
+                balance:1000,
+                inventory:[],
+                idCounter:0,
+                history:[]
+            }
+        }).then(()=>{
+            closeModal();
+            loadUserData(u);
+        }).catch(er=>{
+            alert('❌ Ошибка создания аккаунта');
+        });
+    });
+}
+
+function logoutUser(){
+    saveGame();
+    currentUser=null;
+    $('registerBtn').style.display='block';
+    $('userInfo').style.display='none';
+    $('adminBtn').style.display='none';
+    balance=1000;
+    inventory=[];
+    idCounter=0;
+    history=[];
+    selUp.clear();
+    selCon.clear();
+    renderAllInventory();
+    updateBalanceUI();
+    navigateTo('cases');
+}
 
 function init(){
-    const lastUser=localStorage.getItem('skinVault_lastUser');if(lastUser){usersRef.child(lastUser).once('value').then(sn=>{if(sn.exists())loadUserData(lastUser);});}
-    renderCasesGrid();renderAllInventory();updateBalanceUI();
-    $('openBtn').addEventListener('click',()=>performSpin(multiSpinCount));$('spinSlider').addEventListener('input',updateSlider);
+    const lastUser=localStorage.getItem('skinVault_lastUser');
+    if(lastUser){
+        usersRef.child(lastUser).once('value').then(sn=>{
+            if(sn.exists())loadUserData(lastUser);
+        });
+    }
+    renderCasesGrid();
+    renderAllInventory();
+    updateBalanceUI();
+    $('openBtn').addEventListener('click',()=>performSpin(multiSpinCount));
+    $('spinSlider').addEventListener('input',updateSlider);
     document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){navigateTo(this.dataset.page);}));
-    document.querySelectorAll('#chanceSelector .btn-sm').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('#chanceSelector .btn-sm').forEach(x=>x.classList.remove('active'));this.classList.add('active');selChance=parseInt(this.dataset.chance);selMult=parseFloat(this.dataset.mult);updateUpgradeUI();}));
-    $('upgradeBtn').addEventListener('click',performUpgrade);$('contractBtn').addEventListener('click',performContract);
+    document.querySelectorAll('#chanceSelector .btn-sm').forEach(b=>b.addEventListener('click',function(){
+        document.querySelectorAll('#chanceSelector .btn-sm').forEach(x=>x.classList.remove('active'));
+        this.classList.add('active');
+        selChance=parseInt(this.dataset.chance);
+        selMult=parseFloat(this.dataset.mult);
+        updateUpgradeUI();
+    }));
+    $('upgradeBtn').addEventListener('click',performUpgrade);
+    $('contractBtn').addEventListener('click',performContract);
     $('clearUpgradeBtn').addEventListener('click',()=>{selUp.clear();renderAllInventory();});
-    $('registerModal').addEventListener('click',function(e){if(e.target===this)closeModal();});$('loginPassword').addEventListener('keypress',e=>{if(e.key==='Enter')loginUser();});
+    $('registerModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+    $('loginPassword').addEventListener('keypress',e=>{if(e.key==='Enter')loginUser();});
 }
-setInterval(()=>{if(currentUser)saveGame();},10000);init();
+
+setInterval(()=>{if(currentUser)saveGame();},10000);
+init();
 onlineRef.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP});
+console.log('✅ SKINVAULT запущен! Firebase подключен.');
 </script>
 </body>
 </html>
