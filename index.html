@@ -4,307 +4,517 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CaseNova</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>CaseNova - Case Simulator</title>
 
 <style>
+.upgrade{
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Montserrat',sans-serif;
+max-width:1100px;
+
+margin:50px auto;
+
+padding:25px;
+
+background:#181f2d;
+
+border-radius:15px;
+
+text-align:center;
+
 }
 
-body{
 
-background:#0f1117;
-color:white;
 
-}
-
-header{
-
-height:75px;
+#upgrade-list{
 
 display:flex;
-justify-content:space-between;
-align-items:center;
 
-padding:0 40px;
+flex-wrap:wrap;
 
-background:#171b24;
+justify-content:center;
 
-border-bottom:2px solid orange;
-
-}
-
-.logo{
-
-font-size:30px;
-font-weight:800;
-color:orange;
-
-}
-
-nav{
-
-display:flex;
 gap:15px;
 
+margin:25px 0;
+
 }
 
-nav button{
 
-background:#252b39;
-border:none;
-color:white;
-padding:12px 20px;
-border-radius:10px;
+
+.upgrade-card{
+
+width:150px;
+
+padding:15px;
+
+background:#252d40;
+
+border-radius:12px;
+
 cursor:pointer;
+
 transition:.2s;
 
 }
 
-nav button:hover{
 
-background:orange;
 
-}
+.upgrade-card:hover{
 
-.balance{
-
-background:#252b39;
-
-padding:12px 25px;
-
-border-radius:10px;
-
-font-size:20px;
-
-font-weight:bold;
+transform:scale(1.05);
 
 }
 
-.hero{
 
-text-align:center;
 
-padding:60px 20px;
+.upgrade-card.selected{
 
-}
-
-.hero h1{
-
-font-size:55px;
-
-margin-bottom:15px;
+border:3px solid #ff9800;
 
 }
 
-.hero p{
 
-color:#8b8b8b;
 
-font-size:20px;
+#upgrade-start{
 
-}
-
-.cases{
-
-max-width:1400px;
-
-margin:auto;
-
-padding:40px;
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-gap:25px;
-
-}
-
-.case{
-
-background:#1b2231;
-
-border-radius:15px;
-
-overflow:hidden;
-
-transition:.25s;
-
-cursor:pointer;
-
-box-shadow:0 0 25px rgba(0,0,0,.4);
-
-}
-
-.case:hover{
-
-transform:translateY(-8px);
-
-}
-
-.case-icon{
-
-height:220px;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:100px;
-
-background:linear-gradient(180deg,#2a3245,#1b2231);
-
-transition:.3s;
-
-}
-
-.case:hover .case-icon{
-
-transform:scale(1.08) rotate(6deg);
-
-}
-
-.case-info{
-
-padding:20px;
-
-}
-
-.case-name{
-
-font-size:24px;
-
-font-weight:700;
-
-}
-
-.case-price{
-
-margin-top:10px;
-
-font-size:22px;
-
-color:orange;
-
-}
-
-.open-btn{
-
-width:100%;
-
-margin-top:18px;
-
-padding:14px;
+padding:15px 40px;
 
 border:none;
 
 border-radius:10px;
 
-background:linear-gradient(45deg,#ff9800,#ff6200);
+background:#00c853;
 
 color:white;
 
-font-size:18px;
-
 font-weight:bold;
+
+font-size:18px;
 
 cursor:pointer;
 
-transition:.25s;
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+
+    background:#0d1017;
+    color:white;
 
 }
+
+
+/* HEADER */
+
+header{
+
+    height:80px;
+    background:#171b25;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 40px;
+
+    border-bottom:2px solid #ff9800;
+
+}
+
+
+.logo{
+
+    font-size:32px;
+    font-weight:900;
+
+    color:#ff9800;
+
+}
+
+
+nav{
+
+    display:flex;
+    gap:15px;
+
+}
+
+
+nav button{
+
+    background:#252c3d;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+nav button:hover{
+
+    background:#ff9800;
+
+}
+
+
+.balance{
+
+    background:#252c3d;
+
+    padding:14px 22px;
+
+    border-radius:12px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* HERO */
+
+
+.hero{
+
+    text-align:center;
+
+    padding:60px 20px;
+
+}
+
+
+.hero h1{
+
+    font-size:55px;
+
+    color:white;
+
+}
+
+
+.hero p{
+
+    margin-top:15px;
+
+    color:#888;
+
+    font-size:20px;
+
+}
+
+
+
+
+/* CASES */
+
+
+.cases{
+
+    max-width:1300px;
+
+    margin:auto;
+
+    padding:40px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+.case{
+
+    background:#181f2d;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+    box-shadow:0 0 25px #000;
+
+}
+
+
+
+.case:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+
+.case-icon{
+
+    height:220px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:100px;
+
+    background:
+
+    linear-gradient(
+    180deg,
+    #29334a,
+    #181f2d
+    );
+
+}
+
+
+
+.case-info{
+
+    padding:20px;
+
+}
+
+
+
+.case-name{
+
+    font-size:25px;
+
+    font-weight:bold;
+
+}
+
+
+
+.case-price{
+
+    margin-top:10px;
+
+    color:#ff9800;
+
+    font-size:22px;
+
+}
+
+
+
+.open-btn{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:white;
+
+    background:
+
+    linear-gradient(
+    45deg,
+    #ff9800,
+    #ff5200
+    );
+
+}
+
+
 
 .open-btn:hover{
 
-transform:scale(1.03);
+    filter:brightness(1.15);
 
 }
+
+
+
+/* ROULETTE */
+
+
+.roulette-box{
+
+    display:none;
+
+    max-width:900px;
+
+    margin:50px auto;
+
+    padding:20px;
+
+}
+
+
+
+.roulette{
+
+    height:150px;
+
+    background:#171d29;
+
+    border:2px solid #333;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+
+
+.pointer{
+
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+
+    height:100%;
+
+    width:4px;
+
+    background:#ff9800;
+
+    z-index:10;
+
+}
+
+
+
+.tape{
+
+    display:flex;
+
+    position:absolute;
+
+    top:15px;
+
+    left:0;
+
+}
+
+
+
+/* INVENTORY */
+
 
 .inventory{
 
-max-width:1400px;
+    max-width:1300px;
 
-margin:70px auto;
+    margin:60px auto;
 
-padding:20px;
-
-}
-
-.inventory h2{
-
-margin-bottom:20px;
+    padding:30px;
 
 }
+
+
 
 .inventory-grid{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    grid-template-columns:
 
-gap:15px;
+    repeat(auto-fill,minmax(160px,1fr));
+
+    gap:15px;
 
 }
+
+
 
 .item{
 
-background:#1b2231;
+    background:#181f2d;
 
-border-radius:10px;
+    padding:15px;
 
-padding:15px;
+    border-radius:12px;
 
-text-align:center;
+    text-align:center;
 
 }
+
+
 
 .item-icon{
 
-font-size:55px;
-
-margin-bottom:10px;
+    font-size:55px;
 
 }
+
+
+
 
 footer{
 
-margin-top:70px;
+    margin-top:80px;
 
-background:#171b24;
+    background:#171b25;
 
-padding:30px;
+    padding:30px;
 
-text-align:center;
+    text-align:center;
 
-color:#777;
+    color:#777;
 
 }
+
 
 </style>
 
 </head>
 
+
 <body>
 
+
 <header>
+
 
 <div class="logo">
 
 🎲 CaseNova
 
 </div>
+
 
 <nav>
 
@@ -318,33 +528,54 @@ color:#777;
 
 </nav>
 
+
 <div class="balance">
 
-💰 <span id="balance">5000</span> Фст.
+💰
+
+<span id="balance">
+
+5000
+
+</span>
+
+Фст.
 
 </div>
 
+
 </header>
+
+
 
 <section class="hero">
 
+
 <h1>
 
-Открывай лучшие кейсы
+Открывай кейсы
 
 </h1>
 
+
 <p>
 
-Испытай удачу и выбей самые дорогие предметы.
+Выбивай редкие предметы и улучшай их
 
 </p>
 
+
 </section>
+
+
+
+
 
 <section class="cases">
 
+
 <div class="case">
+
 
 <div class="case-icon">
 
@@ -352,13 +583,16 @@ color:#777;
 
 </div>
 
+
 <div class="case-info">
+
 
 <div class="case-name">
 
-Новичок
+Starter Case
 
 </div>
+
 
 <div class="case-price">
 
@@ -366,17 +600,25 @@ color:#777;
 
 </div>
 
-<button class="open-btn">
+
+<button class="open-btn" data-price="100">
 
 Открыть
 
 </button>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="case">
+
 
 <div class="case-icon">
 
@@ -384,13 +626,16 @@ color:#777;
 
 </div>
 
+
 <div class="case-info">
+
 
 <div class="case-name">
 
-Elite
+Premium Case
 
 </div>
+
 
 <div class="case-price">
 
@@ -398,17 +643,25 @@ Elite
 
 </div>
 
-<button class="open-btn">
+
+<button class="open-btn" data-price="250">
 
 Открыть
 
 </button>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="case">
+
 
 <div class="case-icon">
 
@@ -416,13 +669,16 @@ Elite
 
 </div>
 
+
 <div class="case-info">
+
 
 <div class="case-name">
 
-Legend
+Fire Case
 
 </div>
+
 
 <div class="case-price">
 
@@ -430,17 +686,25 @@ Legend
 
 </div>
 
-<button class="open-btn">
+
+<button class="open-btn" data-price="500">
 
 Открыть
 
 </button>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="case">
+
 
 <div class="case-icon">
 
@@ -448,13 +712,16 @@ Legend
 
 </div>
 
+
 <div class="case-info">
+
 
 <div class="case-name">
 
-Dragon
+Royal Case
 
 </div>
+
 
 <div class="case-price">
 
@@ -462,19 +729,68 @@ Dragon
 
 </div>
 
-<button class="open-btn">
+
+<button class="open-btn" data-price="1000">
 
 Открыть
 
 </button>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+</section>
+
+
+
+<section class="roulette-box">
+
+
+<div class="roulette">
+
+
+<div class="pointer"></div>
+
+
+<div class="tape" id="tape">
+
+</div>
+
+
+</div>
+
+
+</section>
+
+<section class="upgrade">
+
+<h2>⬆️ Апгрейд</h2>
+
+<p id="upgrade-text">
+Выберите предмет
+</p>
+
+
+<div id="upgrade-list">
+
+</div>
+
+
+<button id="upgrade-start">
+
+Улучшить
+
+</button>
+
 
 </section>
 
 <section class="inventory">
+
 
 <h2>
 
@@ -482,31 +798,1450 @@ Dragon
 
 </h2>
 
+
+<br>
+
+
 <div class="inventory-grid" id="inventory">
 
-<p style="color:#777">
-
-Здесь будут выпадать ваши предметы...
-
-</p>
 
 </div>
 
+
 </section>
+
+
 
 <footer>
 
+
 CaseNova © 2026
+
 
 </footer>
 
+
 <script>
+  // ===============================
+// CASE NOVA DATA SYSTEM
+// PART 2/6
+// ===============================
 
-let balance=5000;
 
-const inventory=[];
+let balance = Number(localStorage.getItem("balance")) || 5000;
+
+
+let inventory = JSON.parse(
+    localStorage.getItem("inventory")
+) || [];
+
+
+
+const balanceText =
+document.getElementById("balance");
+
+
+const inventoryBox =
+document.getElementById("inventory");
+
+
+const tape =
+document.getElementById("tape");
+
+
+const rouletteBox =
+document.querySelector(".roulette-box");
+
+
+
+
+// ===============================
+// SKINS DATABASE
+// ===============================
+
+
+const skins = [
+
+
+{
+name:"USP-S | Guardian",
+emoji:"🔫",
+price:80,
+rarity:"mil"
+},
+
+
+{
+name:"Glock-18 | Water",
+emoji:"🔫",
+price:120,
+rarity:"mil"
+},
+
+
+{
+name:"MP7 | Bloodsport",
+emoji:"⚡",
+price:250,
+rarity:"restricted"
+},
+
+
+{
+name:"M4A1-S | Printstream",
+emoji:"⚡",
+price:700,
+rarity:"restricted"
+},
+
+
+{
+name:"AK-47 | Vulcan",
+emoji:"🔥",
+price:1200,
+rarity:"classified"
+},
+
+
+{
+name:"AWP | Asiimov",
+emoji:"🎯",
+price:1800,
+rarity:"classified"
+},
+
+
+{
+name:"Butterfly Knife | Fade",
+emoji:"🔪",
+price:5000,
+rarity:"knife"
+},
+
+
+{
+name:"Karambit | Doppler",
+emoji:"🔪",
+price:7500,
+rarity:"knife"
+},
+
+
+{
+name:"AWP | Dragon Lore",
+emoji:"🐉",
+price:15000,
+rarity:"legendary"
+}
+
+
+];
+
+
+
+
+// ===============================
+// RARITY COLORS
+// ===============================
+
+
+function rarityColor(rarity){
+
+
+if(rarity==="mil")
+return "#4b69ff";
+
+
+if(rarity==="restricted")
+return "#8847ff";
+
+
+if(rarity==="classified")
+return "#d32ce6";
+
+
+if(rarity==="knife")
+return "#ff9800";
+
+
+if(rarity==="legendary")
+return "#ffd700";
+
+
+return "white";
+
+
+}
+
+
+
+
+
+// ===============================
+// SAVE SYSTEM
+// ===============================
+
+
+function saveData(){
+
+
+localStorage.setItem(
+"balance",
+balance
+);
+
+
+localStorage.setItem(
+"inventory",
+JSON.stringify(inventory)
+);
+
+
+}
+
+
+
+
+
+// ===============================
+// UPDATE BALANCE
+// ===============================
+
+
+function updateBalance(){
+
+
+balanceText.innerHTML =
+balance;
+
+
+saveData();
+
+
+}
+
+
+
+
+
+// ===============================
+// DRAW INVENTORY
+// ===============================
+
+
+function drawInventory(){
+
+
+inventoryBox.innerHTML="";
+
+
+
+if(inventory.length===0){
+
+
+inventoryBox.innerHTML =
+
+`
+<p style="color:#777">
+
+Инвентарь пуст...
+
+</p>
+`;
+
+return;
+
+}
+
+
+
+
+inventory.forEach((item,index)=>{
+
+
+let card =
+document.createElement("div");
+
+
+card.className="item";
+
+
+card.innerHTML =
+
+
+`
+
+<div class="item-icon">
+
+${item.emoji}
+
+</div>
+
+
+<h3>
+
+${item.name}
+
+</h3>
+
+
+<p style="color:${rarityColor(item.rarity)}">
+
+${item.price} Фст.
+
+</p>
+
+
+`;
+
+
+
+inventoryBox.appendChild(card);
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+updateBalance();
+
+drawInventory();
+  // ===============================
+// CASE OPENING SYSTEM
+// PART 3/6
+// ===============================
+
+
+
+function randomSkin(){
+
+
+let chance = Math.random()*100;
+
+
+
+// 1% легендарка
+
+if(chance <= 1){
+
+return skins[8];
+
+}
+
+
+// 5% нож
+
+if(chance <= 6){
+
+return skins[
+6 + Math.floor(Math.random()*2)
+];
+
+}
+
+
+// 15% дорогие
+
+if(chance <= 21){
+
+return skins[
+4 + Math.floor(Math.random()*2)
+];
+
+}
+
+
+// обычные
+
+return skins[
+Math.floor(
+Math.random()*4
+)
+];
+
+
+}
+
+
+
+
+
+function createTape(winItem){
+
+
+tape.innerHTML="";
+
+
+
+for(let i=0;i<50;i++){
+
+
+let item=randomSkin();
+
+
+
+if(i===42){
+
+item=winItem;
+
+}
+
+
+
+let div=document.createElement("div");
+
+
+div.className="skin";
+
+
+div.style.width="120px";
+
+div.style.height="120px";
+
+div.style.margin="0 5px";
+
+div.style.background="#222b3d";
+
+div.style.borderRadius="10px";
+
+div.style.display="flex";
+
+div.style.flexDirection="column";
+
+div.style.justifyContent="center";
+
+div.style.alignItems="center";
+
+div.style.borderBottom=
+
+"5px solid "+rarityColor(item.rarity);
+
+
+
+div.innerHTML=
+
+`
+
+<div style="font-size:45px">
+
+${item.emoji}
+
+</div>
+
+
+<span style="font-size:11px">
+
+${item.name}
+
+</span>
+
+`;
+
+
+
+tape.appendChild(div);
+
+
+}
+
+
+
+}
+
+
+
+
+
+function openCase(price){
+
+
+
+if(balance < price){
+
+
+alert(
+"Недостаточно средств!"
+);
+
+
+return;
+
+}
+
+
+
+balance -= price;
+
+
+updateBalance();
+
+
+
+let win =
+randomSkin();
+
+
+
+createTape(win);
+
+
+
+rouletteBox.style.display="block";
+
+
+
+tape.style.transition="none";
+
+
+tape.style.transform=
+"translateX(0px)";
+
+
+
+setTimeout(()=>{
+
+
+
+let move =
+-42 * 130;
+
+
+
+move -= Math.random()*200;
+
+
+
+tape.style.transition =
+"transform 5s cubic-bezier(.1,.8,.2,1)";
+
+
+
+tape.style.transform =
+`translateX(${move}px)`;
+
+
+},100);
+
+
+
+
+
+setTimeout(()=>{
+
+
+inventory.unshift(win);
+
+
+
+drawInventory();
+
+
+saveData();
+
+
+
+alert(
+
+"🎉 Вы выиграли: "+
+win.name
+
+);
+
+
+
+},5200);
+
+
+
+}
+
+
+
+
+
+// ===============================
+// BUTTONS
+// ===============================
+
+
+
+document
+.querySelectorAll(".open-btn")
+.forEach(button=>{
+
+
+button.addEventListener(
+"click",
+()=>{
+
+
+let price =
+Number(
+button.dataset.price
+);
+
+
+
+openCase(price);
+
+
+
+}
+
+);
+
+
+});
+  // ===============================
+// INVENTORY SYSTEM
+// PART 4/6
+// ===============================
+
+
+
+function drawInventory(){
+
+
+inventoryBox.innerHTML="";
+
+
+
+if(inventory.length===0){
+
+
+inventoryBox.innerHTML=
+
+`
+
+<p style="color:#777">
+
+Инвентарь пуст...
+
+</p>
+
+`;
+
+return;
+
+
+}
+
+
+
+inventory.forEach((item,index)=>{
+
+
+
+let card =
+document.createElement("div");
+
+
+
+card.className="item";
+
+
+
+card.innerHTML =
+
+`
+
+<div class="item-icon">
+
+${item.emoji}
+
+</div>
+
+
+<h3>
+
+${item.name}
+
+</h3>
+
+
+<p style="
+color:${rarityColor(item.rarity)}
+">
+
+${item.price} Фст.
+
+</p>
+
+
+<button 
+class="sell-button"
+onclick="sellItem(${index})">
+
+Продать
+
+</button>
+
+
+`;
+
+
+
+inventoryBox.appendChild(card);
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+// ===============================
+// SELL ITEMS
+// ===============================
+
+
+
+function sellItem(index){
+
+
+
+let item =
+inventory[index];
+
+
+
+if(!item)
+return;
+
+
+
+balance += item.price;
+
+
+
+inventory.splice(
+index,
+1
+);
+
+
+
+updateBalance();
+
+
+drawInventory();
+
+
+saveData();
+
+
+
+alert(
+
+"💰 Продано за "+
+item.price+
+" Фст."
+
+);
+
+
+
+}
+
+
+
+
+
+// ===============================
+// SELL BUTTON STYLE
+// ===============================
+
+
+
+let sellStyle =
+document.createElement("style");
+
+
+
+sellStyle.innerHTML=`
+
+.sell-button{
+
+
+margin-top:10px;
+
+padding:8px 15px;
+
+border:none;
+
+border-radius:8px;
+
+background:#e53935;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+
+}
+
+
+.sell-button:hover{
+
+
+background:#ff5252;
+
+
+}
+
+
+`;
+
+
+
+document.head.appendChild(
+sellStyle
+);
+
+
+
+// обновляем после загрузки
+
+
+drawInventory();
+  // ===============================
+// UPGRADE SYSTEM
+// PART 5/6
+// ===============================
+
+
+
+let upgradeItem = null;
+
+let upgradeTarget = null;
+
+
+
+const upgradeList =
+document.getElementById(
+"upgrade-list"
+);
+
+
+const upgradeText =
+document.getElementById(
+"upgrade-text"
+);
+
+
+
+
+// создаём список целей
+
+
+function loadUpgradeTargets(){
+
+
+upgradeList.innerHTML="";
+
+
+
+skins.forEach((skin)=>{
+
+
+
+let div =
+document.createElement("div");
+
+
+
+div.className=
+"upgrade-card";
+
+
+
+div.innerHTML=
+
+`
+
+<div style="font-size:45px">
+
+${skin.emoji}
+
+</div>
+
+
+<b>
+
+${skin.name}
+
+</b>
+
+
+<br>
+
+<span>
+
+${skin.price} Фст.
+
+</span>
+
+`;
+
+
+
+div.onclick=()=>{
+
+
+upgradeTarget=skin;
+
+
+document
+.querySelectorAll(".upgrade-card")
+.forEach(x=>
+
+x.classList.remove("selected")
+
+);
+
+
+
+div.classList.add(
+"selected"
+);
+
+
+
+upgradeText.innerHTML=
+
+"Цель: "+
+skin.name;
+
+
+};
+
+
+
+upgradeList.appendChild(div);
+
+
+
+});
+
+
+}
+
+
+
+
+
+loadUpgradeTargets();
+
+
+
+
+// выбор предмета
+
+
+function chooseUpgradeItem(index){
+
+
+upgradeItem =
+inventory[index];
+
+
+
+upgradeText.innerHTML=
+
+`
+
+Выбран:
+
+${upgradeItem.name}
+
+<br>
+
+Теперь выберите цель
+
+`;
+
+
+
+}
+
+
+
+
+// переписываем инвентарь
+// чтобы можно было выбирать
+
+
+function drawInventory(){
+
+
+inventoryBox.innerHTML="";
+
+
+
+if(inventory.length===0){
+
+
+inventoryBox.innerHTML=
+
+"<p style='color:#777'>Инвентарь пуст</p>";
+
+return;
+
+
+}
+
+
+
+inventory.forEach((item,index)=>{
+
+
+let card =
+document.createElement("div");
+
+
+
+card.className="item";
+
+
+
+card.onclick=()=>{
+
+chooseUpgradeItem(index);
+
+};
+
+
+
+card.innerHTML=
+
+`
+
+<div class="item-icon">
+
+${item.emoji}
+
+</div>
+
+
+<h3>
+
+${item.name}
+
+</h3>
+
+
+<p>
+
+${item.price} Фст.
+
+</p>
+
+`;
+
+
+
+inventoryBox.appendChild(card);
+
+
+
+});
+
+
+}
+
+
+
+
+
+// запуск апгрейда
+
+
+document
+.getElementById(
+"upgrade-start"
+)
+.onclick=function(){
+
+
+
+if(!upgradeItem){
+
+alert(
+"Выберите свой предмет"
+);
+
+return;
+
+}
+
+
+
+if(!upgradeTarget){
+
+alert(
+"Выберите цель"
+);
+
+return;
+
+}
+
+
+
+
+let chance =
+
+(upgradeItem.price /
+upgradeTarget.price)
+*
+100;
+
+
+
+if(chance>95)
+
+chance=95;
+
+
+
+let roll =
+Math.random()*100;
+
+
+
+if(roll <= chance){
+
+
+
+let index =
+inventory.indexOf(
+upgradeItem
+);
+
+
+
+inventory[index]=
+upgradeTarget;
+
+
+
+alert(
+
+"🎉 Успех!\n"+
+upgradeTarget.name
+
+);
+
+
+
+}
+
+else{
+
+
+let index =
+inventory.indexOf(
+upgradeItem
+);
+
+
+
+inventory.splice(
+index,
+1
+);
+
+
+
+alert(
+"💥 Неудача. Предмет сгорел"
+);
+
+
+}
+
+
+
+upgradeItem=null;
+
+upgradeTarget=null;
+
+
+saveData();
+
+drawInventory();
+
+
+
+};
+  
+// ===============================
+// FINAL POLISH
+// PART 6/6
+// ===============================
+
+
+// Уведомления
+
+function notify(text){
+
+
+let box =
+document.createElement("div");
+
+
+box.className="notify";
+
+
+box.innerHTML=text;
+
+
+document.body.appendChild(box);
+
+
+
+setTimeout(()=>{
+
+
+box.classList.add("show");
+
+
+},50);
+
+
+
+setTimeout(()=>{
+
+
+box.classList.remove("show");
+
+
+setTimeout(()=>{
+
+box.remove();
+
+},300);
+
+
+
+},2500);
+
+
+
+}
+
+
+
+
+// заменяем alert
+
+window.alert=function(text){
+
+notify(text);
+
+};
+
+
+
+
+// звук открытия
+
+function playSound(){
+
+
+let audio =
+new Audio(
+"https://www.myinstants.com/media/sounds/click.mp3"
+);
+
+
+audio.volume=0.2;
+
+
+audio.play()
+.catch(()=>{});
+
+
+}
+
+
+
+// добавляем звук кнопкам
+
+document
+.querySelectorAll(".open-btn")
+.forEach(btn=>{
+
+
+btn.addEventListener(
+"click",
+playSound
+);
+
+
+});
+
+
+
+
+
+// дополнительные стили
+
+let finalStyle =
+document.createElement("style");
+
+
+finalStyle.innerHTML=`
+
+.notify{
+
+
+position:fixed;
+
+right:30px;
+
+top:30px;
+
+background:#1d2638;
+
+border-left:5px solid #ff9800;
+
+padding:20px 30px;
+
+border-radius:12px;
+
+font-weight:bold;
+
+transform:translateX(400px);
+
+transition:.3s;
+
+z-index:9999;
+
+box-shadow:0 0 20px #000;
+
+
+}
+
+
+
+.notify.show{
+
+
+transform:translateX(0);
+
+
+}
+
+
+
+
+
+@media(max-width:800px){
+
+
+
+header{
+
+
+flex-direction:column;
+
+height:auto;
+
+gap:15px;
+
+padding:20px;
+
+
+}
+
+
+
+nav{
+
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+
+}
+
+
+
+.hero h1{
+
+
+font-size:38px;
+
+
+}
+
+
+
+.cases{
+
+
+padding:20px;
+
+
+}
+
+
+
+}
+
+
+`;
+
+
+document.head.appendChild(
+finalStyle
+);
+
+
+
+
+// автосохранение каждые 5 секунд
+
+
+setInterval(()=>{
+
+
+saveData();
+
+
+},5000);
+
+
+
+// запуск
+
+updateBalance();
+
+drawInventory();
+
+
+console.log(
+"🎲 CaseNova успешно запущен!"
+);
 
 </script>
+
 
 </body>
 
