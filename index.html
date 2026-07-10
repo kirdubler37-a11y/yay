@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ============================================================
-           ВЕСЬ CSS ТОТ ЖЕ, ЧТО В ПРЕДЫДУЩЕМ ФАЙЛЕ
-           (я не буду дублировать 500 строк, он полностью идентичен)
+           ВЕСЬ CSS (полностью тот же, что был)
         ============================================================ */
         * {
             margin: 0;
@@ -1336,7 +1335,6 @@
             price: 75,
             description: 'Только ножи + заполнители',
             skins: (() => {
-                // 14 ножей + 16 дешёвых заполнителей
                 const fillers = ALL_SKINS.filter(s =>
                     s.rarity === 'common' || s.rarity === 'uncommon'
                 ).slice(0, 16);
@@ -1346,27 +1344,45 @@
     ];
 
     // ============================================================
-    //  ВЕСА — КАЗИНО ВЫИГРЫВАЕТ
+    //  ВЕСА — ИСПРАВЛЕНЫ
     // ============================================================
     function getRarityWeights() {
         const currentCase = CASES[currentCaseIndex];
         const id = currentCase?.id || 'mixed';
 
         switch (id) {
-            case 'premium': return { legendary: 1, epic: 4, rare: 10, uncommon: 30, common: 55 };
-            case 'standard': return { legendary: 0, epic: 0, rare: 15, uncommon: 30, common: 55 };
-            case 'common': return { legendary: 0, epic: 0, rare: 5, uncommon: 25, common: 70 };
-            case 'all_or_nothing': return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
-            case 'mixed': return { legendary: 2, epic: 6, rare: 12, uncommon: 25, common: 55 };
-            case 'sniper': return { legendary: 2, epic: 8, rare: 20, uncommon: 30, common: 40 };
-            case 'pistol': return { legendary: 1, epic: 4, rare: 15, uncommon: 30, common: 50 };
-            case 'knife': return { legendary: 2, epic: 3, rare: 5, uncommon: 30, common: 60 };
-            default: return { legendary: 2, epic: 6, rare: 12, uncommon: 25, common: 55 };
+            case 'premium':
+                // 5% легендарка, 20% эпик, 30% редкие, 30% необычные, 15% обычные
+                return { legendary: 5, epic: 20, rare: 30, uncommon: 30, common: 15 };
+            case 'standard':
+                // 1% легендарка, 4% эпик, 20% редкие, 40% необычные, 35% обычные
+                return { legendary: 1, epic: 4, rare: 20, uncommon: 40, common: 35 };
+            case 'common':
+                // 0% легендарка, 2% эпик, 10% редкие, 35% необычные, 53% обычные
+                return { legendary: 0, epic: 2, rare: 10, uncommon: 35, common: 53 };
+            case 'all_or_nothing':
+                // 1% легендарка, 20% необычные, 79% обычные
+                return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
+            case 'mixed':
+                // 2% легендарка, 6% эпик, 12% редкие, 30% необычные, 50% обычные
+                return { legendary: 2, epic: 6, rare: 12, uncommon: 30, common: 50 };
+            case 'sniper':
+                // 3% легендарка, 12% эпик, 25% редкие, 35% необычные, 25% обычные
+                return { legendary: 3, epic: 12, rare: 25, uncommon: 35, common: 25 };
+            case 'pistol':
+                // 1% легендарка, 5% эпик, 15% редкие, 35% необычные, 44% обычные
+                return { legendary: 1, epic: 5, rare: 15, uncommon: 35, common: 44 };
+            case 'knife':
+                // 2% легендарка, 5% эпик, 10% редкие, 35% необычные, 48% обычные
+                return { legendary: 2, epic: 5, rare: 10, uncommon: 35, common: 48 };
+            default:
+                return { legendary: 2, epic: 6, rare: 12, uncommon: 30, common: 50 };
         }
     }
 
     // ============================================================
-    //  КОНТРАКТ
+    //  ОСТАЛЬНОЙ КОД (полностью тот же, что был)
+    //  getSkinForContract, состояние, DOM, и т.д.
     // ============================================================
     function getSkinForContract(targetPrice) {
         const minPrice = targetPrice * 0.8;
