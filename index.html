@@ -1,220 +1,262 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CaseBattle | Кейсы + Инвентарь</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ----- RESET & GLOBAL ----- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0b0e14;
-            color: #e3e6ed;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #12131a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
             padding: 20px;
         }
-        .app {
-            max-width: 1100px;
-            width: 100%;
-            background: #141a24;
-            border-radius: 32px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            border: 1px solid #2a313e;
-        }
-
-        /* ----- HEADER ----- */
-        .header {
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
+            max-width: 1100px;
+            margin: 0 auto 30px;
+            padding: 15px 25px;
+            background: #1a1c24;
+            border-radius: 10px;
+            border-bottom: 3px solid #ff9d00;
             flex-wrap: wrap;
             gap: 15px;
         }
         .logo {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            background: linear-gradient(135deg, #f7c948, #f0a500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
-        .logo i { -webkit-text-fill-color: #f0a500; margin-right: 8px; }
+        .logo span { color: #ff9d00; }
         .balance {
-            background: #1f2836;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 18px;
-            border: 1px solid #2f3a4b;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff9d00;
         }
-        .balance i { color: #f0a500; margin-right: 8px; }
-        .balance span { color: #b9c4d4; font-weight: 400; }
+        .balance i { margin-right: 8px; }
+        .balance span { color: #fff; }
 
-        /* ----- TABS ----- */
+        /* ВКЛАДКИ */
         .tabs {
             display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #1f2836;
-            padding-bottom: 10px;
+            gap: 10px;
+            max-width: 1100px;
+            margin: 0 auto 20px;
         }
         .tab-btn {
-            background: none;
+            background: #1a1c24;
             border: none;
             color: #8895aa;
+            padding: 10px 24px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
-            padding: 8px 20px;
             cursor: pointer;
-            border-radius: 30px;
             transition: 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Arial', sans-serif;
         }
-        .tab-btn:hover { color: #e3e6ed; background: #1f2836; }
+        .tab-btn:hover { background: #2d313f; color: #fff; }
         .tab-btn.active {
-            color: #f0a500;
-            background: #1f2836;
+            background: #ff9d00;
+            color: #12131a;
         }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* ----- CASE CARD ----- */
-        .case-card {
-            background: #1a212c;
-            border-radius: 24px;
-            padding: 30px 20px 25px;
-            text-align: center;
-            border: 1px solid #2a3342;
-            margin-bottom: 10px;
+        /* КЕЙС */
+        .case-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #1a1c24;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        .case-card h2 { font-weight: 600; font-size: 22px; margin-bottom: 6px; }
-        .case-card .sub { color: #8895aa; font-size: 14px; margin-bottom: 20px; }
+        .case-container h3 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        .case-container .sub {
+            color: #8895aa;
+            margin-bottom: 15px;
+        }
+        .case-container .price-tag {
+            color: #ff9d00;
+            font-weight: bold;
+            font-size: 18px;
+        }
 
-        /* ----- СЛОТ-МАШИНА (РУЛЕТКА) ----- */
-        .slot-machine {
-            background: #0f141d;
-            border-radius: 20px;
-            padding: 20px 10px;
-            margin: 20px 0 25px;
-            border: 1px solid #28303f;
-            overflow: hidden;
+        /* РУЛЕТКА (как в твоём примере) */
+        .roulette-wrapper {
             position: relative;
+            width: 100%;
+            height: 130px;
+            background: #111217;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid #2d313f;
         }
-        .slot-track {
+        .pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #ff9d00;
+            z-index: 10;
+            box-shadow: 0 0 15px #ff9d00;
+        }
+        .roulette-tape {
             display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: nowrap;
-            min-height: 120px;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
+            will-change: transform;
+        }
+        .skin-card {
+            width: 110px;
+            height: 110px;
+            margin: 0 5px;
+            background: #1e202b;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        /* Анимация прокрутки — управляется через transform в JS */
-        .slot-track.spinning {
-            transition: transform 2.5s cubic-bezier(0.17, 0.67, 0.12, 1);
-        }
-
-        .slot-item {
-            flex: 0 0 90px;
-            background: #1e2735;
-            border-radius: 16px;
-            padding: 12px 6px;
-            text-align: center;
-            border: 2px solid #2d384a;
+            justify-content: center;
+            font-size: 11px;
+            padding: 5px;
+            box-sizing: border-box;
+            border-bottom: 4px solid #fff;
+            flex-shrink: 0;
             transition: 0.2s;
-            opacity: 0.7;
-            scale: 0.9;
         }
-        .slot-item.win-highlight {
-            opacity: 1;
-            scale: 1.1;
-            border-color: #f0a500;
-            box-shadow: 0 0 30px rgba(240, 165, 0, 0.5);
+        .skin-card .icon {
+            font-size: 36px;
+            margin-bottom: 4px;
         }
-        .slot-item .icon { font-size: 36px; display: block; margin-bottom: 4px; }
-        .slot-item .name { font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .slot-item .price { font-size: 10px; color: #8895aa; }
+        .skin-card .name {
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            font-size: 11px;
+        }
+        .skin-card .price {
+            font-size: 10px;
+            color: #8895aa;
+            margin-top: 2px;
+        }
 
         /* Редкости */
-        .rarity-common .icon { color: #b0b7c2; }
-        .rarity-uncommon .icon { color: #5b9e6b; }
-        .rarity-rare .icon { color: #3b7fc9; }
-        .rarity-epic .icon { color: #9b4bca; }
-        .rarity-legendary .icon { color: #d48c2b; }
+        .rarity-legendary { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, #1e202b 60%, rgba(235,75,75,0.15)); }
+        .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, #1e202b 60%, rgba(211,44,230,0.15)); }
+        .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, #1e202b 60%, rgba(136,71,255,0.15)); }
+        .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, #1e202b 60%, rgba(75,105,255,0.15)); }
+        .rarity-common { border-bottom-color: #6b7a8a; background: linear-gradient(180deg, #1e202b 60%, rgba(107,122,138,0.15)); }
 
+        /* Кнопка */
         .btn-open {
-            background: linear-gradient(135deg, #f7c948, #e09d00);
+            background: linear-gradient(135deg, #ff9d00, #ed6c02);
+            color: #fff;
             border: none;
-            padding: 16px 40px;
-            border-radius: 60px;
-            font-weight: 700;
+            padding: 15px 40px;
             font-size: 18px;
-            color: #0b0e14;
+            font-weight: bold;
+            border-radius: 8px;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(237,108,2,0.4);
             transition: 0.2s;
-            box-shadow: 0 6px 0 #a57300;
+            font-family: 'Arial', sans-serif;
             width: 100%;
             max-width: 300px;
-            letter-spacing: 0.3px;
-            font-family: 'Inter', sans-serif;
+            margin: 10px auto 0;
+            display: block;
         }
-        .btn-open:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #a57300; }
-        .btn-open:active { transform: translateY(4px); box-shadow: 0 2px 0 #a57300; }
+        .btn-open:hover { transform: scale(1.03); }
         .btn-open:disabled {
-            opacity: 0.5;
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #a57300;
-            pointer-events: none;
+            background: #444;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        /* ----- ИНВЕНТАРЬ ----- */
+        /* ИНВЕНТАРЬ */
+        .inventory-section {
+            max-width: 1100px;
+            margin: 30px auto 0;
+            background: #1a1c24;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        .inventory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .inventory-header h3 {
+            font-size: 20px;
+        }
+        .inventory-header .stats {
+            color: #8895aa;
+            font-size: 14px;
+        }
+        .inventory-header .stats strong {
+            color: #fff;
+        }
         .inventory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 16px;
-            margin-top: 15px;
-            max-height: 450px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+            max-height: 500px;
             overflow-y: auto;
-            padding: 6px 4px 10px;
+            padding: 5px;
         }
         .inventory-grid::-webkit-scrollbar { width: 4px; }
-        .inventory-grid::-webkit-scrollbar-track { background: #1a212c; }
-        .inventory-grid::-webkit-scrollbar-thumb { background: #f0a500; border-radius: 8px; }
+        .inventory-grid::-webkit-scrollbar-track { background: #1a1c24; }
+        .inventory-grid::-webkit-scrollbar-thumb { background: #ff9d00; border-radius: 8px; }
 
         .inv-item {
-            background: #1a212c;
-            border-radius: 16px;
-            padding: 14px 10px;
+            background: #1e202b;
+            border-radius: 8px;
+            padding: 12px 10px;
             text-align: center;
-            border: 2px solid #2d384a;
+            border-bottom: 4px solid #6b7a8a;
             transition: 0.2s;
-            position: relative;
         }
-        .inv-item:hover { border-color: #f0a500; transform: translateY(-3px); }
-        .inv-item .icon { font-size: 32px; display: block; margin-bottom: 6px; }
-        .inv-item .name { font-size: 13px; font-weight: 600; }
-        .inv-item .price { font-size: 12px; color: #b9c4d4; margin: 4px 0 8px; }
+        .inv-item:hover { transform: translateY(-3px); border-color: #ff9d00; }
+        .inv-item .icon { font-size: 32px; display: block; margin-bottom: 4px; }
+        .inv-item .name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .inv-item .price { font-size: 11px; color: #8895aa; margin: 4px 0 8px; }
         .btn-sell {
-            background: #2d384a;
+            background: #2d313f;
             border: none;
-            color: #e3e6ed;
-            padding: 6px 16px;
-            border-radius: 30px;
+            color: #fff;
+            padding: 5px 16px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Arial', sans-serif;
         }
-        .btn-sell:hover { background: #f0a500; color: #0b0e14; }
+        .btn-sell:hover { background: #ff9d00; color: #12131a; }
         .empty-inv {
+            grid-column: 1 / -1;
             color: #5a677a;
             text-align: center;
             padding: 40px 20px;
@@ -222,23 +264,19 @@
         }
         .empty-inv i { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.4; }
 
-        /* ----- АДАПТИВ ----- */
         @media (max-width: 640px) {
-            .app { padding: 16px; }
-            .slot-item { flex: 0 0 70px; padding: 8px 4px; }
-            .slot-item .icon { font-size: 28px; }
-            .slot-item .name { font-size: 9px; }
-            .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+            .skin-card { width: 80px; height: 90px; }
+            .skin-card .icon { font-size: 28px; }
+            .roulette-wrapper { height: 110px; }
+            .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+            header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<div class="app">
-
-    <!-- ШАПКА -->
-    <header class="header">
-        <div class="logo"><i class="fas fa-box-open"></i> CaseBattle</div>
+    <header>
+        <div class="logo"><i class="fas fa-box-open"></i> CASE-<span>BATTLE</span></div>
         <div class="balance"><i class="fas fa-coins"></i> <span id="balanceDisplay">1000</span></div>
     </header>
 
@@ -250,297 +288,298 @@
 
     <!-- ВКЛАДКА: КЕЙС -->
     <div class="tab-content active" id="tab-case">
-        <div class="case-card">
-            <h2>🌀 Стандартный кейс</h2>
-            <div class="sub">Нажми на кнопку, чтобы запустить рулетку</div>
-
-            <div class="slot-machine">
-                <div class="slot-track" id="slotTrack">
-                    <!-- слоты будут вставлены через JS -->
-                </div>
+        <div class="case-container">
+            <h3>🔥 КЕЙС «ЛУЧШИЙ ВЫБОР»</h3>
+            <div class="sub">Стоимость открытия: <span class="price-tag">50</span></div>
+            
+            <div class="roulette-wrapper">
+                <div class="pointer"></div>
+                <div class="roulette-tape" id="tape"></div>
             </div>
 
-            <button class="btn-open" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ (50)</button>
+            <button class="btn-open" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС</button>
         </div>
     </div>
 
     <!-- ВКЛАДКА: ИНВЕНТАРЬ -->
     <div class="tab-content" id="tab-inventory">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <span style="color:#8895aa;">Всего предметов: <strong id="invTotalCount">0</strong></span>
-            <span style="color:#8895aa;">Общая стоимость: <strong id="invTotalPrice">0.00</strong> $</span>
-        </div>
-        <div class="inventory-grid" id="inventoryGrid">
-            <!-- сюда рендерится инвентарь -->
-        </div>
-    </div>
-
-</div>
-
-<script>
-(function() {
-    // ----- КОНФИГ СКИНОВ -----
-    const ITEMS = [
-        { name: 'MP9 | Зелёный', price: 2.50, rarity: 'common', icon: '🔫' },
-        { name: 'MAG-7 | Медь', price: 3.20, rarity: 'common', icon: '🔫' },
-        { name: 'Glock-18 | Вода', price: 5.10, rarity: 'uncommon', icon: '🔫' },
-        { name: 'M4A4 | Тренировка', price: 8.75, rarity: 'uncommon', icon: '🔫' },
-        { name: 'AK-47 | Красная линия', price: 15.40, rarity: 'rare', icon: '🔫' },
-        { name: 'AWP | Фуксия', price: 22.00, rarity: 'rare', icon: '🔫' },
-        { name: 'Кинжал | Теневая', price: 45.90, rarity: 'epic', icon: '🗡️' },
-        { name: 'Нож | Рубиновый', price: 89.99, rarity: 'legendary', icon: '🗡️' },
-        { name: 'Скин | Азимов', price: 120.00, rarity: 'legendary', icon: '🤖' },
-    ];
-
-    const RARITY_WEIGHTS = {
-        common: 45,
-        uncommon: 30,
-        rare: 18,
-        epic: 5,
-        legendary: 2,
-    };
-
-    // ----- СОСТОЯНИЕ -----
-    let balance = 1000;
-    const OPEN_COST = 50;
-    let inventory = []; // массив объектов { name, price, rarity, icon, id }
-    let idCounter = 0;
-    let isSpinning = false;
-
-    // DOM
-    const track = document.getElementById('slotTrack');
-    const openBtn = document.getElementById('openBtn');
-    const balanceSpan = document.getElementById('balanceDisplay');
-    const inventoryGrid = document.getElementById('inventoryGrid');
-    const invCount = document.getElementById('invCount');
-    const invTotalCount = document.getElementById('invTotalCount');
-    const invTotalPrice = document.getElementById('invTotalPrice');
-
-    // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
-    function getRarityClass(rarity) { return `rarity-${rarity}`; }
-
-    function getRandomItem() {
-        const rarityKeys = Object.keys(RARITY_WEIGHTS);
-        const totalWeight = rarityKeys.reduce((sum, k) => sum + RARITY_WEIGHTS[k], 0);
-        let rand = Math.random() * totalWeight;
-        let selectedRarity = 'common';
-        for (const key of rarityKeys) {
-            rand -= RARITY_WEIGHTS[key];
-            if (rand <= 0) { selectedRarity = key; break; }
-        }
-        const pool = ITEMS.filter(item => item.rarity === selectedRarity);
-        return pool.length ? pool[Math.floor(Math.random() * pool.length)] : ITEMS[0];
-    }
-
-    // Генерация слотов для рулетки (15 штук для красивой прокрутки)
-    function generateSlotItems(count = 15) {
-        const items = [];
-        for (let i = 0; i < count; i++) {
-            items.push(getRandomItem());
-        }
-        return items;
-    }
-
-    // Отрисовка слотов
-    function renderSlots(items, winIndex = -1) {
-        track.innerHTML = '';
-        track.style.transform = 'translateX(0)';
-        track.classList.remove('spinning');
-        
-        items.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = `slot-item ${getRarityClass(item.rarity)}`;
-            if (idx === winIndex) div.classList.add('win-highlight');
-            div.innerHTML = `
-                <span class="icon">${item.icon}</span>
-                <div class="name">${item.name}</div>
-                <div class="price">$${item.price.toFixed(2)}</div>
-            `;
-            track.appendChild(div);
-        });
-    }
-
-    // ----- ОБНОВЛЕНИЕ ИНВЕНТАРЯ (UI) -----
-    function renderInventory() {
-        // Обновляем счётчики
-        invCount.textContent = inventory.length;
-        invTotalCount.textContent = inventory.length;
-        const total = inventory.reduce((sum, item) => sum + item.price, 0);
-        invTotalPrice.textContent = total.toFixed(2);
-
-        if (inventory.length === 0) {
-            inventoryGrid.innerHTML = `
-                <div class="empty-inv" style="grid-column:1/-1;">
+        <div class="inventory-section">
+            <div class="inventory-header">
+                <h3><i class="fas fa-backpack"></i> Инвентарь</h3>
+                <div class="stats">
+                    Предметов: <strong id="invTotalCount">0</strong> &nbsp;|&nbsp; Стоимость: <strong id="invTotalPrice">0.00</strong> $
+                </div>
+            </div>
+            <div class="inventory-grid" id="inventoryGrid">
+                <div class="empty-inv">
                     <i class="fas fa-box-open"></i>
                     Инвентарь пуст<br>
                     <span style="font-size:13px; color:#5a677a;">Открой кейс, чтобы получить скины</span>
                 </div>
-            `;
-            return;
-        }
+            </div>
+        </div>
+    </div>
 
-        inventoryGrid.innerHTML = '';
-        inventory.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = `inv-item ${getRarityClass(item.rarity)}`;
-            div.innerHTML = `
-                <span class="icon">${item.icon}</span>
-                <div class="name">${item.name}</div>
-                <div class="price">$${item.price.toFixed(2)}</div>
-                <button class="btn-sell" data-id="${item.id}"><i class="fas fa-dollar-sign"></i> Продать</button>
-            `;
-            inventoryGrid.appendChild(div);
-        });
+    <script>
+    (function() {
+        // ----- КОНФИГ СКИНОВ -----
+        const SKINS = [
+            { name: "AWP | Dragon Lore", rarity: "legendary", icon: "👑", price: 120.00 },
+            { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 89.99 },
+            { name: "Керамбит | Градиент", rarity: "legendary", icon: "🔪", price: 150.00 },
+            { name: "AK-47 | Вулканический", rarity: "epic", icon: "🔥", price: 45.90 },
+            { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 38.50 },
+            { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 22.00 },
+            { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 18.75 },
+            { name: "M4A1-S | Взгляд", rarity: "uncommon", icon: "👁️", price: 8.75 },
+            { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
+            { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
+        ];
 
-        // Вешаем обработчики на кнопки "Продать"
-        document.querySelectorAll('.btn-sell').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const id = parseInt(this.dataset.id);
-                sellItem(id);
-            });
-        });
-    }
-
-    // ----- ПРОДАЖА ПРЕДМЕТА -----
-    function sellItem(id) {
-        const index = inventory.findIndex(item => item.id === id);
-        if (index === -1) return;
-        
-        const item = inventory[index];
-        // Добавляем деньги на баланс (полная стоимость)
-        balance += item.price;
-        updateBalanceUI();
-        
-        // Удаляем из инвентаря
-        inventory.splice(index, 1);
-        renderInventory();
-        
-        // Маленький фидбек
-        openBtn.textContent = `💰 +$${item.price.toFixed(2)}`;
-        setTimeout(() => {
-            openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ (50)';
-        }, 800);
-    }
-
-    // ----- ОБНОВЛЕНИЕ БАЛАНСА -----
-    function updateBalanceUI() {
-        balanceSpan.textContent = balance.toFixed(0);
-    }
-
-    // ----- ОСНОВНАЯ ЛОГИКА ОТКРЫТИЯ (РУЛЕТКА) -----
-    function openCase() {
-        if (isSpinning) return;
-        if (balance < OPEN_COST) {
-            alert('❌ Недостаточно средств! Пополни баланс (введи в консоли: setBalance(1000))');
-            return;
-        }
-
-        // Списываем деньги
-        balance -= OPEN_COST;
-        updateBalanceUI();
-
-        // Блокируем кнопку
-        isSpinning = true;
-        openBtn.disabled = true;
-        openBtn.textContent = '🎰 КРУТИМ...';
-
-        // 1) Генерируем 15 слотов
-        const slots = generateSlotItems(15);
-        
-        // 2) Выигрышный предмет (честный рандом)
-        const winItem = getRandomItem();
-        // Вставляем выигрышный предмет в центр (индекс 7)
-        slots[7] = winItem;
-
-        // 3) Отрисовываем слоты
-        renderSlots(slots, -1);
-
-        // 4) Ждём рендера и запускаем анимацию прокрутки
-        requestAnimationFrame(() => {
-            // Ширина одного слота + gap = 90px + 12px = 102px
-            // Смещаем так, чтобы выигрышный слот (индекс 7) оказался по центру
-            // Центр видимой области: примерно 3-4 слота видно, поэтому сдвиг на (7 - 3) * 102
-            const offset = (7 - 3) * 102; 
-            track.style.transition = 'transform 2.5s cubic-bezier(0.17, 0.67, 0.12, 1)';
-            track.style.transform = `translateX(-${offset}px)`;
-            track.classList.add('spinning');
-        });
-
-        // 5) По окончании анимации — подсветка и запись
-        setTimeout(() => {
-            // Подсвечиваем выигрышный слот
-            const items = slots;
-            renderSlots(items, 7);
-            
-            // Добавляем в инвентарь
-            const newItem = {
-                ...winItem,
-                id: idCounter++
-            };
-            inventory.push(newItem);
-            renderInventory();
-
-            // Разблокируем кнопку
-            isSpinning = false;
-            openBtn.disabled = false;
-            openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ (50)';
-            
-        }, 2800); // чуть больше времени анимации
-    }
-
-    // ----- ВКЛАДКИ (TABS) -----
-    function setupTabs() {
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = {
-            case: document.getElementById('tab-case'),
-            inventory: document.getElementById('tab-inventory')
+        const RARITY_WEIGHTS = {
+            legendary: 2,
+            epic: 5,
+            rare: 15,
+            uncommon: 30,
+            common: 48,
         };
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                const target = this.dataset.tab;
-                Object.keys(contents).forEach(key => {
-                    contents[key].classList.toggle('active', key === target);
+        // ----- СОСТОЯНИЕ -----
+        let balance = 1000;
+        const OPEN_COST = 50;
+        let inventory = [];
+        let idCounter = 0;
+        let isSpinning = false;
+
+        // DOM
+        const tape = document.getElementById('tape');
+        const openBtn = document.getElementById('openBtn');
+        const balanceSpan = document.getElementById('balanceDisplay');
+        const inventoryGrid = document.getElementById('inventoryGrid');
+        const invCount = document.getElementById('invCount');
+        const invTotalCount = document.getElementById('invTotalCount');
+        const invTotalPrice = document.getElementById('invTotalPrice');
+
+        const CARD_WIDTH = 120; // ширина карточки + margin
+
+        // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
+        function getRandomItem() {
+            const rarityKeys = Object.keys(RARITY_WEIGHTS);
+            const totalWeight = rarityKeys.reduce((sum, k) => sum + RARITY_WEIGHTS[k], 0);
+            let rand = Math.random() * totalWeight;
+            let selectedRarity = 'common';
+            for (const key of rarityKeys) {
+                rand -= RARITY_WEIGHTS[key];
+                if (rand <= 0) { selectedRarity = key; break; }
+            }
+            const pool = SKINS.filter(item => item.rarity === selectedRarity);
+            return pool.length ? pool[Math.floor(Math.random() * pool.length)] : SKINS[0];
+        }
+
+        // Генерация ленты из 40 скинов
+        function generateTapeItems(winSkin = null) {
+            tape.innerHTML = '';
+            const count = 40;
+            const items = [];
+            
+            // Если есть победный скин — вставляем его на позицию 32
+            const winIndex = 32;
+            for (let i = 0; i < count; i++) {
+                if (i === winIndex && winSkin) {
+                    items.push(winSkin);
+                } else {
+                    items.push(getRandomItem());
+                }
+            }
+
+            // Если победного нет — просто случайные
+            if (!winSkin) {
+                for (let i = 0; i < count; i++) {
+                    items[i] = getRandomItem();
+                }
+            }
+
+            // Рендерим
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `skin-card rarity-${item.rarity}`;
+                card.innerHTML = `
+                    <div class="icon">${item.icon}</div>
+                    <div class="name">${item.name}</div>
+                    <div class="price">$${item.price.toFixed(2)}</div>
+                `;
+                tape.appendChild(card);
+            });
+
+            return { items, winIndex };
+        }
+
+        // ----- ОБНОВЛЕНИЕ ИНВЕНТАРЯ -----
+        function renderInventory() {
+            invCount.textContent = inventory.length;
+            invTotalCount.textContent = inventory.length;
+            const total = inventory.reduce((sum, item) => sum + item.price, 0);
+            invTotalPrice.textContent = total.toFixed(2);
+
+            if (inventory.length === 0) {
+                inventoryGrid.innerHTML = `
+                    <div class="empty-inv">
+                        <i class="fas fa-box-open"></i>
+                        Инвентарь пуст<br>
+                        <span style="font-size:13px; color:#5a677a;">Открой кейс, чтобы получить скины</span>
+                    </div>
+                `;
+                return;
+            }
+
+            inventoryGrid.innerHTML = '';
+            inventory.forEach(item => {
+                const div = document.createElement('div');
+                div.className = `inv-item rarity-${item.rarity}`;
+                div.innerHTML = `
+                    <span class="icon">${item.icon}</span>
+                    <div class="name">${item.name}</div>
+                    <div class="price">$${item.price.toFixed(2)}</div>
+                    <button class="btn-sell" data-id="${item.id}"><i class="fas fa-dollar-sign"></i> Продать</button>
+                `;
+                inventoryGrid.appendChild(div);
+            });
+
+            // Обработчики продажи
+            document.querySelectorAll('.btn-sell').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    sellItem(id);
                 });
             });
-        });
-    }
+        }
 
-    // ----- ДЕБАГ: ФУНКЦИЯ ДЛЯ ПОПОЛНЕНИЯ БАЛАНСА (через консоль) -----
-    window.setBalance = (amount) => {
-        balance = amount;
-        updateBalanceUI();
-        console.log(`✅ Баланс обновлён: ${balance}`);
-    };
+        // ----- ПРОДАЖА -----
+        function sellItem(id) {
+            const index = inventory.findIndex(item => item.id === id);
+            if (index === -1) return;
+            const item = inventory[index];
+            balance += item.price;
+            updateBalanceUI();
+            inventory.splice(index, 1);
+            renderInventory();
+            
+            // Визуальный фидбек
+            openBtn.textContent = `💰 +$${item.price.toFixed(2)}`;
+            setTimeout(() => {
+                openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
+            }, 800);
+        }
 
-    // ----- ИНИЦИАЛИЗАЦИЯ -----
-    function init() {
-        // Стартовые слоты (красивая заставка)
-        const starter = generateSlotItems(7);
-        renderSlots(starter, -1);
-        updateBalanceUI();
-        
-        // Добавим пару скинов в инвентарь для примера
-        const demoItems = [
-            { ...ITEMS[2], id: idCounter++ },
-            { ...ITEMS[5], id: idCounter++ },
-        ];
-        inventory = demoItems;
-        renderInventory();
+        // ----- ОБНОВЛЕНИЕ БАЛАНСА -----
+        function updateBalanceUI() {
+            balanceSpan.textContent = balance.toFixed(0);
+        }
 
-        // Настройка вкладок
-        setupTabs();
+        // ----- ОСНОВНАЯ ЛОГИКА ОТКРЫТИЯ (как в твоём примере) -----
+        function openCase() {
+            if (isSpinning) return;
+            if (balance < OPEN_COST) {
+                alert('❌ Недостаточно средств!');
+                return;
+            }
 
-        // Обработчик кнопки открытия
-        openBtn.addEventListener('click', openCase);
-    }
+            // Списываем деньги
+            balance -= OPEN_COST;
+            updateBalanceUI();
 
-    init();
-})();
-</script>
+            isSpinning = true;
+            openBtn.disabled = true;
+            openBtn.textContent = '🎰 КРУТИМ...';
+
+            // Выбираем победный скин
+            const winSkin = getRandomItem();
+
+            // Сбрасываем ленту в начальное положение
+            tape.style.transition = 'none';
+            tape.style.transform = 'translateX(0px)';
+
+            // Генерируем новую ленту с победным скином на позиции 32
+            generateTapeItems(winSkin);
+
+            // Вычисляем сдвиг, чтобы победный скин оказался по центру
+            const wrapper = document.querySelector('.roulette-wrapper');
+            const wrapperWidth = wrapper.offsetWidth;
+            const winIndex = 32;
+            const targetLeft = -(winIndex * CARD_WIDTH) + (wrapperWidth / 2) - (CARD_WIDTH / 2);
+
+            // Запускаем анимацию
+            setTimeout(() => {
+                tape.style.transition = 'transform 4s cubic-bezier(0.1, 1, 0.1, 1)';
+                const innerRandom = (Math.random() * 40) - 20; // небольшой разброс
+                tape.style.transform = `translateX(${targetLeft + innerRandom}px)`;
+            }, 50);
+
+            // Когда анимация завершилась
+            setTimeout(() => {
+                // Добавляем в инвентарь
+                const newItem = {
+                    ...winSkin,
+                    id: idCounter++
+                };
+                inventory.push(newItem);
+                renderInventory();
+
+                isSpinning = false;
+                openBtn.disabled = false;
+                openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
+            }, 4200);
+        }
+
+        // ----- ВКЛАДКИ (TABS) -----
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = {
+                case: document.getElementById('tab-case'),
+                inventory: document.getElementById('tab-inventory')
+            };
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    const target = this.dataset.tab;
+                    Object.keys(contents).forEach(key => {
+                        contents[key].classList.toggle('active', key === target);
+                    });
+                });
+            });
+        }
+
+        // ----- ДЕБАГ: ПОПОЛНЕНИЕ БАЛАНСА -----
+        window.setBalance = (amount) => {
+            balance = amount;
+            updateBalanceUI();
+            console.log(`✅ Баланс: ${balance}`);
+        };
+
+        // ----- ИНИЦИАЛИЗАЦИЯ -----
+        function init() {
+            // Стартовая лента
+            generateTapeItems();
+            
+            // Добавляем демо-скины в инвентарь
+            const demoItems = [
+                { ...SKINS[2], id: idCounter++ },
+                { ...SKINS[5], id: idCounter++ },
+                { ...SKINS[7], id: idCounter++ },
+            ];
+            inventory = demoItems;
+            renderInventory();
+            updateBalanceUI();
+
+            setupTabs();
+            openBtn.addEventListener('click', openCase);
+        }
+
+        init();
+    })();
+    </script>
 </body>
 </html>
