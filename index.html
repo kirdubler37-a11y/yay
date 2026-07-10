@@ -183,7 +183,6 @@
         .skin-card .name { font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 10px; }
         .skin-card .price { font-size: 10px; color: #6b7a8a; margin-top: 2px; }
 
-        /* Редкости — ВАЖНО: правильные цвета */
         .rarity-legendary { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, #1a1f2a 60%, rgba(235,75,75,0.15)); }
         .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, #1a1f2a 60%, rgba(211,44,230,0.15)); }
         .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, #1a1f2a 60%, rgba(136,71,255,0.15)); }
@@ -856,24 +855,31 @@
     <script>
     (function() {
         // ============================================================
-        //  СКИНЫ
+        //  СКИНЫ — РАСШИРЕННЫЙ ПУЛ
         // ============================================================
         const ALL_SKINS = [
-            // LEGENDARY (красные)
+            // === LEGENDARY (красные) ===
             { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
             { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
             { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
             { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
             { name: "AWP | Gungnir", rarity: "legendary", icon: "⚡", price: 720.00 },
             { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
-            // EPIC (фиолетовые)
+            { name: "AK-47 | Дикий Лютик", rarity: "legendary", icon: "🌺", price: 680.00 },
+            { name: "Desert Eagle | Золотой", rarity: "legendary", icon: "🌟", price: 450.00 },
+
+            // === EPIC (фиолетовые) ===
             { name: "AK-47 | Вулканический", rarity: "epic", icon: "🌋", price: 145.00 },
             { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 98.00 },
             { name: "M4A1-S | Кибер", rarity: "epic", icon: "💻", price: 75.00 },
             { name: "AWP | Электричество", rarity: "epic", icon: "⚡", price: 120.00 },
             { name: "USP-S | Убийца", rarity: "epic", icon: "🎯", price: 62.00 },
             { name: "SSG 08 | Смерть", rarity: "epic", icon: "💀", price: 50.00 },
-            // RARE (синие)
+            { name: "M4A4 | Тёмный лес", rarity: "epic", icon: "🌲", price: 85.00 },
+            { name: "Glock-18 | Феникс", rarity: "epic", icon: "🔥", price: 55.00 },
+            { name: "P250 | Ядерный", rarity: "epic", icon: "☢️", price: 40.00 },
+
+            // === RARE (синие) ===
             { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 35.00 },
             { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 28.00 },
             { name: "AK-47 | Красная линия", rarity: "rare", icon: "🔴", price: 42.00 },
@@ -881,7 +887,10 @@
             { name: "Desert Eagle | Мечта", rarity: "rare", icon: "🌙", price: 25.00 },
             { name: "AWP | Фуксия", rarity: "rare", icon: "🌸", price: 45.00 },
             { name: "P250 | Вспышка", rarity: "rare", icon: "💥", price: 18.00 },
-            // UNCOMMON (зелёные)
+            { name: "MP9 | Роза", rarity: "rare", icon: "🌹", price: 22.00 },
+            { name: "MAC-10 | Адский", rarity: "rare", icon: "👹", price: 20.00 },
+
+            // === UNCOMMON (зелёные) ===
             { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
             { name: "AK-47 | Водяной", rarity: "uncommon", icon: "💧", price: 15.00 },
             { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
@@ -889,7 +898,10 @@
             { name: "Five-SeveN | Серебро", rarity: "uncommon", icon: "🔩", price: 11.00 },
             { name: "SSG 08 | Абисс", rarity: "uncommon", icon: "🌊", price: 14.00 },
             { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
-            // COMMON (серые)
+            { name: "MP7 | Иней", rarity: "uncommon", icon: "❄️", price: 7.50 },
+            { name: "UMP-45 | Кристалл", rarity: "uncommon", icon: "💎", price: 10.00 },
+
+            // === COMMON (серые) ===
             { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
             { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
             { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
@@ -900,10 +912,12 @@
             { name: "PP-Bizon | Лес", rarity: "common", icon: "🔫", price: 1.40 },
             { name: "Galil | Кара", rarity: "common", icon: "🔫", price: 2.00 },
             { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
+            { name: "MP5 | Тень", rarity: "common", icon: "🔫", price: 1.60 },
+            { name: "P90 | Дым", rarity: "common", icon: "🔫", price: 1.90 },
         ];
 
         // ============================================================
-        //  КЕЙСЫ
+        //  КЕЙСЫ — 8 ШТУК
         // ============================================================
         const CASES = [
             {
@@ -911,7 +925,7 @@
                 name: '🔥 ПРЕМИУМ КЕЙС',
                 icon: '💎',
                 price: 250,
-                description: 'Шанс на Dragon Lore 1%',
+                description: 'Шанс на легендарку ~2%',
                 skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic' || s.rarity === 'rare')
             },
             {
@@ -964,11 +978,38 @@
                 price: 30,
                 description: 'Все скины',
                 skins: ALL_SKINS
+            },
+            // ============================================================
+            //  НОВЫЕ КЕЙСЫ
+            // ============================================================
+            {
+                id: 'sniper',
+                name: '🎯 СНАЙПЕРСКИЙ КЕЙС',
+                icon: '🎯',
+                price: 45,
+                description: 'Только снайперские винтовки',
+                skins: ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG'))
+            },
+            {
+                id: 'pistol',
+                name: '🔫 ПИСТОЛЕТНЫЙ КЕЙС',
+                icon: '🔫',
+                price: 20,
+                description: 'Только пистолеты',
+                skins: ALL_SKINS.filter(s => s.name.includes('Desert') || s.name.includes('Glock') || s.name.includes('USP') || s.name.includes('P250') || s.name.includes('Five-SeveN'))
+            },
+            {
+                id: 'knife',
+                name: '🗡️ НОЖЕВОЙ КЕЙС',
+                icon: '🗡️',
+                price: 75,
+                description: 'Только ножи (редкие)',
+                skins: ALL_SKINS.filter(s => s.name.includes('Керамбит') || s.name.includes('M9') || s.name.includes('Bayonet'))
             }
         ];
 
         // ============================================================
-        //  ВЕСА ДЛЯ ВЫПАДЕНИЯ
+        //  ВЕСА ДЛЯ ВЫПАДЕНИЯ — ИСПРАВЛЕННЫЕ
         // ============================================================
         function getRarityWeights() {
             const currentCase = CASES[currentCaseIndex];
@@ -978,9 +1019,24 @@
                 return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
             }
             
-            // ПРЕМИУМ — Dragon Lore 1%, все легендарки 3%
+            // ПРЕМИУМ — РЕАЛЬНО МАЛЕНЬКИЙ ШАНС (~2% на легендарку)
             if (currentCase?.id === 'premium') {
-                return { legendary: 3, epic: 7, rare: 15, uncommon: 30, common: 45 };
+                return { legendary: 2, epic: 8, rare: 15, uncommon: 30, common: 45 };
+            }
+            
+            // СНАЙПЕРСКИЙ — больше шанс на редкие
+            if (currentCase?.id === 'sniper') {
+                return { legendary: 5, epic: 15, rare: 30, uncommon: 30, common: 20 };
+            }
+            
+            // НОЖЕВОЙ — только легендарки
+            if (currentCase?.id === 'knife') {
+                return { legendary: 100, epic: 0, rare: 0, uncommon: 0, common: 0 };
+            }
+            
+            // ПИСТОЛЕТНЫЙ
+            if (currentCase?.id === 'pistol') {
+                return { legendary: 2, epic: 10, rare: 25, uncommon: 30, common: 33 };
             }
             
             // Остальные
@@ -991,31 +1047,20 @@
         //  КОНТРАКТ — ПОИСК СКИНА ПО ЦЕНЕ
         // ============================================================
         function getSkinForContract(targetPrice) {
-            // Ищем скин с ценой в диапазоне ±20% от targetPrice
             const minPrice = targetPrice * 0.8;
             const maxPrice = targetPrice * 1.2;
             
             let candidates = ALL_SKINS.filter(s => s.price >= minPrice && s.price <= maxPrice);
             
-            // Если есть подходящие — выбираем случайный
             if (candidates.length > 0) {
                 return candidates[Math.floor(Math.random() * candidates.length)];
             }
             
-            // Если нет — берём самый дорогой доступный
             const sorted = [...ALL_SKINS].sort((a, b) => a.price - b.price);
             
-            // Если targetPrice меньше самого дешёвого — берём самый дешёвый
-            if (targetPrice < sorted[0].price) {
-                return sorted[0];
-            }
+            if (targetPrice < sorted[0].price) return sorted[0];
+            if (targetPrice > sorted[sorted.length - 1].price) return sorted[sorted.length - 1];
             
-            // Если targetPrice больше самого дорогого — берём самый дорогой
-            if (targetPrice > sorted[sorted.length - 1].price) {
-                return sorted[sorted.length - 1];
-            }
-            
-            // Иначе ищем ближайший
             let best = sorted[0];
             let bestDiff = Infinity;
             for (const skin of sorted) {
@@ -1245,7 +1290,6 @@
             const total = inventory.reduce((sum, item) => sum + item.price, 0);
             invTotalPrice.textContent = total.toFixed(2);
 
-            // Главный инвентарь
             if (inventory.length === 0) {
                 inventoryGrid.innerHTML = `
                     <div class="empty-inv">
@@ -1270,7 +1314,6 @@
 
         function createInventoryItem(item, isUpgradeMode, isContractMode) {
             const div = document.createElement('div');
-            // ВАЖНО: правильная редкость
             div.className = `inv-item rarity-${item.rarity}`;
             
             const isUpgradeSelected = selectedForUpgrade.has(item.id);
@@ -1576,7 +1619,7 @@
         }
 
         // ============================================================
-        //  КОНТРАКТЫ — ИСПРАВЛЕННАЯ ВЕРСИЯ
+        //  КОНТРАКТЫ
         // ============================================================
         function toggleContractSelection(id) {
             if (isContracting) return;
@@ -1621,42 +1664,28 @@
 
             const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
             
-            // ============================================================
-            //  60% НЕОКУПАЕМОСТИ
-            // ============================================================
+            // 60% НЕОКУПАЕМОСТИ
             const rand = Math.random() * 100;
             let multiplier;
             
             if (rand < 20) {
-                // 20% — сильный убыток (x0.2 - x0.5)
                 multiplier = 0.2 + Math.random() * 0.3;
             } else if (rand < 45) {
-                // 25% — убыток (x0.5 - x0.8)
                 multiplier = 0.5 + Math.random() * 0.3;
             } else if (rand < 60) {
-                // 15% — небольшой убыток (x0.8 - x0.95)
                 multiplier = 0.8 + Math.random() * 0.15;
             } else if (rand < 70) {
-                // 10% — почти окупаемость (x0.95 - x1.05)
                 multiplier = 0.95 + Math.random() * 0.1;
             } else if (rand < 85) {
-                // 15% — небольшая прибыль (x1.05 - x1.5)
                 multiplier = 1.05 + Math.random() * 0.45;
             } else if (rand < 95) {
-                // 10% — хорошая прибыль (x1.5 - x2.5)
                 multiplier = 1.5 + Math.random() * 1.0;
             } else {
-                // 5% — большая прибыль (x2.5 - x3.5)
                 multiplier = 2.5 + Math.random() * 1.0;
             }
             
-            // РАСЧЁТНАЯ ЦЕНА
             const resultPrice = totalPrice * multiplier;
-            
-            // ИЩЕМ СКИН, БЛИЗКИЙ К РАСЧЁТНОЙ ЦЕНЕ
             const resultSkin = getSkinForContract(resultPrice);
-            
-            // РЕАЛЬНАЯ ЦЕНА СКИНА
             const actualPrice = resultSkin.price;
             const actualMultiplier = actualPrice / totalPrice;
 
