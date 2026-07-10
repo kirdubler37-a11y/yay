@@ -213,10 +213,64 @@
     </div>
 
     <script>
-    // ============================================================
-    //  ОНЛАЙН СЧЁТЧИК (правильный)
-    // ============================================================
-    (function(){const onlineKey='skinVault_online_users';const myId='tab_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);function updateOnline(){let online={};try{online=JSON.parse(localStorage.getItem(onlineKey)||'{}');}catch(e){online={};}online[myId]=Date.now();const now=Date.now();for(const id in online){if(now-online[id]>10000)delete online[id];}localStorage.setItem(onlineKey,JSON.stringify(online));const count=Object.keys(online).length;const el=document.getElementById('onlineCount');if(el)el.textContent=count;document.title=count>1?`⭐ SKINVAULT | ${count} онлайн`:'⭐ SKINVAULT | Кейсы CS2';}updateOnline();const interval=setInterval(updateOnline,3000);window.addEventListener('storage',function(e){if(e.key===onlineKey)updateOnline();});window.addEventListener('beforeunload',function(){let online={};try{online=JSON.parse(localStorage.getItem(onlineKey)||'{}');}catch(e){}delete online[myId];localStorage.setItem(onlineKey,JSON.stringify(online));});})();
+   // ============================================================
+//  ОНЛАЙН СЧЁТЧИК (УЛЬТРА-НАДЁЖНЫЙ)
+// ============================================================
+(function() {
+    const onlineKey = 'skinVault_online_v2';
+    
+    // Уникальный ID этой вкладки
+    const tabId = 'tab_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+    
+    // Записываем ID в sessionStorage чтобы не менять при обновлении
+    const storedId = sessionStorage.getItem('skinVault_stable_id') || tabId;
+    sessionStorage.setItem('skinVault_stable_id', storedId);
+    
+    function updateOnline() {
+        // Записываем текущее время
+        const data = {
+            id: storedId,
+            time: Date.now()
+        };
+        
+        // Сохраняем в localStorage
+        localStorage.setItem(onlineKey + '_' + storedId, JSON.stringify(data));
+        
+        // Считаем все активные вкладки
+        let count = 0;
+        const now = Date.now();
+        
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith(onlineKey + '_')) {
+                try {
+                    const val = JSON.parse(localStorage.getItem(key));
+                    if (val && val.time && (now - val.time < 5000)) {
+                        count++;
+                    } else {
+                        // Удаляем старые записи
+                        localStorage.removeItem(key);
+                    }
+                } catch(e) {
+                    localStorage.removeItem(key);
+                }
+            }
+        }
+        
+        // Обновляем отображение
+        const el = document.getElementById('onlineCount');
+        if (el) el.textContent = count;
+    }
+    
+    // Запускаем
+    updateOnline();
+    setInterval(updateOnline, 2000);
+    
+    // Очистка при закрытии
+    window.addEventListener('beforeunload', function() {
+        localStorage.removeItem(onlineKey + '_' + storedId);
+    });
+})();
 
     // ============================================================
     //  ЗВУКИ
