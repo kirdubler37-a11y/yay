@@ -86,7 +86,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CASE SELECTOR */
         .case-selector {
             display: flex;
             gap: 15px;
@@ -210,7 +209,6 @@
         .btn-primary:hover { transform: scale(1.03); }
         .btn-primary:disabled { background: #2a2f3a; box-shadow: none; cursor: not-allowed; transform: none; }
 
-        /* Список скинов в кейсе */
         .case-skins-list {
             margin-top: 20px;
             padding-top: 20px;
@@ -246,7 +244,6 @@
         .case-skin-preview .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .case-skin-preview .price { font-size: 8px; color: #6b7a8a; }
 
-        /* INVENTORY */
         .inventory-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -317,7 +314,6 @@
         }
         .empty-inv i { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.3; }
 
-        /* CONTRACT SECTION */
         .contract-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -350,14 +346,9 @@
             border-radius: 10px;
             border: 1px solid #1f2635;
         }
-        .contract-info .selected-count {
-            color: #6b7a8a;
-        }
+        .contract-info .selected-count { color: #6b7a8a; }
         .contract-info .selected-count strong { color: #ff6a00; }
-        .contract-info .total-value {
-            font-size: 18px;
-            font-weight: bold;
-        }
+        .contract-info .total-value { font-size: 18px; font-weight: bold; }
         .contract-info .total-value span { color: #ff6a00; }
 
         .btn-contract {
@@ -423,7 +414,7 @@
 
     <header>
         <div class="logo"><i class="fas fa-crown"></i> CS-SKINS</div>
-        <div class="balance"><i class="fas fa-coins"></i> <span id="balanceDisplay">1000</span></div>
+        <div class="balance"><i class="fas fa-coins"></i> <span id="balanceDisplay">500</span></div>
     </header>
 
     <div class="tabs">
@@ -439,7 +430,7 @@
             <div class="case-header">
                 <div>
                     <h3 id="caseName">🔥 ПРЕМИУМ КЕЙС</h3>
-                    <div class="sub">Стоимость открытия: <span class="price-tag" id="casePrice">50</span></div>
+                    <div class="sub">Стоимость открытия: <span class="price-tag" id="casePrice">150</span></div>
                 </div>
                 <div style="font-size:13px; color:#6b7a8a;">
                     <i class="fas fa-cubes"></i> <span id="caseSkinCount">0</span> скинов
@@ -451,7 +442,6 @@
             </div>
             <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС</button>
 
-            <!-- Список всех скинов в кейсе -->
             <div class="case-skins-list">
                 <div class="list-title"><i class="fas fa-list"></i> Все скины в этом кейсе:</div>
                 <div class="case-skins-grid" id="caseSkinsGrid"></div>
@@ -471,7 +461,8 @@
             <div class="inventory-grid" id="inventoryGrid">
                 <div class="empty-inv">
                     <i class="fas fa-box-open"></i>
-                    Инвентарь пуст
+                    Инвентарь пуст<br>
+                    <span style="font-size:13px; color:#4a5568;">Открой кейс, чтобы получить скины</span>
                 </div>
             </div>
         </div>
@@ -526,10 +517,10 @@
     <script>
     (function() {
         // ============================================================
-        //  НАСТОЯЩИЕ СКИНЫ ИЗ CS:GO / CS2 (сбалансированные цены)
+        //  НАСТОЯЩИЕ СКИНЫ ИЗ CS:GO / CS2
         // ============================================================
         const ALL_SKINS = [
-            // === LEGENDARY (красные) — дорогие, редко выпадают ===
+            // === LEGENDARY (красные) — дорогие ===
             { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
             { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
             { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
@@ -563,31 +554,37 @@
             { name: "SSG 08 | Абисс", rarity: "uncommon", icon: "🌊", price: 14.00 },
             { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
 
-            // === COMMON (серые) — дешёвые, часто выпадают ===
+            // === COMMON (серые) — ширпотреб ===
             { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
             { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
             { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
             { name: "P90 | Пепел", rarity: "common", icon: "🔫", price: 2.00 },
             { name: "MAC-10 | Серебро", rarity: "common", icon: "🔫", price: 1.50 },
             { name: "MP7 | Трава", rarity: "common", icon: "🔫", price: 1.20 },
+            { name: "UMP-45 | Дым", rarity: "common", icon: "🔫", price: 1.80 },
+            { name: "PP-Bizon | Лес", rarity: "common", icon: "🔫", price: 1.40 },
+            { name: "Galil | Кара", rarity: "common", icon: "🔫", price: 2.00 },
+            { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
         ];
 
         // ============================================================
-        //  КЕЙСЫ (сбалансированные цены)
+        //  КЕЙСЫ
         // ============================================================
         const CASES = [
             {
                 id: 'premium',
                 name: '🔥 ПРЕМИУМ КЕЙС',
                 icon: '💎',
-                price: 50,
-                skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic')
+                price: 150,
+                description: 'Шанс на окупаемый скин ~10%',
+                skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic' || s.rarity === 'rare')
             },
             {
                 id: 'standard',
                 name: '📦 СТАНДАРТНЫЙ КЕЙС',
                 icon: '📦',
                 price: 25,
+                description: 'Средние скины',
                 skins: ALL_SKINS.filter(s => s.rarity === 'rare' || s.rarity === 'uncommon')
             },
             {
@@ -595,20 +592,44 @@
                 name: '🛠️ БАЗОВЫЙ КЕЙС',
                 icon: '🛠️',
                 price: 10,
+                description: 'Дешёвые скины',
                 skins: ALL_SKINS.filter(s => s.rarity === 'common' || s.rarity === 'uncommon')
             },
             {
-                id: 'legendary',
-                name: '👑 ЛЕГЕНДАРНЫЙ КЕЙС',
-                icon: '👑',
-                price: 100,
-                skins: ALL_SKINS.filter(s => s.rarity === 'legendary')
+                id: 'all_or_nothing',
+                name: '🎰 ВСЁ ИЛИ НИЧЕГО',
+                icon: '🎰',
+                price: 200,
+                description: '1% на дорогой скин, 99% ширпотреб',
+                skins: [
+                    // Дорогие скины (шанс 1%)
+                    { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
+                    { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
+                    { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
+                    { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
+                    // Ширпотреб (99%)
+                    { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
+                    { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
+                    { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
+                    { name: "P90 | Пепел", rarity: "common", icon: "🔫", price: 2.00 },
+                    { name: "MAC-10 | Серебро", rarity: "common", icon: "🔫", price: 1.50 },
+                    { name: "MP7 | Трава", rarity: "common", icon: "🔫", price: 1.20 },
+                    { name: "UMP-45 | Дым", rarity: "common", icon: "🔫", price: 1.80 },
+                    { name: "PP-Bizon | Лес", rarity: "common", icon: "🔫", price: 1.40 },
+                    { name: "Galil | Кара", rarity: "common", icon: "🔫", price: 2.00 },
+                    { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
+                    { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
+                    { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
+                    { name: "USP-S | Лесной", rarity: "uncommon", icon: "🌲", price: 8.00 },
+                    { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
+                ]
             },
             {
                 id: 'mixed',
                 name: '🎲 МИКС КЕЙС',
                 icon: '🎲',
                 price: 30,
+                description: 'Все скины',
                 skins: ALL_SKINS
             }
         ];
@@ -616,13 +637,39 @@
         // ============================================================
         //  ВЕСА ДЛЯ ВЫПАДЕНИЯ
         // ============================================================
-        const RARITY_WEIGHTS = {
-            legendary: 3,
-            epic: 8,
-            rare: 20,
-            uncommon: 30,
-            common: 39,
-        };
+        function getRarityWeights(caseSkins) {
+            const isAllOrNothing = CASES[currentCaseIndex]?.id === 'all_or_nothing';
+            
+            if (isAllOrNothing) {
+                // Для кейса "Всё или ничего" — 1% на легендарку, 99% на ширпотреб
+                return {
+                    legendary: 1,
+                    epic: 0,
+                    rare: 0,
+                    uncommon: 20,
+                    common: 79,
+                };
+            }
+            
+            // Для премиум кейса — 10% на окупаемый скин
+            if (CASES[currentCaseIndex]?.id === 'premium') {
+                return {
+                    legendary: 3,
+                    epic: 7,
+                    rare: 15,
+                    uncommon: 30,
+                    common: 45,
+                };
+            }
+            
+            return {
+                legendary: 3,
+                epic: 8,
+                rare: 20,
+                uncommon: 30,
+                common: 39,
+            };
+        }
 
         // ============================================================
         //  СОСТОЯНИЕ
@@ -667,12 +714,14 @@
         // ============================================================
         function getRandomItem(caseSkins) {
             const skins = caseSkins || ALL_SKINS;
-            const rarityKeys = Object.keys(RARITY_WEIGHTS);
-            const totalWeight = rarityKeys.reduce((sum, k) => sum + RARITY_WEIGHTS[k], 0);
+            const weights = getRarityWeights(caseSkins);
+            
+            const rarityKeys = Object.keys(weights);
+            const totalWeight = rarityKeys.reduce((sum, k) => sum + weights[k], 0);
             let rand = Math.random() * totalWeight;
             let selectedRarity = 'common';
             for (const key of rarityKeys) {
-                rand -= RARITY_WEIGHTS[key];
+                rand -= weights[key];
                 if (rand <= 0) { selectedRarity = key; break; }
             }
             const pool = skins.filter(item => item.rarity === selectedRarity);
@@ -727,10 +776,9 @@
             caseSkinCount.textContent = c.skins.length;
             caseSkinsGrid.innerHTML = '';
             
-            // Сортируем по редкости и цене
             const sorted = [...c.skins].sort((a, b) => {
                 const order = { legendary: 0, epic: 1, rare: 2, uncommon: 3, common: 4 };
-                return order[a.rarity] - order[b.rarity] || b.price - a.price;
+                return (order[a.rarity] || 5) - (order[b.rarity] || 5) || b.price - a.price;
             });
 
             sorted.forEach(skin => {
@@ -770,6 +818,7 @@
             });
             updateCaseUI();
             renderCaseSkins();
+            generateTapeItems(null, CASES[currentCaseIndex].skins);
         }
 
         function updateCaseUI() {
@@ -836,12 +885,12 @@
             const total = inventory.reduce((sum, item) => sum + item.price, 0);
             invTotalPrice.textContent = total.toFixed(2);
 
-            // Main inventory
             if (inventory.length === 0) {
                 inventoryGrid.innerHTML = `
                     <div class="empty-inv">
                         <i class="fas fa-box-open"></i>
-                        Инвентарь пуст
+                        Инвентарь пуст<br>
+                        <span style="font-size:13px; color:#4a5568;">Открой кейс, чтобы получить скины</span>
                     </div>
                 `;
             } else {
@@ -852,13 +901,13 @@
                 });
             }
 
-            // Contract inventory
             renderContractInventory();
             updateContractUI();
         }
 
         function createInventoryItem(item, isContractMode) {
             const div = document.createElement('div');
+            // ВАЖНО: используем правильную редкость из item
             div.className = `inv-item rarity-${item.rarity}`;
             const isSelected = selectedForContract.has(item.id);
             if (isSelected) div.style.borderColor = '#7b2fbe';
@@ -974,33 +1023,25 @@
             isContracting = true;
             contractBtn.disabled = true;
             
-            // Скрываем результат, показываем анимацию
             contractResult.classList.remove('show');
             contractAnimation.classList.add('show');
 
             const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
-            
-            // Множитель от 0.2 до 3.5
             const multiplier = 0.2 + Math.random() * 3.3;
             const resultPrice = totalPrice * multiplier;
-            
-            // Находим скин с ближайшей ценой
             const resultSkin = getSkinByPrice(resultPrice);
 
             setTimeout(() => {
-                // Удаляем выбранные скины
                 const idsToRemove = Array.from(selectedForContract);
                 inventory = inventory.filter(item => !selectedForContract.has(item.id));
                 selectedForContract.clear();
 
-                // Добавляем новый скин
                 const newItem = {
                     ...resultSkin,
                     id: idCounter++
                 };
                 inventory.push(newItem);
 
-                // Показываем результат
                 contractAnimation.classList.remove('show');
                 contractResult.classList.add('show');
                 contractResult.className = 'contract-result show success';
@@ -1012,7 +1053,6 @@
                 isContracting = false;
                 renderAllInventory();
 
-                // Автоматически скрываем результат через 5 секунд
                 setTimeout(() => {
                     contractResult.classList.remove('show');
                 }, 5000);
@@ -1062,36 +1102,14 @@
             console.log(`✅ Баланс: ${balance}`);
         };
 
-        window.addSkin = (name) => {
-            const skin = ALL_SKINS.find(s => s.name.includes(name));
-            if (skin) {
-                inventory.push({ ...skin, id: idCounter++ });
-                renderAllInventory();
-                console.log(`✅ Добавлен: ${skin.name}`);
-            } else {
-                console.log('❌ Скин не найден');
-            }
-        };
-
         // ============================================================
         //  ИНИЦИАЛИЗАЦИЯ
         // ============================================================
         function init() {
-            // Добавляем стартовые скины для теста
-            const startSkins = [
-                ALL_SKINS.find(s => s.name.includes('MP9')),
-                ALL_SKINS.find(s => s.name.includes('MAG-7')),
-                ALL_SKINS.find(s => s.name.includes('Glock')),
-                ALL_SKINS.find(s => s.name.includes('AK-47 | Красная')),
-                ALL_SKINS.find(s => s.name.includes('AWP | Фуксия')),
-            ].filter(Boolean);
+            // Пустой инвентарь — только из кейсов
+            inventory = [];
             
-            startSkins.forEach(skin => {
-                inventory.push({ ...skin, id: idCounter++ });
-            });
-
             renderCases();
-            generateTapeItems(null, CASES[currentCaseIndex].skins);
             renderAllInventory();
             updateBalanceUI();
 
