@@ -120,7 +120,6 @@
         .btn-sell:hover { background: #ff6a00; color: #050510; border-color: #ff6a00; box-shadow: 0 0 30px rgba(255, 106, 0, 0.3); transform: scale(1.05); }
         .empty-inv { grid-column: 1 / -1; color: rgba(255, 255, 255, 0.1); text-align: center; padding: 50px 20px; font-size: 18px; }
         .empty-inv i { font-size: 60px; display: block; margin-bottom: 15px; opacity: 0.2; }
-        /* Upgrade & Contract styles */
         .upgrade-title, .contract-title { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #ff6a00, #ffaa00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; letter-spacing: 1px; }
         .upgrade-title small, .contract-title small { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; color: rgba(255, 255, 255, 0.2); -webkit-text-fill-color: rgba(255, 255, 255, 0.2); }
         .upgrade-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 25px; align-items: stretch; margin-bottom: 25px; }
@@ -191,64 +190,11 @@
         .contract-animation.show { display: block; }
         .contract-animation .spinner { font-size: 55px; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        @media (max-width: 768px) {
-            .single-roulette-item { height: 75px; }
-            .single-roulette-item .mini-skin-card { width: 65px; height: 55px; }
-            .single-roulette-item .mini-skin-card .icon { font-size: 22px; }
-            .upgrade-grid { grid-template-columns: 1fr; gap: 18px; }
-            .case-option { min-width: 105px; padding: 14px 20px; }
-            .logo { font-size: 22px; }
-            .balance { font-size: 16px; padding: 10px 18px; }
-            .tab-btn { padding: 10px 18px; font-size: 13px; }
-            header { padding: 14px 20px; }
-            .case-container { padding: 22px; }
-        }
+        @media (max-width: 768px) { .single-roulette-item { height: 75px; } .single-roulette-item .mini-skin-card { width: 65px; height: 55px; } .single-roulette-item .mini-skin-card .icon { font-size: 22px; } .upgrade-grid { grid-template-columns: 1fr; gap: 18px; } .case-option { min-width: 105px; padding: 14px 20px; } .logo { font-size: 22px; } .balance { font-size: 16px; padding: 10px 18px; } .tab-btn { padding: 10px 18px; font-size: 13px; } header { padding: 14px 20px; } .case-container { padding: 22px; } }
     </style>
-    <!-- ДОБАВЬ В <head> -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
-<script>
-// КОНФИГ FIREBASE (получи на console.firebase.google.com)
-const firebaseConfig = {
-    apiKey: "ТВОЙ_API_KEY",
-    authDomain: "твой-проект.firebaseapp.com",
-    projectId: "твой-проект",
-    storageBucket: "твой-проект.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abc123"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-// Вход через Google
-function loginWithGoogle() {
-    auth.signInWithPopup(googleProvider)
-        .then((result) => {
-            const user = result.user;
-            currentUser = user.uid;
-            showUserInfo(user.displayName || user.email);
-            document.getElementById('registerModal').remove();
-            // Загружаем данные из Firestore (нужно настроить)
-            loadUserData(user.uid);
-        })
-        .catch((error) => {
-            alert('Ошибка входа: ' + error.message);
-        });
-}
-
-// Кнопка Google в модалке
-// <button onclick="loginWithGoogle()">🚀 Войти через Google</button>
-</script>
 </head>
 <body>
-    <div class="bg-particles">
-        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
-        <div class="bg-particle"></div><div class="bg-particle"></div>
-    </div>
-
+    <div class="bg-particles"><div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div></div>
     <header>
         <div class="logo"><i class="fas fa-crown"></i> SKINVAULT</div>
         <div style="display: flex; align-items: center; gap: 15px;">
@@ -262,66 +208,34 @@ function loginWithGoogle() {
             </div>
         </div>
     </header>
-
     <div class="tabs">
         <button class="tab-btn active" data-tab="case"><i class="fas fa-gem"></i> Кейс</button>
         <button class="tab-btn" data-tab="inventory"><i class="fas fa-backpack"></i> Инвентарь (<span id="invCount">0</span>)</button>
         <button class="tab-btn" data-tab="upgrade"><i class="fas fa-arrow-up"></i> Апгрейд</button>
         <button class="tab-btn" data-tab="contract"><i class="fas fa-file-signature"></i> Контракт</button>
     </div>
-
     <div class="tab-content active" id="tab-case">
         <div class="case-container">
             <div class="case-selector" id="caseSelector"></div>
-            <div class="multi-spin-controls">
-                <span style="color:rgba(255,255,255,0.4);">Кол-во:</span>
-                <button class="multi-spin-btn" data-count="1">1x</button>
-                <button class="multi-spin-btn active" data-count="5">5x</button>
-                <button class="multi-spin-btn" data-count="10">10x</button>
-                <button class="multi-spin-btn" data-count="25">25x</button>
-                <button class="multi-spin-btn" data-count="50">50x</button>
-                <span class="spin-count-display" id="spinCountDisplay">5</span>
-            </div>
-            <div class="case-header">
-                <div><h3 id="caseName">🔥 ПРЕМИУМ КЕЙС</h3><div class="sub">Стоимость: <span class="price-tag" id="casePrice">250</span> ₽ за штуку</div></div>
-                <div class="case-stats"><div class="stat-item"><span>Скинов</span><span class="stat-value" id="caseSkinCount">0</span></div></div>
-            </div>
+            <div class="multi-spin-controls"><span style="color:rgba(255,255,255,0.4);">Кол-во:</span><button class="multi-spin-btn" data-count="1">1x</button><button class="multi-spin-btn active" data-count="5">5x</button><button class="multi-spin-btn" data-count="10">10x</button><button class="multi-spin-btn" data-count="25">25x</button><button class="multi-spin-btn" data-count="50">50x</button><span class="spin-count-display" id="spinCountDisplay">5</span></div>
+            <div class="case-header"><div><h3 id="caseName">🔥 ПРЕМИУМ КЕЙС</h3><div class="sub">Стоимость: <span class="price-tag" id="casePrice">250</span> ₽ за штуку</div></div><div class="case-stats"><div class="stat-item"><span>Скинов</span><span class="stat-value" id="caseSkinCount">0</span></div></div></div>
             <div class="all-roulettes-wrapper" id="allRoulettes"></div>
-            <div class="btn-row">
-                <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> КРУТИТЬ</button>
-            </div>
+            <div class="btn-row"><button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> КРУТИТЬ</button></div>
             <div class="case-skins-list"><div class="list-title">Все скины в кейсе:</div><div class="case-skins-grid" id="caseSkinsGrid"></div></div>
         </div>
     </div>
-
     <div class="tab-content" id="tab-inventory">
-        <div class="inventory-section">
-            <div class="inventory-header"><h3><i class="fas fa-backpack"></i> Инвентарь</h3><div class="stats">Предметов: <strong id="invTotalCount">0</strong> | Стоимость: <strong id="invTotalPrice">0.00</strong> ₽</div></div>
-            <div class="inventory-grid" id="inventoryGrid"><div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div></div>
-        </div>
+        <div class="inventory-section"><div class="inventory-header"><h3><i class="fas fa-backpack"></i> Инвентарь</h3><div class="stats">Предметов: <strong id="invTotalCount">0</strong> | Стоимость: <strong id="invTotalPrice">0.00</strong> ₽</div></div><div class="inventory-grid" id="inventoryGrid"><div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div></div></div>
     </div>
-
     <div class="tab-content" id="tab-upgrade">
         <div class="upgrade-section">
             <div class="upgrade-title">⚡ АПГРЕЙД ОРУЖИЯ <small>— рискни и умножь</small></div>
-            <div style="text-align:center;margin-bottom:20px;"><span style="color:rgba(255,255,255,0.35);font-size:14px;">Выбери шанс:</span>
-                <div class="chance-selector" id="chanceSelector">
-                    <button class="chance-btn active" data-chance="50" data-multiplier="2">🎯 50% <span class="multiplier">×2</span></button>
-                    <button class="chance-btn" data-chance="25" data-multiplier="4">🎲 25% <span class="multiplier">×4</span></button>
-                    <button class="chance-btn" data-chance="75" data-multiplier="1.33">🛡️ 75% <span class="multiplier">×1.33</span></button>
-                    <button class="chance-btn" data-chance="10" data-multiplier="10">💀 10% <span class="multiplier">×10</span></button>
-                </div>
-            </div>
-            <div class="upgrade-grid">
-                <div class="upgrade-box" id="inputBox"><div class="box-title">📦 <strong>ВХОД</strong> — <span id="inputCount">0</span> шт.</div><div class="input-skins" id="inputSkinsContainer"><div class="input-placeholder">Выберите скины</div></div><div style="margin-top:12px;text-align:center;font-size:13px;color:rgba(255,255,255,0.25);">Сумма: <span id="inputTotalPrice" style="color:#ffaa00;font-weight:700;">0.00</span> ₽</div></div>
-                <div class="upgrade-arrow-center"><div class="arrow" id="upgradeArrow">⚡</div><div style="font-size:13px;color:rgba(255,255,255,0.25);" id="multiplierDisplay">×2</div></div>
-                <div class="upgrade-box" id="resultBox"><div class="box-title">🎯 <strong>РЕЗУЛЬТАТ</strong></div><div id="resultContainer"><div class="result-placeholder">Ожидание</div></div><div id="upgradeResultMessage"></div></div>
-            </div>
+            <div style="text-align:center;margin-bottom:20px;"><span style="color:rgba(255,255,255,0.35);font-size:14px;">Выбери шанс:</span><div class="chance-selector" id="chanceSelector"><button class="chance-btn active" data-chance="50" data-multiplier="2">🎯 50% <span class="multiplier">×2</span></button><button class="chance-btn" data-chance="25" data-multiplier="4">🎲 25% <span class="multiplier">×4</span></button><button class="chance-btn" data-chance="75" data-multiplier="1.33">🛡️ 75% <span class="multiplier">×1.33</span></button><button class="chance-btn" data-chance="10" data-multiplier="10">💀 10% <span class="multiplier">×10</span></button></div></div>
+            <div class="upgrade-grid"><div class="upgrade-box" id="inputBox"><div class="box-title">📦 <strong>ВХОД</strong> — <span id="inputCount">0</span> шт.</div><div class="input-skins" id="inputSkinsContainer"><div class="input-placeholder">Выберите скины</div></div><div style="margin-top:12px;text-align:center;font-size:13px;color:rgba(255,255,255,0.25);">Сумма: <span id="inputTotalPrice" style="color:#ffaa00;font-weight:700;">0.00</span> ₽</div></div><div class="upgrade-arrow-center"><div class="arrow" id="upgradeArrow">⚡</div><div style="font-size:13px;color:rgba(255,255,255,0.25);" id="multiplierDisplay">×2</div></div><div class="upgrade-box" id="resultBox"><div class="box-title">🎯 <strong>РЕЗУЛЬТАТ</strong></div><div id="resultContainer"><div class="result-placeholder">Ожидание</div></div><div id="upgradeResultMessage"></div></div></div>
             <div class="upgrade-actions"><button class="btn-upgrade" id="upgradeBtn" disabled><i class="fas fa-bolt"></i> АПГРЕЙДНУТЬ</button><button class="btn-clear" id="clearUpgradeBtn"><i class="fas fa-times"></i> Очистить</button></div>
             <div class="upgrade-select-section"><div class="section-title">Твой инвентарь: <strong id="upgradeSelectCount">0</strong> выбрано</div><div class="inventory-grid" id="upgradeInventoryGrid"><div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div></div></div>
         </div>
     </div>
-
     <div class="tab-content" id="tab-contract">
         <div class="contract-section">
             <div class="contract-title">📜 СИСТЕМА КОНТРАКТОВ <small>— обменяй кучу на один</small></div>
@@ -341,8 +255,8 @@ function loginWithGoogle() {
     // ============================================================
     //  СКИНЫ И КЕЙСЫ
     // ============================================================
-    const ALL_SKINS=[{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},{name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},{name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"★ M9 Bayonet | Crimson Web",rarity:"legendary",icon:"🗡️",price:1800.00},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200.00},{name:"★ Karambit | Marble Fade",rarity:"legendary",icon:"🔪",price:1600.00},{name:"★ Skeleton Knife | Slaughter",rarity:"legendary",icon:"💀",price:950.00},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200.00},{name:"★ Specialist Gloves | Crimson Kimono",rarity:"legendary",icon:"🧤",price:2800.00},{name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145.00},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48.00},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85.00},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35.00},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28.00},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18.00},{name:"SSG 08 | Dragonfire",rarity:"epic",icon:"🐉",price:32.00},{name:"AUG | Akihabara Accept",rarity:"epic",icon:"🎌",price:95.00},{name:"FAMAS | Commemoration",rarity:"epic",icon:"🎖️",price:22.00},{name:"Galil AR | Chatterbox",rarity:"epic",icon:"💀",price:15.00},{name:"P90 | Asiimov",rarity:"epic",icon:"🤖",price:25.00},{name:"MP9 | Bulldozer",rarity:"epic",icon:"🚜",price:12.00},{name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42.00},{name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28.00},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35.00},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15.00},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8.00},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6.00},{name:"Five-SeveN | Case Hardened",rarity:"rare",icon:"🔵",price:12.00},{name:"Tec-9 | Toxic",rarity:"rare",icon:"☣️",price:5.00},{name:"MAC-10 | Graven",rarity:"rare",icon:"👹",price:4.50},{name:"MP7 | Nemesis",rarity:"rare",icon:"🐍",price:7.00},{name:"UMP-45 | Blaze",rarity:"rare",icon:"🔥",price:9.00},{name:"PP-Bizon | Judgement of Anubis",rarity:"rare",icon:"⚖️",price:4.00},{name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.50},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5.00},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2.00},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.50},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.50},{name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.20},{name:"Desert Eagle | Naga",rarity:"uncommon",icon:"🐍",price:3.00},{name:"MP9 | Dark Age",rarity:"uncommon",icon:"🏰",price:1.00},{name:"MAG-7 | Heaven Guard",rarity:"uncommon",icon:"😇",price:1.80},{name:"Nova | Tempest",rarity:"uncommon",icon:"🌊",price:1.50},{name:"XM1014 | Blue Steel",rarity:"uncommon",icon:"🔫",price:2.00},{name:"SCAR-20 | Cardiac",rarity:"uncommon",icon:"❤️",price:1.20},{name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.20},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15},{name:"MP7 | Groundwater",rarity:"common",icon:"💧",price:0.10},{name:"UMP-45 | Urban DDPAT",rarity:"common",icon:"🏙️",price:0.14},{name:"PP-Bizon | Sand Dashed",rarity:"common",icon:"🏜️",price:0.08},{name:"Galil AR | Sage Spray",rarity:"common",icon:"🌿",price:0.12},{name:"FAMAS | Colony",rarity:"common",icon:"🐜",price:0.10},{name:"SG 553 | Army Sheen",rarity:"common",icon:"🪖",price:0.16},{name:"G3SG1 | Safari Mesh",rarity:"common",icon:"🦒",price:0.11}];
-    const CASES=[{id:'dreams_and_nightmares',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>['AWP | Gungnir','AK-47 | Case Hardened (661)','★ Butterfly Knife | Fade','M4A4 | Howl','Desert Eagle | Blaze'].some(n=>s.name.includes(n))),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'gamma_doppler',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},{id:'operation_bravo',name:'🔥 Operation Bravo',icon:'🔥',price:250,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,3)]},{id:'standard',name:'📦 Стандартный',icon:'📦',price:45,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(5,10),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'starter',name:'🚀 Стартовый',icon:'🚀',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(6,10),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},{id:'yolo',name:'💀 YOLO',icon:'💀',price:100,skins:[{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,8)]},{id:'glove_case',name:'🧤 Glove Case',icon:'🧤',price:95,skins:[...ALL_SKINS.filter(s=>s.name.includes('Gloves')),...ALL_SKINS.filter(s=>s.name.includes('★')).slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4)]},{id:'chroma',name:'🌈 Chroma Case',icon:'🌈',price:55,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'snakebite',name:'🐍 Snakebite Case',icon:'🐍',price:35,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'fracture',name:'💥 Fracture Case',icon:'💥',price:25,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(4,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},{id:'prisma2',name:'💠 Prisma 2 Case',icon:'💠',price:40,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]}];
+    const ALL_SKINS=[{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280},{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200},{name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18},{name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42},{name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6},{name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.5},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.5},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.5},{name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.2},{name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.2},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15}];
+    const CASES=[{id:'dreams',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5)]},{id:'gamma',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4)]},{id:'bravo',name:'🔥 Operation Bravo',icon:'🔥',price:250,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'standard',name:'📦 Стандартный',icon:'📦',price:45,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,6),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'starter',name:'🚀 Стартовый',icon:'🚀',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon')]},{id:'yolo',name:'💀 YOLO',icon:'💀',price:100,skins:[{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},...ALL_SKINS.filter(s=>s.rarity==='common')]}];
 
     function getRarityWeights(cs){const rc={};cs.forEach(s=>{rc[s.rarity]=(rc[s.rarity]||0)+1});let w={};if(rc.legendary&&rc.legendary>=5)w={legendary:3,epic:rc.epic?12:0,rare:rc.rare?25:0,uncommon:rc.uncommon?30:0,common:rc.common?30:0};else if(rc.legendary&&rc.legendary>=3)w={legendary:2,epic:rc.epic?10:0,rare:rc.rare?25:0,uncommon:rc.uncommon?33:0,common:rc.common?30:0};else if(rc.legendary)w={legendary:1,epic:rc.epic?8:0,rare:rc.rare?20:0,uncommon:rc.uncommon?35:0,common:rc.common?36:0};else if(rc.epic)w={legendary:0,epic:15,rare:rc.rare?30:0,uncommon:rc.uncommon?30:0,common:rc.common?25:0};else w={legendary:0,epic:0,rare:rc.rare?35:0,uncommon:rc.uncommon?40:0,common:rc.common?25:0};const t=Object.values(w).reduce((a,b)=>a+b,0);if(t>0)for(const k in w)w[k]=(w[k]/t)*100;return w;}
     function getRandomItem(cs){if(CASES[currentCaseIndex].id==='yolo'){const r=Math.random()*100;if(r<1)return cs.find(s=>s.name.includes('Sapphire'))||cs[0];else if(r<4)return cs.find(s=>s.name.includes('Dragon Lore'))||cs[0];else if(r<8)return cs.find(s=>s.name.includes('Fire Serpent'))||cs[0];else{const c=cs.filter(s=>s.rarity==='common');return c[Math.floor(Math.random()*c.length)];}}const w=getRarityWeights(cs),r=Math.random()*100;let cum=0,sr='common';for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){sr=ra;break;}}const p=cs.filter(s=>s.rarity===sr);return p.length?p[Math.floor(Math.random()*p.length)]:cs[Math.floor(Math.random()*cs.length)];}
@@ -355,308 +269,52 @@ function loginWithGoogle() {
     let selectedForUpgrade=new Set,selectedForContract=new Set,currentCaseIndex=0,selectedChance=50,selectedMultiplier=2;
     const MINI_CARD_WIDTH=93;
     const $=id=>document.getElementById(id);
-    const openBtn=$('openBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid'),allRoulettes=$('allRoulettes');
-    const caseSelector=$('caseSelector'),caseName=$('caseName'),casePrice=$('casePrice'),caseSkinCount=$('caseSkinCount'),caseSkinsGrid=$('caseSkinsGrid');
-    const spinCountDisplay=$('spinCountDisplay'),invCount=$('invCount'),invTotalCount=$('invTotalCount'),invTotalPrice=$('invTotalPrice');
-    const upgradeInventoryGrid=$('upgradeInventoryGrid'),contractInventoryGrid=$('contractInventoryGrid');
-    const upgradeBtn=$('upgradeBtn'),clearUpgradeBtn=$('clearUpgradeBtn'),contractBtn=$('contractBtn');
-    const contractCount=$('contractCount'),contractTotalPrice=$('contractTotalPrice');
-    const inputSkinsContainer=$('inputSkinsContainer'),inputCount=$('inputCount'),inputTotalPrice=$('inputTotalPrice');
-    const resultContainer=$('resultContainer'),upgradeResultMessage=$('upgradeResultMessage'),upgradeArrow=$('upgradeArrow');
-    const upgradeSelectCount=$('upgradeSelectCount'),multiplierDisplay=$('multiplierDisplay');
-    const contractAnimation=$('contractAnimation'),contractResultEl=$('contractResult');
 
-    function createRouletteElement(index,winSkin,caseSkins){const rd=document.createElement('div');rd.className='single-roulette-item';rd.innerHTML=`<div class="roulette-number">#${index+1}</div><div class="mini-pointer"></div><div class="mini-tape"></div>`;const te=rd.querySelector('.mini-tape');te.innerHTML='';for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);const c=document.createElement('div');c.className='mini-skin-card rarity-'+item.rarity;c.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;te.appendChild(c);}return{rouletteDiv:rd,tapeEl:te};}
+    function createRouletteElement(index,winSkin,caseSkins){const rd=document.createElement('div');rd.className='single-roulette-item';rd.innerHTML=`<div class="roulette-number">#${index+1}</div><div class="mini-pointer"></div><div class="mini-tape"></div>`;const te=rd.querySelector('.mini-tape');for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);const c=document.createElement('div');c.className='mini-skin-card rarity-'+item.rarity;c.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;te.appendChild(c);}return{rouletteDiv:rd,tapeEl:te};}
     function spinSingleRoulette(rouletteEl,tapeEl){return new Promise(resolve=>{const ww=rouletteEl.offsetWidth,targetLeft=-(32*MINI_CARD_WIDTH)+(ww/2)-(MINI_CARD_WIDTH/2);let cp=0;const si=setInterval(()=>{cp-=14;tapeEl.style.transform=`translateX(${cp}px)`;SoundFX.play('case_scroll');if(cp<-1800){clearInterval(si);setTimeout(()=>{tapeEl.style.transition='transform 3.5s cubic-bezier(0.06, 0.84, 0.16, 1)';tapeEl.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;},30);}},13);setTimeout(()=>resolve(),3700);});}
-
-    async function performSpin(count){if(isSpinning)return;const c=CASES[currentCaseIndex],totalCost=c.price*count;if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}isSpinning=!0;openBtn.disabled=!0;balance-=totalCost;updateBalanceUI();SoundFX.play('case_open');const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));allRoulettes.innerHTML='';const rd=[];for(let i=0;i<count;i++){const r=createRouletteElement(i,wins[i],c.skins);allRoulettes.appendChild(r.rouletteDiv);rd.push(r);}await Promise.all(rd.map(r=>spinSingleRoulette(r.rouletteDiv,r.tapeEl)));let totalGot=0;wins.forEach(ws=>{inventory.push({...ws,id:idCounter++});totalGot+=ws.price;if(ws.rarity==='legendary')SoundFX.play('legendary');});renderAllInventory();saveGame();isSpinning=!1;openBtn.disabled=!1;}
-
-    function renderCaseSkins(){const c=CASES[currentCaseIndex];caseSkinCount.textContent=c.skins.length;caseSkinsGrid.innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className='case-skin-preview rarity-'+s.rarity;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;caseSkinsGrid.appendChild(d);});}
-    function renderCases(){caseSelector.innerHTML='';CASES.forEach((c,i)=>{const d=document.createElement('div');d.className=`case-option ${i===currentCaseIndex?'active':''}`;d.innerHTML=`<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;d.addEventListener('click',()=>{currentCaseIndex=i;renderCases();updateCaseUI();renderCaseSkins();});caseSelector.appendChild(d);});updateCaseUI();renderCaseSkins();}
-    function updateCaseUI(){const c=CASES[currentCaseIndex];caseName.textContent=c.icon+' '+c.name;casePrice.textContent=c.price+' ₽';}
-
-    function renderAllInventory(){invCount.textContent=inventory.length;invTotalCount.textContent=inventory.length;invTotalPrice.textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)inventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div>';else{inventoryGrid.innerHTML='';inventory.forEach(i=>inventoryGrid.appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
+    async function performSpin(count){if(isSpinning)return;const c=CASES[currentCaseIndex],totalCost=c.price*count;if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}isSpinning=!0;$('openBtn').disabled=!0;balance-=totalCost;updateBalanceUI();SoundFX.play('case_open');const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));$('allRoulettes').innerHTML='';const rd=[];for(let i=0;i<count;i++){const r=createRouletteElement(i,wins[i],c.skins);$('allRoulettes').appendChild(r.rouletteDiv);rd.push(r);}await Promise.all(rd.map(r=>spinSingleRoulette(r.rouletteDiv,r.tapeEl)));wins.forEach(ws=>{inventory.push({...ws,id:idCounter++});if(ws.rarity==='legendary')SoundFX.play('legendary');});renderAllInventory();saveGame();isSpinning=!1;$('openBtn').disabled=!1;}
+    function renderCaseSkins(){const c=CASES[currentCaseIndex];$('caseSkinCount').textContent=c.skins.length;$('caseSkinsGrid').innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className='case-skin-preview rarity-'+s.rarity;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;$('caseSkinsGrid').appendChild(d);});}
+    function renderCases(){$('caseSelector').innerHTML='';CASES.forEach((c,i)=>{const d=document.createElement('div');d.className=`case-option ${i===currentCaseIndex?'active':''}`;d.innerHTML=`<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;d.addEventListener('click',()=>{currentCaseIndex=i;renderCases();updateCaseUI();renderCaseSkins();});$('caseSelector').appendChild(d);});updateCaseUI();renderCaseSkins();}
+    function updateCaseUI(){const c=CASES[currentCaseIndex];$('caseName').textContent=c.icon+' '+c.name;$('casePrice').textContent=c.price+' ₽';}
+    function renderAllInventory(){$('invCount').textContent=inventory.length;$('invTotalCount').textContent=inventory.length;$('invTotalPrice').textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)$('inventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div>';else{$('inventoryGrid').innerHTML='';inventory.forEach(i=>$('inventoryGrid').appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
     function createInventoryItem(item,um,cm){const d=document.createElement('div');d.className='inv-item rarity-'+item.rarity;const us=selectedForUpgrade.has(item.id),cs=selectedForContract.has(item.id);if(us)d.style.borderColor='#ff6a00';if(cs)d.style.borderColor='#7b2fbe';let btns='';if(um)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${us?'rgba(255,106,0,0.3)':'rgba(30,35,48,0.9)'};border-color:${us?'#ff6a00':'rgba(255,255,255,0.06)'};">${us?'✓ Выбран':'Выбрать'}</button>`;else if(cm)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${cs?'rgba(123,47,190,0.3)':'rgba(30,35,48,0.9)'};border-color:${cs?'#7b2fbe':'rgba(255,255,255,0.06)'};">${cs?'✓ Выбран':'Выбрать'}</button>`;else btns=`<button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>`;d.innerHTML=`<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><div class="btn-group">${btns}</div>`;d.querySelectorAll('.btn-sell').forEach(b=>b.addEventListener('click',function(e){e.stopPropagation();const id=parseInt(this.dataset.id),act=this.dataset.action;if(act==='sell')sellItem(id);else if(act==='toggleUpgrade')toggleUpgradeSelection(id);else if(act==='toggleContract')toggleContractSelection(id);}));return d;}
-    function renderUpgradeInventory(){if(inventory.length===0)upgradeInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{upgradeInventoryGrid.innerHTML='';inventory.forEach(i=>upgradeInventoryGrid.appendChild(createInventoryItem(i,!0,!1)));}}
-    function renderContractInventory(){if(inventory.length===0)contractInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{contractInventoryGrid.innerHTML='';inventory.forEach(i=>contractInventoryGrid.appendChild(createInventoryItem(i,!1,!0)));}}
+    function renderUpgradeInventory(){if(inventory.length===0)$('upgradeInventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{$('upgradeInventoryGrid').innerHTML='';inventory.forEach(i=>$('upgradeInventoryGrid').appendChild(createInventoryItem(i,!0,!1)));}}
+    function renderContractInventory(){if(inventory.length===0)$('contractInventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{$('contractInventoryGrid').innerHTML='';inventory.forEach(i=>$('contractInventoryGrid').appendChild(createInventoryItem(i,!1,!0)));}}
     function sellItem(id){const idx=inventory.findIndex(i=>i.id===id);if(idx===-1)return;balance+=inventory[idx].price;updateBalanceUI();inventory.splice(idx,1);selectedForUpgrade.delete(id);selectedForContract.delete(id);renderAllInventory();SoundFX.play('sell');saveGame();}
     function toggleUpgradeSelection(id){if(isUpgrading)return;selectedForUpgrade.has(id)?selectedForUpgrade.delete(id):selectedForUpgrade.add(id);renderAllInventory();}
     function toggleContractSelection(id){if(isContracting)return;selectedForContract.has(id)?selectedForContract.delete(id):(selectedForContract.size>=10?alert('Максимум 10!'):selectedForContract.add(id));renderAllInventory();}
-    
-    function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));inputCount.textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);inputTotalPrice.textContent=tp.toFixed(2);if(si.length===0)inputSkinsContainer.innerHTML='<div class="input-placeholder">Выберите скины</div>';else{inputSkinsContainer.innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className='input-skin-item rarity-'+i.rarity;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});inputSkinsContainer.appendChild(d);});}upgradeBtn.disabled=si.length<1||isUpgrading;upgradeSelectCount.textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);resultContainer.innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;multiplierDisplay.textContent=`×${selectedMultiplier.toFixed(2)}`;resultContainer.dataset.targetSkin=JSON.stringify(ts);resultContainer.dataset.totalPrice=tp;upgradeResultMessage.innerHTML='';}else{resultContainer.innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';upgradeResultMessage.innerHTML='';}}
-
-    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;upgradeBtn.disabled=!0;upgradeArrow.classList.add('spinning');upgradeResultMessage.innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;upgradeArrow.classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');upgradeArrow.className='arrow success';upgradeArrow.textContent='✅';const td=JSON.parse(resultContainer.dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');upgradeArrow.className='arrow fail';upgradeArrow.textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();saveGame();setTimeout(()=>{upgradeArrow.className='arrow';upgradeArrow.textContent='⚡';},3000);},1500);}
-
-    function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));contractCount.textContent=si.length;contractTotalPrice.textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);contractBtn.disabled=si.length<3||si.length>10||isContracting;}
-    
-    function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;contractBtn.disabled=!0;SoundFX.play('contract');contractResultEl.classList.remove('show');contractAnimation.classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);contractAnimation.classList.remove('show');contractResultEl.classList.add('show','success');document.getElementById('contractResultIcon').textContent='📜';document.getElementById('contractResultName').textContent=rs.icon+' '+rs.name;document.getElementById('contractResultPrice').textContent=rs.price.toFixed(2)+' ₽';document.getElementById('contractResultMultiplier').innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();saveGame();setTimeout(()=>contractResultEl.classList.remove('show'),6000);},2000);}
-
-    function updateBalanceUI(){balanceSpan.textContent=balance.toFixed(0);}
+    function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));$('inputCount').textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);$('inputTotalPrice').textContent=tp.toFixed(2);if(si.length===0)$('inputSkinsContainer').innerHTML='<div class="input-placeholder">Выберите скины</div>';else{$('inputSkinsContainer').innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className='input-skin-item rarity-'+i.rarity;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});$('inputSkinsContainer').appendChild(d);});}$('upgradeBtn').disabled=si.length<1||isUpgrading;$('upgradeSelectCount').textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);$('resultContainer').innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;$('multiplierDisplay').textContent=`×${selectedMultiplier.toFixed(2)}`;$('resultContainer').dataset.targetSkin=JSON.stringify(ts);$('resultContainer').dataset.totalPrice=tp;$('upgradeResultMessage').innerHTML='';}else{$('resultContainer').innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';$('upgradeResultMessage').innerHTML='';}}
+    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;$('upgradeBtn').disabled=!0;$('upgradeArrow').classList.add('spinning');$('upgradeResultMessage').innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;$('upgradeArrow').classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');$('upgradeArrow').className='arrow success';$('upgradeArrow').textContent='✅';const td=JSON.parse($('resultContainer').dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);$('upgradeResultMessage').innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');$('upgradeArrow').className='arrow fail';$('upgradeArrow').textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();$('upgradeResultMessage').innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();saveGame();setTimeout(()=>{$('upgradeArrow').className='arrow';$('upgradeArrow').textContent='⚡';},3000);},1500);}
+    function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));$('contractCount').textContent=si.length;$('contractTotalPrice').textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);$('contractBtn').disabled=si.length<3||si.length>10||isContracting;}
+    function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;$('contractBtn').disabled=!0;SoundFX.play('contract');$('contractResult').classList.remove('show');$('contractAnimation').classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);$('contractAnimation').classList.remove('show');$('contractResult').classList.add('show','success');$('contractResultIcon').textContent='📜';$('contractResultName').textContent=rs.icon+' '+rs.name;$('contractResultPrice').textContent=rs.price.toFixed(2)+' ₽';$('contractResultMultiplier').innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();saveGame();setTimeout(()=>$('contractResult').classList.remove('show'),6000);},2000);}
+    function updateBalanceUI(){$('balanceDisplay').textContent=balance.toFixed(0);}
     function setupTabs(){document.querySelectorAll('.tab-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));$('tab-'+this.dataset.tab).classList.add('active');if(['inventory','upgrade','contract'].includes(this.dataset.tab))renderAllInventory();}));}
-    function setupMultiSpin(){document.querySelectorAll('.multi-spin-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.multi-spin-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');multiSpinCount=parseInt(this.dataset.count);spinCountDisplay.textContent=multiSpinCount;}));}
+    function setupMultiSpin(){document.querySelectorAll('.multi-spin-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.multi-spin-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');multiSpinCount=parseInt(this.dataset.count);$('spinCountDisplay').textContent=multiSpinCount;}));}
     function setupChanceSelector(){document.querySelectorAll('.chance-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedChance=parseInt(this.dataset.chance);selectedMultiplier=parseFloat(this.dataset.multiplier);updateUpgradeUI();}));}
 
-   // ============================================================
-//  ЗАМЕНИТЕ ВСЮ СЕКЦИЮ "РЕГИСТРАЦИЯ И СОХРАНЕНИЕ" НА ЭТО:
-// ============================================================
-
-// База пользователей в localStorage
-function getUsersDB() {
-    const db = localStorage.getItem('skinVault_users_db');
-    return db ? JSON.parse(db) : {};
-}
-
-function saveUsersDB(db) {
-    localStorage.setItem('skinVault_users_db', JSON.stringify(db));
-}
-
-// Хеширование пароля (простое, для демо)
-function hashPassword(password) {
-    let hash = 0;
-    for (let i = 0; i < password.length; i++) {
-        const char = password.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return 'h_' + Math.abs(hash).toString(16);
-}
-
-// Текущий пользователь
-let currentUser = null;
-
-// Загрузка данных пользователя
-function loadUserData(username) {
-    const usersDB = getUsersDB();
-    const userData = usersDB[username];
-    if (userData && userData.saveData) {
-        balance = userData.saveData.balance || 1000;
-        inventory = userData.saveData.inventory || [];
-        idCounter = userData.saveData.idCounter || 0;
-        currentUser = username;
-        renderAllInventory();
-        updateBalanceUI();
-        showUserInfo(username);
-        return true;
-    }
-    return false;
-}
-
-// Сохранение данных пользователя
-function saveGame() {
-    if (!currentUser) return;
-    const usersDB = getUsersDB();
-    if (!usersDB[currentUser]) usersDB[currentUser] = { password: '', saveData: {} };
-    usersDB[currentUser].saveData = {
-        balance: balance,
-        inventory: inventory,
-        idCounter: idCounter,
-        timestamp: new Date().toISOString()
-    };
-    saveUsersDB(usersDB);
-}
-
-// Показать форму логина
-function showRegisterModal() {
-    const old = document.getElementById('registerModal');
-    if (old) old.remove();
-    
-    const modal = document.createElement('div');
-    modal.id = 'registerModal';
-    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
-    modal.innerHTML = `
-        <div style="background:linear-gradient(145deg,rgba(20,24,38,0.98),rgba(15,18,30,0.98));backdrop-filter:blur(30px);padding:40px;border-radius:24px;border:1px solid rgba(255,106,0,0.2);text-align:center;max-width:420px;width:90%;box-shadow:0 20px 80px rgba(0,0,0,0.7);">
-            <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:linear-gradient(135deg,#ff6a00,#ff3c00,#7b2fbe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">⭐ SKINVAULT</div>
-            
-            <!-- Табы -->
-            <div style="display:flex;gap:10px;margin-bottom:25px;">
-                <button id="tabLogin" onclick="switchAuthTab('login')" style="flex:1;padding:10px;background:rgba(255,106,0,0.2);border:1px solid #ff6a00;border-radius:10px;color:#ffaa00;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">ВХОД</button>
-                <button id="tabRegister" onclick="switchAuthTab('register')" style="flex:1;padding:10px;background:rgba(20,24,38,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:rgba(255,255,255,0.5);font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">РЕГИСТРАЦИЯ</button>
-            </div>
-            
-            <!-- Форма входа -->
-            <div id="loginForm">
-                <div style="text-align:left;margin-bottom:15px;">
-                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ЛОГИН</label>
-                    <input type="text" id="loginUsername" placeholder="Введи логин..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <div style="text-align:left;margin-bottom:15px;">
-                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ПАРОЛЬ</label>
-                    <input type="password" id="loginPassword" placeholder="Введи пароль..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <button onclick="loginUser()" style="width:100%;padding:14px;background:linear-gradient(135deg,#ff6a00,#ff3c00);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 25px rgba(238,60,0,0.3);">🔑 ВОЙТИ</button>
-            </div>
-            
-            <!-- Форма регистрации -->
-            <div id="registerForm" style="display:none;">
-                <div style="text-align:left;margin-bottom:15px;">
-                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ЛОГИН</label>
-                    <input type="text" id="regUsername" placeholder="Придумай логин..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <div style="text-align:left;margin-bottom:15px;">
-                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ПАРОЛЬ</label>
-                    <input type="password" id="regPassword" placeholder="Придумай пароль..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <div style="text-align:left;margin-bottom:15px;">
-                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;">ПОВТОРИ ПАРОЛЬ</label>
-                    <input type="password" id="regPassword2" placeholder="Повтори пароль..." style="width:100%;padding:12px 16px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <button onclick="registerUser()" style="width:100%;padding:14px;background:linear-gradient(135deg,#7b2fbe,#5a1a8a);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 25px rgba(123,47,190,0.3);">✅ СОЗДАТЬ АККАУНТ</button>
-            </div>
-            
-            <div id="authError" style="color:#ff4444;font-size:13px;margin-top:15px;display:none;text-align:center;"></div>
-            <button onclick="document.getElementById('registerModal').remove()" style="margin-top:15px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">✕ Закрыть</button>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    
-    // Enter для отправки
-    document.getElementById('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginUser(); });
-    document.getElementById('regPassword2').addEventListener('keypress', (e) => { if (e.key === 'Enter') registerUser(); });
-    
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
-}
-
-// Переключение табов
-function switchAuthTab(tab) {
-    document.getElementById('tabLogin').style.background = tab === 'login' ? 'rgba(255,106,0,0.2)' : 'rgba(20,24,38,0.8)';
-    document.getElementById('tabLogin').style.borderColor = tab === 'login' ? '#ff6a00' : 'rgba(255,255,255,0.1)';
-    document.getElementById('tabLogin').style.color = tab === 'login' ? '#ffaa00' : 'rgba(255,255,255,0.5)';
-    document.getElementById('tabRegister').style.background = tab === 'register' ? 'rgba(123,47,190,0.2)' : 'rgba(20,24,38,0.8)';
-    document.getElementById('tabRegister').style.borderColor = tab === 'register' ? '#7b2fbe' : 'rgba(255,255,255,0.1)';
-    document.getElementById('tabRegister').style.color = tab === 'register' ? '#d32ce6' : 'rgba(255,255,255,0.5)';
-    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-    document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-    document.getElementById('authError').style.display = 'none';
-}
-
-// Вход
-function loginUser() {
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    const err = document.getElementById('authError');
-    
-    if (!username || !password) {
-        err.textContent = '❌ Заполни все поля!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    const usersDB = getUsersDB();
-    const hashedPass = hashPassword(password);
-    
-    if (!usersDB[username]) {
-        err.textContent = '❌ Пользователь не найден!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    if (usersDB[username].password !== hashedPass) {
-        err.textContent = '❌ Неверный пароль!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    // Успешный вход
-    document.getElementById('registerModal').remove();
-    loadUserData(username);
-}
-
-// Регистрация
-function registerUser() {
-    const username = document.getElementById('regUsername').value.trim();
-    const password = document.getElementById('regPassword').value;
-    const password2 = document.getElementById('regPassword2').value;
-    const err = document.getElementById('authError');
-    
-    if (!username || !password) {
-        err.textContent = '❌ Заполни все поля!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    if (username.length < 3) {
-        err.textContent = '❌ Логин минимум 3 символа!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    if (password.length < 4) {
-        err.textContent = '❌ Пароль минимум 4 символа!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    if (password !== password2) {
-        err.textContent = '❌ Пароли не совпадают!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    const usersDB = getUsersDB();
-    
-    if (usersDB[username]) {
-        err.textContent = '❌ Этот логин уже занят!';
-        err.style.display = 'block';
-        return;
-    }
-    
-    // Создаём пользователя
-    usersDB[username] = {
-        password: hashPassword(password),
-        saveData: {
-            balance: 1000,
-            inventory: [],
-            idCounter: 0
-        }
-    };
-    saveUsersDB(usersDB);
-    
-    // Авто-вход
-    document.getElementById('registerModal').remove();
-    loadUserData(username);
-}
-
-// Выход
-function logoutUser() {
-    saveGame();
-    currentUser = null;
-    hideUserInfo();
-}
-
-function showUserInfo(username) {
-    document.getElementById('registerBtn').style.display = 'none';
-    document.getElementById('userInfo').style.display = 'flex';
-    document.getElementById('userNickname').textContent = '👑 ' + username;
-}
-
-function hideUserInfo() {
-    document.getElementById('registerBtn').style.display = 'block';
-    document.getElementById('userInfo').style.display = 'none';
-}
-
-// Инициализация
-function initGame() {
-    const usersDB = getUsersDB();
-    // Автоматически не входим — показываем кнопку регистрации
-    renderCases();
-    setupTabs();
-    setupMultiSpin();
-    setupChanceSelector();
-    openBtn.addEventListener('click', () => performSpin(multiSpinCount));
-    upgradeBtn.addEventListener('click', performUpgrade);
-    contractBtn.addEventListener('click', performContract);
-    clearUpgradeBtn.addEventListener('click', () => { selectedForUpgrade.clear(); renderAllInventory(); });
-    document.addEventListener('click', () => SoundFX.init(), { once: true });
-}
-
-// Автосохранение
-setInterval(() => { if (currentUser) saveGame(); }, 15000);
-window.addEventListener('beforeunload', () => { if (currentUser) saveGame(); });
+    // ============================================================
+    //  РЕГИСТРАЦИЯ (ЛОГИН/ПАРОЛЬ)
+    // ============================================================
+    let currentUser=null;
+    function getUsersDB(){const db=localStorage.getItem('skinVault_users_db');return db?JSON.parse(db):{};}
+    function saveUsersDB(db){localStorage.setItem('skinVault_users_db',JSON.stringify(db));}
+    function hashPassword(pw){let h=0;for(let i=0;i<pw.length;i++){const c=pw.charCodeAt(i);h=((h<<5)-h)+c;h=h&h;}return'h_'+Math.abs(h).toString(16);}
+    function loadUserData(username){const db=getUsersDB();const ud=db[username];if(ud&&ud.saveData){balance=ud.saveData.balance||1000;inventory=ud.saveData.inventory||[];idCounter=ud.saveData.idCounter||0;currentUser=username;renderAllInventory();updateBalanceUI();showUserInfo(username);return!0;}return!1;}
+    function saveGame(){if(!currentUser)return;const db=getUsersDB();if(!db[currentUser])db[currentUser]={password:'',saveData:{}};db[currentUser].saveData={balance,inventory,idCounter,timestamp:new Date().toISOString()};saveUsersDB(db);}
+    function showUserInfo(u){$('registerBtn').style.display='none';$('userInfo').style.display='flex';$('userNickname').textContent='👑 '+u;}
+    function hideUserInfo(){$('registerBtn').style.display='block';$('userInfo').style.display='none';}
+    function showRegisterModal(){const old=$('registerModal');if(old)old.remove();const m=document.createElement('div');m.id='registerModal';m.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';m.innerHTML=`<div style="background:linear-gradient(145deg,rgba(20,24,38,0.98),rgba(15,18,30,0.98));padding:40px;border-radius:24px;border:1px solid rgba(255,106,0,0.2);text-align:center;max-width:400px;width:90%;box-shadow:0 20px 80px rgba(0,0,0,0.7);"><div style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;background:linear-gradient(135deg,#ff6a00,#ff3c00,#7b2fbe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">⭐ SKINVAULT</div><div style="display:flex;gap:8px;margin-bottom:20px;"><button id="tabLogin" onclick="switchAuthTab('login')" style="flex:1;padding:10px;background:rgba(255,106,0,0.2);border:1px solid #ff6a00;border-radius:10px;color:#ffaa00;font-weight:700;cursor:pointer;">ВХОД</button><button id="tabRegister" onclick="switchAuthTab('register')" style="flex:1;padding:10px;background:rgba(20,24,38,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:rgba(255,255,255,0.5);font-weight:600;cursor:pointer;">РЕГИСТРАЦИЯ</button></div><div id="loginForm"><input type="text" id="loginUsername" placeholder="Логин" style="width:100%;padding:12px;margin-bottom:10px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;"><input type="password" id="loginPassword" placeholder="Пароль" style="width:100%;padding:12px;margin-bottom:15px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;"><button onclick="loginUser()" style="width:100%;padding:14px;background:linear-gradient(135deg,#ff6a00,#ff3c00);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;">🔑 ВОЙТИ</button></div><div id="registerForm" style="display:none;"><input type="text" id="regUsername" placeholder="Придумай логин" style="width:100%;padding:12px;margin-bottom:10px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;"><input type="password" id="regPassword" placeholder="Придумай пароль" style="width:100%;padding:12px;margin-bottom:10px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;"><input type="password" id="regPassword2" placeholder="Повтори пароль" style="width:100%;padding:12px;margin-bottom:15px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:15px;outline:none;"><button onclick="registerUser()" style="width:100%;padding:14px;background:linear-gradient(135deg,#7b2fbe,#5a1a8a);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;">✅ СОЗДАТЬ</button></div><div id="authError" style="color:#ff4444;font-size:13px;margin-top:12px;display:none;"></div><button onclick="document.getElementById('registerModal').remove()" style="margin-top:15px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;">✕ Закрыть</button></div>`;document.body.appendChild(m);$('loginPassword').addEventListener('keypress',e=>{if(e.key==='Enter')loginUser();});$('regPassword2').addEventListener('keypress',e=>{if(e.key==='Enter')registerUser();});m.addEventListener('click',e=>{if(e.target===m)m.remove();});}
+    function switchAuthTab(tab){$('tabLogin').style.background=tab==='login'?'rgba(255,106,0,0.2)':'rgba(20,24,38,0.8)';$('tabLogin').style.borderColor=tab==='login'?'#ff6a00':'rgba(255,255,255,0.1)';$('tabLogin').style.color=tab==='login'?'#ffaa00':'rgba(255,255,255,0.5)';$('tabRegister').style.background=tab==='register'?'rgba(123,47,190,0.2)':'rgba(20,24,38,0.8)';$('tabRegister').style.borderColor=tab==='register'?'#7b2fbe':'rgba(255,255,255,0.1)';$('tabRegister').style.color=tab==='register'?'#d32ce6':'rgba(255,255,255,0.5)';$('loginForm').style.display=tab==='login'?'block':'none';$('registerForm').style.display=tab==='register'?'block':'none';$('authError').style.display='none';}
+    function loginUser(){const u=$('loginUsername').value.trim(),p=$('loginPassword').value,err=$('authError');if(!u||!p){err.textContent='❌ Заполни все поля!';err.style.display='block';return;}const db=getUsersDB(),hp=hashPassword(p);if(!db[u]){err.textContent='❌ Пользователь не найден!';err.style.display='block';return;}if(db[u].password!==hp){err.textContent='❌ Неверный пароль!';err.style.display='block';return;}$('registerModal').remove();loadUserData(u);}
+    function registerUser(){const u=$('regUsername').value.trim(),p=$('regPassword').value,p2=$('regPassword2').value,err=$('authError');if(!u||!p){err.textContent='❌ Заполни все поля!';err.style.display='block';return;}if(u.length<3){err.textContent='❌ Логин минимум 3 символа!';err.style.display='block';return;}if(p.length<4){err.textContent='❌ Пароль минимум 4 символа!';err.style.display='block';return;}if(p!==p2){err.textContent='❌ Пароли не совпадают!';err.style.display='block';return;}const db=getUsersDB();if(db[u]){err.textContent='❌ Логин занят!';err.style.display='block';return;}db[u]={password:hashPassword(p),saveData:{balance:1000,inventory:[],idCounter:0}};saveUsersDB(db);$('registerModal').remove();loadUserData(u);}
+    function logoutUser(){saveGame();currentUser=null;hideUserInfo();}
+    setInterval(()=>{if(currentUser)saveGame();},15000);
+    window.addEventListener('beforeunload',()=>{if(currentUser)saveGame();});
 
     // ============================================================
     //  ЗАПУСК
     // ============================================================
-    function initGame(){const saved=loadGame(),nickname=localStorage.getItem('skinVault_nickname');if(!saved&&!nickname){setTimeout(showRegisterModal,500);}if(nickname)showUserInfo(nickname);renderCases();setupTabs();setupMultiSpin();setupChanceSelector();openBtn.addEventListener('click',()=>performSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
+    function initGame(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupMultiSpin();setupChanceSelector();$('openBtn').addEventListener('click',()=>performSpin(multiSpinCount));$('upgradeBtn').addEventListener('click',performUpgrade);$('contractBtn').addEventListener('click',performContract);$('clearUpgradeBtn').addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
     initGame();
     </script>
 </body>
