@@ -9,28 +9,16 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #050510;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            padding: 20px;
+            background: #050510; color: #fff; font-family: 'Inter', sans-serif;
+            min-height: 100vh; padding: 20px;
             background-image:
                 radial-gradient(ellipse at 20% 50%, rgba(255, 106, 0, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(123, 47, 190, 0.2) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 70% 60%, rgba(0, 255, 255, 0.06) 0%, transparent 40%);
-            position: relative;
-            overflow-x: hidden;
+            position: relative; overflow-x: hidden;
         }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-        }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
         .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .bg-particle { position: absolute; border-radius: 50%; animation: floatParticle 20s ease-in-out infinite; }
         .bg-particle:nth-child(1) { width: 400px; height: 400px; top: -150px; left: -150px; background: radial-gradient(circle, rgba(255, 106, 0, 0.25), transparent 70%); animation-delay: 0s; }
@@ -38,83 +26,40 @@
         .bg-particle:nth-child(3) { width: 300px; height: 300px; top: 40%; left: 60%; background: radial-gradient(circle, rgba(255, 215, 0, 0.12), transparent 70%); animation-delay: -14s; }
         .bg-particle:nth-child(4) { width: 350px; height: 350px; top: 10%; right: 30%; background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent 70%); animation-delay: -3s; }
         .bg-particle:nth-child(5) { width: 250px; height: 250px; bottom: 20%; left: 20%; background: radial-gradient(circle, rgba(255, 50, 150, 0.12), transparent 70%); animation-delay: -10s; }
-        @keyframes floatParticle {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-            25% { transform: translate(40px, -30px) scale(1.15); opacity: 0.8; }
-            50% { transform: translate(-30px, 50px) scale(0.9); opacity: 0.5; }
-            75% { transform: translate(50px, 15px) scale(1.08); opacity: 0.7; }
-        }
-        header {
-            position: relative; z-index: 10;
-            display: flex; justify-content: space-between; align-items: center;
-            max-width: 1200px; margin: 0 auto 30px; padding: 18px 32px;
-            background: rgba(15, 18, 28, 0.8);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-            flex-wrap: wrap; gap: 15px;
-        }
-        .logo {
-            font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900;
-            background: linear-gradient(135deg, #ff6a00, #ff3c00, #ff6a00, #ffaa00);
-            background-size: 300% 300%;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: gradientShift 4s ease infinite;
-            letter-spacing: 2px;
-            filter: drop-shadow(0 0 20px rgba(255, 106, 0, 0.3));
-        }
+        @keyframes floatParticle { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; } 25% { transform: translate(40px, -30px) scale(1.15); opacity: 0.8; } 50% { transform: translate(-30px, 50px) scale(0.9); opacity: 0.5; } 75% { transform: translate(50px, 15px) scale(1.08); opacity: 0.7; } }
+        header { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto 30px; padding: 18px 32px; background: rgba(15, 18, 28, 0.8); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04); flex-wrap: wrap; gap: 15px; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; background: linear-gradient(135deg, #ff6a00, #ff3c00, #ff6a00, #ffaa00); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 4s ease infinite; letter-spacing: 2px; filter: drop-shadow(0 0 20px rgba(255, 106, 0, 0.3)); }
         @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
         .logo i { -webkit-text-fill-color: #ff6a00; margin-right: 12px; animation: crownGlow 2s ease-in-out infinite; }
         @keyframes crownGlow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.5)); } 50% { filter: drop-shadow(0 0 25px rgba(255, 106, 0, 0.8)); } }
-        .balance {
-            display: flex; align-items: center; gap: 12px;
-            background: rgba(255, 106, 0, 0.12); padding: 12px 26px; border-radius: 50px;
-            border: 1px solid rgba(255, 106, 0, 0.25);
-            font-weight: 700; font-size: 20px; color: #ffaa00; transition: 0.3s;
-            position: relative; overflow: hidden;
-        }
-        .balance::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: rotate(45deg); animation: balanceShine 3s linear infinite;
-        }
+        .balance { display: flex; align-items: center; gap: 12px; background: rgba(255, 106, 0, 0.12); padding: 12px 26px; border-radius: 50px; border: 1px solid rgba(255, 106, 0, 0.25); font-weight: 700; font-size: 20px; color: #ffaa00; transition: 0.3s; position: relative; overflow: hidden; }
+        .balance::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent); transform: rotate(45deg); animation: balanceShine 3s linear infinite; }
         @keyframes balanceShine { 0% { transform: rotate(45deg) translateX(-100%); } 100% { transform: rotate(45deg) translateX(100%); } }
         .balance:hover { background: rgba(255, 106, 0, 0.2); border-color: rgba(255, 106, 0, 0.5); box-shadow: 0 0 40px rgba(255, 106, 0, 0.2); transform: scale(1.02); }
         .balance i { font-size: 22px; animation: coinSpin 4s linear infinite; }
         @keyframes coinSpin { 0%, 100% { transform: rotateY(0deg); } 50% { transform: rotateY(180deg); } }
         .balance span { color: #fff; margin-left: 6px; font-size: 22px; }
-
-        .tabs {
-            position: relative; z-index: 10; display: flex; gap: 8px;
-            max-width: 1200px; margin: 0 auto 25px; flex-wrap: wrap;
-            background: rgba(15, 18, 28, 0.6); backdrop-filter: blur(15px);
-            border-radius: 16px; padding: 8px; border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .tab-btn {
-            background: transparent; border: none; color: rgba(255, 255, 255, 0.4);
-            padding: 12px 28px; border-radius: 12px; font-size: 15px; font-weight: 600;
-            cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif;
-            display: flex; align-items: center; gap: 10px; position: relative; overflow: hidden;
-        }
+        .tabs { position: relative; z-index: 10; display: flex; gap: 8px; max-width: 1200px; margin: 0 auto 25px; flex-wrap: wrap; background: rgba(15, 18, 28, 0.6); backdrop-filter: blur(15px); border-radius: 16px; padding: 8px; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .tab-btn { background: transparent; border: none; color: rgba(255, 255, 255, 0.4); padding: 12px 28px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 10px; position: relative; overflow: hidden; }
         .tab-btn::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: #ff6a00; transition: 0.3s; transform: translateX(-50%); }
         .tab-btn:hover { color: rgba(255, 255, 255, 0.8); background: rgba(255, 255, 255, 0.05); }
         .tab-btn:hover::after { width: 60%; }
         .tab-btn.active { color: #fff; background: linear-gradient(135deg, rgba(255, 106, 0, 0.3), rgba(123, 47, 190, 0.2)); box-shadow: 0 0 30px rgba(255, 106, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 106, 0, 0.2); }
         .tab-btn.active::after { width: 80%; background: #ff6a00; }
         .tab-btn .badge { background: rgba(255, 106, 0, 0.25); color: #ffaa00; border-radius: 50px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
-
         .tab-content { position: relative; z-index: 10; display: none; animation: tabFade 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .tab-content.active { display: block; }
         @keyframes tabFade { 0% { opacity: 0; transform: translateY(20px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
+        /* MULTI-SPIN CONTROLS */
+        .multi-spin-controls { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .multi-spin-btn { background: rgba(20, 24, 38, 0.8); border: 2px solid rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); padding: 10px 18px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
+        .multi-spin-btn:hover { border-color: rgba(255, 106, 0, 0.4); color: #fff; }
+        .multi-spin-btn.active { border-color: #ff6a00; background: rgba(255, 106, 0, 0.15); color: #ffaa00; box-shadow: 0 0 30px rgba(255, 106, 0, 0.1); }
+        .spin-count-display { color: #ffaa00; font-weight: 700; font-size: 18px; min-width: 30px; text-align: center; }
+
         .case-selector { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
-        .case-option {
-            background: rgba(18, 22, 36, 0.8); backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.06); border-radius: 16px;
-            padding: 18px 24px; cursor: pointer; transition: 0.3s;
-            text-align: center; min-width: 130px; position: relative; overflow: hidden;
-        }
+        .case-option { background: rgba(18, 22, 36, 0.8); backdrop-filter: blur(15px); border: 2px solid rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 18px 24px; cursor: pointer; transition: 0.3s; text-align: center; min-width: 130px; position: relative; overflow: hidden; }
         .case-option::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255, 106, 0, 0.08), transparent); opacity: 0; transition: 0.3s; }
         .case-option:hover { border-color: rgba(255, 106, 0, 0.5); transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 106, 0, 0.1); }
         .case-option:hover::before { opacity: 1; }
@@ -126,13 +71,7 @@
         .case-option .case-price { color: #ffaa00; font-size: 15px; font-weight: 700; margin-top: 4px; }
         .case-option .case-skins { color: rgba(255, 255, 255, 0.3); font-size: 11px; margin-top: 2px; }
 
-        .case-container {
-            max-width: 900px; margin: 0 auto;
-            background: rgba(15, 18, 28, 0.8); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            padding: 35px; border-radius: 24px;
-            box-shadow: 0 15px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
+        .case-container { max-width: 900px; margin: 0 auto; background: rgba(15, 18, 28, 0.8); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); padding: 35px; border-radius: 24px; box-shadow: 0 15px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.06); }
         .case-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
         .case-header h3 { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
         .case-header .sub { color: rgba(255, 255, 255, 0.35); font-size: 14px; }
@@ -141,11 +80,7 @@
         .case-stats .stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .case-stats .stat-value { color: #ffaa00; font-weight: 700; font-size: 18px; }
 
-        .roulette-wrapper {
-            position: relative; width: 100%; height: 150px; background: rgba(8, 10, 18, 0.9);
-            margin: 25px auto; overflow: hidden; border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5);
-        }
+        .roulette-wrapper { position: relative; width: 100%; height: 150px; background: rgba(8, 10, 18, 0.9); margin: 25px auto; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5); }
         .roulette-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 10%, transparent 90%, rgba(5, 5, 16, 0.9) 100%); pointer-events: none; z-index: 5; }
         .pointer { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00); z-index: 10; box-shadow: 0 0 30px #ff6a00, 0 0 60px rgba(255, 106, 0, 0.4); border-radius: 2px; }
         .pointer::before { content: '▼'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); color: #ffaa00; font-size: 18px; text-shadow: 0 0 30px #ff6a00; }
@@ -161,18 +96,30 @@
         .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(75, 105, 255, 0.12)); }
         .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5); background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(107, 122, 138, 0.08)); }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6a00, #ff3c00); color: #fff; border: none;
-            padding: 18px 50px; font-size: 18px; font-weight: 700; border-radius: 14px;
-            cursor: pointer; box-shadow: 0 6px 30px rgba(238, 60, 0, 0.4); transition: 0.3s;
-            font-family: 'Inter', sans-serif; width: 100%; max-width: 340px; margin: 15px auto 0;
-            display: block; position: relative; overflow: hidden; letter-spacing: 1px; text-transform: uppercase;
-        }
+        .btn-row { display: flex; gap: 12px; max-width: 340px; margin: 15px auto 0; }
+        .btn-primary { background: linear-gradient(135deg, #ff6a00, #ff3c00); color: #fff; border: none; padding: 18px 30px; font-size: 18px; font-weight: 700; border-radius: 14px; cursor: pointer; box-shadow: 0 6px 30px rgba(238, 60, 0, 0.4); transition: 0.3s; font-family: 'Inter', sans-serif; flex: 1; position: relative; overflow: hidden; letter-spacing: 1px; text-transform: uppercase; }
         .btn-primary::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.08), transparent); transform: rotate(45deg); transition: 0.6s; }
         .btn-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 50px rgba(238, 60, 0, 0.6); }
         .btn-primary:hover::before { left: 100%; }
         .btn-primary:active { transform: translateY(0) scale(0.98); }
         .btn-primary:disabled { background: rgba(42, 47, 58, 0.8); box-shadow: none; cursor: not-allowed; transform: none; }
+        .btn-multi { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); flex: 0.5; font-size: 14px; padding: 18px 15px; }
+        .btn-multi:hover { box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
+
+        /* MULTI-SPIN RESULTS */
+        .multi-results { margin-top: 20px; padding: 15px; background: rgba(10, 12, 22, 0.6); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.06); max-height: 300px; overflow-y: auto; display: none; }
+        .multi-results.show { display: block; }
+        .multi-results .result-title { color: rgba(255, 255, 255, 0.4); font-size: 13px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
+        .multi-result-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(20, 24, 38, 0.5); border-radius: 10px; margin-bottom: 6px; font-size: 13px; }
+        .multi-result-item .icon { font-size: 24px; }
+        .multi-result-item .name { flex: 1; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .multi-result-item .price { color: rgba(255, 255, 255, 0.4); }
+        .multi-result-total { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.06); font-weight: 700; }
+        .multi-result-total .total-spent { color: #f44336; }
+        .multi-result-total .total-got { color: #4caf50; }
+        .multi-result-total .total-profit { font-size: 18px; }
+        .multi-result-total .total-profit.positive { color: #4caf50; }
+        .multi-result-total .total-profit.negative { color: #f44336; }
 
         .case-skins-list { margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
         .case-skins-list .list-title { color: rgba(255, 255, 255, 0.35); font-size: 13px; margin-bottom: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
@@ -225,13 +172,11 @@
         .upgrade-arrow-center .arrow.success { color: #4caf50; text-shadow: 0 0 50px rgba(76, 175, 80, 0.5); }
         .upgrade-arrow-center .arrow.fail { color: #f44336; text-shadow: 0 0 50px rgba(244, 67, 54, 0.5); }
         @keyframes arrowSpin { 0% { transform: rotate(-20deg) scale(1.15); } 50% { transform: rotate(20deg) scale(1.15); } 100% { transform: rotate(-20deg) scale(1.15); } }
-
         .chance-selector { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0; }
         .chance-btn { background: rgba(20, 24, 38, 0.8); border: 2px solid rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.5); padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
         .chance-btn:hover { border-color: rgba(255, 106, 0, 0.4); color: rgba(255, 255, 255, 0.8); }
         .chance-btn.active { border-color: #ff6a00; background: rgba(255, 106, 0, 0.15); color: #ffaa00; box-shadow: 0 0 40px rgba(255, 106, 0, 0.1); }
         .chance-btn .multiplier { display: block; font-size: 11px; color: rgba(255, 255, 255, 0.25); }
-
         .result-skin { text-align: center; padding: 20px; }
         .result-skin .icon { font-size: 55px; display: block; margin-bottom: 8px; }
         .result-skin .name { font-size: 18px; font-weight: 700; }
@@ -243,7 +188,6 @@
         .rarity-badge.uncommon { background: rgba(75, 105, 255, 0.2); color: #4b69ff; border: 1px solid rgba(75, 105, 255, 0.3); }
         .rarity-badge.common { background: rgba(107, 122, 138, 0.15); color: rgba(255, 255, 255, 0.5); border: 1px solid rgba(107, 122, 138, 0.2); }
         .result-placeholder { color: rgba(255, 255, 255, 0.1); font-size: 15px; text-align: center; padding: 35px 0; }
-
         .upgrade-actions { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
         .btn-upgrade { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); color: #fff; border: none; padding: 16px 50px; font-size: 17px; font-weight: 700; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); letter-spacing: 1px; text-transform: uppercase; }
         .btn-upgrade:hover { transform: translateY(-4px); box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
@@ -259,9 +203,6 @@
         .upgrade-result-overlay.fail { background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.25); }
         .upgrade-result-overlay .big-icon { font-size: 70px; display: block; animation: bounce 0.8s ease-in-out infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-        .particle { position: absolute; border-radius: 50%; animation: particleFly 1.5s ease-out forwards; }
-        @keyframes particleFly { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }
-
         .contract-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding: 20px 25px; background: rgba(10, 12, 22, 0.6); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.04); }
         .contract-info .selected-count { color: rgba(255, 255, 255, 0.35); }
         .contract-info .selected-count strong { color: #ffaa00; }
@@ -307,7 +248,7 @@
 
     <header>
         <div class="logo"><i class="fas fa-crown"></i> SKINVAULT</div>
-        <div class="balance"><i class="fas fa-coins"></i><span id="balanceDisplay">500</span></div>
+        <div class="balance"><i class="fas fa-coins"></i><span id="balanceDisplay">1000</span></div>
     </header>
 
     <div class="tabs">
@@ -320,12 +261,40 @@
     <div class="tab-content active" id="tab-case">
         <div class="case-container">
             <div class="case-selector" id="caseSelector"></div>
+
+            <!-- МУЛЬТИСПИН -->
+            <div class="multi-spin-controls">
+                <span style="color:rgba(255,255,255,0.4);">Кол-во открытий:</span>
+                <button class="multi-spin-btn" data-count="1">1x</button>
+                <button class="multi-spin-btn active" data-count="5">5x</button>
+                <button class="multi-spin-btn" data-count="10">10x</button>
+                <button class="multi-spin-btn" data-count="25">25x</button>
+                <button class="multi-spin-btn" data-count="50">50x</button>
+                <span class="spin-count-display" id="spinCountDisplay">5</span>
+                <span style="color:rgba(255,255,255,0.3);">открытий</span>
+            </div>
+
             <div class="case-header">
                 <div><h3 id="caseName">🔥 ПРЕМИУМ КЕЙС</h3><div class="sub">Стоимость: <span class="price-tag" id="casePrice">250</span> ₽</div></div>
                 <div class="case-stats"><div class="stat-item"><span>Скинов</span><span class="stat-value" id="caseSkinCount">0</span></div></div>
             </div>
             <div class="roulette-wrapper"><div class="pointer"></div><div class="roulette-tape" id="tape"></div></div>
-            <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС</button>
+            <div class="btn-row">
+                <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ</button>
+                <button class="btn-primary btn-multi" id="multiSpinBtn"><i class="fas fa-forward"></i> МУЛЬТИ</button>
+            </div>
+
+            <!-- РЕЗУЛЬТАТЫ МУЛЬТИСПИНА -->
+            <div class="multi-results" id="multiResults">
+                <div class="result-title">📊 Результаты мультиспина</div>
+                <div id="multiResultsList"></div>
+                <div class="multi-result-total">
+                    <span>Потрачено: <span class="total-spent" id="totalSpent">0</span> ₽</span>
+                    <span>Получено: <span class="total-got" id="totalGot">0</span> ₽</span>
+                    <span>Итог: <span class="total-profit" id="totalProfit">0</span> ₽</span>
+                </div>
+            </div>
+
             <div class="case-skins-list"><div class="list-title">Все скины в кейсе:</div><div class="case-skins-grid" id="caseSkinsGrid"></div></div>
         </div>
     </div>
@@ -340,8 +309,7 @@
     <div class="tab-content" id="tab-upgrade">
         <div class="upgrade-section">
             <div class="upgrade-title">⚡ АПГРЕЙД ОРУЖИЯ <small>— рискни и умножь</small></div>
-            <div style="text-align:center;margin-bottom:20px;">
-                <span style="color:rgba(255,255,255,0.35);font-size:14px;">Выбери шанс:</span>
+            <div style="text-align:center;margin-bottom:20px;"><span style="color:rgba(255,255,255,0.35);font-size:14px;">Выбери шанс:</span>
                 <div class="chance-selector" id="chanceSelector">
                     <button class="chance-btn active" data-chance="50" data-multiplier="2">🎯 50% <span class="multiplier">×2</span></button>
                     <button class="chance-btn" data-chance="25" data-multiplier="4">🎲 25% <span class="multiplier">×4</span></button>
@@ -372,209 +340,38 @@
     <script>
     const SoundFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(type){this.init();const ctx=this.ctx,now=ctx.currentTime;const playTone=(freq,dur,vol=.12,type='sine',delay=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(freq,now+delay);g.gain.setValueAtTime(vol,now+delay);g.gain.exponentialRampToValueAtTime(.001,now+delay+dur);o.start(now+delay);o.stop(now+delay+dur)};const noiseBurst=(dur=.3,vol=.06)=>{const bufferSize=ctx.sampleRate*dur,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4);const noise=ctx.createBufferSource(),ng=ctx.createGain();noise.buffer=buffer;noise.connect(ng);ng.connect(ctx.destination);ng.gain.setValueAtTime(vol,now);ng.gain.exponentialRampToValueAtTime(.001,now+dur);noise.start(now);noise.stop(now+dur)};switch(type){case'case_open':noiseBurst(.35,.06);playTone(800,.12,.08,'square',.05);playTone(1100,.08,.05,'square',.15);playTone(1400,.06,.03,'sine',.25);break;case'case_scroll':noiseBurst(.1,.02);playTone(1500,.03,.04,'triangle',.02);break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.1),i*100));noiseBurst(.6,.04);break;case'sell':playTone(1200,.06,.06,'triangle');playTone(800,.06,.06,'triangle',.06);playTone(600,.06,.06,'triangle',.12);break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,.1),i*80));noiseBurst(.4,.03);break;case'upgrade_fail':playTone(250,.4,.12,'sawtooth');playTone(200,.3,.08,'square',.1);noiseBurst(.5,.05);break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>playTone(f,.05,.05,'square'),i*50));noiseBurst(.25,.03);break}}};
 
-    // ===== РЕАЛЬНЫЕ СКИНЫ CS2 С РЕАЛЬНЫМИ ЦЕНАМИ (2024) =====
     const ALL_SKINS=[
-        // ★ КРАСНЫЕ (Covert/Red) — Legendary
-        {name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},
-        {name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},
-        {name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},
-        {name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},
-        {name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},
-        {name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},
-        {name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},
-        {name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},
-        {name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},
-        {name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},
-        {name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},
-        {name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},
-        // Ножи
-        {name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},
-        {name:"★ M9 Bayonet | Crimson Web",rarity:"legendary",icon:"🗡️",price:1800.00},
-        {name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200.00},
-        {name:"★ Karambit | Marble Fade",rarity:"legendary",icon:"🔪",price:1600.00},
-        {name:"★ Skeleton Knife | Slaughter",rarity:"legendary",icon:"💀",price:950.00},
-        // Перчатки
-        {name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200.00},
-        {name:"★ Specialist Gloves | Crimson Kimono",rarity:"legendary",icon:"🧤",price:2800.00},
-
-        // 🟣 РОЗОВЫЕ (Classified/Pink) — Epic
-        {name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145.00},
-        {name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48.00},
-        {name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85.00},
-        {name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35.00},
-        {name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28.00},
-        {name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18.00},
-        {name:"SSG 08 | Dragonfire",rarity:"epic",icon:"🐉",price:32.00},
-        {name:"AUG | Akihabara Accept",rarity:"epic",icon:"🎌",price:95.00},
-        {name:"FAMAS | Commemoration",rarity:"epic",icon:"🎖️",price:22.00},
-        {name:"Galil AR | Chatterbox",rarity:"epic",icon:"💀",price:15.00},
-        {name:"P90 | Asiimov",rarity:"epic",icon:"🤖",price:25.00},
-        {name:"MP9 | Bulldozer",rarity:"epic",icon:"🚜",price:12.00},
-
-        // 🔵 ФИОЛЕТОВЫЕ (Restricted/Purple) — Rare
-        {name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42.00},
-        {name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28.00},
-        {name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35.00},
-        {name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15.00},
-        {name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8.00},
-        {name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6.00},
-        {name:"Five-SeveN | Case Hardened",rarity:"rare",icon:"🔵",price:12.00},
-        {name:"Tec-9 | Toxic",rarity:"rare",icon:"☣️",price:5.00},
-        {name:"MAC-10 | Graven",rarity:"rare",icon:"👹",price:4.50},
-        {name:"MP7 | Nemesis",rarity:"rare",icon:"🐍",price:7.00},
-        {name:"UMP-45 | Blaze",rarity:"rare",icon:"🔥",price:9.00},
-        {name:"PP-Bizon | Judgement of Anubis",rarity:"rare",icon:"⚖️",price:4.00},
-
-        // 🔵 ГОЛУБЫЕ (Mil-Spec/Blue) — Uncommon
-        {name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.50},
-        {name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5.00},
-        {name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2.00},
-        {name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.50},
-        {name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.50},
-        {name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.20},
-        {name:"Desert Eagle | Naga",rarity:"uncommon",icon:"🐍",price:3.00},
-        {name:"MP9 | Dark Age",rarity:"uncommon",icon:"🏰",price:1.00},
-        {name:"MAG-7 | Heaven Guard",rarity:"uncommon",icon:"😇",price:1.80},
-        {name:"Nova | Tempest",rarity:"uncommon",icon:"🌊",price:1.50},
-        {name:"XM1014 | Blue Steel",rarity:"uncommon",icon:"🔫",price:2.00},
-        {name:"SCAR-20 | Cardiac",rarity:"uncommon",icon:"❤️",price:1.20},
-
-        // ⚪ БЕЛЫЕ (Consumer/White) — Common
-        {name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},
-        {name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.20},
-        {name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},
-        {name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},
-        {name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15},
-        {name:"MP7 | Groundwater",rarity:"common",icon:"💧",price:0.10},
-        {name:"UMP-45 | Urban DDPAT",rarity:"common",icon:"🏙️",price:0.14},
-        {name:"PP-Bizon | Sand Dashed",rarity:"common",icon:"🏜️",price:0.08},
-        {name:"Galil AR | Sage Spray",rarity:"common",icon:"🌿",price:0.12},
-        {name:"FAMAS | Colony",rarity:"common",icon:"🐜",price:0.10},
-        {name:"SG 553 | Army Sheen",rarity:"common",icon:"🪖",price:0.16},
-        {name:"G3SG1 | Safari Mesh",rarity:"common",icon:"🦒",price:0.11},
+        {name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},{name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},{name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},
+        {name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"★ M9 Bayonet | Crimson Web",rarity:"legendary",icon:"🗡️",price:1800.00},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200.00},{name:"★ Karambit | Marble Fade",rarity:"legendary",icon:"🔪",price:1600.00},{name:"★ Skeleton Knife | Slaughter",rarity:"legendary",icon:"💀",price:950.00},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200.00},{name:"★ Specialist Gloves | Crimson Kimono",rarity:"legendary",icon:"🧤",price:2800.00},
+        {name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145.00},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48.00},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85.00},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35.00},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28.00},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18.00},{name:"SSG 08 | Dragonfire",rarity:"epic",icon:"🐉",price:32.00},{name:"AUG | Akihabara Accept",rarity:"epic",icon:"🎌",price:95.00},{name:"FAMAS | Commemoration",rarity:"epic",icon:"🎖️",price:22.00},{name:"Galil AR | Chatterbox",rarity:"epic",icon:"💀",price:15.00},{name:"P90 | Asiimov",rarity:"epic",icon:"🤖",price:25.00},{name:"MP9 | Bulldozer",rarity:"epic",icon:"🚜",price:12.00},
+        {name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42.00},{name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28.00},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35.00},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15.00},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8.00},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6.00},{name:"Five-SeveN | Case Hardened",rarity:"rare",icon:"🔵",price:12.00},{name:"Tec-9 | Toxic",rarity:"rare",icon:"☣️",price:5.00},{name:"MAC-10 | Graven",rarity:"rare",icon:"👹",price:4.50},{name:"MP7 | Nemesis",rarity:"rare",icon:"🐍",price:7.00},{name:"UMP-45 | Blaze",rarity:"rare",icon:"🔥",price:9.00},{name:"PP-Bizon | Judgement of Anubis",rarity:"rare",icon:"⚖️",price:4.00},
+        {name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.50},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5.00},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2.00},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.50},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.50},{name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.20},{name:"Desert Eagle | Naga",rarity:"uncommon",icon:"🐍",price:3.00},{name:"MP9 | Dark Age",rarity:"uncommon",icon:"🏰",price:1.00},{name:"MAG-7 | Heaven Guard",rarity:"uncommon",icon:"😇",price:1.80},{name:"Nova | Tempest",rarity:"uncommon",icon:"🌊",price:1.50},{name:"XM1014 | Blue Steel",rarity:"uncommon",icon:"🔫",price:2.00},{name:"SCAR-20 | Cardiac",rarity:"uncommon",icon:"❤️",price:1.20},
+        {name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.20},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15},{name:"MP7 | Groundwater",rarity:"common",icon:"💧",price:0.10},{name:"UMP-45 | Urban DDPAT",rarity:"common",icon:"🏙️",price:0.14},{name:"PP-Bizon | Sand Dashed",rarity:"common",icon:"🏜️",price:0.08},{name:"Galil AR | Sage Spray",rarity:"common",icon:"🌿",price:0.12},{name:"FAMAS | Colony",rarity:"common",icon:"🐜",price:0.10},{name:"SG 553 | Army Sheen",rarity:"common",icon:"🪖",price:0.16},{name:"G3SG1 | Safari Mesh",rarity:"common",icon:"🦒",price:0.11},
     ];
 
-    // КЕЙСЫ (сбалансированы как в реальной игре)
     const CASES=[
-        {
-            id:'dreams_and_nightmares',
-            name:'🌙 Dreams & Nightmares',
-            icon:'💎',
-            price:85,
-            description:'Топовые скины',
-            skins:[
-                ...ALL_SKINS.filter(s=>['AWP | Gungnir','AK-47 | Case Hardened (661)','★ Butterfly Knife | Fade','M4A4 | Howl','Desert Eagle | Blaze'].some(n=>s.name.includes(n))),
-                ...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),
-                ...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),
-                ...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),
-            ]
-        },
-        {
-            id:'gamma_doppler',
-            name:'💚 Gamma Doppler',
-            icon:'💚',
-            price:120,
-            description:'Ножи и перчатки',
-            skins:[
-                ...ALL_SKINS.filter(s=>s.name.includes('★')),
-                ...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),
-                ...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),
-                ...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3),
-            ]
-        },
-        {
-            id:'operation_bravo',
-            name:'🔥 Operation Bravo',
-            icon:'🔥',
-            price:250,
-            description:'Легендарный кейс',
-            skins:[
-                {name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},
-                ...ALL_SKINS.filter(s=>s.name.includes('★')),
-                ...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),
-                ...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),
-                ...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,3),
-            ]
-        },
-        {
-            id:'standard',
-            name:'📦 Стандартный кейс',
-            icon:'📦',
-            price:45,
-            description:'Сбалансированный',
-            skins:[
-                ...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(5,10),
-                ...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),
-                ...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),
-                ...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),
-                ...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3),
-            ]
-        },
-        {
-            id:'starter',
-            name:'🚀 Стартовый',
-            icon:'🚀',
-            price:15,
-            description:'Для новичков',
-            skins:[
-                ...ALL_SKINS.filter(s=>s.rarity==='epic').slice(6,10),
-                ...ALL_SKINS.filter(s=>s.rarity==='rare'),
-                ...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),
-                ...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4),
-            ]
-        },
-        {
-            id:'yolo',
-            name:'💀 YOLO',
-            icon:'💀',
-            price:100,
-            description:'Всё или ничего',
-            skins:[
-                {name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},
-                {name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},
-                {name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},
-                ...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,8),
-            ]
-        },
+        {id:'dreams_and_nightmares',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>['AWP | Gungnir','AK-47 | Case Hardened (661)','★ Butterfly Knife | Fade','M4A4 | Howl','Desert Eagle | Blaze'].some(n=>s.name.includes(n))),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
+        {id:'gamma_doppler',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},
+        {id:'operation_bravo',name:'🔥 Operation Bravo',icon:'🔥',price:250,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,3)]},
+        {id:'standard',name:'📦 Стандартный',icon:'📦',price:45,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(5,10),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},
+        {id:'starter',name:'🚀 Стартовый',icon:'🚀',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(6,10),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},
+        {id:'yolo',name:'💀 YOLO',icon:'💀',price:100,skins:[{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,8)]},
+        {id:'glove_case',name:'🧤 Glove Case',icon:'🧤',price:95,skins:[...ALL_SKINS.filter(s=>s.name.includes('Gloves')),...ALL_SKINS.filter(s=>s.name.includes('★')).slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4)]},
+        {id:'chroma',name:'🌈 Chroma Case',icon:'🌈',price:55,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
+        {id:'snakebite',name:'🐍 Snakebite Case',icon:'🐍',price:35,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},
+        {id:'fracture',name:'💥 Fracture Case',icon:'💥',price:25,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(4,8),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,4)]},
+        {id:'prisma2',name:'💠 Prisma 2 Case',icon:'💠',price:40,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
     ];
 
-    function getRarityWeights(caseSkins){
-        const rc={};
-        caseSkins.forEach(s=>{rc[s.rarity]=(rc[s.rarity]||0)+1});
-        let w={};
-        if(rc.legendary&&rc.legendary>=5)w={legendary:3,epic:rc.epic?12:0,rare:rc.rare?25:0,uncommon:rc.uncommon?30:0,common:rc.common?30:0};
-        else if(rc.legendary&&rc.legendary>=3)w={legendary:2,epic:rc.epic?10:0,rare:rc.rare?25:0,uncommon:rc.uncommon?33:0,common:rc.common?30:0};
-        else if(rc.legendary)w={legendary:1,epic:rc.epic?8:0,rare:rc.rare?20:0,uncommon:rc.uncommon?35:0,common:rc.common?36:0};
-        else if(rc.epic)w={legendary:0,epic:15,rare:rc.rare?30:0,uncommon:rc.uncommon?30:0,common:rc.common?25:0};
-        else w={legendary:0,epic:0,rare:rc.rare?35:0,uncommon:rc.uncommon?40:0,common:rc.common?25:0};
-        const total=Object.values(w).reduce((a,b)=>a+b,0);
-        if(total>0)for(const k in w)w[k]=(w[k]/total)*100;
-        return w;
-    }
-
-    function getRandomItem(caseSkins){
-        if(CASES[currentCaseIndex].id==='yolo'){
-            const rand=Math.random()*100;
-            if(rand<1)return caseSkins.find(s=>s.name.includes('Sapphire'))||caseSkins[0];
-            else if(rand<4)return caseSkins.find(s=>s.name.includes('Dragon Lore'))||caseSkins[0];
-            else if(rand<8)return caseSkins.find(s=>s.name.includes('Fire Serpent'))||caseSkins[0];
-            else{const cs=caseSkins.filter(s=>s.rarity==='common');return cs[Math.floor(Math.random()*cs.length)];}
-        }
-        const weights=getRarityWeights(caseSkins);
-        const rand=Math.random()*100;
-        let cum=0,sr='common';
-        for(const[rarity,weight]of Object.entries(weights)){cum+=weight;if(rand<=cum){sr=rarity;break;}}
-        const pool=caseSkins.filter(s=>s.rarity===sr);
-        return pool.length?pool[Math.floor(Math.random()*pool.length)]:caseSkins[Math.floor(Math.random()*caseSkins.length)];
-    }
-
+    function getRarityWeights(cs){const rc={};cs.forEach(s=>{rc[s.rarity]=(rc[s.rarity]||0)+1});let w={};if(rc.legendary&&rc.legendary>=5)w={legendary:3,epic:rc.epic?12:0,rare:rc.rare?25:0,uncommon:rc.uncommon?30:0,common:rc.common?30:0};else if(rc.legendary&&rc.legendary>=3)w={legendary:2,epic:rc.epic?10:0,rare:rc.rare?25:0,uncommon:rc.uncommon?33:0,common:rc.common?30:0};else if(rc.legendary)w={legendary:1,epic:rc.epic?8:0,rare:rc.rare?20:0,uncommon:rc.uncommon?35:0,common:rc.common?36:0};else if(rc.epic)w={legendary:0,epic:15,rare:rc.rare?30:0,uncommon:rc.uncommon?30:0,common:rc.common?25:0};else w={legendary:0,epic:0,rare:rc.rare?35:0,uncommon:rc.uncommon?40:0,common:rc.common?25:0};const t=Object.values(w).reduce((a,b)=>a+b,0);if(t>0)for(const k in w)w[k]=(w[k]/t)*100;return w;}
+    function getRandomItem(cs){if(CASES[currentCaseIndex].id==='yolo'){const r=Math.random()*100;if(r<1)return cs.find(s=>s.name.includes('Sapphire'))||cs[0];else if(r<4)return cs.find(s=>s.name.includes('Dragon Lore'))||cs[0];else if(r<8)return cs.find(s=>s.name.includes('Fire Serpent'))||cs[0];else{const c=cs.filter(s=>s.rarity==='common');return c[Math.floor(Math.random()*c.length)];}}const w=getRarityWeights(cs),r=Math.random()*100;let cum=0,sr='common';for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){sr=ra;break;}}const p=cs.filter(s=>s.rarity===sr);return p.length?p[Math.floor(Math.random()*p.length)]:cs[Math.floor(Math.random()*cs.length)];}
     function getSkinByPrice(tp){let b=ALL_SKINS[0],bd=Infinity;for(const s of ALL_SKINS){const d=Math.abs(s.price-tp);if(d<bd){bd=d;b=s;}}return b;}
 
-    let balance=1000,inventory=[],idCounter=0,isSpinning=!1,isUpgrading=!1,isContracting=!1;
+    let balance=1000,inventory=[],idCounter=0,isSpinning=!1,isUpgrading=!1,isContracting=!1,multiSpinCount=5;
     let selectedForUpgrade=new Set,selectedForContract=new Set,currentCaseIndex=0,selectedChance=50,selectedMultiplier=2,scrollInterval=null;
     const CARD_WIDTH=132;
     const $=id=>document.getElementById(id);
-    const tape=$('tape'),openBtn=$('openBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid');
+    const tape=$('tape'),openBtn=$('openBtn'),multiSpinBtn=$('multiSpinBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid');
     const upgradeInventoryGrid=$('upgradeInventoryGrid'),contractInventoryGrid=$('contractInventoryGrid');
     const invCount=$('invCount'),invTotalCount=$('invTotalCount'),invTotalPrice=$('invTotalPrice');
     const upgradeBtn=$('upgradeBtn'),clearUpgradeBtn=$('clearUpgradeBtn'),contractBtn=$('contractBtn');
@@ -585,15 +382,20 @@
     const resultContainer=$('resultContainer'),upgradeResultMessage=$('upgradeResultMessage'),upgradeArrow=$('upgradeArrow');
     const upgradeSelectCount=$('upgradeSelectCount'),multiplierDisplay=$('multiplierDisplay');
     const caseSelector=$('caseSelector'),caseName=$('caseName'),casePrice=$('casePrice'),caseSkinCount=$('caseSkinCount'),caseSkinsGrid=$('caseSkinsGrid');
+    const multiResults=$('multiResults'),multiResultsList=$('multiResultsList'),totalSpent=$('totalSpent'),totalGot=$('totalGot'),totalProfit=$('totalProfit'),spinCountDisplay=$('spinCountDisplay');
 
     function generateTapeItems(ws,cs){tape.innerHTML='';const cnt=40,wi=32;for(let i=0;i<cnt;i++){let item=(i===wi&&ws)?ws:getRandomItem(cs);const card=document.createElement('div');card.className=`skin-card rarity-${item.rarity}`;card.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;tape.appendChild(card);}}
     function renderCaseSkins(){const c=CASES[currentCaseIndex];caseSkinCount.textContent=c.skins.length;caseSkinsGrid.innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className=`case-skin-preview rarity-${s.rarity}`;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;caseSkinsGrid.appendChild(d);});}
     function renderCases(){caseSelector.innerHTML='';CASES.forEach((c,i)=>{const d=document.createElement('div');d.className=`case-option ${i===currentCaseIndex?'active':''}`;d.innerHTML=`<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;d.addEventListener('click',()=>{currentCaseIndex=i;renderCases();updateCaseUI();renderCaseSkins();generateTapeItems(null,CASES[currentCaseIndex].skins);});caseSelector.appendChild(d);});updateCaseUI();renderCaseSkins();generateTapeItems(null,CASES[currentCaseIndex].skins);}
     function updateCaseUI(){const c=CASES[currentCaseIndex];caseName.textContent=c.icon+' '+c.name;casePrice.textContent=c.price;}
 
-    function openCase(){if(isSpinning)return;const c=CASES[currentCaseIndex];if(balance<c.price){alert('❌ Недостаточно средств!');return;}balance-=c.price;updateBalanceUI();SoundFX.play('case_open');isSpinning=!0;openBtn.disabled=!0;openBtn.textContent='🎰 КРУТИМ...';const ws=getRandomItem(c.skins);tape.style.transition='none';tape.style.transform='translateX(0px)';generateTapeItems(ws,c.skins);const wr=document.querySelector('.roulette-wrapper'),ww=wr.offsetWidth,wi=32;const tl=-(wi*CARD_WIDTH)+(ww/2)-(CARD_WIDTH/2);let cp=0;const sp=15;clearInterval(scrollInterval);scrollInterval=setInterval(()=>{cp-=sp;tape.style.transform=`translateX(${cp}px)`;SoundFX.play('case_scroll');if(cp<-2000){clearInterval(scrollInterval);setTimeout(()=>{tape.style.transition='transform 4s cubic-bezier(0.08, 0.82, 0.17, 1)';tape.style.transform=`translateX(${tl+(Math.random()*40-20)}px)`;},50);}},16);setTimeout(()=>{inventory.push({...ws,id:idCounter++});renderAllInventory();if(ws.rarity==='legendary')SoundFX.play('legendary');isSpinning=!1;openBtn.disabled=!1;openBtn.innerHTML='<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';},4200);}
+    function singleSpin(){return new Promise(resolve=>{const c=CASES[currentCaseIndex];if(balance<c.price){resolve(null);return;}balance-=c.price;updateBalanceUI();SoundFX.play('case_open');const ws=getRandomItem(c.skins);tape.style.transition='none';tape.style.transform='translateX(0px)';generateTapeItems(ws,c.skins);const wr=document.querySelector('.roulette-wrapper'),ww=wr.offsetWidth,wi=32;const tl=-(wi*CARD_WIDTH)+(ww/2)-(CARD_WIDTH/2);let cp=0;const sp=15;clearInterval(scrollInterval);scrollInterval=setInterval(()=>{cp-=sp;tape.style.transform=`translateX(${cp}px)`;SoundFX.play('case_scroll');if(cp<-2000){clearInterval(scrollInterval);setTimeout(()=>{tape.style.transition='transform 4s cubic-bezier(0.08, 0.82, 0.17, 1)';tape.style.transform=`translateX(${tl+(Math.random()*40-20)}px)`;},50);}},16);setTimeout(()=>{const ni={...ws,id:idCounter++};inventory.push(ni);if(ws.rarity==='legendary')SoundFX.play('legendary');resolve(ni);},4200);});}
 
-    function renderAllInventory(){invCount.textContent=inventory.length;invTotalCount.textContent=inventory.length;invTotalPrice.textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)inventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст<br><span style="font-size:13px;color:rgba(255,255,255,0.1);">Открой кейс!</span></div>';else{inventoryGrid.innerHTML='';inventory.forEach(i=>inventoryGrid.appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
+    async function performMultiSpin(count){if(isSpinning)return;const c=CASES[currentCaseIndex];const totalCost=c.price*count;if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}isSpinning=!0;openBtn.disabled=!0;multiSpinBtn.disabled=!0;const results=[];let spent=0;let got=0;multiResults.classList.add('show');multiResultsList.innerHTML='<div style="color:rgba(255,255,255,0.3);text-align:center;padding:20px;">🔄 Открываем кейсы...</div>';for(let i=0;i<count;i++){const result=await singleSpin();if(result){results.push(result);spent+=c.price;got+=result.price;}await new Promise(r=>setTimeout(r,300));}multiResultsList.innerHTML='';results.forEach(r=>{const div=document.createElement('div');div.className='multi-result-item';div.innerHTML=`<span class="icon">${r.icon}</span><span class="name">${r.name}</span><span class="price">${r.price.toFixed(2)} ₽</span>`;multiResultsList.appendChild(div);});totalSpent.textContent=spent.toFixed(0);totalGot.textContent=got.toFixed(2);const profit=got-spent;totalProfit.textContent=(profit>=0?'+':'')+profit.toFixed(2);totalProfit.className='total-profit '+(profit>=0?'positive':'negative');renderAllInventory();isSpinning=!1;openBtn.disabled=!1;multiSpinBtn.disabled=!1;}
+
+    function openCase(){performMultiSpin(1);}
+
+    function renderAllInventory(){invCount.textContent=inventory.length;invTotalCount.textContent=inventory.length;invTotalPrice.textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)inventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div>';else{inventoryGrid.innerHTML='';inventory.forEach(i=>inventoryGrid.appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
     function createInventoryItem(item,um,cm){const d=document.createElement('div');d.className=`inv-item rarity-${item.rarity}`;const us=selectedForUpgrade.has(item.id),cs=selectedForContract.has(item.id);if(us)d.style.borderColor='#ff6a00';if(cs)d.style.borderColor='#7b2fbe';let btns='';if(um)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${us?'rgba(255,106,0,0.3)':'rgba(30,35,48,0.9)'};border-color:${us?'#ff6a00':'rgba(255,255,255,0.06)'};">${us?'✓ Выбран':'Выбрать'}</button>`;else if(cm)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${cs?'rgba(123,47,190,0.3)':'rgba(30,35,48,0.9)'};border-color:${cs?'#7b2fbe':'rgba(255,255,255,0.06)'};">${cs?'✓ Выбран':'Выбрать'}</button>`;else btns=`<button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>`;d.innerHTML=`<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><div class="btn-group">${btns}</div>`;d.querySelectorAll('.btn-sell').forEach(b=>b.addEventListener('click',function(e){e.stopPropagation();const id=parseInt(this.dataset.id),act=this.dataset.action;if(act==='sell')sellItem(id);else if(act==='toggleUpgrade')toggleUpgradeSelection(id);else if(act==='toggleContract')toggleContractSelection(id);}));return d;}
     function renderUpgradeInventory(){if(inventory.length===0)upgradeInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{upgradeInventoryGrid.innerHTML='';inventory.forEach(i=>upgradeInventoryGrid.appendChild(createInventoryItem(i,!0,!1)));}}
     function renderContractInventory(){if(inventory.length===0)contractInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{contractInventoryGrid.innerHTML='';inventory.forEach(i=>contractInventoryGrid.appendChild(createInventoryItem(i,!1,!0)));}}
@@ -601,15 +403,16 @@
     function setupChanceSelector(){document.querySelectorAll('.chance-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedChance=parseInt(this.dataset.chance);selectedMultiplier=parseFloat(this.dataset.multiplier);updateUpgradeUI();}));}
     function toggleUpgradeSelection(id){if(isUpgrading)return;selectedForUpgrade.has(id)?selectedForUpgrade.delete(id):selectedForUpgrade.add(id);renderAllInventory();}
     function toggleContractSelection(id){if(isContracting)return;selectedForContract.has(id)?selectedForContract.delete(id):(selectedForContract.size>=10?alert('Максимум 10!'):selectedForContract.add(id));renderAllInventory();}
-
     function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));inputCount.textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);inputTotalPrice.textContent=tp.toFixed(2);if(si.length===0)inputSkinsContainer.innerHTML='<div class="input-placeholder">Выберите скины</div>';else{inputSkinsContainer.innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className=`input-skin-item rarity-${i.rarity}`;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});inputSkinsContainer.appendChild(d);});}upgradeBtn.disabled=si.length<1||isUpgrading;upgradeSelectCount.textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);resultContainer.innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;multiplierDisplay.textContent=`×${selectedMultiplier.toFixed(2)}`;resultContainer.dataset.targetSkin=JSON.stringify(ts);resultContainer.dataset.totalPrice=tp;upgradeResultMessage.innerHTML='';}else{resultContainer.innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';upgradeResultMessage.innerHTML='';}}
-    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;upgradeBtn.disabled=!0;upgradeArrow.classList.add('spinning');upgradeResultMessage.innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;upgradeArrow.classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');upgradeArrow.className='arrow success';upgradeArrow.textContent='✅';const td=JSON.parse(resultContainer.dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');upgradeArrow.className='arrow fail';upgradeArrow.textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div><div style="color:rgba(255,255,255,0.3);margin-top:6px;">Скины сгорели</div></div>`;}isUpgrading=!1;renderAllInventory();setTimeout(()=>{upgradeArrow.className='arrow';upgradeArrow.textContent='⚡';},3000);},1500);}
+    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;upgradeBtn.disabled=!0;upgradeArrow.classList.add('spinning');upgradeResultMessage.innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;upgradeArrow.classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');upgradeArrow.className='arrow success';upgradeArrow.textContent='✅';const td=JSON.parse(resultContainer.dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');upgradeArrow.className='arrow fail';upgradeArrow.textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();setTimeout(()=>{upgradeArrow.className='arrow';upgradeArrow.textContent='⚡';},3000);},1500);}
     function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));contractCount.textContent=si.length;contractTotalPrice.textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);contractBtn.disabled=si.length<3||si.length>10||isContracting;}
     function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;contractBtn.disabled=!0;SoundFX.play('contract');contractResult.classList.remove('show');contractAnimation.classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);contractAnimation.classList.remove('show');contractResult.classList.add('show','success');contractResultIcon.textContent='📜';contractResultName.textContent=rs.icon+' '+rs.name;contractResultPrice.textContent=rs.price.toFixed(2)+' ₽';contractResultMultiplier.innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();setTimeout(()=>contractResult.classList.remove('show'),6000);},2000);}
     function updateBalanceUI(){balanceSpan.textContent=balance.toFixed(0);}
     function setupTabs(){document.querySelectorAll('.tab-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+this.dataset.tab).classList.add('active');if(['inventory','upgrade','contract'].includes(this.dataset.tab))renderAllInventory();}));}
 
-    function init(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupChanceSelector();openBtn.addEventListener('click',openCase);upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
+    function setupMultiSpin(){document.querySelectorAll('.multi-spin-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.multi-spin-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');multiSpinCount=parseInt(this.dataset.count);spinCountDisplay.textContent=multiSpinCount;}));}
+
+    function init(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupChanceSelector();setupMultiSpin();openBtn.addEventListener('click',()=>performMultiSpin(1));multiSpinBtn.addEventListener('click',()=>performMultiSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
     init();
     </script>
 </body>
