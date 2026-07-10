@@ -56,8 +56,6 @@
         .skin-card .icon{font-size:38px;margin-bottom:5px}.skin-card .name{font-weight:600;font-size:8px}.skin-card .price{font-size:8px;color:var(--text2)}
         .rarity-legendary{border-bottom-color:#ff4444!important;background:linear-gradient(180deg,rgba(18,22,36,0.9) 60%,rgba(255,68,68,0.18))!important}.rarity-epic{border-bottom-color:#d32ce6!important}
 
-        .slider-container{display:flex;align-items:center;gap:12px;justify-content:center;margin:12px 0}
-        .slider-container input[type=range]{flex:1;max-width:200px;accent-color:var(--accent);height:6px}.slider-value{color:var(--gold);font-weight:700;font-size:18px}
         .btn-spin{background:linear-gradient(135deg,#ff6a00,#ff3c00);color:#fff;border:none;padding:16px 45px;font-size:16px;font-weight:700;border-radius:14px;cursor:pointer;width:100%;max-width:320px;margin:14px auto;display:block;text-transform:uppercase;letter-spacing:2px}.btn-spin:hover{transform:translateY(-3px)}.btn-spin:disabled{background:rgba(60,60,70,0.8);cursor:not-allowed;transform:none}
 
         .case-skins-pool{background:rgba(6,8,16,0.7);border-radius:12px;padding:14px;max-height:220px;overflow-y:auto;margin-top:12px;border:1px solid var(--border)}
@@ -73,9 +71,6 @@
 
         .upgrade-container{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;margin:15px 0}
         .upgrade-box{background:rgba(8,10,20,0.8);border-radius:14px;padding:20px;text-align:center;border:1px solid var(--border);min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-        .upgrade-box h4{color:var(--text2);font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
-        .upgrade-skins{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:40px;align-items:center}
-        .upgrade-skin-item{background:rgba(20,24,38,0.8);border-radius:8px;padding:6px 8px;font-size:10px;display:flex;align-items:center;gap:5px}
         .upgrade-arrow{font-size:40px;color:var(--accent)}
         @media(max-width:768px){.live-feed{width:200px}.main-content{margin-right:200px}.skin-card{width:80px;height:105px}.roulette-wrapper{height:130px}.upgrade-container{grid-template-columns:1fr}}
     </style>
@@ -102,7 +97,7 @@
 </div>
 
 <div class="page active" id="page-cases"><div class="cases-grid" id="casesGrid"></div></div>
-<div class="page" id="page-case-open"><div class="case-page-container"><button class="back-btn" onclick="navigateTo('cases')">← Назад</button><h2 id="caseOpenTitle" style="font-family:'Orbitron',sans-serif;font-size:18px;"></h2><div style="color:var(--text2);margin-bottom:10px;">Цена: <span id="caseOpenPrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin-icon"></i></div><div class="roulette-wrapper"><div class="roulette-pointer"></div><div class="roulette-tape" id="rouletteTape"></div></div><div class="slider-container"><span>Открытий:</span><input type="range" id="spinSlider" min="1" max="50" value="5" oninput="updateSlider()"><span class="slider-value" id="spinCountDisplay">5</span></div><button class="btn-spin" id="openBtn">🔑 ОТКРЫТЬ КЕЙС</button><div id="totalResult" style="text-align:center;font-weight:700;display:none;margin-top:10px;padding:10px;border-radius:10px;"></div><div class="case-skins-pool"><h4 style="color:var(--text2);font-size:11px;margin-bottom:10px;">🎯 СКИНЫ В КЕЙСЕ</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
+<div class="page" id="page-case-open"><div class="case-page-container"><button class="back-btn" onclick="navigateTo('cases')">← Назад к кейсам</button><h2 id="caseOpenTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:12px;">Стоимость открытия: <span id="caseOpenPrice" style="color:var(--gold);font-weight:700;"></span> <i class="fas fa-coins coin-icon"></i></div><div class="roulette-wrapper"><div class="roulette-pointer"></div><div class="roulette-tape" id="rouletteTape"></div></div><button class="btn-spin" id="openBtn">🔑 ОТКРЫТЬ КЕЙС</button><div id="spinResult" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div class="case-skins-pool"><h4 style="color:var(--text2);font-size:11px;margin-bottom:10px;letter-spacing:2px;">🎯 СОДЕРЖИМОЕ КЕЙСА</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
 <div class="page" id="page-inventory"><div class="profile-section"><h2>🎒 Инвентарь</h2><div style="color:var(--text2);margin:10px 0;">Предметов: <strong id="invTotalCount">0</strong> | Стоимость: <strong id="invTotalPrice">0</strong> <i class="fas fa-coins coin-icon"></i></div><div class="inventory-grid" id="inventoryGrid"></div></div></div>
 <div class="page" id="page-upgrade"><div class="profile-section"><h2 style="font-family:'Orbitron',sans-serif;">⚡ АПГРЕЙД</h2><div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;" id="chanceSelector"><button class="btn-sm btn-sell active" data-chance="50" data-mult="2">50% ×2</button><button class="btn-sm btn-sell" data-chance="25" data-mult="4">25% ×4</button><button class="btn-sm btn-sell" data-chance="75" data-mult="1.33">75% ×1.33</button><button class="btn-sm btn-sell" data-chance="10" data-mult="10">10% ×10</button></div><div class="upgrade-container"><div class="upgrade-box"><h4>📦 ВХОД</h4><div class="upgrade-skins" id="upgradeInputSkins"><span style="color:var(--text2);">Выберите скины</span></div><div style="margin-top:10px;color:var(--gold);">Сумма: <span id="upgradeInputTotal">0</span> <i class="fas fa-coins coin-icon"></i></div></div><div class="upgrade-arrow">⚡</div><div class="upgrade-box"><h4>🎯 РЕЗУЛЬТАТ</h4><div id="upgradeResult"><span style="color:var(--text2);">Ожидание...</span></div></div></div><div style="display:flex;gap:10px;justify-content:center;margin:15px 0;"><button class="btn-spin" id="upgradeBtn" disabled style="max-width:200px;">АПГРЕЙДНУТЬ</button><button class="btn btn-red" id="clearUpgradeBtn">Очистить</button></div><div class="inventory-grid" id="upgradeInventoryGrid" style="max-height:200px;"></div></div></div>
 <div class="page" id="page-contract"><div class="profile-section"><h2 style="font-family:'Orbitron',sans-serif;">📜 КОНТРАКТЫ</h2><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:14px 20px;background:rgba(8,10,20,0.7);border-radius:14px;"><div>Выбрано: <strong id="contractCount" style="color:var(--gold);">0</strong>/10</div><div>Сумма: <strong id="contractTotalPrice" style="color:var(--gold);">0</strong> <i class="fas fa-coins coin-icon"></i></div><button class="btn btn-purple" id="contractBtn" disabled>КОНТРАКТ</button></div><div id="contractResult" style="display:none;padding:20px;background:rgba(76,175,80,0.08);border-radius:14px;text-align:center;margin-bottom:15px;"></div><div class="inventory-grid" id="contractInventoryGrid" style="max-height:200px;"></div></div></div>
@@ -114,9 +109,7 @@
 <div class="modal-overlay" id="adminModal" style="display:none;"><div class="modal"><h2 style="color:var(--gold);">⚡ АДМИН</h2><input type="text" id="adminTargetUser" placeholder="Ник"><input type="number" id="adminAmount" placeholder="Сумма" min="1"><button class="btn btn-admin" onclick="adminGiveCoins()" style="width:100%;">💸 ВЫДАТЬ</button><div id="adminMsg" style="font-size:12px;margin-top:8px;"></div><button onclick="document.getElementById('adminModal').style.display='none'" style="margin-top:8px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
 
 <script>
-// ============================================================
-// FIREBASE
-// ============================================================
+// Firebase
 const fbCfg={apiKey:"AIzaSyCiJGNpJByCCbwcufI-NFUFzXjo0HeGd8E",authDomain:"skinvalut.firebaseapp.com",databaseURL:"https://skinvalut-default-rtdb.firebaseio.com",projectId:"skinvalut",storageBucket:"skinvalut.firebasestorage.app",messagingSenderId:"560114772930",appId:"1:560114772930:web:8aa0a87f3c791b27d6845b"};
 firebase.initializeApp(fbCfg);
 const fbDb=firebase.database(),onlineRef=fbDb.ref('online'),dropsRef=fbDb.ref('drops'),usersRef=fbDb.ref('users');
@@ -129,18 +122,20 @@ window.addEventListener('beforeunload',()=>{onlineRef.child(myId).remove();});
 
 // Live Feed
 dropsRef.orderByChild('time').limitToLast(30).on('value',s=>{const drops=[];s.forEach(c=>{const d=c.val();if(d)drops.push(d);});drops.sort((a,b)=>(b.time||0)-(a.time||0));document.getElementById('liveFeedList').innerHTML=drops.length?drops.map(d=>`<div class="live-item ${d.rarity||''}"><span class="live-icon">${d.icon||'🎁'}</span><div class="live-info"><div class="live-name">${d.skin||'?'}</div><div class="live-user">${d.user||'?'}</div></div><div class="live-price">${(d.price||0)} <i class="fas fa-coins coin-icon"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';});
-function addDrop(skin,icon,price,rarity){dropsRef.push({skin,icon,price,rarity,user:currentUser||'Аноним',time:firebase.database.ServerValue.TIMESTAMP});}
 
-// ============================================================
-// СКИНЫ И КЕЙСЫ
-// ============================================================
+// Добавление дропа с задержкой 6 секунд
+function addDropDelayed(skin,icon,price,rarity){
+    setTimeout(()=>{
+        dropsRef.push({skin,icon,price,rarity,user:currentUser||'Аноним',time:firebase.database.ServerValue.TIMESTAMP});
+    },6000);
+}
+
+// Скины и кейсы
 const ALL_SKINS=[{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"AK-47 | Case Hardened",rarity:"legendary",icon:"💎",price:2800},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},{name:"★ Керамбит | Sapphire",rarity:"legendary",icon:"🔪",price:8500},{name:"★ Butterfly | Fade",rarity:"legendary",icon:"🦋",price:2200},{name:"★ Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200},{name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85},{name:"Deagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18},{name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35},{name:"Glock | Water Elemental",rarity:"rare",icon:"💧",price:15},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6},{name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:4},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2},{name:"Glock | Candy Apple",rarity:"uncommon",icon:"🍎",price:2},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:3},{name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:1},{name:"Nova | Forest",rarity:"common",icon:"🍃",price:1},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:1}];
 const CASES=[{id:'premium',name:'👑 Премиум',icon:'👑',price:500,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'gamma',name:'💚 Gamma',icon:'💚',price:800,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'bravo',name:'🔥 Bravo',icon:'🔥',price:600,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},...ALL_SKINS.filter(s=>s.name.includes('★')).slice(0,2),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'glove',name:'🧤 Gloves',icon:'🧤',price:500,skins:[...ALL_SKINS.filter(s=>s.name.includes('Gloves')||s.name.includes('★')).slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'chroma',name:'🌈 Chroma',icon:'🌈',price:200,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'standard',name:'📦 Стандарт',icon:'📦',price:100,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'sniper',name:'🎯 Снайпер',icon:'🎯',price:150,skins:[...ALL_SKINS.filter(s=>s.name.includes('AWP')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},{id:'snakebite',name:'🐍 Snakebite',icon:'🐍',price:80,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='common').slice(0,3)]},{id:'starter',name:'🚀 Старт',icon:'🚀',price:30,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(2,4),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon')]},{id:'budget',name:'💸 Бюджет',icon:'💸',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='rare').slice(2,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon'),...ALL_SKINS.filter(s=>s.rarity==='common')]},{id:'yolo',name:'💀 YOLO',icon:'💀',price:200,skins:[{name:"★ Керамбит | Sapphire",rarity:"legendary",icon:"🔪",price:8500},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"★ Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200},...ALL_SKINS.filter(s=>s.rarity==='common')]}];
 
-// ============================================================
-// СОСТОЯНИЕ
-// ============================================================
-let balance=1000,inventory=[],idCounter=0,isSpinning=!1,multiSpinCount=5,currentCaseIndex=0,currentUser=null,history=[];
+// Состояние
+let balance=1000,inventory=[],idCounter=0,isSpinning=!1,currentCaseIndex=0,currentUser=null,history=[];
 let selUp=new Set,selCon=new Set,isUpgrading=!1,isContracting=!1,selChance=50,selMult=2;
 const $=id=>document.getElementById(id);
 
@@ -148,19 +143,89 @@ function getRandomItem(cs){if(CASES[currentCaseIndex]?.id==='yolo'){const r=Math
 function getSkinByPrice(tp){let b=ALL_SKINS[0],bd=Infinity;for(const s of ALL_SKINS){const d=Math.abs(s.price-tp);if(d<bd){bd=d;b=s;}}return b;}
 
 // ============================================================
-// РУЛЕТКА (ФИНАЛЬНЫЙ РАБОЧИЙ ВАРИАНТ)
+// НОВАЯ РУЛЕТКА (простая, без мультиспина)
 // ============================================================
-function generateTape(winSkin,caseSkins){const tape=$('rouletteTape');if(!tape)return;tape.innerHTML='';for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);tape.innerHTML+=`<div class="skin-card rarity-${item.rarity}"><div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price} <i class="fas fa-coins coin-icon"></i></div></div>`;}}
-function spinRoulette(){return new Promise(resolve=>{const container=$('rouletteContainer');const tape=$('rouletteTape');if(!container||!tape){resolve();return;}const ww=container.offsetWidth;const targetLeft=-(32*112)+(ww/2)-56;tape.style.transition='none';tape.style.transform='translateX(0px)';tape.getBoundingClientRect();tape.style.transition='transform 4s cubic-bezier(0.08,0.82,0.17,1)';tape.style.transform=`translateX(${targetLeft+(Math.random()*40-20)}px)`;setTimeout(resolve,4100);});}
-async function performSpin(count){if(!currentUser){alert('❌ Сначала войди!');showRegisterModal();return;}if(isSpinning)return;const c=CASES[currentCaseIndex],tc=c.price*count;if(balance<tc){alert(`❌ Нужно ${tc} монет!`);return;}isSpinning=!0;$('openBtn').disabled=!0;$('openBtn').textContent='🎰 КРУТИМ...';balance-=tc;updateBalanceUI();const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));for(let i=0;i<count;i++){generateTape(wins[i],c.skins);await new Promise(r=>setTimeout(r,200));await spinRoulette();inventory.push({...wins[i],id:idCounter++});history.push({type:'case',skin:wins[i].name,price:wins[i].price,time:new Date().toISOString()});addDrop(wins[i].name,wins[i].icon,wins[i].price,wins[i].rarity);renderAllInventory();}const tg=wins.reduce((s,w)=>s+w.price,0),profit=tg-tc;$('totalResult').style.display='block';$('totalResult').innerHTML=`Потрачено: ${tc} 🪙 | Получено: ${tg} 🪙 | ${profit>=0?'+'+profit:profit} 🪙`;$('totalResult').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,68,68,0.1)';$('totalResult').style.color=profit>=0?'#4caf50':'#ff4444';saveGame();isSpinning=!1;$('openBtn').disabled=!1;$('openBtn').textContent='🔑 ОТКРЫТЬ КЕЙС';}
+function generateTape(winSkin,caseSkins){
+    const tape=$('rouletteTape');if(!tape)return;
+    let html='';
+    for(let i=0;i<40;i++){
+        let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);
+        html+=`<div class="skin-card rarity-${item.rarity}"><div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price} <i class="fas fa-coins coin-icon"></i></div></div>`;
+    }
+    tape.innerHTML=html;
+}
 
-// ============================================================
+function spinRoulette(){
+    return new Promise(resolve=>{
+        const container=$('rouletteContainer');
+        const tape=$('rouletteTape');
+        if(!container||!tape){resolve();return;}
+        
+        const ww=container.offsetWidth;
+        const targetLeft=-(32*112)+(ww/2)-56;
+        
+        // Сброс
+        tape.style.transition='none';
+        tape.style.transform='translateX(0px)';
+        tape.getBoundingClientRect(); // принудительная перерисовка
+        
+        // Запуск анимации
+        tape.style.transition='transform 3s cubic-bezier(0.08,0.82,0.17,1)';
+        tape.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;
+        
+        // Окончание через 3.2 секунды
+        setTimeout(resolve,3200);
+    });
+}
+
+async function openCase(){
+    if(!currentUser){alert('❌ Сначала войди в аккаунт!');showRegisterModal();return;}
+    if(isSpinning)return;
+    
+    const c=CASES[currentCaseIndex];
+    if(balance<c.price){alert(`❌ Нужно ${c.price} монет!`);return;}
+    
+    isSpinning=true;
+    $('openBtn').disabled=true;
+    $('openBtn').textContent='🎰 КРУТИМ...';
+    balance-=c.price;
+    updateBalanceUI();
+    
+    const winSkin=getRandomItem(c.skins);
+    
+    // Генерируем ленту с выигрышным скином
+    generateTape(winSkin,c.skins);
+    
+    // Запускаем анимацию
+    await spinRoulette();
+    
+    // Добавляем в инвентарь
+    const newItem={...winSkin,id:idCounter++};
+    inventory.push(newItem);
+    history.push({type:'case',skin:winSkin.name,price:winSkin.price,time:new Date().toISOString()});
+    
+    // Дроп в ленту через 6 секунд
+    addDropDelayed(winSkin.name,winSkin.icon,winSkin.price,winSkin.rarity);
+    
+    // Показываем результат
+    const profit=winSkin.price-c.price;
+    $('spinResult').style.display='block';
+    $('spinResult').innerHTML=`🎉 Выпало: ${winSkin.icon} <strong>${winSkin.name}</strong> (${winSkin.price} 🪙) | ${profit>=0?'+'+profit:profit} 🪙`;
+    $('spinResult').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,68,68,0.1)';
+    $('spinResult').style.color=profit>=0?'#4caf50':'#ff4444';
+    
+    renderAllInventory();
+    saveGame();
+    
+    isSpinning=false;
+    $('openBtn').disabled=false;
+    $('openBtn').textContent='🔑 ОТКРЫТЬ КЕЙС';
+}
+
 // UI
-// ============================================================
-function updateSlider(){multiSpinCount=parseInt($('spinSlider').value);$('spinCountDisplay').textContent=multiSpinCount;}
 function navigateTo(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));if(page==='cases'){$('page-cases').classList.add('active');renderCasesGrid();}else{$('page-'+page).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(page))renderAllInventory();if(page==='profile')renderProfile();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-page="${page}"]`);if(nb)nb.classList.add('active');}
-function openCase(index){currentCaseIndex=index;const c=CASES[index];$('caseOpenTitle').textContent=c.icon+' '+c.name;$('caseOpenPrice').textContent=c.price;$('totalResult').style.display='none';$('poolContent').innerHTML=c.skins.map(s=>`<div class="pool-card rarity-${s.rarity}"><span class="pool-icon">${s.icon}</span><div>${s.name.split('|')[1]||s.name}</div><div style="color:var(--gold);">${s.price} <i class="fas fa-coins coin-icon"></i></div></div>`).join('');updateSlider();navigateTo('case-open');}
-function renderCasesGrid(){$('casesGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCase(${i})"><span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} <i class="fas fa-coins coin-icon"></i></div></div>`).join('');}
+function openCasePage(index){currentCaseIndex=index;const c=CASES[index];$('caseOpenTitle').textContent=c.icon+' '+c.name;$('caseOpenPrice').textContent=c.price;$('spinResult').style.display='none';$('poolContent').innerHTML=c.skins.map(s=>`<div class="pool-card rarity-${s.rarity}"><span class="pool-icon">${s.icon}</span><div>${s.name.split('|')[1]||s.name}</div><div style="color:var(--gold);">${s.price} <i class="fas fa-coins coin-icon"></i></div></div>`).join('');navigateTo('case-open');}
+function renderCasesGrid(){$('casesGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCasePage(${i})"><span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} <i class="fas fa-coins coin-icon"></i></div></div>`).join('');}
 function renderAllInventory(){$('invTotalCount').textContent=inventory.length;$('invTotalPrice').textContent=inventory.reduce((s,i)=>s+i.price,0);if(inventory.length===0){$('inventoryGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Инвентарь пуст</div>';}else{$('inventoryGrid').innerHTML=inventory.map(i=>`<div class="inv-item"><span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price} <i class="fas fa-coins coin-icon"></i></div><button class="btn-sm btn-sell" onclick="sellItem(${i.id})">Продать</button></div>`).join('');}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
 function renderUpgradeInventory(){$('upgradeInventoryGrid').innerHTML=inventory.length?inventory.map(i=>{const s=selUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6a00;box-shadow:0 0 20px rgba(255,106,0,0.2)':''}"><span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price} <i class="fas fa-coins coin-icon"></i></div><button class="btn-sm btn-sell" onclick="toggleUpgradeSelection(${i.id})" style="background:${s?'rgba(255,106,0,0.6)':'rgba(30,35,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderContractInventory(){$('contractInventoryGrid').innerHTML=inventory.length?inventory.map(i=>{const s=selCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}"><span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price} <i class="fas fa-coins coin-icon"></i></div><button class="btn-sm btn-sell" onclick="toggleContractSelection(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,35,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
@@ -168,15 +233,13 @@ function renderProfile(){$('profileContent').innerHTML=`<h2>👤 ПРОФИЛЬ<
 function sellItem(id){const idx=inventory.findIndex(i=>i.id===id);if(idx===-1)return;balance+=inventory[idx].price;updateBalanceUI();inventory.splice(idx,1);selUp.delete(id);selCon.delete(id);renderAllInventory();saveGame();}
 function toggleUpgradeSelection(id){if(isUpgrading)return;selUp.has(id)?selUp.delete(id):selUp.add(id);renderAllInventory();}
 function toggleContractSelection(id){if(isContracting)return;selCon.has(id)?selCon.delete(id):(selCon.size>=10?alert('Максимум 10!'):selCon.add(id));renderAllInventory();}
-function updateUpgradeUI(){const si=inventory.filter(i=>selUp.has(i.id));const tp=si.reduce((s,i)=>s+i.price,0);$('upgradeInputTotal').textContent=tp;if(si.length===0){$('upgradeInputSkins').innerHTML='<span style="color:var(--text2);">Выберите скины</span>';$('upgradeResult').innerHTML='<span style="color:var(--text2);">Ожидание...</span>';}else{$('upgradeInputSkins').innerHTML=si.map(i=>`<div class="upgrade-skin-item"><span style="font-size:20px;">${i.icon}</span> ${i.price} 🪙</div>`).join('');const ts=getSkinByPrice(tp*selMult);$('upgradeResult').innerHTML=`<div style="font-size:45px;">${ts.icon}</div><div style="font-weight:700;">${ts.name}</div><div style="color:var(--gold);">${ts.price} <i class="fas fa-coins coin-icon"></i></div><div style="color:var(--text2);font-size:10px;">Шанс: ${selChance}%</div>`;$('upgradeResult').dataset.targetSkin=JSON.stringify(ts);}$('upgradeBtn').disabled=si.length<1||isUpgrading;}
-function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selUp.has(i.id));if(si.length<1)return alert('Выберите скин!');isUpgrading=!0;$('upgradeBtn').disabled=!0;setTimeout(()=>{const ok=Math.random()*100<selChance;if(ok){const td=JSON.parse($('upgradeResult').dataset.targetSkin||'null');if(td){inventory=inventory.filter(i=>!selUp.has(i.id));selUp.clear();const ni={...td,id:idCounter++};inventory.push(ni);history.push({type:'upgrade',skin:ni.name,price:ni.price,time:new Date().toISOString()});addDrop(ni.name,ni.icon,ni.price,ni.rarity);}}else{inventory=inventory.filter(i=>!selUp.has(i.id));selUp.clear();}isUpgrading=!1;renderAllInventory();saveGame();},1000);}
+function updateUpgradeUI(){const si=inventory.filter(i=>selUp.has(i.id));const tp=si.reduce((s,i)=>s+i.price,0);$('upgradeInputTotal').textContent=tp;if(si.length===0){$('upgradeInputSkins').innerHTML='<span style="color:var(--text2);">Выберите скины</span>';$('upgradeResult').innerHTML='<span style="color:var(--text2);">Ожидание...</span>';}else{$('upgradeInputSkins').innerHTML=si.map(i=>`<div style="display:inline-block;background:rgba(20,24,38,0.8);padding:4px 8px;border-radius:6px;margin:2px;"><span style="font-size:18px;">${i.icon}</span> ${i.price}🪙</div>`).join('');const ts=getSkinByPrice(tp*selMult);$('upgradeResult').innerHTML=`<div style="font-size:45px;">${ts.icon}</div><div style="font-weight:700;">${ts.name}</div><div style="color:var(--gold);">${ts.price} <i class="fas fa-coins coin-icon"></i></div><div style="color:var(--text2);font-size:10px;">Шанс: ${selChance}%</div>`;$('upgradeResult').dataset.targetSkin=JSON.stringify(ts);}$('upgradeBtn').disabled=si.length<1||isUpgrading;}
+function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selUp.has(i.id));if(si.length<1)return alert('Выберите скин!');isUpgrading=!0;$('upgradeBtn').disabled=!0;setTimeout(()=>{const ok=Math.random()*100<selChance;if(ok){const td=JSON.parse($('upgradeResult').dataset.targetSkin||'null');if(td){inventory=inventory.filter(i=>!selUp.has(i.id));selUp.clear();const ni={...td,id:idCounter++};inventory.push(ni);history.push({type:'upgrade',skin:ni.name,price:ni.price,time:new Date().toISOString()});addDropDelayed(ni.name,ni.icon,ni.price,ni.rarity);}}else{inventory=inventory.filter(i=>!selUp.has(i.id));selUp.clear();}isUpgrading=!1;renderAllInventory();saveGame();},1000);}
 function updateContractUI(){const si=inventory.filter(i=>selCon.has(i.id));$('contractCount').textContent=si.length;$('contractTotalPrice').textContent=si.reduce((s,i)=>s+i.price,0);$('contractBtn').disabled=si.length<3||si.length>10||isContracting;}
-function performContract(){if(isContracting)return;const si=inventory.filter(i=>selCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');isContracting=!0;$('contractBtn').disabled=!0;setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const mult=Math.random()*2+0.5;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selCon.has(i.id));selCon.clear();const ni={...rs,id:idCounter++};inventory.push(ni);history.push({type:'contract',skin:ni.name,price:ni.price,time:new Date().toISOString()});addDrop(ni.name,ni.icon,ni.price,ni.rarity);$('contractResult').style.display='block';$('contractResult').innerHTML=`<div style="font-size:45px;">${ni.icon}</div><div>${ni.name}</div><div style="color:var(--gold);">${ni.price} <i class="fas fa-coins coin-icon"></i></div>`;isContracting=!1;renderAllInventory();saveGame();},2000);}
+function performContract(){if(isContracting)return;const si=inventory.filter(i=>selCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');isContracting=!0;$('contractBtn').disabled=!0;setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const mult=Math.random()*2+0.5;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selCon.has(i.id));selCon.clear();const ni={...rs,id:idCounter++};inventory.push(ni);history.push({type:'contract',skin:ni.name,price:ni.price,time:new Date().toISOString()});addDropDelayed(ni.name,ni.icon,ni.price,ni.rarity);$('contractResult').style.display='block';$('contractResult').innerHTML=`<div style="font-size:45px;">${ni.icon}</div><div>${ni.name}</div><div style="color:var(--gold);">${ni.price} <i class="fas fa-coins coin-icon"></i></div>`;isContracting=!1;renderAllInventory();saveGame();},2000);}
 function updateBalanceUI(){$('balanceDisplay').textContent=balance;}
 
-// ============================================================
-// АВТОРИЗАЦИЯ
-// ============================================================
+// Авторизация
 function loadUserData(u){usersRef.child(u).once('value').then(sn=>{const ud=sn.val();if(ud&&ud.saveData){balance=ud.saveData.balance||1000;inventory=ud.saveData.inventory||[];idCounter=ud.saveData.idCounter||0;history=ud.saveData.history||[];currentUser=u;renderAllInventory();updateBalanceUI();$('registerBtn').style.display='none';$('userInfo').style.display='flex';$('userNickname').textContent='👑 '+u;if(u==='Admin'){$('adminBtn').style.display='block';$('userNickname').textContent='⚡ Admin';}localStorage.setItem('skinVault_lastUser',u);navigateTo('cases');}});}
 function saveGame(){if(!currentUser)return;usersRef.child(currentUser).child('saveData').set({balance,inventory,idCounter,history});}
 function showAdminPanel(){$('adminModal').style.display='flex';$('adminTargetUser').focus();}
@@ -188,10 +251,8 @@ function registerUser(){const u=$('loginUsername').value.trim(),p=$('loginPasswo
 function registerUserDirect(u,p){usersRef.child(u).once('value').then(sn=>{if(sn.exists()&&sn.val().password){alert('❌ Логин занят!');return;}usersRef.child(u).set({password:hashPassword(p),saveData:{balance:1000,inventory:[],idCounter:0,history:[]}}).then(()=>{closeModal();loadUserData(u);});});}
 function logoutUser(){saveGame();currentUser=null;$('registerBtn').style.display='block';$('userInfo').style.display='none';$('adminBtn').style.display='none';balance=1000;inventory=[];idCounter=0;history=[];selUp.clear();selCon.clear();renderAllInventory();updateBalanceUI();navigateTo('cases');}
 
-// ============================================================
-// ЗАПУСК
-// ============================================================
-function init(){const lastUser=localStorage.getItem('skinVault_lastUser');if(lastUser){usersRef.child(lastUser).once('value').then(sn=>{if(sn.exists())loadUserData(lastUser);});}renderCasesGrid();renderAllInventory();updateBalanceUI();$('openBtn').addEventListener('click',()=>performSpin(multiSpinCount));$('spinSlider').addEventListener('input',updateSlider);document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){navigateTo(this.dataset.page);}));document.querySelectorAll('#chanceSelector .btn-sm').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('#chanceSelector .btn-sm').forEach(x=>x.classList.remove('active'));this.classList.add('active');selChance=parseInt(this.dataset.chance);selMult=parseFloat(this.dataset.mult);updateUpgradeUI();}));$('upgradeBtn').addEventListener('click',performUpgrade);$('contractBtn').addEventListener('click',performContract);$('clearUpgradeBtn').addEventListener('click',()=>{selUp.clear();renderAllInventory();});$('registerModal').addEventListener('click',function(e){if(e.target===this)closeModal();});$('loginPassword').addEventListener('keypress',e=>{if(e.key==='Enter')loginUser();});}
+// Запуск
+function init(){const lastUser=localStorage.getItem('skinVault_lastUser');if(lastUser){usersRef.child(lastUser).once('value').then(sn=>{if(sn.exists())loadUserData(lastUser);});}renderCasesGrid();renderAllInventory();updateBalanceUI();$('openBtn').addEventListener('click',openCase);document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){navigateTo(this.dataset.page);}));document.querySelectorAll('#chanceSelector .btn-sm').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('#chanceSelector .btn-sm').forEach(x=>x.classList.remove('active'));this.classList.add('active');selChance=parseInt(this.dataset.chance);selMult=parseFloat(this.dataset.mult);updateUpgradeUI();}));$('upgradeBtn').addEventListener('click',performUpgrade);$('contractBtn').addEventListener('click',performContract);$('clearUpgradeBtn').addEventListener('click',()=>{selUp.clear();renderAllInventory();});$('registerModal').addEventListener('click',function(e){if(e.target===this)closeModal();});$('loginPassword').addEventListener('keypress',e=>{if(e.key==='Enter')loginUser();});}
 setInterval(()=>{if(currentUser)saveGame();},10000);init();
 onlineRef.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP});
 </script>
