@@ -1302,7 +1302,7 @@
             id: 'mixed',
             name: '🎲 МИКС КЕЙС',
             icon: '🎲',
-            price: 30,
+            price: 50,
             description: 'ВСЕ скины',
             skins: ALL_SKINS
         },
@@ -1310,7 +1310,7 @@
             id: 'sniper',
             name: '🎯 СНАЙПЕРСКИЙ КЕЙС',
             icon: '🎯',
-            price: 45,
+            price: 349,
             description: 'Только AWP + SSG',
             skins: ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG'))
         },
@@ -1318,7 +1318,7 @@
             id: 'pistol',
             name: '🔫 ПИСТОЛЕТНЫЙ КЕЙС',
             icon: '🔫',
-            price: 20,
+            price: 39,
             description: 'Только пистолеты',
             skins: ALL_SKINS.filter(s =>
                 s.name.includes('Desert') ||
@@ -1332,7 +1332,7 @@
             id: 'knife',
             name: '🗡️ НОЖЕВОЙ КЕЙС',
             icon: '🗡️',
-            price: 75,
+            price: 299,
             description: 'Только ножи + заполнители',
             skins: (() => {
                 const fillers = ALL_SKINS.filter(s =>
@@ -1354,7 +1354,7 @@
             case 'premium':
                 // Премиум: только Legendary + Epic
                 // 15% легендарка, 85% эпик
-                return { legendary: 15, epic: 85, rare: 0, uncommon: 0, common: 0 };
+                return { legendary: 10, epic: 90, rare: 0, uncommon: 0, common: 0 };
 
             case 'standard':
                 // Стандартный: только Rare + Uncommon
