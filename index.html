@@ -641,7 +641,6 @@
             const isAllOrNothing = CASES[currentCaseIndex]?.id === 'all_or_nothing';
             
             if (isAllOrNothing) {
-                // Для кейса "Всё или ничего" — 1% на легендарку, 99% на ширпотреб
                 return {
                     legendary: 1,
                     epic: 0,
@@ -651,7 +650,6 @@
                 };
             }
             
-            // Для премиум кейса — 10% на окупаемый скин
             if (CASES[currentCaseIndex]?.id === 'premium') {
                 return {
                     legendary: 3,
@@ -728,17 +726,29 @@
             return pool.length ? pool[Math.floor(Math.random() * pool.length)] : skins[0];
         }
 
-        function getSkinByPrice(targetPrice) {
-            let best = ALL_SKINS[0];
-            let bestDiff = Infinity;
-            for (const skin of ALL_SKINS) {
+        // ============================================================
+        //  КОНТРАКТЫ — ИСПРАВЛЕННАЯ ВЕРСИЯ (рандомный выбор с весами)
+        // ============================================================
+        function getWeightedSkin(targetPrice) {
+            // Вычисляем веса для всех скинов — чем ближе цена к targetPrice, тем выше вес
+            const weighted = ALL_SKINS.map(skin => {
                 const diff = Math.abs(skin.price - targetPrice);
-                if (diff < bestDiff) {
-                    bestDiff = diff;
-                    best = skin;
+                // Вес = 1 / (diff + 0.1) — чем меньше diff, тем больше вес
+                const weight = 1 / (diff + 0.1);
+                return { skin, weight };
+            });
+
+            // Нормализуем веса
+            const totalWeight = weighted.reduce((sum, w) => sum + w.weight, 0);
+            let rand = Math.random() * totalWeight;
+            
+            for (const item of weighted) {
+                rand -= item.weight;
+                if (rand <= 0) {
+                    return item.skin;
                 }
             }
-            return best;
+            return weighted[0].skin;
         }
 
         // ============================================================
@@ -907,7 +917,6 @@
 
         function createInventoryItem(item, isContractMode) {
             const div = document.createElement('div');
-            // ВАЖНО: используем правильную редкость из item
             div.className = `inv-item rarity-${item.rarity}`;
             const isSelected = selectedForContract.has(item.id);
             if (isSelected) div.style.borderColor = '#7b2fbe';
@@ -979,7 +988,7 @@
         }
 
         // ============================================================
-        //  КОНТРАКТЫ
+        //  КОНТРАКТЫ — ИСПРАВЛЕННАЯ ВЕРСИЯ
         // ============================================================
         function toggleContractSelection(id) {
             if (isContracting) return;
@@ -1027,9 +1036,13 @@
             contractAnimation.classList.add('show');
 
             const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            
+            // Множитель от 0.2 до 3.5
             const multiplier = 0.2 + Math.random() * 3.3;
             const resultPrice = totalPrice * multiplier;
-            const resultSkin = getSkinByPrice(resultPrice);
+            
+            // ВЫБИРАЕМ СКИН С ВЕСАМИ (рандомно, но с учётом цены)
+            const resultSkin = getWeightedSkin(resultPrice);
 
             setTimeout(() => {
                 const idsToRemove = Array.from(selectedForContract);
@@ -1106,9 +1119,7 @@
         //  ИНИЦИАЛИЗАЦИЯ
         // ============================================================
         function init() {
-            // Пустой инвентарь — только из кейсов
             inventory = [];
-            
             renderCases();
             renderAllInventory();
             updateBalanceUI();
