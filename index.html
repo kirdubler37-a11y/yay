@@ -6,6 +6,8 @@
     <title>CS-SKINS | Кейсы + Апгрейд + Контракты</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== ВЕСЬ CSS ТОТ ЖЕ, ЧТО В ПРЕДЫДУЩЕМ ФАЙЛЕ ===== */
+        /* (я не буду дублировать 500 строк CSS, он такой же) */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +19,6 @@
             font-family: 'Arial', sans-serif;
             padding: 20px;
         }
-
         header {
             display: flex;
             justify-content: space-between;
@@ -46,7 +47,6 @@
         }
         .balance i { margin-right: 8px; }
         .balance span { color: #fff; }
-
         .tabs {
             display: flex;
             gap: 10px;
@@ -83,7 +83,6 @@
         }
         .tab-content { display: none; animation: fadeIn 0.3s; }
         .tab-content.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .case-selector {
@@ -855,31 +854,24 @@
     <script>
     (function() {
         // ============================================================
-        //  СКИНЫ — РАСШИРЕННЫЙ ПУЛ
+        //  СКИНЫ
         // ============================================================
         const ALL_SKINS = [
-            // === LEGENDARY (красные) ===
+            // LEGENDARY (красные) — 6 шт
             { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
             { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
             { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
             { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
             { name: "AWP | Gungnir", rarity: "legendary", icon: "⚡", price: 720.00 },
             { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
-            { name: "AK-47 | Дикий Лютик", rarity: "legendary", icon: "🌺", price: 680.00 },
-            { name: "Desert Eagle | Золотой", rarity: "legendary", icon: "🌟", price: 450.00 },
-
-            // === EPIC (фиолетовые) ===
+            // EPIC (фиолетовые) — 6 шт
             { name: "AK-47 | Вулканический", rarity: "epic", icon: "🌋", price: 145.00 },
             { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 98.00 },
             { name: "M4A1-S | Кибер", rarity: "epic", icon: "💻", price: 75.00 },
             { name: "AWP | Электричество", rarity: "epic", icon: "⚡", price: 120.00 },
             { name: "USP-S | Убийца", rarity: "epic", icon: "🎯", price: 62.00 },
             { name: "SSG 08 | Смерть", rarity: "epic", icon: "💀", price: 50.00 },
-            { name: "M4A4 | Тёмный лес", rarity: "epic", icon: "🌲", price: 85.00 },
-            { name: "Glock-18 | Феникс", rarity: "epic", icon: "🔥", price: 55.00 },
-            { name: "P250 | Ядерный", rarity: "epic", icon: "☢️", price: 40.00 },
-
-            // === RARE (синие) ===
+            // RARE (синие) — 8 шт
             { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 35.00 },
             { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 28.00 },
             { name: "AK-47 | Красная линия", rarity: "rare", icon: "🔴", price: 42.00 },
@@ -888,9 +880,7 @@
             { name: "AWP | Фуксия", rarity: "rare", icon: "🌸", price: 45.00 },
             { name: "P250 | Вспышка", rarity: "rare", icon: "💥", price: 18.00 },
             { name: "MP9 | Роза", rarity: "rare", icon: "🌹", price: 22.00 },
-            { name: "MAC-10 | Адский", rarity: "rare", icon: "👹", price: 20.00 },
-
-            // === UNCOMMON (зелёные) ===
+            // UNCOMMON (зелёные) — 8 шт
             { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
             { name: "AK-47 | Водяной", rarity: "uncommon", icon: "💧", price: 15.00 },
             { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
@@ -899,9 +889,7 @@
             { name: "SSG 08 | Абисс", rarity: "uncommon", icon: "🌊", price: 14.00 },
             { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
             { name: "MP7 | Иней", rarity: "uncommon", icon: "❄️", price: 7.50 },
-            { name: "UMP-45 | Кристалл", rarity: "uncommon", icon: "💎", price: 10.00 },
-
-            // === COMMON (серые) ===
+            // COMMON (серые) — 11 шт
             { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
             { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
             { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
@@ -913,7 +901,6 @@
             { name: "Galil | Кара", rarity: "common", icon: "🔫", price: 2.00 },
             { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
             { name: "MP5 | Тень", rarity: "common", icon: "🔫", price: 1.60 },
-            { name: "P90 | Дым", rarity: "common", icon: "🔫", price: 1.90 },
         ];
 
         // ============================================================
@@ -925,15 +912,15 @@
                 name: '🔥 ПРЕМИУМ КЕЙС',
                 icon: '💎',
                 price: 250,
-                description: 'Шанс на легендарку ~2%',
-                skins: ALL_SKINS.filter(s => s.rarity === 'legendary' || s.rarity === 'epic' || s.rarity === 'rare')
+                description: 'Окупаемость ~10%',
+                skins: ALL_SKINS
             },
             {
                 id: 'standard',
                 name: '📦 СТАНДАРТНЫЙ КЕЙС',
                 icon: '📦',
                 price: 25,
-                description: 'Средние скины',
+                description: 'Окупаемость ~20%',
                 skins: ALL_SKINS.filter(s => s.rarity === 'rare' || s.rarity === 'uncommon')
             },
             {
@@ -941,7 +928,7 @@
                 name: '🛠️ БАЗОВЫЙ КЕЙС',
                 icon: '🛠️',
                 price: 10,
-                description: 'Дешёвые скины',
+                description: 'Окупаемость ~10%',
                 skins: ALL_SKINS.filter(s => s.rarity === 'common' || s.rarity === 'uncommon')
             },
             {
@@ -949,7 +936,7 @@
                 name: '🎰 ВСЁ ИЛИ НИЧЕГО',
                 icon: '🎰',
                 price: 200,
-                description: '1% на дорогой скин, 99% ширпотреб',
+                description: '1% на легендарку',
                 skins: [
                     { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
                     { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
@@ -976,18 +963,15 @@
                 name: '🎲 МИКС КЕЙС',
                 icon: '🎲',
                 price: 30,
-                description: 'Все скины',
+                description: 'Окупаемость ~20%',
                 skins: ALL_SKINS
             },
-            // ============================================================
-            //  НОВЫЕ КЕЙСЫ
-            // ============================================================
             {
                 id: 'sniper',
                 name: '🎯 СНАЙПЕРСКИЙ КЕЙС',
                 icon: '🎯',
                 price: 45,
-                description: 'Только снайперские винтовки',
+                description: 'Окупаемость ~30%',
                 skins: ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG'))
             },
             {
@@ -995,7 +979,7 @@
                 name: '🔫 ПИСТОЛЕТНЫЙ КЕЙС',
                 icon: '🔫',
                 price: 20,
-                description: 'Только пистолеты',
+                description: 'Окупаемость ~20%',
                 skins: ALL_SKINS.filter(s => s.name.includes('Desert') || s.name.includes('Glock') || s.name.includes('USP') || s.name.includes('P250') || s.name.includes('Five-SeveN'))
             },
             {
@@ -1003,44 +987,38 @@
                 name: '🗡️ НОЖЕВОЙ КЕЙС',
                 icon: '🗡️',
                 price: 75,
-                description: 'Только ножи (редкие)',
+                description: 'Только ножи',
                 skins: ALL_SKINS.filter(s => s.name.includes('Керамбит') || s.name.includes('M9') || s.name.includes('Bayonet'))
             }
         ];
 
         // ============================================================
-        //  ВЕСА ДЛЯ ВЫПАДЕНИЯ — ИСПРАВЛЕННЫЕ
+        //  НОВЫЕ ЖЁСТКИЕ ВЕСА
         // ============================================================
         function getRarityWeights() {
             const currentCase = CASES[currentCaseIndex];
-            
-            // ВСЁ ИЛИ НИЧЕГО
-            if (currentCase?.id === 'all_or_nothing') {
-                return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
+            const id = currentCase?.id || 'mixed';
+
+            switch (id) {
+                case 'premium':
+                    return { legendary: 1, epic: 3, rare: 6, uncommon: 20, common: 70 };
+                case 'standard':
+                    return { legendary: 1, epic: 4, rare: 15, uncommon: 30, common: 50 };
+                case 'common':
+                    return { legendary: 0, epic: 2, rare: 8, uncommon: 30, common: 60 };
+                case 'all_or_nothing':
+                    return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
+                case 'mixed':
+                    return { legendary: 2, epic: 6, rare: 12, uncommon: 25, common: 55 };
+                case 'sniper':
+                    return { legendary: 2, epic: 8, rare: 20, uncommon: 30, common: 40 };
+                case 'pistol':
+                    return { legendary: 1, epic: 4, rare: 15, uncommon: 30, common: 50 };
+                case 'knife':
+                    return { legendary: 100, epic: 0, rare: 0, uncommon: 0, common: 0 };
+                default:
+                    return { legendary: 2, epic: 6, rare: 12, uncommon: 25, common: 55 };
             }
-            
-            // ПРЕМИУМ — РЕАЛЬНО МАЛЕНЬКИЙ ШАНС (~2% на легендарку)
-            if (currentCase?.id === 'premium') {
-                return { legendary: 2, epic: 8, rare: 15, uncommon: 30, common: 45 };
-            }
-            
-            // СНАЙПЕРСКИЙ — больше шанс на редкие
-            if (currentCase?.id === 'sniper') {
-                return { legendary: 5, epic: 15, rare: 30, uncommon: 30, common: 20 };
-            }
-            
-            // НОЖЕВОЙ — только легендарки
-            if (currentCase?.id === 'knife') {
-                return { legendary: 100, epic: 0, rare: 0, uncommon: 0, common: 0 };
-            }
-            
-            // ПИСТОЛЕТНЫЙ
-            if (currentCase?.id === 'pistol') {
-                return { legendary: 2, epic: 10, rare: 25, uncommon: 30, common: 33 };
-            }
-            
-            // Остальные
-            return { legendary: 3, epic: 8, rare: 20, uncommon: 30, common: 39 };
         }
 
         // ============================================================
@@ -1049,18 +1027,13 @@
         function getSkinForContract(targetPrice) {
             const minPrice = targetPrice * 0.8;
             const maxPrice = targetPrice * 1.2;
-            
             let candidates = ALL_SKINS.filter(s => s.price >= minPrice && s.price <= maxPrice);
-            
             if (candidates.length > 0) {
                 return candidates[Math.floor(Math.random() * candidates.length)];
             }
-            
             const sorted = [...ALL_SKINS].sort((a, b) => a.price - b.price);
-            
             if (targetPrice < sorted[0].price) return sorted[0];
             if (targetPrice > sorted[sorted.length - 1].price) return sorted[sorted.length - 1];
-            
             let best = sorted[0];
             let bestDiff = Infinity;
             for (const skin of sorted) {
