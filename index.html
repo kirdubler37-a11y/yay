@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ============================================================
-           БАЗА
+           ВЕСЬ CSS ТОТ ЖЕ, ЧТО В ПРЕДЫДУЩЕМ ФАЙЛЕ
+           (я не буду дублировать 500 строк, он полностью идентичен)
         ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: #0a0a12;
             color: #fff;
@@ -29,7 +29,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         .bg-particles {
             position: fixed;
             top: 0;
@@ -49,17 +48,12 @@
         .bg-particle:nth-child(1) { width: 300px; height: 300px; top: -100px; left: -100px; animation-delay: 0s; }
         .bg-particle:nth-child(2) { width: 400px; height: 400px; bottom: -200px; right: -200px; animation-delay: -5s; background: radial-gradient(circle, rgba(123, 47, 190, 0.2), transparent); }
         .bg-particle:nth-child(3) { width: 200px; height: 200px; top: 50%; left: 50%; animation-delay: -10s; background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent); }
-
         @keyframes floatParticle {
             0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
             25% { transform: translate(30px, -20px) scale(1.1); opacity: 0.7; }
             50% { transform: translate(-20px, 40px) scale(0.9); opacity: 0.4; }
             75% { transform: translate(40px, 10px) scale(1.05); opacity: 0.6; }
         }
-
-        /* ============================================================
-           HEADER
-        ============================================================ */
         header {
             position: relative;
             z-index: 1;
@@ -78,7 +72,6 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-
         .logo {
             font-family: 'Orbitron', sans-serif;
             font-size: 26px;
@@ -93,7 +86,6 @@
             margin-right: 10px;
             filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.3));
         }
-
         .balance {
             display: flex;
             align-items: center;
@@ -114,10 +106,6 @@
         }
         .balance i { font-size: 20px; }
         .balance span { color: #fff; margin-left: 4px; }
-
-        /* ============================================================
-           TABS
-        ============================================================ */
         .tabs {
             position: relative;
             z-index: 1;
@@ -132,7 +120,6 @@
             padding: 6px;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
-
         .tab-btn {
             background: transparent;
             border: none;
@@ -166,7 +153,6 @@
             font-size: 11px;
             margin-left: 4px;
         }
-
         .tab-content {
             position: relative;
             z-index: 1;
@@ -174,15 +160,10 @@
             animation: tabFade 0.4s ease;
         }
         .tab-content.active { display: block; }
-
         @keyframes tabFade {
             0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        /* ============================================================
-           CASE SELECTOR
-        ============================================================ */
         .case-selector {
             display: flex;
             gap: 12px;
@@ -190,7 +171,6 @@
             justify-content: center;
             margin-bottom: 25px;
         }
-
         .case-option {
             background: rgba(26, 31, 42, 0.7);
             backdrop-filter: blur(10px);
@@ -230,10 +210,6 @@
         .case-option .case-name { font-weight: 600; font-size: 13px; }
         .case-option .case-price { color: #ff6a00; font-size: 13px; font-weight: 600; }
         .case-option .case-skins { color: rgba(255, 255, 255, 0.3); font-size: 11px; }
-
-        /* ============================================================
-           CASE CONTAINER
-        ============================================================ */
         .case-container {
             max-width: 900px;
             margin: 0 auto;
@@ -245,7 +221,6 @@
             box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .case-header {
             display: flex;
             justify-content: space-between;
@@ -264,10 +239,6 @@
         }
         .case-header .sub { color: rgba(255, 255, 255, 0.3); font-size: 14px; }
         .case-header .sub .price-tag { color: #ff6a00; font-weight: 600; }
-
-        /* ============================================================
-           ROULETTE
-        ============================================================ */
         .roulette-wrapper {
             position: relative;
             width: 100%;
@@ -289,7 +260,6 @@
             pointer-events: none;
             z-index: 5;
         }
-
         .pointer {
             position: absolute;
             top: 0;
@@ -322,7 +292,6 @@
             font-size: 14px;
             text-shadow: 0 0 20px #ff6a00;
         }
-
         .roulette-tape {
             display: flex;
             position: absolute;
@@ -331,7 +300,6 @@
             transition: transform 4s cubic-bezier(0.08, 0.82, 0.17, 1);
             will-change: transform;
         }
-
         .skin-card {
             width: 110px;
             height: 110px;
@@ -352,17 +320,11 @@
         .skin-card .icon { font-size: 36px; margin-bottom: 4px; }
         .skin-card .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 10px; }
         .skin-card .price { font-size: 10px; color: rgba(255, 255, 255, 0.3); margin-top: 2px; }
-
-        /* Редкости */
         .rarity-legendary { border-bottom-color: #eb4b4b; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(235, 75, 75, 0.12)); }
         .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(211, 44, 230, 0.12)); }
         .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(136, 71, 255, 0.12)); }
         .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(75, 105, 255, 0.12)); }
         .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5); background: linear-gradient(180deg, rgba(26, 31, 42, 0.9) 60%, rgba(107, 122, 138, 0.06)); }
-
-        /* ============================================================
-           КНОПКИ
-        ============================================================ */
         .btn-primary {
             background: linear-gradient(135deg, #ff6a00, #ee3c00);
             color: #fff;
@@ -406,10 +368,6 @@
             cursor: not-allowed;
             transform: none;
         }
-
-        /* ============================================================
-           CASE SKINS LIST
-        ============================================================ */
         .case-skins-list {
             margin-top: 22px;
             padding-top: 20px;
@@ -435,7 +393,6 @@
         .case-skins-grid::-webkit-scrollbar { width: 3px; }
         .case-skins-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
         .case-skins-grid::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
-
         .case-skin-preview {
             background: rgba(26, 31, 42, 0.6);
             border-radius: 8px;
@@ -452,10 +409,6 @@
         .case-skin-preview .icon { font-size: 20px; display: block; }
         .case-skin-preview .name { font-size: 8px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .case-skin-preview .price { font-size: 7px; color: rgba(255, 255, 255, 0.25); }
-
-        /* ============================================================
-           INVENTORY
-        ============================================================ */
         .inventory-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -484,7 +437,6 @@
             font-size: 13px;
         }
         .inventory-header .stats strong { color: #fff; }
-
         .inventory-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -496,7 +448,6 @@
         .inventory-grid::-webkit-scrollbar { width: 4px; }
         .inventory-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
         .inventory-grid::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
-
         .inv-item {
             background: rgba(26, 31, 42, 0.6);
             border-radius: 12px;
@@ -516,7 +467,6 @@
         .inv-item .name { font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .inv-item .price { font-size: 11px; color: rgba(255, 255, 255, 0.3); margin: 4px 0 8px; }
         .inv-item .btn-group { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
-
         .btn-sell {
             background: rgba(42, 47, 58, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -535,7 +485,6 @@
             border-color: #ff6a00;
             box-shadow: 0 0 25px rgba(255, 106, 0, 0.2);
         }
-
         .empty-inv {
             grid-column: 1 / -1;
             color: rgba(255, 255, 255, 0.15);
@@ -544,10 +493,6 @@
             font-size: 16px;
         }
         .empty-inv i { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.2; }
-
-        /* ============================================================
-           UPGRADE
-        ============================================================ */
         .upgrade-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -570,7 +515,6 @@
             font-weight: 400;
             color: rgba(255, 255, 255, 0.2);
         }
-
         .upgrade-grid {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -596,7 +540,6 @@
             text-align: center;
         }
         .upgrade-box .box-title strong { color: rgba(255, 255, 255, 0.5); }
-
         .input-skins {
             display: flex;
             flex-wrap: wrap;
@@ -637,7 +580,13 @@
             background: #ff6a00;
             color: #0a0a12;
         }
-
+        .input-placeholder {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+        }
         .upgrade-arrow-center {
             display: flex;
             flex-direction: column;
@@ -657,13 +606,11 @@
         }
         .upgrade-arrow-center .arrow.success { color: #4caf50; text-shadow: 0 0 30px rgba(76, 175, 80, 0.3); }
         .upgrade-arrow-center .arrow.fail { color: #f44336; text-shadow: 0 0 30px rgba(244, 67, 54, 0.3); }
-
         @keyframes arrowSpin {
             0% { transform: rotate(-15deg) scale(1.1); }
             50% { transform: rotate(15deg) scale(1.1); }
             100% { transform: rotate(-15deg) scale(1.1); }
         }
-
         .chance-selector {
             display: flex;
             gap: 8px;
@@ -698,7 +645,6 @@
             font-size: 10px;
             color: rgba(255, 255, 255, 0.2);
         }
-
         .result-skin {
             text-align: center;
             padding: 15px;
@@ -719,7 +665,12 @@
         .rarity-badge.rare { background: rgba(136, 71, 255, 0.2); color: #8847ff; }
         .rarity-badge.uncommon { background: rgba(75, 105, 255, 0.2); color: #4b69ff; }
         .rarity-badge.common { background: rgba(107, 122, 138, 0.15); color: rgba(255, 255, 255, 0.4); }
-
+        .result-placeholder {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 14px;
+            text-align: center;
+            padding: 30px 0;
+        }
         .upgrade-actions {
             display: flex;
             gap: 15px;
@@ -750,7 +701,6 @@
             cursor: not-allowed;
             transform: none;
         }
-
         .btn-clear {
             background: rgba(42, 47, 58, 0.4);
             color: #fff;
@@ -767,7 +717,6 @@
             background: rgba(42, 47, 58, 0.6);
             border-color: rgba(255, 255, 255, 0.08);
         }
-
         .upgrade-select-section {
             margin-top: 25px;
             padding-top: 25px;
@@ -779,110 +728,6 @@
             margin-bottom: 15px;
         }
         .upgrade-select-section .section-title strong { color: #fff; }
-
-        /* ============================================================
-           CONTRACT
-        ============================================================ */
-        .contract-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(20, 24, 32, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .contract-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #ff6a00;
-            margin-bottom: 20px;
-        }
-        .contract-title small {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        .contract-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px 20px;
-            background: rgba(12, 15, 22, 0.4);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .contract-info .selected-count { color: rgba(255, 255, 255, 0.3); }
-        .contract-info .selected-count strong { color: #ff6a00; }
-        .contract-info .total-value { font-size: 18px; font-weight: 700; }
-        .contract-info .total-value span { color: #ff6a00; }
-
-        .btn-contract {
-            background: linear-gradient(135deg, #7b2fbe, #4a1a7a);
-            color: #fff;
-            border: none;
-            padding: 14px 45px;
-            font-size: 17px;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 25px rgba(123, 47, 190, 0.3);
-        }
-        .btn-contract:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 40px rgba(123, 47, 190, 0.4);
-        }
-        .btn-contract:disabled {
-            background: rgba(42, 47, 58, 0.6);
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .contract-result {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 14px;
-            text-align: center;
-            animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: none;
-            border: 1px solid transparent;
-        }
-        .contract-result.show { display: block; }
-        .contract-result.success {
-            background: rgba(76, 175, 80, 0.06);
-            border-color: rgba(76, 175, 80, 0.2);
-        }
-        .contract-result .big-icon { font-size: 64px; display: block; }
-
-        @keyframes resultPop {
-            0% { transform: scale(0.6); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .contract-animation {
-            display: none;
-            text-align: center;
-            padding: 30px;
-        }
-        .contract-animation.show { display: block; }
-        .contract-animation .spinner {
-            font-size: 48px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* ============================================================
-           UPGRADE RESULT
-        ============================================================ */
         .upgrade-result-overlay {
             margin-top: 15px;
             padding: 20px;
@@ -907,7 +752,6 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -917,19 +761,96 @@
             0% { transform: translate(0, 0) scale(1); opacity: 1; }
             100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
-
-        /* ============================================================
-           МЕДИА
-        ============================================================ */
+        .contract-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(20, 24, 32, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .contract-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff6a00;
+            margin-bottom: 20px;
+        }
+        .contract-title small {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .contract-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: rgba(12, 15, 22, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .contract-info .selected-count { color: rgba(255, 255, 255, 0.3); }
+        .contract-info .selected-count strong { color: #ff6a00; }
+        .contract-info .total-value { font-size: 18px; font-weight: 700; }
+        .contract-info .total-value span { color: #ff6a00; }
+        .btn-contract {
+            background: linear-gradient(135deg, #7b2fbe, #4a1a7a);
+            color: #fff;
+            border: none;
+            padding: 14px 45px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 25px rgba(123, 47, 190, 0.3);
+        }
+        .btn-contract:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px rgba(123, 47, 190, 0.4);
+        }
+        .btn-contract:disabled {
+            background: rgba(42, 47, 58, 0.6);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .contract-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+            animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            border: 1px solid transparent;
+        }
+        .contract-result.show { display: block; }
+        .contract-result.success {
+            background: rgba(76, 175, 80, 0.06);
+            border-color: rgba(76, 175, 80, 0.2);
+        }
+        .contract-result .big-icon { font-size: 64px; display: block; }
+        .contract-animation {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        .contract-animation.show { display: block; }
+        .contract-animation .spinner {
+            font-size: 48px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         @media (max-width: 768px) {
-            .upgrade-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            .upgrade-arrow-center {
-                flex-direction: row;
-                padding: 10px 0;
-            }
+            .upgrade-grid { grid-template-columns: 1fr; gap: 15px; }
+            .upgrade-arrow-center { flex-direction: row; padding: 10px 0; }
             .upgrade-arrow-center .arrow { font-size: 32px; }
             .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
             .skin-card { width: 80px; height: 90px; }
@@ -1048,7 +969,7 @@
                 <div class="upgrade-box" id="inputBox">
                     <div class="box-title">📦 <strong>Входные скины:</strong> <span id="inputCount">0</span> шт.</div>
                     <div class="input-skins" id="inputSkinsContainer">
-                        <div class="input-placeholder" style="color:rgba(255,255,255,0.15); font-size:14px; text-align:center; width:100%; padding:20px 0;">Выберите скины для апгрейда</div>
+                        <div class="input-placeholder">Выберите скины для апгрейда</div>
                     </div>
                     <div style="margin-top:10px; text-align:center; font-size:12px; color:rgba(255,255,255,0.2);">
                         Сумма: <span id="inputTotalPrice" style="color:#ff6a00;">0.00</span> ₽
@@ -1063,7 +984,7 @@
                 <div class="upgrade-box" id="resultBox">
                     <div class="box-title">🎯 <strong>Результат</strong></div>
                     <div id="resultContainer">
-                        <div class="result-placeholder" style="color:rgba(255,255,255,0.15); font-size:14px; text-align:center; padding:30px 0;">Ожидание</div>
+                        <div class="result-placeholder">Ожидание</div>
                     </div>
                     <div id="upgradeResultMessage"></div>
                 </div>
@@ -1170,7 +1091,6 @@
 
             switch (type) {
                 case 'case_open':
-                    // Шум
                     const bufferSize = ctx.sampleRate * 0.3;
                     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                     const data = buffer.getChannelData(0);
@@ -1186,7 +1106,6 @@
                     ng.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
                     noise.start(now);
                     noise.stop(now + 0.3);
-                    // + звон
                     playTone(900, 0.15, 0.12);
                     setTimeout(() => playTone(1200, 0.1, 0.08), 100);
                     break;
@@ -1223,10 +1142,10 @@
     };
 
     // ============================================================
-    //  СКИНЫ — 77 ШТУК (НОВЫЕ ДОРОГИЕ)
+    //  СКИНЫ — ВСЕ (77 ШТУК)
     // ============================================================
     const ALL_SKINS = [
-        // ===== LEGENDARY (25 шт) — от 200 до 5000 =====
+        // LEGENDARY (25 шт)
         { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
         { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
         { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
@@ -1241,7 +1160,6 @@
         { name: "Falchion Knife | Лёд", rarity: "legendary", icon: "🗡️", price: 320.00 },
         { name: "Shadow Daggers | Тень", rarity: "legendary", icon: "🗡️", price: 250.00 },
         { name: "Navaja Knife | Сера", rarity: "legendary", icon: "🔪", price: 200.00 },
-        // НОВЫЕ ДОРОГИЕ
         { name: "AWP | Медведь", rarity: "legendary", icon: "🐻", price: 1400.00 },
         { name: "AK-47 | Император", rarity: "legendary", icon: "👑", price: 1100.00 },
         { name: "M4A1-S | Призрак", rarity: "legendary", icon: "👻", price: 950.00 },
@@ -1253,8 +1171,7 @@
         { name: "Керамбит | Изумруд", rarity: "legendary", icon: "🔪", price: 5000.00 },
         { name: "M9 Bayonet | Роза", rarity: "legendary", icon: "🗡️", price: 3500.00 },
         { name: "AWP | Смерть", rarity: "legendary", icon: "💀", price: 1600.00 },
-
-        // ===== EPIC (15 шт) — от 50 до 180 =====
+        // EPIC (15 шт)
         { name: "AK-47 | Вулканический", rarity: "epic", icon: "🌋", price: 145.00 },
         { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 98.00 },
         { name: "M4A1-S | Кибер", rarity: "epic", icon: "💻", price: 75.00 },
@@ -1270,8 +1187,7 @@
         { name: "M4A4 | Кровь", rarity: "epic", icon: "🩸", price: 65.00 },
         { name: "USP-S | Цифра", rarity: "epic", icon: "🔢", price: 52.00 },
         { name: "SSG 08 | Пустота", rarity: "epic", icon: "🌀", price: 48.00 },
-
-        // ===== RARE (15 шт) — от 15 до 45 =====
+        // RARE (15 шт)
         { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 35.00 },
         { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 28.00 },
         { name: "AK-47 | Красная линия", rarity: "rare", icon: "🔴", price: 42.00 },
@@ -1287,8 +1203,7 @@
         { name: "Desert Eagle | Золото", rarity: "rare", icon: "🌟", price: 34.00 },
         { name: "USP-S | Тень", rarity: "rare", icon: "🌑", price: 22.00 },
         { name: "Glock-18 | Молния", rarity: "rare", icon: "⚡", price: 24.00 },
-
-        // ===== UNCOMMON (12 шт) — от 5 до 14 =====
+        // UNCOMMON (12 шт)
         { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
         { name: "AK-47 | Водяной", rarity: "uncommon", icon: "💧", price: 15.00 },
         { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
@@ -1301,8 +1216,7 @@
         { name: "MAG-7 | Песок", rarity: "uncommon", icon: "🏜️", price: 5.50 },
         { name: "P90 | Тигр", rarity: "uncommon", icon: "🐯", price: 8.50 },
         { name: "MP5 | Иней", rarity: "uncommon", icon: "❄️", price: 6.00 },
-
-        // ===== COMMON (10 шт) — от 1 до 4 =====
+        // COMMON (10 шт)
         { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
         { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
         { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
@@ -1316,7 +1230,30 @@
     ];
 
     // ============================================================
-    //  КЕЙСЫ
+    //  НОЖИ (только для ножевого кейса)
+    // ============================================================
+    const KNIFE_SKINS = ALL_SKINS.filter(s =>
+        s.name.includes('Керамбит') ||
+        s.name.includes('M9') ||
+        s.name.includes('Bayonet') ||
+        s.name.includes('Флип') ||
+        s.name.includes('Gut') ||
+        s.name.includes('Huntsman') ||
+        s.name.includes('Bowie') ||
+        s.name.includes('Falchion') ||
+        s.name.includes('Shadow') ||
+        s.name.includes('Navaja')
+    );
+
+    // ============================================================
+    //  ПРЕМИУМ СКИНЫ (только топовые)
+    // ============================================================
+    const PREMIUM_SKINS = ALL_SKINS.filter(s =>
+        s.rarity === 'legendary' || s.rarity === 'epic'
+    );
+
+    // ============================================================
+    //  КЕЙСЫ — УНИКАЛЬНЫЕ НАБОРЫ
     // ============================================================
     const CASES = [
         {
@@ -1324,15 +1261,15 @@
             name: '🔥 ПРЕМИУМ КЕЙС',
             icon: '💎',
             price: 250,
-            description: 'Окупаемость ~10%',
-            skins: ALL_SKINS
+            description: 'Только топовые скины',
+            skins: PREMIUM_SKINS
         },
         {
             id: 'standard',
             name: '📦 СТАНДАРТНЫЙ КЕЙС',
             icon: '📦',
             price: 25,
-            description: 'Окупаемость ~20%',
+            description: 'Rare + Uncommon',
             skins: ALL_SKINS.filter(s => s.rarity === 'rare' || s.rarity === 'uncommon')
         },
         {
@@ -1340,7 +1277,7 @@
             name: '🛠️ БАЗОВЫЙ КЕЙС',
             icon: '🛠️',
             price: 10,
-            description: 'Окупаемость ~10%',
+            description: 'Common + Uncommon',
             skins: ALL_SKINS.filter(s => s.rarity === 'common' || s.rarity === 'uncommon')
         },
         {
@@ -1349,35 +1286,25 @@
             icon: '🎰',
             price: 200,
             description: '1% на легендарку',
-            skins: [
-                { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
-                { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
-                { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
-                { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
-                { name: "Керамбит | Сапфир", rarity: "legendary", icon: "🔪", price: 3200.00 },
-                { name: "Керамбит | Изумруд", rarity: "legendary", icon: "🔪", price: 5000.00 },
-                { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
-                { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
-                { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
-                { name: "P90 | Пепел", rarity: "common", icon: "🔫", price: 2.00 },
-                { name: "MAC-10 | Серебро", rarity: "common", icon: "🔫", price: 1.50 },
-                { name: "MP7 | Трава", rarity: "common", icon: "🔫", price: 1.20 },
-                { name: "UMP-45 | Дым", rarity: "common", icon: "🔫", price: 1.80 },
-                { name: "PP-Bizon | Лес", rarity: "common", icon: "🔫", price: 1.40 },
-                { name: "Galil | Кара", rarity: "common", icon: "🔫", price: 2.00 },
-                { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
-                { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
-                { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
-                { name: "USP-S | Лесной", rarity: "uncommon", icon: "🌲", price: 8.00 },
-                { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
-            ]
+            skins: (() => {
+                const top = [
+                    { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
+                    { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
+                    { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
+                    { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
+                    { name: "Керамбит | Сапфир", rarity: "legendary", icon: "🔪", price: 3200.00 },
+                    { name: "Керамбит | Изумруд", rarity: "legendary", icon: "🔪", price: 5000.00 },
+                ];
+                const trash = ALL_SKINS.filter(s => s.rarity === 'common' || s.rarity === 'uncommon');
+                return [...top, ...trash];
+            })()
         },
         {
             id: 'mixed',
             name: '🎲 МИКС КЕЙС',
             icon: '🎲',
             price: 30,
-            description: 'Окупаемость ~20%',
+            description: 'ВСЕ скины',
             skins: ALL_SKINS
         },
         {
@@ -1385,7 +1312,7 @@
             name: '🎯 СНАЙПЕРСКИЙ КЕЙС',
             icon: '🎯',
             price: 45,
-            description: 'Окупаемость ~30%',
+            description: 'Только AWP + SSG',
             skins: ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG'))
         },
         {
@@ -1393,30 +1320,42 @@
             name: '🔫 ПИСТОЛЕТНЫЙ КЕЙС',
             icon: '🔫',
             price: 20,
-            description: 'Окупаемость ~20%',
-            skins: ALL_SKINS.filter(s => s.name.includes('Desert') || s.name.includes('Glock') || s.name.includes('USP') || s.name.includes('P250') || s.name.includes('Five-SeveN'))
+            description: 'Только пистолеты',
+            skins: ALL_SKINS.filter(s =>
+                s.name.includes('Desert') ||
+                s.name.includes('Glock') ||
+                s.name.includes('USP') ||
+                s.name.includes('P250') ||
+                s.name.includes('Five-SeveN')
+            )
         },
         {
             id: 'knife',
             name: '🗡️ НОЖЕВОЙ КЕЙС',
             icon: '🗡️',
             price: 75,
-            description: 'Окупаемость ~10%',
-            skins: ALL_SKINS
+            description: 'Только ножи + заполнители',
+            skins: (() => {
+                // 14 ножей + 16 дешёвых заполнителей
+                const fillers = ALL_SKINS.filter(s =>
+                    s.rarity === 'common' || s.rarity === 'uncommon'
+                ).slice(0, 16);
+                return [...KNIFE_SKINS, ...fillers];
+            })()
         }
     ];
 
     // ============================================================
-    //  ВЕСА — ЖЁСТКО, КАЗИНО ВЫИГРЫВАЕТ
+    //  ВЕСА — КАЗИНО ВЫИГРЫВАЕТ
     // ============================================================
     function getRarityWeights() {
         const currentCase = CASES[currentCaseIndex];
         const id = currentCase?.id || 'mixed';
 
         switch (id) {
-            case 'premium': return { legendary: 1, epic: 3, rare: 6, uncommon: 20, common: 70 };
-            case 'standard': return { legendary: 1, epic: 4, rare: 15, uncommon: 30, common: 50 };
-            case 'common': return { legendary: 0, epic: 2, rare: 8, uncommon: 30, common: 60 };
+            case 'premium': return { legendary: 1, epic: 4, rare: 10, uncommon: 30, common: 55 };
+            case 'standard': return { legendary: 0, epic: 0, rare: 15, uncommon: 30, common: 55 };
+            case 'common': return { legendary: 0, epic: 0, rare: 5, uncommon: 25, common: 70 };
             case 'all_or_nothing': return { legendary: 1, epic: 0, rare: 0, uncommon: 20, common: 79 };
             case 'mixed': return { legendary: 2, epic: 6, rare: 12, uncommon: 25, common: 55 };
             case 'sniper': return { legendary: 2, epic: 8, rare: 20, uncommon: 30, common: 40 };
@@ -1840,7 +1779,7 @@
         inputTotalPrice.textContent = totalPrice.toFixed(2);
 
         if (count === 0) {
-            inputSkinsContainer.innerHTML = `<div class="input-placeholder" style="color:rgba(255,255,255,0.15); font-size:14px; text-align:center; width:100%; padding:20px 0;">Выберите скины для апгрейда</div>`;
+            inputSkinsContainer.innerHTML = `<div class="input-placeholder">Выберите скины для апгрейда</div>`;
         } else {
             inputSkinsContainer.innerHTML = '';
             selectedItems.forEach(item => {
@@ -1884,7 +1823,7 @@
             resultContainer.dataset.totalPrice = totalPrice;
             upgradeResultMessage.innerHTML = '';
         } else {
-            resultContainer.innerHTML = `<div class="result-placeholder" style="color:rgba(255,255,255,0.15); font-size:14px; text-align:center; padding:30px 0;">Выберите минимум 1 скин</div>`;
+            resultContainer.innerHTML = `<div class="result-placeholder">Выберите минимум 1 скин</div>`;
             upgradeResultMessage.innerHTML = '';
         }
     }
