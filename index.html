@@ -51,6 +51,24 @@
         .tab-content.active { display: block; }
         @keyframes tabFade { 0% { opacity: 0; transform: translateY(20px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
+        /* Стили для регистрации */
+        .btn-register {
+            background: linear-gradient(135deg, #7b2fbe, #5a1a8a);
+            border: none; color: #fff; padding: 12px 24px; border-radius: 25px;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            font-family: 'Inter', sans-serif; transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(123, 47, 190, 0.3);
+        }
+        .btn-register:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(123, 47, 190, 0.5); }
+        .btn-logout {
+            background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.3);
+            color: #ff4444; padding: 8px 16px; border-radius: 20px;
+            font-size: 12px; cursor: pointer; font-weight: 600;
+            font-family: 'Inter', sans-serif; transition: 0.3s;
+        }
+        .btn-logout:hover { background: rgba(255,68,68,0.4); }
+        .user-nickname { color: #ffaa00; font-weight: 700; font-size: 16px; }
+
         .multi-spin-controls { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
         .multi-spin-btn { background: rgba(20, 24, 38, 0.8); border: 2px solid rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); padding: 10px 18px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
         .multi-spin-btn:hover { border-color: rgba(255, 106, 0, 0.4); color: #fff; }
@@ -79,88 +97,17 @@
         .case-stats .stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .case-stats .stat-value { color: #ffaa00; font-weight: 700; font-size: 18px; }
 
-        /* КОНТЕЙНЕР ДЛЯ ВСЕХ РУЛЕТОК */
-        .all-roulettes-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin: 15px auto;
-            max-height: 55vh;
-            overflow-y: auto;
-            padding: 4px;
-        }
-        .all-roulettes-wrapper::-webkit-scrollbar { width: 5px; }
-        .all-roulettes-wrapper::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; }
-        .all-roulettes-wrapper::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
-
-        /* ОДНА РУЛЕТКА */
-        .single-roulette-item {
-            position: relative;
-            width: 100%;
-            height: 100px;
-            background: rgba(8, 10, 18, 0.9);
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            flex-shrink: 0;
-            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
-        }
-        .single-roulette-item::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 8%, transparent 92%, rgba(5, 5, 16, 0.9) 100%);
-            pointer-events: none;
-            z-index: 5;
-        }
-        .single-roulette-item .mini-pointer {
-            position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 3px; height: 100%;
-            background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00);
-            z-index: 10;
-            box-shadow: 0 0 20px #ff6a00, 0 0 40px rgba(255, 106, 0, 0.3);
-            border-radius: 1px;
-        }
-        .single-roulette-item .mini-tape {
-            display: flex;
-            position: absolute;
-            left: 0; top: 12px;
-            transition: transform 3.8s cubic-bezier(0.06, 0.84, 0.16, 1);
-            will-change: transform;
-        }
-        .single-roulette-item .mini-skin-card {
-            width: 85px; height: 75px;
-            margin: 0 4px;
-            background: rgba(20, 24, 38, 0.9);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            padding: 6px;
-            box-sizing: border-box;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
-            flex-shrink: 0;
-        }
+        .all-roulettes-wrapper { display: flex; flex-direction: column; gap: 6px; margin: 15px auto; max-height: 55vh; overflow-y: auto; padding: 4px; }
+        .all-roulettes-wrapper::-webkit-scrollbar { width: 5px; } .all-roulettes-wrapper::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; } .all-roulettes-wrapper::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
+        .single-roulette-item { position: relative; width: 100%; height: 100px; background: rgba(8, 10, 18, 0.9); overflow: hidden; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); flex-shrink: 0; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5); }
+        .single-roulette-item::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 8%, transparent 92%, rgba(5, 5, 16, 0.9) 100%); pointer-events: none; z-index: 5; }
+        .single-roulette-item .mini-pointer { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 3px; height: 100%; background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00); z-index: 10; box-shadow: 0 0 20px #ff6a00, 0 0 40px rgba(255, 106, 0, 0.3); border-radius: 1px; }
+        .single-roulette-item .mini-tape { display: flex; position: absolute; left: 0; top: 12px; transition: transform 3.8s cubic-bezier(0.06, 0.84, 0.16, 1); will-change: transform; }
+        .single-roulette-item .mini-skin-card { width: 85px; height: 75px; margin: 0 4px; background: rgba(20, 24, 38, 0.9); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; padding: 6px; box-sizing: border-box; border-bottom: 3px solid rgba(255, 255, 255, 0.1); flex-shrink: 0; }
         .single-roulette-item .mini-skin-card .icon { font-size: 28px; margin-bottom: 2px; }
         .single-roulette-item .mini-skin-card .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 8px; }
         .single-roulette-item .mini-skin-card .price { font-size: 8px; color: rgba(255, 255, 255, 0.35); }
-        .single-roulette-item .roulette-number {
-            position: absolute;
-            left: 12px; top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 12px;
-            font-weight: 700;
-            z-index: 11;
-            background: rgba(0,0,0,0.5);
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
+        .single-roulette-item .roulette-number { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.25); font-size: 12px; font-weight: 700; z-index: 11; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 6px; }
         .rarity-legendary { border-bottom-color: #ff4444 !important; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(255, 68, 68, 0.15)) !important; }
         .rarity-epic { border-bottom-color: #d32ce6 !important; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(211, 44, 230, 0.15)) !important; }
         .rarity-rare { border-bottom-color: #8847ff !important; }
@@ -174,22 +121,6 @@
         .btn-primary:hover::before { left: 100%; }
         .btn-primary:active { transform: translateY(0) scale(0.98); }
         .btn-primary:disabled { background: rgba(42, 47, 58, 0.8); box-shadow: none; cursor: not-allowed; transform: none; }
-        .btn-multi { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); flex: 0.5; font-size: 14px; padding: 18px 15px; }
-        .btn-multi:hover { box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
-
-        .multi-results { margin-top: 20px; padding: 15px; background: rgba(10, 12, 22, 0.6); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.06); max-height: 300px; overflow-y: auto; display: none; }
-        .multi-results.show { display: block; }
-        .multi-results .result-title { color: rgba(255, 255, 255, 0.4); font-size: 13px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-        .multi-result-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(20, 24, 38, 0.5); border-radius: 10px; margin-bottom: 6px; font-size: 13px; }
-        .multi-result-item .icon { font-size: 24px; }
-        .multi-result-item .name { flex: 1; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .multi-result-item .price { color: rgba(255, 255, 255, 0.4); }
-        .multi-result-total { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.06); font-weight: 700; }
-        .multi-result-total .total-spent { color: #f44336; }
-        .multi-result-total .total-got { color: #4caf50; }
-        .multi-result-total .total-profit { font-size: 18px; }
-        .multi-result-total .total-profit.positive { color: #4caf50; }
-        .multi-result-total .total-profit.negative { color: #f44336; }
 
         .case-skins-list { margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
         .case-skins-list .list-title { color: rgba(255, 255, 255, 0.35); font-size: 13px; margin-bottom: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
@@ -218,81 +149,11 @@
         .btn-sell:hover { background: #ff6a00; color: #050510; border-color: #ff6a00; box-shadow: 0 0 30px rgba(255, 106, 0, 0.3); transform: scale(1.05); }
         .empty-inv { grid-column: 1 / -1; color: rgba(255, 255, 255, 0.1); text-align: center; padding: 50px 20px; font-size: 18px; }
         .empty-inv i { font-size: 60px; display: block; margin-bottom: 15px; opacity: 0.2; }
-        .upgrade-title, .contract-title { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #ff6a00, #ffaa00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; letter-spacing: 1px; }
-        .upgrade-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 25px; align-items: stretch; margin-bottom: 25px; }
-        .upgrade-box { background: rgba(10, 12, 22, 0.8); border-radius: 18px; padding: 25px; border: 1px solid rgba(255, 255, 255, 0.06); min-height: 220px; position: relative; overflow: hidden; transition: 0.3s; }
-        .upgrade-box:hover { border-color: rgba(255, 106, 0, 0.2); box-shadow: 0 0 40px rgba(255, 106, 0, 0.05); }
-        .upgrade-box .box-title { font-size: 13px; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-align: center; }
-        .upgrade-box .box-title strong { color: rgba(255, 255, 255, 0.6); }
-        .input-skins { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; min-height: 90px; align-items: center; }
-        .input-skin-item { background: rgba(20, 24, 38, 0.8); border-radius: 10px; padding: 10px 12px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.04); width: 85px; animation: flyIn 0.4s ease-out; }
-        @keyframes flyIn { 0% { transform: scale(0.5) rotate(-15deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
-        .input-skin-item .icon { font-size: 30px; display: block; }
-        .input-skin-item .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .input-skin-item .price { font-size: 9px; color: rgba(255, 255, 255, 0.3); }
-        .input-skin-item .remove-btn { background: rgba(255, 68, 68, 0.3); border: none; color: #ff4444; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; margin-top: 4px; transition: 0.2s; }
-        .input-skin-item .remove-btn:hover { background: #ff4444; color: #fff; box-shadow: 0 0 20px rgba(255, 68, 68, 0.4); }
-        .input-placeholder { color: rgba(255, 255, 255, 0.1); font-size: 15px; text-align: center; width: 100%; padding: 25px 0; }
-        .upgrade-arrow-center { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 0 10px; }
-        .upgrade-arrow-center .arrow { font-size: 55px; color: #ff6a00; transition: 0.3s; text-shadow: 0 0 40px rgba(255, 106, 0, 0.3); animation: arrowGlow 2s ease-in-out infinite; }
-        @keyframes arrowGlow { 0%, 100% { text-shadow: 0 0 40px rgba(255, 106, 0, 0.3); } 50% { text-shadow: 0 0 60px rgba(255, 106, 0, 0.5); } }
-        .upgrade-arrow-center .arrow.spinning { animation: arrowSpin 0.5s ease-in-out infinite; }
-        .upgrade-arrow-center .arrow.success { color: #4caf50; text-shadow: 0 0 50px rgba(76, 175, 80, 0.5); }
-        .upgrade-arrow-center .arrow.fail { color: #f44336; text-shadow: 0 0 50px rgba(244, 67, 54, 0.5); }
-        @keyframes arrowSpin { 0% { transform: rotate(-20deg) scale(1.15); } 50% { transform: rotate(20deg) scale(1.15); } 100% { transform: rotate(-20deg) scale(1.15); } }
-        .chance-selector { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0; }
-        .chance-btn { background: rgba(20, 24, 38, 0.8); border: 2px solid rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.5); padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
-        .chance-btn:hover { border-color: rgba(255, 106, 0, 0.4); color: rgba(255, 255, 255, 0.8); }
-        .chance-btn.active { border-color: #ff6a00; background: rgba(255, 106, 0, 0.15); color: #ffaa00; box-shadow: 0 0 40px rgba(255, 106, 0, 0.1); }
-        .chance-btn .multiplier { display: block; font-size: 11px; color: rgba(255, 255, 255, 0.25); }
-        .result-skin { text-align: center; padding: 20px; }
-        .result-skin .icon { font-size: 55px; display: block; margin-bottom: 8px; }
-        .result-skin .name { font-size: 18px; font-weight: 700; }
-        .result-skin .price { font-size: 16px; color: rgba(255, 255, 255, 0.35); margin-top: 6px; }
-        .result-skin .rarity-badge { display: inline-block; padding: 4px 18px; border-radius: 25px; font-size: 12px; font-weight: 700; margin-top: 8px; letter-spacing: 1px; }
-        .rarity-badge.legendary { background: rgba(255, 68, 68, 0.2); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3); }
-        .rarity-badge.epic { background: rgba(211, 44, 230, 0.2); color: #d32ce6; border: 1px solid rgba(211, 44, 230, 0.3); }
-        .rarity-badge.rare { background: rgba(136, 71, 255, 0.2); color: #8847ff; border: 1px solid rgba(136, 71, 255, 0.3); }
-        .rarity-badge.uncommon { background: rgba(75, 105, 255, 0.2); color: #4b69ff; border: 1px solid rgba(75, 105, 255, 0.3); }
-        .rarity-badge.common { background: rgba(107, 122, 138, 0.15); color: rgba(255, 255, 255, 0.5); border: 1px solid rgba(107, 122, 138, 0.2); }
-        .result-placeholder { color: rgba(255, 255, 255, 0.1); font-size: 15px; text-align: center; padding: 35px 0; }
-        .upgrade-actions { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-        .btn-upgrade { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); color: #fff; border: none; padding: 16px 50px; font-size: 17px; font-weight: 700; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); letter-spacing: 1px; text-transform: uppercase; }
-        .btn-upgrade:hover { transform: translateY(-4px); box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
-        .btn-upgrade:disabled { background: rgba(42, 47, 58, 0.6); box-shadow: none; cursor: not-allowed; transform: none; }
-        .btn-clear { background: rgba(30, 35, 48, 0.6); color: #fff; border: 1px solid rgba(255, 255, 255, 0.08); padding: 16px 35px; font-size: 15px; font-weight: 600; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
-        .btn-clear:hover { background: rgba(30, 35, 48, 0.8); border-color: rgba(255, 255, 255, 0.15); }
-        .upgrade-select-section { margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
-        .upgrade-select-section .section-title { color: rgba(255, 255, 255, 0.3); font-size: 14px; margin-bottom: 18px; letter-spacing: 1px; }
-        .upgrade-select-section .section-title strong { color: #fff; }
-        .upgrade-result-overlay { margin-top: 18px; padding: 25px; border-radius: 16px; text-align: center; animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes resultPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .upgrade-result-overlay.success { background: rgba(76, 175, 80, 0.08); border: 1px solid rgba(76, 175, 80, 0.25); }
-        .upgrade-result-overlay.fail { background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.25); }
-        .upgrade-result-overlay .big-icon { font-size: 70px; display: block; animation: bounce 0.8s ease-in-out infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-        .contract-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding: 20px 25px; background: rgba(10, 12, 22, 0.6); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.04); }
-        .contract-info .selected-count { color: rgba(255, 255, 255, 0.35); }
-        .contract-info .selected-count strong { color: #ffaa00; }
-        .contract-info .total-value { font-size: 20px; font-weight: 700; }
-        .contract-info .total-value span { color: #ffaa00; }
-        .btn-contract { background: linear-gradient(135deg, #7b2fbe, #5a1a8a); color: #fff; border: none; padding: 16px 50px; font-size: 17px; font-weight: 700; border-radius: 14px; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 6px 30px rgba(123, 47, 190, 0.4); letter-spacing: 1px; text-transform: uppercase; }
-        .btn-contract:hover { transform: translateY(-4px); box-shadow: 0 12px 50px rgba(123, 47, 190, 0.6); }
-        .btn-contract:disabled { background: rgba(42, 47, 58, 0.6); box-shadow: none; cursor: not-allowed; transform: none; }
-        .contract-result { margin-top: 25px; padding: 25px; border-radius: 16px; text-align: center; animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: none; border: 1px solid transparent; }
-        .contract-result.show { display: block; }
-        .contract-result.success { background: rgba(76, 175, 80, 0.06); border-color: rgba(76, 175, 80, 0.2); }
-        .contract-result .big-icon { font-size: 70px; display: block; }
-        .contract-animation { display: none; text-align: center; padding: 35px; }
-        .contract-animation.show { display: block; }
-        .contract-animation .spinner { font-size: 55px; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         @media (max-width: 768px) {
             .single-roulette-item { height: 75px; }
             .single-roulette-item .mini-skin-card { width: 65px; height: 55px; }
             .single-roulette-item .mini-skin-card .icon { font-size: 22px; }
-            .upgrade-grid { grid-template-columns: 1fr; gap: 18px; }
             .case-option { min-width: 105px; padding: 14px 20px; }
             .logo { font-size: 22px; }
             .balance { font-size: 16px; padding: 10px 18px; }
@@ -310,7 +171,16 @@
 
     <header>
         <div class="logo"><i class="fas fa-crown"></i> SKINVAULT</div>
-        <div class="balance"><i class="fas fa-coins"></i><span id="balanceDisplay">1000</span></div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="balance"><i class="fas fa-coins"></i><span id="balanceDisplay">1000</span></div>
+            <div id="userArea" style="display: flex; align-items: center; gap: 10px;">
+                <button class="btn-register" id="registerBtn" onclick="showRegisterModal()">👤 Регистрация</button>
+                <div id="userInfo" style="display: none; align-items: center; gap: 10px;">
+                    <span class="user-nickname" id="userNickname"></span>
+                    <button class="btn-logout" onclick="logoutUser()">🚪 Выйти</button>
+                </div>
+            </div>
+        </div>
     </header>
 
     <div class="tabs">
@@ -323,7 +193,6 @@
     <div class="tab-content active" id="tab-case">
         <div class="case-container">
             <div class="case-selector" id="caseSelector"></div>
-
             <div class="multi-spin-controls">
                 <span style="color:rgba(255,255,255,0.4);">Кол-во:</span>
                 <button class="multi-spin-btn" data-count="1">1x</button>
@@ -333,29 +202,14 @@
                 <button class="multi-spin-btn" data-count="50">50x</button>
                 <span class="spin-count-display" id="spinCountDisplay">5</span>
             </div>
-
             <div class="case-header">
                 <div><h3 id="caseName">🔥 ПРЕМИУМ КЕЙС</h3><div class="sub">Стоимость: <span class="price-tag" id="casePrice">250</span> ₽ за штуку</div></div>
                 <div class="case-stats"><div class="stat-item"><span>Скинов</span><span class="stat-value" id="caseSkinCount">0</span></div></div>
             </div>
-
-            <!-- ВСЕ РУЛЕТКИ ЗДЕСЬ (и одиночная и мульти) -->
             <div class="all-roulettes-wrapper" id="allRoulettes"></div>
-
             <div class="btn-row">
                 <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> КРУТИТЬ</button>
             </div>
-
-            <div class="multi-results" id="multiResults">
-                <div class="result-title">📊 Результаты</div>
-                <div id="multiResultsList"></div>
-                <div class="multi-result-total">
-                    <span>Потрачено: <span class="total-spent" id="totalSpent">0</span> ₽</span>
-                    <span>Получено: <span class="total-got" id="totalGot">0</span> ₽</span>
-                    <span>Итог: <span class="total-profit" id="totalProfit">0</span> ₽</span>
-                </div>
-            </div>
-
             <div class="case-skins-list"><div class="list-title">Все скины в кейсе:</div><div class="case-skins-grid" id="caseSkinsGrid"></div></div>
         </div>
     </div>
@@ -399,8 +253,14 @@
     </div>
 
     <script>
+    // ============================================================
+    //  ЗВУКИ
+    // ============================================================
     const SoundFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(type){this.init();const ctx=this.ctx,now=ctx.currentTime;const playTone=(freq,dur,vol=.12,type='sine',delay=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(freq,now+delay);g.gain.setValueAtTime(vol,now+delay);g.gain.exponentialRampToValueAtTime(.001,now+delay+dur);o.start(now+delay);o.stop(now+delay+dur)};const noiseBurst=(dur=.3,vol=.06)=>{const bufferSize=ctx.sampleRate*dur,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4);const noise=ctx.createBufferSource(),ng=ctx.createGain();noise.buffer=buffer;noise.connect(ng);ng.connect(ctx.destination);ng.gain.setValueAtTime(vol,now);ng.gain.exponentialRampToValueAtTime(.001,now+dur);noise.start(now);noise.stop(now+dur)};switch(type){case'case_open':noiseBurst(.35,.06);playTone(800,.12,.08,'square',.05);playTone(1100,.08,.05,'square',.15);playTone(1400,.06,.03,'sine',.25);break;case'case_scroll':noiseBurst(.06,.02);playTone(1500,.02,.03,'triangle',.01);break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.1),i*100));noiseBurst(.6,.04);break;case'sell':playTone(1200,.06,.06,'triangle');playTone(800,.06,.06,'triangle',.06);playTone(600,.06,.06,'triangle',.12);break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,.1),i*80));noiseBurst(.4,.03);break;case'upgrade_fail':playTone(250,.4,.12,'sawtooth');playTone(200,.3,.08,'square',.1);noiseBurst(.5,.05);break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>playTone(f,.05,.05,'square'),i*50));noiseBurst(.25,.03);break}}};
 
+    // ============================================================
+    //  СКИНЫ
+    // ============================================================
     const ALL_SKINS=[
         {name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},{name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},{name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},
         {name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500.00},{name:"★ M9 Bayonet | Crimson Web",rarity:"legendary",icon:"🗡️",price:1800.00},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200.00},{name:"★ Karambit | Marble Fade",rarity:"legendary",icon:"🔪",price:1600.00},{name:"★ Skeleton Knife | Slaughter",rarity:"legendary",icon:"💀",price:950.00},{name:"★ Sport Gloves | Vice",rarity:"legendary",icon:"🧤",price:3200.00},{name:"★ Specialist Gloves | Crimson Kimono",rarity:"legendary",icon:"🧤",price:2800.00},
@@ -410,6 +270,9 @@
         {name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.20},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15},{name:"MP7 | Groundwater",rarity:"common",icon:"💧",price:0.10},{name:"UMP-45 | Urban DDPAT",rarity:"common",icon:"🏙️",price:0.14},{name:"PP-Bizon | Sand Dashed",rarity:"common",icon:"🏜️",price:0.08},{name:"Galil AR | Sage Spray",rarity:"common",icon:"🌿",price:0.12},{name:"FAMAS | Colony",rarity:"common",icon:"🐜",price:0.10},{name:"SG 553 | Army Sheen",rarity:"common",icon:"🪖",price:0.16},{name:"G3SG1 | Safari Mesh",rarity:"common",icon:"🦒",price:0.11},
     ];
 
+    // ============================================================
+    //  КЕЙСЫ
+    // ============================================================
     const CASES=[
         {id:'dreams_and_nightmares',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>['AWP | Gungnir','AK-47 | Case Hardened (661)','★ Butterfly Knife | Fade','M4A4 | Howl','Desert Eagle | Blaze'].some(n=>s.name.includes(n))),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
         {id:'gamma_doppler',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,3)]},
@@ -424,123 +287,44 @@
         {id:'prisma2',name:'💠 Prisma 2 Case',icon:'💠',price:40,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},
     ];
 
+    // ============================================================
+    //  ФУНКЦИИ
+    // ============================================================
     function getRarityWeights(cs){const rc={};cs.forEach(s=>{rc[s.rarity]=(rc[s.rarity]||0)+1});let w={};if(rc.legendary&&rc.legendary>=5)w={legendary:3,epic:rc.epic?12:0,rare:rc.rare?25:0,uncommon:rc.uncommon?30:0,common:rc.common?30:0};else if(rc.legendary&&rc.legendary>=3)w={legendary:2,epic:rc.epic?10:0,rare:rc.rare?25:0,uncommon:rc.uncommon?33:0,common:rc.common?30:0};else if(rc.legendary)w={legendary:1,epic:rc.epic?8:0,rare:rc.rare?20:0,uncommon:rc.uncommon?35:0,common:rc.common?36:0};else if(rc.epic)w={legendary:0,epic:15,rare:rc.rare?30:0,uncommon:rc.uncommon?30:0,common:rc.common?25:0};else w={legendary:0,epic:0,rare:rc.rare?35:0,uncommon:rc.uncommon?40:0,common:rc.common?25:0};const t=Object.values(w).reduce((a,b)=>a+b,0);if(t>0)for(const k in w)w[k]=(w[k]/t)*100;return w;}
     function getRandomItem(cs){if(CASES[currentCaseIndex].id==='yolo'){const r=Math.random()*100;if(r<1)return cs.find(s=>s.name.includes('Sapphire'))||cs[0];else if(r<4)return cs.find(s=>s.name.includes('Dragon Lore'))||cs[0];else if(r<8)return cs.find(s=>s.name.includes('Fire Serpent'))||cs[0];else{const c=cs.filter(s=>s.rarity==='common');return c[Math.floor(Math.random()*c.length)];}}const w=getRarityWeights(cs),r=Math.random()*100;let cum=0,sr='common';for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){sr=ra;break;}}const p=cs.filter(s=>s.rarity===sr);return p.length?p[Math.floor(Math.random()*p.length)]:cs[Math.floor(Math.random()*cs.length)];}
     function getSkinByPrice(tp){let b=ALL_SKINS[0],bd=Infinity;for(const s of ALL_SKINS){const d=Math.abs(s.price-tp);if(d<bd){bd=d;b=s;}}return b;}
 
+    // ============================================================
+    //  СОСТОЯНИЕ
+    // ============================================================
     let balance=1000,inventory=[],idCounter=0,isSpinning=!1,isUpgrading=!1,isContracting=!1,multiSpinCount=5;
     let selectedForUpgrade=new Set,selectedForContract=new Set,currentCaseIndex=0,selectedChance=50,selectedMultiplier=2;
     const MINI_CARD_WIDTH=93;
     const $=id=>document.getElementById(id);
-    const openBtn=$('openBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid');
-    const allRoulettes=$('allRoulettes');
-    const upgradeInventoryGrid=$('upgradeInventoryGrid'),contractInventoryGrid=$('contractInventoryGrid');
+    const openBtn=$('openBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid'),allRoulettes=$('allRoulettes');
     const invCount=$('invCount'),invTotalCount=$('invTotalCount'),invTotalPrice=$('invTotalPrice');
-    const upgradeBtn=$('upgradeBtn'),clearUpgradeBtn=$('clearUpgradeBtn'),contractBtn=$('contractBtn');
-    const contractCount=$('contractCount'),contractMaxCount=$('contractMaxCount'),contractTotalPrice=$('contractTotalPrice');
-    const contractAnimation=$('contractAnimation'),contractResult=$('contractResult'),contractResultIcon=$('contractResultIcon');
-    const contractResultName=$('contractResultName'),contractResultPrice=$('contractResultPrice'),contractResultMultiplier=$('contractResultMultiplier');
-    const inputSkinsContainer=$('inputSkinsContainer'),inputCount=$('inputCount'),inputTotalPrice=$('inputTotalPrice');
-    const resultContainer=$('resultContainer'),upgradeResultMessage=$('upgradeResultMessage'),upgradeArrow=$('upgradeArrow');
-    const upgradeSelectCount=$('upgradeSelectCount'),multiplierDisplay=$('multiplierDisplay');
     const caseSelector=$('caseSelector'),caseName=$('caseName'),casePrice=$('casePrice'),caseSkinCount=$('caseSkinCount'),caseSkinsGrid=$('caseSkinsGrid');
-    const multiResults=$('multiResults'),multiResultsList=$('multiResultsList'),totalSpent=$('totalSpent'),totalGot=$('totalGot'),totalProfit=$('totalProfit'),spinCountDisplay=$('spinCountDisplay');
+    const spinCountDisplay=$('spinCountDisplay');
 
     function createRouletteElement(index,winSkin,caseSkins){
-        const rouletteDiv=document.createElement('div');
-        rouletteDiv.className='single-roulette-item';
-        rouletteDiv.innerHTML=`
-            <div class="roulette-number">#${index+1}</div>
-            <div class="mini-pointer"></div>
-            <div class="mini-tape"></div>
-        `;
-        const tapeEl=rouletteDiv.querySelector('.mini-tape');
-        // Генерируем ленту
-        tapeEl.innerHTML='';
-        const cnt=40,wi=32;
-        for(let i=0;i<cnt;i++){
-            let item=(i===wi&&winSkin)?winSkin:getRandomItem(caseSkins);
-            const card=document.createElement('div');
-            card.className='mini-skin-card rarity-'+item.rarity;
-            card.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;
-            tapeEl.appendChild(card);
-        }
-        return {rouletteDiv,tapeEl};
+        const rd=document.createElement('div');rd.className='single-roulette-item';
+        rd.innerHTML=`<div class="roulette-number">#${index+1}</div><div class="mini-pointer"></div><div class="mini-tape"></div>`;
+        const te=rd.querySelector('.mini-tape');te.innerHTML='';
+        for(let i=0;i<40;i++){let item=(i===32&&winSkin)?winSkin:getRandomItem(caseSkins);const c=document.createElement('div');c.className='mini-skin-card rarity-'+item.rarity;c.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;te.appendChild(c);}
+        return{rouletteDiv:rd,tapeEl:te};
     }
 
-    function spinSingleRoulette(rouletteEl,tapeEl){
-        return new Promise(resolve=>{
-            const ww=rouletteEl.offsetWidth;
-            const targetLeft=-(32*MINI_CARD_WIDTH)+(ww/2)-(MINI_CARD_WIDTH/2);
-            let cp=0;
-            const sp=14;
-            const si=setInterval(()=>{
-                cp-=sp;
-                tapeEl.style.transform=`translateX(${cp}px)`;
-                SoundFX.play('case_scroll');
-                if(cp<-1800){
-                    clearInterval(si);
-                    setTimeout(()=>{
-                        tapeEl.style.transition='transform 3.5s cubic-bezier(0.06, 0.84, 0.16, 1)';
-                        tapeEl.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;
-                    },30);
-                }
-            },13);
-            setTimeout(()=>{resolve();},3700);
-        });
-    }
+    function spinSingleRoulette(rouletteEl,tapeEl){return new Promise(resolve=>{const ww=rouletteEl.offsetWidth,targetLeft=-(32*MINI_CARD_WIDTH)+(ww/2)-(MINI_CARD_WIDTH/2);let cp=0;const si=setInterval(()=>{cp-=14;tapeEl.style.transform=`translateX(${cp}px)`;SoundFX.play('case_scroll');if(cp<-1800){clearInterval(si);setTimeout(()=>{tapeEl.style.transition='transform 3.5s cubic-bezier(0.06, 0.84, 0.16, 1)';tapeEl.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;},30);}},13);setTimeout(()=>resolve(),3700);});}
 
     async function performSpin(count){
-        if(isSpinning)return;
-        const c=CASES[currentCaseIndex];
-        const totalCost=c.price*count;
+        if(isSpinning)return;const c=CASES[currentCaseIndex],totalCost=c.price*count;
         if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}
-        isSpinning=!0;openBtn.disabled=!0;
-        balance-=totalCost;updateBalanceUI();
-        SoundFX.play('case_open');
-
-        // Определяем выигрыши заранее
-        const wins=[];
-        for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));
-
-        // Очищаем и создаём ВСЕ рулетки СРАЗУ
-        allRoulettes.innerHTML='';
-        const rouletteData=[];
-        for(let i=0;i<count;i++){
-            const {rouletteDiv,tapeEl}=createRouletteElement(i,wins[i],c.skins);
-            allRoulettes.appendChild(rouletteDiv);
-            rouletteData.push({rouletteDiv,tapeEl});
-        }
-
-        // Запускаем ВСЕ рулетки ОДНОВРЕМЕННО
-        const spinPromises=rouletteData.map(({rouletteDiv,tapeEl})=>spinSingleRoulette(rouletteDiv,tapeEl));
-        await Promise.all(spinPromises);
-
-        // Добавляем выигрыши в инвентарь
-        let totalGot=0;
-        wins.forEach(ws=>{
-            inventory.push({...ws,id:idCounter++});
-            totalGot+=ws.price;
-            if(ws.rarity==='legendary')SoundFX.play('legendary');
-        });
-
-        // Показываем результаты
-        multiResults.classList.add('show');
-        multiResultsList.innerHTML='';
-        wins.forEach((r,i)=>{
-            const div=document.createElement('div');
-            div.className='multi-result-item';
-            div.innerHTML=`<span style="color:rgba(255,255,255,0.2);">#${i+1}</span><span class="icon">${r.icon}</span><span class="name">${r.name}</span><span class="price">${r.price.toFixed(2)} ₽</span>`;
-            multiResultsList.appendChild(div);
-        });
-        totalSpent.textContent=totalCost.toFixed(0);
-        totalGot.textContent=totalGot.toFixed(2);
-        const profit=totalGot-totalCost;
-        totalProfit.textContent=(profit>=0?'+':'')+profit.toFixed(2);
-        totalProfit.className='total-profit '+(profit>=0?'positive':'negative');
-
-        renderAllInventory();
-        isSpinning=!1;openBtn.disabled=!1;
+        isSpinning=!0;openBtn.disabled=!0;balance-=totalCost;updateBalanceUI();SoundFX.play('case_open');
+        const wins=[];for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));
+        allRoulettes.innerHTML='';const rd=[];for(let i=0;i<count;i++){const r=createRouletteElement(i,wins[i],c.skins);allRoulettes.appendChild(r.rouletteDiv);rd.push(r);}
+        await Promise.all(rd.map(r=>spinSingleRoulette(r.rouletteDiv,r.tapeEl)));
+        let totalGot=0;wins.forEach(ws=>{inventory.push({...ws,id:idCounter++});totalGot+=ws.price;if(ws.rarity==='legendary')SoundFX.play('legendary');});
+        renderAllInventory();saveGame();isSpinning=!1;openBtn.disabled=!1;
     }
 
     function renderCaseSkins(){const c=CASES[currentCaseIndex];caseSkinCount.textContent=c.skins.length;caseSkinsGrid.innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className='case-skin-preview rarity-'+s.rarity;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;caseSkinsGrid.appendChild(d);});}
@@ -549,282 +333,95 @@
 
     function renderAllInventory(){invCount.textContent=inventory.length;invTotalCount.textContent=inventory.length;invTotalPrice.textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)inventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div>';else{inventoryGrid.innerHTML='';inventory.forEach(i=>inventoryGrid.appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
     function createInventoryItem(item,um,cm){const d=document.createElement('div');d.className='inv-item rarity-'+item.rarity;const us=selectedForUpgrade.has(item.id),cs=selectedForContract.has(item.id);if(us)d.style.borderColor='#ff6a00';if(cs)d.style.borderColor='#7b2fbe';let btns='';if(um)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${us?'rgba(255,106,0,0.3)':'rgba(30,35,48,0.9)'};border-color:${us?'#ff6a00':'rgba(255,255,255,0.06)'};">${us?'✓ Выбран':'Выбрать'}</button>`;else if(cm)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${cs?'rgba(123,47,190,0.3)':'rgba(30,35,48,0.9)'};border-color:${cs?'#7b2fbe':'rgba(255,255,255,0.06)'};">${cs?'✓ Выбран':'Выбрать'}</button>`;else btns=`<button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>`;d.innerHTML=`<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><div class="btn-group">${btns}</div>`;d.querySelectorAll('.btn-sell').forEach(b=>b.addEventListener('click',function(e){e.stopPropagation();const id=parseInt(this.dataset.id),act=this.dataset.action;if(act==='sell')sellItem(id);else if(act==='toggleUpgrade')toggleUpgradeSelection(id);else if(act==='toggleContract')toggleContractSelection(id);}));return d;}
-    function renderUpgradeInventory(){if(inventory.length===0)upgradeInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{upgradeInventoryGrid.innerHTML='';inventory.forEach(i=>upgradeInventoryGrid.appendChild(createInventoryItem(i,!0,!1)));}}
-    function renderContractInventory(){if(inventory.length===0)contractInventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{contractInventoryGrid.innerHTML='';inventory.forEach(i=>contractInventoryGrid.appendChild(createInventoryItem(i,!1,!0)));}}
-    function sellItem(id){const idx=inventory.findIndex(i=>i.id===id);if(idx===-1)return;balance+=inventory[idx].price;updateBalanceUI();inventory.splice(idx,1);selectedForUpgrade.delete(id);selectedForContract.delete(id);renderAllInventory();SoundFX.play('sell');}
-    function setupChanceSelector(){document.querySelectorAll('.chance-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedChance=parseInt(this.dataset.chance);selectedMultiplier=parseFloat(this.dataset.multiplier);updateUpgradeUI();}));}
+    function renderUpgradeInventory(){if(inventory.length===0)document.getElementById('upgradeInventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{document.getElementById('upgradeInventoryGrid').innerHTML='';inventory.forEach(i=>document.getElementById('upgradeInventoryGrid').appendChild(createInventoryItem(i,!0,!1)));}}
+    function renderContractInventory(){if(inventory.length===0)document.getElementById('contractInventoryGrid').innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Нет скинов</div>';else{document.getElementById('contractInventoryGrid').innerHTML='';inventory.forEach(i=>document.getElementById('contractInventoryGrid').appendChild(createInventoryItem(i,!1,!0)));}}
+    function sellItem(id){const idx=inventory.findIndex(i=>i.id===id);if(idx===-1)return;balance+=inventory[idx].price;updateBalanceUI();inventory.splice(idx,1);selectedForUpgrade.delete(id);selectedForContract.delete(id);renderAllInventory();SoundFX.play('sell');saveGame();}
     function toggleUpgradeSelection(id){if(isUpgrading)return;selectedForUpgrade.has(id)?selectedForUpgrade.delete(id):selectedForUpgrade.add(id);renderAllInventory();}
     function toggleContractSelection(id){if(isContracting)return;selectedForContract.has(id)?selectedForContract.delete(id):(selectedForContract.size>=10?alert('Максимум 10!'):selectedForContract.add(id));renderAllInventory();}
-    function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));inputCount.textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);inputTotalPrice.textContent=tp.toFixed(2);if(si.length===0)inputSkinsContainer.innerHTML='<div class="input-placeholder">Выберите скины</div>';else{inputSkinsContainer.innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className='input-skin-item rarity-'+i.rarity;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});inputSkinsContainer.appendChild(d);});}upgradeBtn.disabled=si.length<1||isUpgrading;upgradeSelectCount.textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);resultContainer.innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;multiplierDisplay.textContent=`×${selectedMultiplier.toFixed(2)}`;resultContainer.dataset.targetSkin=JSON.stringify(ts);resultContainer.dataset.totalPrice=tp;upgradeResultMessage.innerHTML='';}else{resultContainer.innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';upgradeResultMessage.innerHTML='';}}
-    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;upgradeBtn.disabled=!0;upgradeArrow.classList.add('spinning');upgradeResultMessage.innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;upgradeArrow.classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');upgradeArrow.className='arrow success';upgradeArrow.textContent='✅';const td=JSON.parse(resultContainer.dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');upgradeArrow.className='arrow fail';upgradeArrow.textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();upgradeResultMessage.innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();setTimeout(()=>{upgradeArrow.className='arrow';upgradeArrow.textContent='⚡';},3000);},1500);}
-    function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));contractCount.textContent=si.length;contractTotalPrice.textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);contractBtn.disabled=si.length<3||si.length>10||isContracting;}
-    function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;contractBtn.disabled=!0;SoundFX.play('contract');contractResult.classList.remove('show');contractAnimation.classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);contractAnimation.classList.remove('show');contractResult.classList.add('show','success');contractResultIcon.textContent='📜';contractResultName.textContent=rs.icon+' '+rs.name;contractResultPrice.textContent=rs.price.toFixed(2)+' ₽';contractResultMultiplier.innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();setTimeout(()=>contractResult.classList.remove('show'),6000);},2000);}
+    function updateUpgradeUI(){const si=inventory.filter(i=>selectedForUpgrade.has(i.id));document.getElementById('inputCount').textContent=si.length;const tp=si.reduce((s,i)=>s+i.price,0);document.getElementById('inputTotalPrice').textContent=tp.toFixed(2);if(si.length===0)document.getElementById('inputSkinsContainer').innerHTML='<div class="input-placeholder">Выберите скины</div>';else{document.getElementById('inputSkinsContainer').innerHTML='';si.forEach(i=>{const d=document.createElement('div');d.className='input-skin-item rarity-'+i.rarity;d.innerHTML=`<span class="icon">${i.icon}</span><div class="name">${i.name}</div><div class="price">${i.price.toFixed(2)} ₽</div><button class="remove-btn" data-id="${i.id}">✕</button>`;d.querySelector('.remove-btn').addEventListener('click',function(e){e.stopPropagation();selectedForUpgrade.delete(parseInt(this.dataset.id));renderAllInventory();});document.getElementById('inputSkinsContainer').appendChild(d);});}document.getElementById('upgradeBtn').disabled=si.length<1||isUpgrading;document.getElementById('upgradeSelectCount').textContent=si.length;if(si.length>=1){const ts=getSkinByPrice(tp*selectedMultiplier);document.getElementById('resultContainer').innerHTML=`<div class="result-skin"><span class="icon">${ts.icon}</span><div class="name">${ts.name}</div><div class="price">${ts.price.toFixed(2)} ₽</div><span class="rarity-badge ${ts.rarity}">${ts.rarity.toUpperCase()}</span></div>`;document.getElementById('multiplierDisplay').textContent=`×${selectedMultiplier.toFixed(2)}`;document.getElementById('resultContainer').dataset.targetSkin=JSON.stringify(ts);document.getElementById('resultContainer').dataset.totalPrice=tp;document.getElementById('upgradeResultMessage').innerHTML='';}else{document.getElementById('resultContainer').innerHTML='<div class="result-placeholder">Выберите минимум 1 скин</div>';document.getElementById('upgradeResultMessage').innerHTML='';}}
+    function performUpgrade(){if(isUpgrading)return;const si=inventory.filter(i=>selectedForUpgrade.has(i.id));if(si.length<1)return alert('Выбери минимум 1 скин!');isUpgrading=!0;document.getElementById('upgradeBtn').disabled=!0;document.getElementById('upgradeArrow').classList.add('spinning');document.getElementById('upgradeResultMessage').innerHTML='<div style="padding:10px;color:#ffaa00;">⚡ Апгрейд...</div>';setTimeout(()=>{const ok=Math.random()*100<selectedChance;document.getElementById('upgradeArrow').classList.remove('spinning');if(ok){SoundFX.play('upgrade_success');document.getElementById('upgradeArrow').className='arrow success';document.getElementById('upgradeArrow').textContent='✅';const td=JSON.parse(document.getElementById('resultContainer').dataset.targetSkin||'null');inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();const ni={...td,id:idCounter++};inventory.push(ni);document.getElementById('upgradeResultMessage').innerHTML=`<div class="upgrade-result-overlay success"><span class="big-icon">🎉</span><div style="font-weight:800;color:#4caf50;font-size:20px;">УСПЕХ!</div><div style="font-size:16px;margin-top:6px;">${ni.icon} ${ni.name}</div></div>`;}else{SoundFX.play('upgrade_fail');document.getElementById('upgradeArrow').className='arrow fail';document.getElementById('upgradeArrow').textContent='❌';inventory=inventory.filter(i=>!selectedForUpgrade.has(i.id));selectedForUpgrade.clear();document.getElementById('upgradeResultMessage').innerHTML=`<div class="upgrade-result-overlay fail"><span class="big-icon">💔</span><div style="font-weight:800;color:#f44336;font-size:20px;">ПРОВАЛ</div></div>`;}isUpgrading=!1;renderAllInventory();saveGame();setTimeout(()=>{document.getElementById('upgradeArrow').className='arrow';document.getElementById('upgradeArrow').textContent='⚡';},3000);},1500);}
+    function updateContractUI(){const si=inventory.filter(i=>selectedForContract.has(i.id));document.getElementById('contractCount').textContent=si.length;document.getElementById('contractTotalPrice').textContent=si.reduce((s,i)=>s+i.price,0).toFixed(2);document.getElementById('contractBtn').disabled=si.length<3||si.length>10||isContracting;}
+    function performContract(){if(isContracting)return;const si=inventory.filter(i=>selectedForContract.has(i.id));if(si.length<3||si.length>10)return alert('Выбери от 3 до 10!');isContracting=!0;document.getElementById('contractBtn').disabled=!0;SoundFX.play('contract');document.getElementById('contractResult').classList.remove('show');document.getElementById('contractAnimation').classList.add('show');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.price,0);const rand=Math.random()*100;let mult=rand<20?.2+Math.random()*.3:rand<45?.5+Math.random()*.3:rand<60?.8+Math.random()*.15:rand<70?.95+Math.random()*.1:rand<85?1.05+Math.random()*.45:rand<95?1.5+Math.random()*1.0:2.5+Math.random()*1.0;const rs=getSkinByPrice(tp*mult);inventory=inventory.filter(i=>!selectedForContract.has(i.id));selectedForContract.clear();const ni={...rs,id:idCounter++};inventory.push(ni);document.getElementById('contractAnimation').classList.remove('show');document.getElementById('contractResult').classList.add('show','success');document.getElementById('contractResultIcon').textContent='📜';document.getElementById('contractResultName').textContent=rs.icon+' '+rs.name;document.getElementById('contractResultPrice').textContent=rs.price.toFixed(2)+' ₽';document.getElementById('contractResultMultiplier').innerHTML=`Множитель: <strong>x${(rs.price/tp).toFixed(2)}</strong>`;isContracting=!1;renderAllInventory();saveGame();setTimeout(()=>document.getElementById('contractResult').classList.remove('show'),6000);},2000);}
     function updateBalanceUI(){balanceSpan.textContent=balance.toFixed(0);}
     function setupTabs(){document.querySelectorAll('.tab-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+this.dataset.tab).classList.add('active');if(['inventory','upgrade','contract'].includes(this.dataset.tab))renderAllInventory();}));}
     function setupMultiSpin(){document.querySelectorAll('.multi-spin-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.multi-spin-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');multiSpinCount=parseInt(this.dataset.count);spinCountDisplay.textContent=multiSpinCount;}));}
+    function setupChanceSelector(){document.querySelectorAll('.chance-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedChance=parseInt(this.dataset.chance);selectedMultiplier=parseFloat(this.dataset.multiplier);updateUpgradeUI();}));}
 
-    function init(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupChanceSelector();setupMultiSpin();openBtn.addEventListener('click',()=>performSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
-    init();
-
-       
-
-// ========== СИСТЕМА РЕГИСТРАЦИИ И СОХРАНЕНИЯ ==========
-
-// Загрузка данных при запуске
-function loadUserData() {
-    const saved = localStorage.getItem('skinVault_user');
-    if (saved) {
-        const data = JSON.parse(saved);
-        balance = data.balance || 1000;
-        inventory = data.inventory || [];
-        idCounter = data.idCounter || 0;
-        renderAllInventory();
-        updateBalanceUI();
-        return true;
+    // ============================================================
+    //  РЕГИСТРАЦИЯ И СОХРАНЕНИЕ
+    // ============================================================
+    function loadGame(){
+        const saved=localStorage.getItem('skinVault_save');
+        if(saved){const data=JSON.parse(saved);balance=data.balance;inventory=data.inventory;idCounter=data.idCounter;renderAllInventory();updateBalanceUI();return!0;}return!1;
     }
-    return false;
-}
-
-// Сохранение данных
-function saveUserData() {
-    const data = {
-        balance: balance,
-        inventory: inventory,
-        idCounter: idCounter,
-        lastSaved: new Date().toISOString()
-    };
-    localStorage.setItem('skinVault_user', JSON.stringify(data));
-}
-
-// Автосохранение каждые 10 секунд
-setInterval(saveUserData, 10000);
-
-// Сохранять при важных действиях
-const originalOpenCase = openBtn ? openBtn.onclick : null;
-
-// Модифицируем performSpin для сохранения
-const originalPerformSpin = performSpin;
-performSpin = async function(count) {
-    await originalPerformSpin(count);
-    saveUserData();
-};
-
-// Модифицируем sellItem для сохранения
-const originalSellItem = sellItem;
-sellItem = function(id) {
-    originalSellItem(id);
-    saveUserData();
-};
-
-// Модифицируем performUpgrade для сохранения
-const originalPerformUpgrade = performUpgrade;
-performUpgrade = function() {
-    originalPerformUpgrade();
-    saveUserData();
-};
-
-// Модифицируем performContract для сохранения
-const originalPerformContract = performContract;
-performContract = function() {
-    originalPerformContract();
-    saveUserData();
-};
-
-// Окно регистрации
-function showRegisterModal() {
-    const modal = document.createElement('div');
-    modal.id = 'registerModal';
-    modal.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); z-index: 1000;
-        display: flex; align-items: center; justify-content: center;
-    `;
-    modal.innerHTML = `
-        <div style="
-            background: rgba(20,24,38,0.95); backdrop-filter: blur(30px);
-            padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; max-width: 400px; width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        ">
-            <div style="font-family:'Orbitron',sans-serif; font-size:24px; font-weight:700; margin-bottom:10px;">
-                ⭐ SKINVAULT
+    function saveGame(){
+        const data={balance:balance,inventory:inventory,idCounter:idCounter,timestamp:new Date().toISOString()};
+        localStorage.setItem('skinVault_save',JSON.stringify(data));
+    }
+    function showUserInfo(nickname){
+        document.getElementById('registerBtn').style.display='none';
+        document.getElementById('userInfo').style.display='flex';
+        document.getElementById('userNickname').textContent='👑 '+nickname;
+    }
+    function hideUserInfo(){
+        document.getElementById('registerBtn').style.display='block';
+        document.getElementById('userInfo').style.display='none';
+    }
+    function showRegisterModal(){
+        const old=document.getElementById('registerModal');if(old)old.remove();
+        const modal=document.createElement('div');modal.id='registerModal';
+        modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
+        modal.innerHTML=`
+            <div style="background:linear-gradient(145deg,rgba(20,24,38,0.98),rgba(15,18,30,0.98));backdrop-filter:blur(30px);padding:40px;border-radius:24px;border:1px solid rgba(255,106,0,0.2);text-align:center;max-width:420px;width:90%;box-shadow:0 20px 80px rgba(0,0,0,0.7);">
+                <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;background:linear-gradient(135deg,#ff6a00,#ff3c00,#7b2fbe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;">⭐ SKINVAULT</div>
+                <div style="color:rgba(255,255,255,0.4);margin-bottom:30px;font-size:14px;">Создай аккаунт чтобы сохранять прогресс</div>
+                <div style="text-align:left;margin-bottom:20px;">
+                    <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:6px;letter-spacing:1px;">НИКНЕЙМ</label>
+                    <input type="text" id="regNickname" placeholder="Введи никнейм..." style="width:100%;padding:14px 18px;background:rgba(10,12,22,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-size:16px;outline:none;font-family:'Inter',sans-serif;transition:0.3s;" onfocus="this.style.borderColor='#ff6a00'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div id="regError" style="color:#ff4444;font-size:13px;margin-bottom:15px;display:none;text-align:center;"></div>
+                <div style="display:flex;gap:10px;">
+                    <button onclick="registerUser()" style="flex:1;padding:14px;background:linear-gradient(135deg,#ff6a00,#ff3c00);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 25px rgba(238,60,0,0.3);transition:0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">✅ РЕГИСТРАЦИЯ</button>
+                </div>
+                <button onclick="document.getElementById('registerModal').remove()" style="margin-top:15px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;transition:0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">✕ Закрыть</button>
+                <div style="margin-top:20px;color:rgba(255,255,255,0.2);font-size:11px;">Данные сохраняются локально в браузере 🔒</div>
             </div>
-            <div style="color:rgba(255,255,255,0.5); margin-bottom:25px; font-size:14px;">
-                Введи никнейм чтобы начать игру
-            </div>
-            <input type="text" id="nicknameInput" placeholder="Твой никнейм"
-                style="
-                    width: 100%; padding: 14px 20px; background: rgba(10,12,22,0.8);
-                    border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-                    color: #fff; font-size: 16px; text-align: center;
-                    margin-bottom: 20px; outline: none;
-                    font-family: 'Inter', sans-serif;
-                "
-            >
-            <div style="display: flex; gap: 10px;">
-                <button onclick="startGame()" style="
-                    flex: 1; padding: 14px; background: linear-gradient(135deg, #ff6a00, #ff3c00);
-                    border: none; border-radius: 12px; color: #fff; font-weight: 700;
-                    font-size: 16px; cursor: pointer; font-family: 'Inter', sans-serif;
-                    box-shadow: 0 4px 20px rgba(238,60,0,0.3);
-                ">🎮 ИГРАТЬ</button>
-                <button onclick="resetGame()" style="
-                    padding: 14px 20px; background: rgba(255,68,68,0.2);
-                    border: 1px solid rgba(255,68,68,0.3); border-radius: 12px;
-                    color: #ff4444; font-weight: 600; font-size: 14px;
-                    cursor: pointer; font-family: 'Inter', sans-serif;
-                ">🔄 Сброс</button>
-            </div>
-            <div id="registerError" style="color: #ff4444; margin-top: 15px; font-size: 13px; display: none;"></div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    document.getElementById('nicknameInput').focus();
-    
-    // Enter для подтверждения
-    document.getElementById('nicknameInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') startGame();
-    });
-}
-
-function startGame() {
-    const nickname = document.getElementById('nicknameInput').value.trim();
-    const errorDiv = document.getElementById('registerError');
-    
-    if (!nickname) {
-        errorDiv.textContent = '❌ Введи никнейм!';
-        errorDiv.style.display = 'block';
-        return;
-    }
-    if (nickname.length < 3) {
-        errorDiv.textContent = '❌ Никнейм должен быть от 3 символов!';
-        errorDiv.style.display = 'block';
-        return;
-    }
-    if (nickname.length > 20) {
-        errorDiv.textContent = '❌ Никнейм слишком длинный (макс 20)!';
-        errorDiv.style.display = 'block';
-        return;
-    }
-    
-    // Сохраняем пользователя
-    localStorage.setItem('skinVault_nickname', nickname);
-    localStorage.setItem('skinVault_registered', 'true');
-    
-    // Закрываем модалку
-    document.getElementById('registerModal').remove();
-    
-    // Показываем приветствие
-    showNotification(`🎉 Добро пожаловать, ${nickname}!`, 'success');
-}
-
-function resetGame() {
-    if (confirm('Точно сбросить весь прогресс? Баланс и инвентарь будут потеряны!')) {
-        localStorage.removeItem('skinVault_user');
-        localStorage.removeItem('skinVault_nickname');
-        localStorage.removeItem('skinVault_registered');
-        balance = 1000;
-        inventory = [];
-        idCounter = 0;
-        selectedForUpgrade.clear();
-        selectedForContract.clear();
-        renderAllInventory();
-        updateBalanceUI();
-        document.getElementById('registerModal').remove();
-        showRegisterModal();
-    }
-}
-
-function showNotification(message, type) {
-    const notif = document.createElement('div');
-    notif.style.cssText = `
-        position: fixed; top: 20px; right: 20px; z-index: 2000;
-        padding: 16px 24px; border-radius: 12px; font-weight: 600;
-        font-family: 'Inter', sans-serif; font-size: 14px;
-        animation: slideIn 0.4s ease-out;
-        max-width: 350px;
-    `;
-    if (type === 'success') {
-        notif.style.background = 'rgba(76,175,80,0.9)';
-        notif.style.color = '#fff';
-    } else if (type === 'error') {
-        notif.style.background = 'rgba(244,67,54,0.9)';
-        notif.style.color = '#fff';
-    }
-    notif.textContent = message;
-    document.body.appendChild(notif);
-    setTimeout(() => {
-        notif.style.transition = '0.3s';
-        notif.style.opacity = '0';
-        notif.style.transform = 'translateX(50px)';
-        setTimeout(() => notif.remove(), 300);
-    }, 2500);
-}
-
-// Добавляем стиль для анимации
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        0% { transform: translateX(100px); opacity: 0; }
-        100% { transform: translateX(0); opacity: 1; }
-    }
-`;
-document.head.appendChild(style);
-
-// Кнопка выхода в хедере
-function addLogoutButton() {
-    const header = document.querySelector('header');
-    const nickname = localStorage.getItem('skinVault_nickname');
-    
-    if (nickname) {
-        const logoutBtn = document.createElement('div');
-        logoutBtn.innerHTML = `
-            <span style="color: rgba(255,255,255,0.5); margin-right: 8px;">👤 ${nickname}</span>
-            <button onclick="logout()" style="
-                background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.3);
-                color: #ff4444; padding: 6px 14px; border-radius: 20px;
-                font-size: 12px; cursor: pointer; font-weight: 600;
-                font-family: 'Inter', sans-serif;
-            ">Выйти</button>
         `;
-        logoutBtn.style.display = 'flex';
-        logoutBtn.style.alignItems = 'center';
-        logoutBtn.style.gap = '8px';
-        header.appendChild(logoutBtn);
+        document.body.appendChild(modal);
+        setTimeout(()=>document.getElementById('regNickname').focus(),100);
+        document.getElementById('regNickname').addEventListener('keypress',(e)=>{if(e.key==='Enter')registerUser();});
+        modal.addEventListener('click',(e)=>{if(e.target===modal)modal.remove();});
     }
-}
-
-function logout() {
-    if (confirm('Выйти из аккаунта? Данные сохранятся.')) {
-        saveUserData();
-        showNotification('👋 До встречи, ' + localStorage.getItem('skinVault_nickname') + '!', 'success');
-        setTimeout(() => location.reload(), 500);
+    function registerUser(){
+        const nickname=document.getElementById('regNickname').value.trim(),err=document.getElementById('regError');
+        if(!nickname){err.textContent='❌ Введи никнейм!';err.style.display='block';return;}
+        if(nickname.length<2){err.textContent='❌ Минимум 2 символа!';err.style.display='block';return;}
+        if(nickname.length>20){err.textContent='❌ Максимум 20 символов!';err.style.display='block';return;}
+        if(!/^[a-zA-Z0-9а-яА-ЯёЁ_\- ]+$/.test(nickname)){err.textContent='❌ Только буквы, цифры и _-';err.style.display='block';return;}
+        localStorage.setItem('skinVault_nickname',nickname);saveGame();showUserInfo(nickname);
+        document.getElementById('registerModal').remove();
     }
-}
-
-// ========== ЗАПУСК ==========
-function initGame() {
-    const isRegistered = localStorage.getItem('skinVault_registered');
-    const hasData = loadUserData();
-    
-    if (!isRegistered) {
-        // Новый пользователь
-        showRegisterModal();
-    } else if (!hasData) {
-        // Зарегистрирован но данных нет - создаём новые
-        balance = 1000;
-        inventory = [];
-        idCounter = 0;
+    function logoutUser(){
+        saveGame();hideUserInfo();
     }
-    
-    addLogoutButton();
-    renderAllInventory();
-    updateBalanceUI();
-}
+    setInterval(()=>{if(localStorage.getItem('skinVault_nickname'))saveGame();},15000);
+    window.addEventListener('beforeunload',()=>saveGame());
 
-// Заменяем обычный init на initGame
-// Найди строчку init(); и замени на:
-// initGame();
+    // ============================================================
+    //  ЗАПУСК
+    // ============================================================
+    function initGame(){
+        const saved=loadGame(),nickname=localStorage.getItem('skinVault_nickname');
+        if(!saved&&!nickname){setTimeout(showRegisterModal,500);}
+        if(nickname)showUserInfo(nickname);
+        renderCases();setupTabs();setupMultiSpin();setupChanceSelector();
+        openBtn.addEventListener('click',()=>performSpin(multiSpinCount));
+        document.getElementById('upgradeBtn').addEventListener('click',performUpgrade);
+        document.getElementById('contractBtn').addEventListener('click',performContract);
+        document.getElementById('clearUpgradeBtn').addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});
+        document.addEventListener('click',()=>SoundFX.init(),{once:!0});
+    }
+    initGame();
     </script>
 </body>
 </html>
