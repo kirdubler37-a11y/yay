@@ -79,42 +79,93 @@
         .case-stats .stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .case-stats .stat-value { color: #ffaa00; font-weight: 700; font-size: 18px; }
 
-        /* СТАНДАРТНАЯ РУЛЕТКА (для одиночного открытия) */
-        .roulette-wrapper { position: relative; width: 100%; height: 150px; background: rgba(8, 10, 18, 0.9); margin: 25px auto; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5); }
-        .roulette-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 10%, transparent 90%, rgba(5, 5, 16, 0.9) 100%); pointer-events: none; z-index: 5; }
-        .pointer { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00); z-index: 10; box-shadow: 0 0 30px #ff6a00, 0 0 60px rgba(255, 106, 0, 0.4); border-radius: 2px; }
-        .pointer::before { content: '▼'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); color: #ffaa00; font-size: 18px; text-shadow: 0 0 30px #ff6a00; }
-        .pointer::after { content: '▼'; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%) rotate(180deg); color: #ffaa00; font-size: 18px; text-shadow: 0 0 30px #ff6a00; }
-        .roulette-tape { display: flex; position: absolute; left: 0; top: 15px; transition: transform 4s cubic-bezier(0.08, 0.82, 0.17, 1); will-change: transform; }
-        .skin-card { width: 120px; height: 115px; margin: 0 6px; background: rgba(20, 24, 38, 0.9); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; padding: 10px; box-sizing: border-box; border-bottom: 4px solid rgba(255, 255, 255, 0.1); flex-shrink: 0; transition: 0.3s; }
-        .skin-card .icon { font-size: 40px; margin-bottom: 5px; }
-        .skin-card .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 10px; }
-        .skin-card .price { font-size: 10px; color: rgba(255, 255, 255, 0.35); margin-top: 3px; }
-        .rarity-legendary { border-bottom-color: #ff4444; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(255, 68, 68, 0.15)); box-shadow: 0 0 20px rgba(255, 68, 68, 0.1); }
-        .rarity-epic { border-bottom-color: #d32ce6; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(211, 44, 230, 0.15)); box-shadow: 0 0 20px rgba(211, 44, 230, 0.1); }
-        .rarity-rare { border-bottom-color: #8847ff; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(136, 71, 255, 0.12)); }
-        .rarity-uncommon { border-bottom-color: #4b69ff; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(75, 105, 255, 0.12)); }
-        .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5); background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(107, 122, 138, 0.08)); }
+        /* КОНТЕЙНЕР ДЛЯ ВСЕХ РУЛЕТОК */
+        .all-roulettes-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 15px auto;
+            max-height: 55vh;
+            overflow-y: auto;
+            padding: 4px;
+        }
+        .all-roulettes-wrapper::-webkit-scrollbar { width: 5px; }
+        .all-roulettes-wrapper::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; }
+        .all-roulettes-wrapper::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
 
-        /* МУЛЬТИ-РУЛЕТКИ (компактные, друг под другом) */
-        .multi-roulettes-container { display: flex; flex-direction: column; gap: 8px; margin: 20px auto; max-height: 500px; overflow-y: auto; padding: 4px; }
-        .multi-roulettes-container::-webkit-scrollbar { width: 5px; }
-        .multi-roulettes-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; }
-        .multi-roulettes-container::-webkit-scrollbar-thumb { background: #ff6a00; border-radius: 10px; }
-        .mini-roulette { position: relative; width: 100%; height: 85px; background: rgba(8, 10, 18, 0.9); overflow: hidden; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06); flex-shrink: 0; }
-        .mini-roulette::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 8%, transparent 92%, rgba(5, 5, 16, 0.9) 100%); pointer-events: none; z-index: 5; }
-        .mini-pointer { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 3px; height: 100%; background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00); z-index: 10; box-shadow: 0 0 20px #ff6a00; border-radius: 1px; }
-        .mini-tape { display: flex; position: absolute; left: 0; top: 8px; transition: transform 3.5s cubic-bezier(0.08, 0.82, 0.17, 1); will-change: transform; }
-        .mini-skin-card { width: 80px; height: 68px; margin: 0 4px; background: rgba(20, 24, 38, 0.9); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; padding: 6px; box-sizing: border-box; border-bottom: 3px solid rgba(255, 255, 255, 0.1); flex-shrink: 0; }
-        .mini-skin-card .icon { font-size: 26px; margin-bottom: 2px; }
-        .mini-skin-card .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 8px; }
-        .mini-skin-card .price { font-size: 8px; color: rgba(255, 255, 255, 0.35); }
-        .mini-roulette .rarity-legendary { border-bottom-color: #ff4444; }
-        .mini-roulette .rarity-epic { border-bottom-color: #d32ce6; }
-        .mini-roulette .rarity-rare { border-bottom-color: #8847ff; }
-        .mini-roulette .rarity-uncommon { border-bottom-color: #4b69ff; }
-        .mini-roulette .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5); }
-        .mini-roulette-number { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.2); font-size: 11px; font-weight: 700; z-index: 11; }
+        /* ОДНА РУЛЕТКА */
+        .single-roulette-item {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background: rgba(8, 10, 18, 0.9);
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+        .single-roulette-item::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(5, 5, 16, 0.9) 0%, transparent 8%, transparent 92%, rgba(5, 5, 16, 0.9) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+        .single-roulette-item .mini-pointer {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, #ff6a00, #ffaa00, #ff6a00);
+            z-index: 10;
+            box-shadow: 0 0 20px #ff6a00, 0 0 40px rgba(255, 106, 0, 0.3);
+            border-radius: 1px;
+        }
+        .single-roulette-item .mini-tape {
+            display: flex;
+            position: absolute;
+            left: 0; top: 12px;
+            transition: transform 3.8s cubic-bezier(0.06, 0.84, 0.16, 1);
+            will-change: transform;
+        }
+        .single-roulette-item .mini-skin-card {
+            width: 85px; height: 75px;
+            margin: 0 4px;
+            background: rgba(20, 24, 38, 0.9);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            padding: 6px;
+            box-sizing: border-box;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+        .single-roulette-item .mini-skin-card .icon { font-size: 28px; margin-bottom: 2px; }
+        .single-roulette-item .mini-skin-card .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; font-size: 8px; }
+        .single-roulette-item .mini-skin-card .price { font-size: 8px; color: rgba(255, 255, 255, 0.35); }
+        .single-roulette-item .roulette-number {
+            position: absolute;
+            left: 12px; top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 11;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        .rarity-legendary { border-bottom-color: #ff4444 !important; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(255, 68, 68, 0.15)) !important; }
+        .rarity-epic { border-bottom-color: #d32ce6 !important; background: linear-gradient(180deg, rgba(20, 24, 38, 0.9) 60%, rgba(211, 44, 230, 0.15)) !important; }
+        .rarity-rare { border-bottom-color: #8847ff !important; }
+        .rarity-uncommon { border-bottom-color: #4b69ff !important; }
+        .rarity-common { border-bottom-color: rgba(107, 122, 138, 0.5) !important; }
 
         .btn-row { display: flex; gap: 12px; max-width: 340px; margin: 15px auto 0; }
         .btn-primary { background: linear-gradient(135deg, #ff6a00, #ff3c00); color: #fff; border: none; padding: 18px 30px; font-size: 18px; font-weight: 700; border-radius: 14px; cursor: pointer; box-shadow: 0 6px 30px rgba(238, 60, 0, 0.4); transition: 0.3s; font-family: 'Inter', sans-serif; flex: 1; position: relative; overflow: hidden; letter-spacing: 1px; text-transform: uppercase; }
@@ -167,9 +218,7 @@
         .btn-sell:hover { background: #ff6a00; color: #050510; border-color: #ff6a00; box-shadow: 0 0 30px rgba(255, 106, 0, 0.3); transform: scale(1.05); }
         .empty-inv { grid-column: 1 / -1; color: rgba(255, 255, 255, 0.1); text-align: center; padding: 50px 20px; font-size: 18px; }
         .empty-inv i { font-size: 60px; display: block; margin-bottom: 15px; opacity: 0.2; }
-
         .upgrade-title, .contract-title { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #ff6a00, #ffaa00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; letter-spacing: 1px; }
-        .upgrade-title small, .contract-title small { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; color: rgba(255, 255, 255, 0.2); -webkit-text-fill-color: rgba(255, 255, 255, 0.2); }
         .upgrade-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 25px; align-items: stretch; margin-bottom: 25px; }
         .upgrade-box { background: rgba(10, 12, 22, 0.8); border-radius: 18px; padding: 25px; border: 1px solid rgba(255, 255, 255, 0.06); min-height: 220px; position: relative; overflow: hidden; transition: 0.3s; }
         .upgrade-box:hover { border-color: rgba(255, 106, 0, 0.2); box-shadow: 0 0 40px rgba(255, 106, 0, 0.05); }
@@ -240,25 +289,16 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         @media (max-width: 768px) {
-            .mini-roulette { height: 65px; }
-            .mini-skin-card { width: 60px; height: 50px; }
-            .mini-skin-card .icon { font-size: 20px; }
+            .single-roulette-item { height: 75px; }
+            .single-roulette-item .mini-skin-card { width: 65px; height: 55px; }
+            .single-roulette-item .mini-skin-card .icon { font-size: 22px; }
             .upgrade-grid { grid-template-columns: 1fr; gap: 18px; }
-            .upgrade-arrow-center { flex-direction: row; padding: 12px 0; }
-            .upgrade-arrow-center .arrow { font-size: 36px; }
-            .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); }
-            .skin-card { width: 85px; height: 95px; }
-            .skin-card .icon { font-size: 30px; }
-            .roulette-wrapper { height: 115px; }
             .case-option { min-width: 105px; padding: 14px 20px; }
-            .case-skin-preview { width: 75px; }
-            .case-skin-preview .icon { font-size: 22px; }
             .logo { font-size: 22px; }
             .balance { font-size: 16px; padding: 10px 18px; }
             .tab-btn { padding: 10px 18px; font-size: 13px; }
             header { padding: 14px 20px; }
             .case-container { padding: 22px; }
-            .case-header h3 { font-size: 20px; }
         }
     </style>
 </head>
@@ -299,18 +339,11 @@
                 <div class="case-stats"><div class="stat-item"><span>Скинов</span><span class="stat-value" id="caseSkinCount">0</span></div></div>
             </div>
 
-            <!-- ОДИНОЧНАЯ РУЛЕТКА (показывается при 1x) -->
-            <div class="roulette-wrapper" id="singleRoulette">
-                <div class="pointer"></div>
-                <div class="roulette-tape" id="tape"></div>
-            </div>
-
-            <!-- МУЛЬТИ-РУЛЕТКИ (показываются при 5x, 10x, 25x, 50x) -->
-            <div class="multi-roulettes-container" id="multiRoulettes" style="display:none;"></div>
+            <!-- ВСЕ РУЛЕТКИ ЗДЕСЬ (и одиночная и мульти) -->
+            <div class="all-roulettes-wrapper" id="allRoulettes"></div>
 
             <div class="btn-row">
-                <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ</button>
-                <button class="btn-primary btn-multi" id="multiSpinBtn"><i class="fas fa-forward"></i> МУЛЬТИ</button>
+                <button class="btn-primary" id="openBtn"><i class="fas fa-key"></i> КРУТИТЬ</button>
             </div>
 
             <div class="multi-results" id="multiResults">
@@ -366,7 +399,7 @@
     </div>
 
     <script>
-    const SoundFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(type){this.init();const ctx=this.ctx,now=ctx.currentTime;const playTone=(freq,dur,vol=.12,type='sine',delay=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(freq,now+delay);g.gain.setValueAtTime(vol,now+delay);g.gain.exponentialRampToValueAtTime(.001,now+delay+dur);o.start(now+delay);o.stop(now+delay+dur)};const noiseBurst=(dur=.3,vol=.06)=>{const bufferSize=ctx.sampleRate*dur,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4);const noise=ctx.createBufferSource(),ng=ctx.createGain();noise.buffer=buffer;noise.connect(ng);ng.connect(ctx.destination);ng.gain.setValueAtTime(vol,now);ng.gain.exponentialRampToValueAtTime(.001,now+dur);noise.start(now);noise.stop(now+dur)};switch(type){case'case_open':noiseBurst(.35,.06);playTone(800,.12,.08,'square',.05);playTone(1100,.08,.05,'square',.15);playTone(1400,.06,.03,'sine',.25);break;case'case_scroll':noiseBurst(.08,.02);playTone(1500,.02,.04,'triangle',.01);break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.1),i*100));noiseBurst(.6,.04);break;case'sell':playTone(1200,.06,.06,'triangle');playTone(800,.06,.06,'triangle',.06);playTone(600,.06,.06,'triangle',.12);break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,.1),i*80));noiseBurst(.4,.03);break;case'upgrade_fail':playTone(250,.4,.12,'sawtooth');playTone(200,.3,.08,'square',.1);noiseBurst(.5,.05);break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>playTone(f,.05,.05,'square'),i*50));noiseBurst(.25,.03);break}}};
+    const SoundFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(type){this.init();const ctx=this.ctx,now=ctx.currentTime;const playTone=(freq,dur,vol=.12,type='sine',delay=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(freq,now+delay);g.gain.setValueAtTime(vol,now+delay);g.gain.exponentialRampToValueAtTime(.001,now+delay+dur);o.start(now+delay);o.stop(now+delay+dur)};const noiseBurst=(dur=.3,vol=.06)=>{const bufferSize=ctx.sampleRate*dur,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4);const noise=ctx.createBufferSource(),ng=ctx.createGain();noise.buffer=buffer;noise.connect(ng);ng.connect(ctx.destination);ng.gain.setValueAtTime(vol,now);ng.gain.exponentialRampToValueAtTime(.001,now+dur);noise.start(now);noise.stop(now+dur)};switch(type){case'case_open':noiseBurst(.35,.06);playTone(800,.12,.08,'square',.05);playTone(1100,.08,.05,'square',.15);playTone(1400,.06,.03,'sine',.25);break;case'case_scroll':noiseBurst(.06,.02);playTone(1500,.02,.03,'triangle',.01);break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.1),i*100));noiseBurst(.6,.04);break;case'sell':playTone(1200,.06,.06,'triangle');playTone(800,.06,.06,'triangle',.06);playTone(600,.06,.06,'triangle',.12);break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,.1),i*80));noiseBurst(.4,.03);break;case'upgrade_fail':playTone(250,.4,.12,'sawtooth');playTone(200,.3,.08,'square',.1);noiseBurst(.5,.05);break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>playTone(f,.05,.05,'square'),i*50));noiseBurst(.25,.03);break}}};
 
     const ALL_SKINS=[
         {name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850.00},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800.00},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890.00},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200.00},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520.00},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680.00},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750.00},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420.00},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350.00},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280.00},{name:"AWP | Lightning Strike",rarity:"legendary",icon:"⚡",price:190.00},{name:"SSG 08 | Blood in the Water",rarity:"legendary",icon:"🦈",price:110.00},
@@ -397,10 +430,10 @@
 
     let balance=1000,inventory=[],idCounter=0,isSpinning=!1,isUpgrading=!1,isContracting=!1,multiSpinCount=5;
     let selectedForUpgrade=new Set,selectedForContract=new Set,currentCaseIndex=0,selectedChance=50,selectedMultiplier=2;
-    const MINI_CARD_WIDTH=88;
+    const MINI_CARD_WIDTH=93;
     const $=id=>document.getElementById(id);
-    const tape=$('tape'),openBtn=$('openBtn'),multiSpinBtn=$('multiSpinBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid');
-    const singleRoulette=$('singleRoulette'),multiRoulettes=$('multiRoulettes');
+    const openBtn=$('openBtn'),balanceSpan=$('balanceDisplay'),inventoryGrid=$('inventoryGrid');
+    const allRoulettes=$('allRoulettes');
     const upgradeInventoryGrid=$('upgradeInventoryGrid'),contractInventoryGrid=$('contractInventoryGrid');
     const invCount=$('invCount'),invTotalCount=$('invTotalCount'),invTotalPrice=$('invTotalPrice');
     const upgradeBtn=$('upgradeBtn'),clearUpgradeBtn=$('clearUpgradeBtn'),contractBtn=$('contractBtn');
@@ -413,22 +446,34 @@
     const caseSelector=$('caseSelector'),caseName=$('caseName'),casePrice=$('casePrice'),caseSkinCount=$('caseSkinCount'),caseSkinsGrid=$('caseSkinsGrid');
     const multiResults=$('multiResults'),multiResultsList=$('multiResultsList'),totalSpent=$('totalSpent'),totalGot=$('totalGot'),totalProfit=$('totalProfit'),spinCountDisplay=$('spinCountDisplay');
 
-    function generateTapeItems(ws,cs,tapeEl){tapeEl.innerHTML='';const cnt=40,wi=32;for(let i=0;i<cnt;i++){let item=(i===wi&&ws)?ws:getRandomItem(cs);const card=document.createElement('div');card.className='skin-card rarity-'+item.rarity;card.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;tapeEl.appendChild(card);}}
-    function generateMiniTapeItems(ws,cs,tapeEl){tapeEl.innerHTML='';const cnt=40,wi=32;for(let i=0;i<cnt;i++){let item=(i===wi&&ws)?ws:getRandomItem(cs);const card=document.createElement('div');card.className='mini-skin-card rarity-'+item.rarity;card.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;tapeEl.appendChild(card);}}
+    function createRouletteElement(index,winSkin,caseSkins){
+        const rouletteDiv=document.createElement('div');
+        rouletteDiv.className='single-roulette-item';
+        rouletteDiv.innerHTML=`
+            <div class="roulette-number">#${index+1}</div>
+            <div class="mini-pointer"></div>
+            <div class="mini-tape"></div>
+        `;
+        const tapeEl=rouletteDiv.querySelector('.mini-tape');
+        // Генерируем ленту
+        tapeEl.innerHTML='';
+        const cnt=40,wi=32;
+        for(let i=0;i<cnt;i++){
+            let item=(i===wi&&winSkin)?winSkin:getRandomItem(caseSkins);
+            const card=document.createElement('div');
+            card.className='mini-skin-card rarity-'+item.rarity;
+            card.innerHTML=`<div class="icon">${item.icon}</div><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div>`;
+            tapeEl.appendChild(card);
+        }
+        return {rouletteDiv,tapeEl};
+    }
 
-    function renderCaseSkins(){const c=CASES[currentCaseIndex];caseSkinCount.textContent=c.skins.length;caseSkinsGrid.innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className='case-skin-preview rarity-'+s.rarity;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;caseSkinsGrid.appendChild(d);});}
-    function renderCases(){caseSelector.innerHTML='';CASES.forEach((c,i)=>{const d=document.createElement('div');d.className=`case-option ${i===currentCaseIndex?'active':''}`;d.innerHTML=`<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;d.addEventListener('click',()=>{currentCaseIndex=i;renderCases();updateCaseUI();renderCaseSkins();generateTapeItems(null,CASES[currentCaseIndex].skins,tape);});caseSelector.appendChild(d);});updateCaseUI();renderCaseSkins();generateTapeItems(null,CASES[currentCaseIndex].skins,tape);}
-    function updateCaseUI(){const c=CASES[currentCaseIndex];caseName.textContent=c.icon+' '+c.name;casePrice.textContent=c.price+' ₽';}
-
-    function spinMiniRoulette(rouletteEl,tapeEl,winSkin,caseSkins){
+    function spinSingleRoulette(rouletteEl,tapeEl){
         return new Promise(resolve=>{
-            tapeEl.style.transition='none';
-            tapeEl.style.transform='translateX(0px)';
-            generateMiniTapeItems(winSkin,caseSkins,tapeEl);
             const ww=rouletteEl.offsetWidth;
             const targetLeft=-(32*MINI_CARD_WIDTH)+(ww/2)-(MINI_CARD_WIDTH/2);
             let cp=0;
-            const sp=12;
+            const sp=14;
             const si=setInterval(()=>{
                 cp-=sp;
                 tapeEl.style.transform=`translateX(${cp}px)`;
@@ -436,59 +481,42 @@
                 if(cp<-1800){
                     clearInterval(si);
                     setTimeout(()=>{
-                        tapeEl.style.transition='transform 3.5s cubic-bezier(0.08, 0.82, 0.17, 1)';
+                        tapeEl.style.transition='transform 3.5s cubic-bezier(0.06, 0.84, 0.16, 1)';
                         tapeEl.style.transform=`translateX(${targetLeft+(Math.random()*30-15)}px)`;
-                    },40);
+                    },30);
                 }
-            },14);
+            },13);
             setTimeout(()=>{resolve();},3700);
         });
     }
 
-    async function performMultiSpin(count){
+    async function performSpin(count){
         if(isSpinning)return;
         const c=CASES[currentCaseIndex];
         const totalCost=c.price*count;
         if(balance<totalCost){alert(`❌ Нужно ${totalCost} ₽ для ${count} открытий!`);return;}
-        isSpinning=!0;openBtn.disabled=!0;multiSpinBtn.disabled=!0;
+        isSpinning=!0;openBtn.disabled=!0;
         balance-=totalCost;updateBalanceUI();
         SoundFX.play('case_open');
 
+        // Определяем выигрыши заранее
         const wins=[];
         for(let i=0;i<count;i++)wins.push(getRandomItem(c.skins));
 
-        // Показываем одиночную или мульти-рулетки
-        if(count===1){
-            singleRoulette.style.display='block';
-            multiRoulettes.style.display='none';
-            multiRoulettes.innerHTML='';
-            await new Promise(resolve=>{
-                tape.style.transition='none';tape.style.transform='translateX(0px)';
-                generateTapeItems(wins[0],c.skins,tape);
-                const ww=singleRoulette.offsetWidth;
-                const targetLeft=-(32*132)+(ww/2)-(132/2);
-                let cp=0;const sp=15;
-                const si=setInterval(()=>{cp-=sp;tape.style.transform=`translateX(${cp}px)`;SoundFX.play('case_scroll');if(cp<-2000){clearInterval(si);setTimeout(()=>{tape.style.transition='transform 4s cubic-bezier(0.08, 0.82, 0.17, 1)';tape.style.transform=`translateX(${targetLeft+(Math.random()*40-20)}px)`;},50);}},16);
-                setTimeout(()=>resolve(),4200);
-            });
-        }else{
-            singleRoulette.style.display='none';
-            multiRoulettes.style.display='flex';
-            multiRoulettes.innerHTML='';
-            const rouletteRefs=[];
-            for(let i=0;i<count;i++){
-                const rDiv=document.createElement('div');
-                rDiv.className='mini-roulette';
-                rDiv.innerHTML=`<div class="mini-roulette-number">#${i+1}</div><div class="mini-pointer"></div><div class="mini-tape"></div>`;
-                multiRoulettes.appendChild(rDiv);
-                rouletteRefs.push({el:rDiv,tape:rDiv.querySelector('.mini-tape')});
-            }
-            // Запускаем все одновременно
-            const promises=rouletteRefs.map((ref,i)=>spinMiniRoulette(ref.el,ref.tape,wins[i],c.skins));
-            await Promise.all(promises);
+        // Очищаем и создаём ВСЕ рулетки СРАЗУ
+        allRoulettes.innerHTML='';
+        const rouletteData=[];
+        for(let i=0;i<count;i++){
+            const {rouletteDiv,tapeEl}=createRouletteElement(i,wins[i],c.skins);
+            allRoulettes.appendChild(rouletteDiv);
+            rouletteData.push({rouletteDiv,tapeEl});
         }
 
-        // Добавляем в инвентарь и показываем результаты
+        // Запускаем ВСЕ рулетки ОДНОВРЕМЕННО
+        const spinPromises=rouletteData.map(({rouletteDiv,tapeEl})=>spinSingleRoulette(rouletteDiv,tapeEl));
+        await Promise.all(spinPromises);
+
+        // Добавляем выигрыши в инвентарь
         let totalGot=0;
         wins.forEach(ws=>{
             inventory.push({...ws,id:idCounter++});
@@ -496,6 +524,7 @@
             if(ws.rarity==='legendary')SoundFX.play('legendary');
         });
 
+        // Показываем результаты
         multiResults.classList.add('show');
         multiResultsList.innerHTML='';
         wins.forEach((r,i)=>{
@@ -511,8 +540,12 @@
         totalProfit.className='total-profit '+(profit>=0?'positive':'negative');
 
         renderAllInventory();
-        isSpinning=!1;openBtn.disabled=!1;multiSpinBtn.disabled=!1;
+        isSpinning=!1;openBtn.disabled=!1;
     }
+
+    function renderCaseSkins(){const c=CASES[currentCaseIndex];caseSkinCount.textContent=c.skins.length;caseSkinsGrid.innerHTML='';[...c.skins].sort((a,b)=>{const o={legendary:0,epic:1,rare:2,uncommon:3,common:4};return(o[a.rarity]||5)-(o[b.rarity]||5)||b.price-a.price}).forEach(s=>{const d=document.createElement('div');d.className='case-skin-preview rarity-'+s.rarity;d.innerHTML=`<span class="icon">${s.icon}</span><div class="name">${s.name}</div><div class="price">${s.price.toFixed(2)} ₽</div>`;caseSkinsGrid.appendChild(d);});}
+    function renderCases(){caseSelector.innerHTML='';CASES.forEach((c,i)=>{const d=document.createElement('div');d.className=`case-option ${i===currentCaseIndex?'active':''}`;d.innerHTML=`<span class="case-icon">${c.icon}</span><div class="case-name">${c.name}</div><div class="case-price">${c.price} ₽</div><div class="case-skins">${c.skins.length} скинов</div>`;d.addEventListener('click',()=>{currentCaseIndex=i;renderCases();updateCaseUI();renderCaseSkins();});caseSelector.appendChild(d);});updateCaseUI();renderCaseSkins();}
+    function updateCaseUI(){const c=CASES[currentCaseIndex];caseName.textContent=c.icon+' '+c.name;casePrice.textContent=c.price+' ₽';}
 
     function renderAllInventory(){invCount.textContent=inventory.length;invTotalCount.textContent=inventory.length;invTotalPrice.textContent=inventory.reduce((s,i)=>s+i.price,0).toFixed(2);if(inventory.length===0)inventoryGrid.innerHTML='<div class="empty-inv"><i class="fas fa-box-open"></i>Инвентарь пуст</div>';else{inventoryGrid.innerHTML='';inventory.forEach(i=>inventoryGrid.appendChild(createInventoryItem(i,!1,!1)));}renderUpgradeInventory();renderContractInventory();updateUpgradeUI();updateContractUI();}
     function createInventoryItem(item,um,cm){const d=document.createElement('div');d.className='inv-item rarity-'+item.rarity;const us=selectedForUpgrade.has(item.id),cs=selectedForContract.has(item.id);if(us)d.style.borderColor='#ff6a00';if(cs)d.style.borderColor='#7b2fbe';let btns='';if(um)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleUpgrade" style="background:${us?'rgba(255,106,0,0.3)':'rgba(30,35,48,0.9)'};border-color:${us?'#ff6a00':'rgba(255,255,255,0.06)'};">${us?'✓ Выбран':'Выбрать'}</button>`;else if(cm)btns=`<button class="btn-sell" data-id="${item.id}" data-action="toggleContract" style="background:${cs?'rgba(123,47,190,0.3)':'rgba(30,35,48,0.9)'};border-color:${cs?'#7b2fbe':'rgba(255,255,255,0.06)'};">${cs?'✓ Выбран':'Выбрать'}</button>`;else btns=`<button class="btn-sell" data-id="${item.id}" data-action="sell"><i class="fas fa-dollar-sign"></i> Продать</button>`;d.innerHTML=`<span class="icon">${item.icon}</span><div class="name">${item.name}</div><div class="price">${item.price.toFixed(2)} ₽</div><div class="btn-group">${btns}</div>`;d.querySelectorAll('.btn-sell').forEach(b=>b.addEventListener('click',function(e){e.stopPropagation();const id=parseInt(this.dataset.id),act=this.dataset.action;if(act==='sell')sellItem(id);else if(act==='toggleUpgrade')toggleUpgradeSelection(id);else if(act==='toggleContract')toggleContractSelection(id);}));return d;}
@@ -530,7 +563,7 @@
     function setupTabs(){document.querySelectorAll('.tab-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+this.dataset.tab).classList.add('active');if(['inventory','upgrade','contract'].includes(this.dataset.tab))renderAllInventory();}));}
     function setupMultiSpin(){document.querySelectorAll('.multi-spin-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.multi-spin-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');multiSpinCount=parseInt(this.dataset.count);spinCountDisplay.textContent=multiSpinCount;}));}
 
-    function init(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupChanceSelector();setupMultiSpin();openBtn.addEventListener('click',()=>performMultiSpin(1));multiSpinBtn.addEventListener('click',()=>performMultiSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
+    function init(){renderCases();renderAllInventory();updateBalanceUI();setupTabs();setupChanceSelector();setupMultiSpin();openBtn.addEventListener('click',()=>performSpin(multiSpinCount));upgradeBtn.addEventListener('click',performUpgrade);contractBtn.addEventListener('click',performContract);clearUpgradeBtn.addEventListener('click',()=>{selectedForUpgrade.clear();renderAllInventory();});document.addEventListener('click',()=>SoundFX.init(),{once:!0});}
     init();
     </script>
 </body>
