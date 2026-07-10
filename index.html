@@ -1,2248 +1,487 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>CaseNova - Case Simulator</title>
-
-<style>
-.upgrade{
-
-max-width:1100px;
-
-margin:50px auto;
-
-padding:25px;
-
-background:#181f2d;
-
-border-radius:15px;
-
-text-align:center;
-
-}
-
-
-
-#upgrade-list{
-
-display:flex;
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-gap:15px;
-
-margin:25px 0;
-
-}
-
-
-
-.upgrade-card{
-
-width:150px;
-
-padding:15px;
-
-background:#252d40;
-
-border-radius:12px;
-
-cursor:pointer;
-
-transition:.2s;
-
-}
-
-
-
-.upgrade-card:hover{
-
-transform:scale(1.05);
-
-}
-
-
-
-.upgrade-card.selected{
-
-border:3px solid #ff9800;
-
-}
-
-
-
-#upgrade-start{
-
-padding:15px 40px;
-
-border:none;
-
-border-radius:10px;
-
-background:#00c853;
-
-color:white;
-
-font-weight:bold;
-
-font-size:18px;
-
-cursor:pointer;
-
-}
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-body{
-
-    background:#0d1017;
-    color:white;
-
-}
-
-
-/* HEADER */
-
-header{
-
-    height:80px;
-    background:#171b25;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 40px;
-
-    border-bottom:2px solid #ff9800;
-
-}
-
-
-.logo{
-
-    font-size:32px;
-    font-weight:900;
-
-    color:#ff9800;
-
-}
-
-
-nav{
-
-    display:flex;
-    gap:15px;
-
-}
-
-
-nav button{
-
-    background:#252c3d;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 20px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-
-nav button:hover{
-
-    background:#ff9800;
-
-}
-
-
-.balance{
-
-    background:#252c3d;
-
-    padding:14px 22px;
-
-    border-radius:12px;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-}
-
-
-
-/* HERO */
-
-
-.hero{
-
-    text-align:center;
-
-    padding:60px 20px;
-
-}
-
-
-.hero h1{
-
-    font-size:55px;
-
-    color:white;
-
-}
-
-
-.hero p{
-
-    margin-top:15px;
-
-    color:#888;
-
-    font-size:20px;
-
-}
-
-
-
-
-/* CASES */
-
-
-.cases{
-
-    max-width:1300px;
-
-    margin:auto;
-
-    padding:40px;
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-    gap:25px;
-
-}
-
-
-
-.case{
-
-    background:#181f2d;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-    transition:.25s;
-
-    box-shadow:0 0 25px #000;
-
-}
-
-
-
-.case:hover{
-
-    transform:translateY(-8px);
-
-}
-
-
-
-.case-icon{
-
-    height:220px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:100px;
-
-    background:
-
-    linear-gradient(
-    180deg,
-    #29334a,
-    #181f2d
-    );
-
-}
-
-
-
-.case-info{
-
-    padding:20px;
-
-}
-
-
-
-.case-name{
-
-    font-size:25px;
-
-    font-weight:bold;
-
-}
-
-
-
-.case-price{
-
-    margin-top:10px;
-
-    color:#ff9800;
-
-    font-size:22px;
-
-}
-
-
-
-.open-btn{
-
-    width:100%;
-
-    margin-top:20px;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    color:white;
-
-    background:
-
-    linear-gradient(
-    45deg,
-    #ff9800,
-    #ff5200
-    );
-
-}
-
-
-
-.open-btn:hover{
-
-    filter:brightness(1.15);
-
-}
-
-
-
-/* ROULETTE */
-
-
-.roulette-box{
-
-    display:none;
-
-    max-width:900px;
-
-    margin:50px auto;
-
-    padding:20px;
-
-}
-
-
-
-.roulette{
-
-    height:150px;
-
-    background:#171d29;
-
-    border:2px solid #333;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-    position:relative;
-
-}
-
-
-
-.pointer{
-
-    position:absolute;
-
-    left:50%;
-
-    top:0;
-
-    height:100%;
-
-    width:4px;
-
-    background:#ff9800;
-
-    z-index:10;
-
-}
-
-
-
-.tape{
-
-    display:flex;
-
-    position:absolute;
-
-    top:15px;
-
-    left:0;
-
-}
-
-
-
-/* INVENTORY */
-
-
-.inventory{
-
-    max-width:1300px;
-
-    margin:60px auto;
-
-    padding:30px;
-
-}
-
-
-
-.inventory-grid{
-
-    display:grid;
-
-    grid-template-columns:
-
-    repeat(auto-fill,minmax(160px,1fr));
-
-    gap:15px;
-
-}
-
-
-
-.item{
-
-    background:#181f2d;
-
-    padding:15px;
-
-    border-radius:12px;
-
-    text-align:center;
-
-}
-
-
-
-.item-icon{
-
-    font-size:55px;
-
-}
-
-
-
-
-footer{
-
-    margin-top:80px;
-
-    background:#171b25;
-
-    padding:30px;
-
-    text-align:center;
-
-    color:#777;
-
-}
-
-
-</style>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CaseBattle | Открытие кейсов</title>
+    <!-- Шрифты и иконки -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ----- RESET & GLOBAL ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0e14;
+            color: #e3e6ed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app {
+            max-width: 1000px;
+            width: 100%;
+            background: #141a24;
+            border-radius: 32px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid #2a313e;
+        }
+
+        /* ----- HEADER ----- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #f7c948, #f0a500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo i {
+            -webkit-text-fill-color: #f0a500;
+            margin-right: 8px;
+        }
+
+        .balance {
+            background: #1f2836;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 18px;
+            border: 1px solid #2f3a4b;
+        }
+        .balance i {
+            color: #f0a500;
+            margin-right: 8px;
+        }
+        .balance span {
+            color: #b9c4d4;
+            font-weight: 400;
+        }
+
+        /* ----- CASE CARD ----- */
+        .case-card {
+            background: #1a212c;
+            border-radius: 24px;
+            padding: 30px 20px 25px;
+            text-align: center;
+            border: 1px solid #2a3342;
+            margin-bottom: 30px;
+            transition: 0.2s;
+        }
+
+        .case-card h2 {
+            font-weight: 600;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .case-card .sub {
+            color: #8895aa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Слот-машина (рулетка) */
+        .slot-machine {
+            background: #0f141d;
+            border-radius: 20px;
+            padding: 20px 10px;
+            margin: 20px 0 25px;
+            border: 1px solid #28303f;
+            overflow: hidden;
+        }
+
+        .slot-track {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: nowrap;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            min-height: 110px;
+            align-items: center;
+        }
+
+        .slot-item {
+            flex: 0 0 90px;
+            background: #1e2735;
+            border-radius: 16px;
+            padding: 12px 6px;
+            text-align: center;
+            border: 2px solid #2d384a;
+            transition: 0.2s;
+            opacity: 0.6;
+            scale: 0.9;
+        }
+        .slot-item.active {
+            opacity: 1;
+            scale: 1.05;
+            border-color: #f0a500;
+            box-shadow: 0 0 20px rgba(240, 165, 0, 0.3);
+        }
+        .slot-item .icon {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .slot-item .name {
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .slot-item .price {
+            font-size: 10px;
+            color: #8895aa;
+        }
+
+        /* Редкости (цвета) */
+        .rarity-common .icon { color: #b0b7c2; }
+        .rarity-uncommon .icon { color: #5b9e6b; }
+        .rarity-rare .icon { color: #3b7fc9; }
+        .rarity-epic .icon { color: #9b4bca; }
+        .rarity-legendary .icon { color: #d48c2b; }
+
+        /* Кнопка открытия */
+        .btn-open {
+            background: linear-gradient(135deg, #f7c948, #e09d00);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 18px;
+            color: #0b0e14;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 0 #a57300;
+            width: 100%;
+            max-width: 300px;
+            letter-spacing: 0.3px;
+        }
+        .btn-open:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #a57300;
+        }
+        .btn-open:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a57300;
+        }
+        .btn-open:disabled {
+            opacity: 0.5;
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a57300;
+            pointer-events: none;
+        }
+
+        /* ----- HISTORY ----- */
+        .history-section {
+            margin-top: 20px;
+        }
+        .history-section h3 {
+            font-weight: 600;
+            font-size: 16px;
+            color: #8895aa;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .history-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .history-list::-webkit-scrollbar-track {
+            background: #1a212c;
+        }
+        .history-list::-webkit-scrollbar-thumb {
+            background: #f0a500;
+            border-radius: 8px;
+        }
+
+        .history-item {
+            background: #1a212c;
+            padding: 10px 16px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #f0a500;
+            font-size: 14px;
+        }
+        .history-item .h-name {
+            font-weight: 500;
+        }
+        .history-item .h-price {
+            color: #b9c4d4;
+        }
+        .history-item .h-rarity {
+            font-size: 12px;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #232d3e;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* адаптив */
+        @media (max-width: 640px) {
+            .app { padding: 16px; }
+            .slot-item { flex: 0 0 70px; padding: 8px 4px; }
+            .slot-item .icon { font-size: 28px; }
+            .slot-item .name { font-size: 9px; }
+        }
+    </style>
 </head>
-
-
 <body>
 
+<div class="app">
 
-<header>
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="logo"><i class="fas fa-box-open"></i> CaseBattle</div>
+        <div class="balance"><i class="fas fa-coins"></i> <span id="balanceDisplay">1000</span></div>
+    </header>
 
+    <!-- КЕЙС -->
+    <div class="case-card">
+        <h2>🌀 Стандартный кейс</h2>
+        <div class="sub">Нажми на кнопку, чтобы открыть</div>
 
-<div class="logo">
+        <!-- Слоты -->
+        <div class="slot-machine" id="slotMachine">
+            <div class="slot-track" id="slotTrack">
+                <!-- скины будут вставлены через JS -->
+            </div>
+        </div>
 
-🎲 CaseNova
+        <button class="btn-open" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ (50)</button>
+    </div>
 
-</div>
-
-
-<nav>
-
-<button>Главная</button>
-
-<button>Кейсы</button>
-
-<button>Апгрейд</button>
-
-<button>Инвентарь</button>
-
-</nav>
-
-
-<div class="balance">
-
-💰
-
-<span id="balance">
-
-5000
-
-</span>
-
-Фст.
+    <!-- ИСТОРИЯ -->
+    <div class="history-section">
+        <h3><i class="fas fa-clock"></i> Последние открытия</h3>
+        <div class="history-list" id="historyList">
+            <!-- сюда будут добавляться записи -->
+            <div style="color:#5a677a; text-align:center; padding:12px; font-size:14px;">История пуста</div>
+        </div>
+    </div>
 
 </div>
-
-
-</header>
-
-
-
-<section class="hero">
-
-
-<h1>
-
-Открывай кейсы
-
-</h1>
-
-
-<p>
-
-Выбивай редкие предметы и улучшай их
-
-</p>
-
-
-</section>
-
-
-
-
-
-<section class="cases">
-
-
-<div class="case">
-
-
-<div class="case-icon">
-
-📦
-
-</div>
-
-
-<div class="case-info">
-
-
-<div class="case-name">
-
-Starter Case
-
-</div>
-
-
-<div class="case-price">
-
-100 Фст.
-
-</div>
-
-
-<button class="open-btn" data-price="100">
-
-Открыть
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="case">
-
-
-<div class="case-icon">
-
-💎
-
-</div>
-
-
-<div class="case-info">
-
-
-<div class="case-name">
-
-Premium Case
-
-</div>
-
-
-<div class="case-price">
-
-250 Фст.
-
-</div>
-
-
-<button class="open-btn" data-price="250">
-
-Открыть
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="case">
-
-
-<div class="case-icon">
-
-🔥
-
-</div>
-
-
-<div class="case-info">
-
-
-<div class="case-name">
-
-Fire Case
-
-</div>
-
-
-<div class="case-price">
-
-500 Фст.
-
-</div>
-
-
-<button class="open-btn" data-price="500">
-
-Открыть
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="case">
-
-
-<div class="case-icon">
-
-👑
-
-</div>
-
-
-<div class="case-info">
-
-
-<div class="case-name">
-
-Royal Case
-
-</div>
-
-
-<div class="case-price">
-
-1000 Фст.
-
-</div>
-
-
-<button class="open-btn" data-price="1000">
-
-Открыть
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-<section class="roulette-box">
-
-
-<div class="roulette">
-
-
-<div class="pointer"></div>
-
-
-<div class="tape" id="tape">
-
-</div>
-
-
-</div>
-
-
-</section>
-
-<section class="upgrade">
-
-<h2>⬆️ Апгрейд</h2>
-
-<p id="upgrade-text">
-Выберите предмет
-</p>
-
-
-<div id="upgrade-list">
-
-</div>
-
-
-<button id="upgrade-start">
-
-Улучшить
-
-</button>
-
-
-</section>
-
-<section class="inventory">
-
-
-<h2>
-
-🎒 Инвентарь
-
-</h2>
-
-
-<br>
-
-
-<div class="inventory-grid" id="inventory">
-
-
-</div>
-
-
-</section>
-
-
-
-<footer>
-
-
-CaseNova © 2026
-
-
-</footer>
-
 
 <script>
-  // ===============================
-// CASE NOVA DATA SYSTEM
-// PART 2/6
-// ===============================
-
-
-let balance = Number(localStorage.getItem("balance")) || 5000;
-
-
-let inventory = JSON.parse(
-    localStorage.getItem("inventory")
-) || [];
-
-
-
-const balanceText =
-document.getElementById("balance");
-
-
-const inventoryBox =
-document.getElementById("inventory");
-
-
-const tape =
-document.getElementById("tape");
-
-
-const rouletteBox =
-document.querySelector(".roulette-box");
-
-
-
-
-// ===============================
-// SKINS DATABASE
-// ===============================
-
-
-const skins = [
-
-
-{
-name:"USP-S | Guardian",
-emoji:"🔫",
-price:80,
-rarity:"mil"
-},
-
-
-{
-name:"Glock-18 | Water",
-emoji:"🔫",
-price:120,
-rarity:"mil"
-},
-
-
-{
-name:"MP7 | Bloodsport",
-emoji:"⚡",
-price:250,
-rarity:"restricted"
-},
-
-
-{
-name:"M4A1-S | Printstream",
-emoji:"⚡",
-price:700,
-rarity:"restricted"
-},
-
-
-{
-name:"AK-47 | Vulcan",
-emoji:"🔥",
-price:1200,
-rarity:"classified"
-},
-
-
-{
-name:"AWP | Asiimov",
-emoji:"🎯",
-price:1800,
-rarity:"classified"
-},
-
-
-{
-name:"Butterfly Knife | Fade",
-emoji:"🔪",
-price:5000,
-rarity:"knife"
-},
-
-
-{
-name:"Karambit | Doppler",
-emoji:"🔪",
-price:7500,
-rarity:"knife"
-},
-
-
-{
-name:"AWP | Dragon Lore",
-emoji:"🐉",
-price:15000,
-rarity:"legendary"
-}
-
-
-];
-
-
-
-
-// ===============================
-// RARITY COLORS
-// ===============================
-
-
-function rarityColor(rarity){
-
-
-if(rarity==="mil")
-return "#4b69ff";
-
-
-if(rarity==="restricted")
-return "#8847ff";
-
-
-if(rarity==="classified")
-return "#d32ce6";
-
-
-if(rarity==="knife")
-return "#ff9800";
-
-
-if(rarity==="legendary")
-return "#ffd700";
-
-
-return "white";
-
-
-}
-
-
-
-
-
-// ===============================
-// SAVE SYSTEM
-// ===============================
-
-
-function saveData(){
-
-
-localStorage.setItem(
-"balance",
-balance
-);
-
-
-localStorage.setItem(
-"inventory",
-JSON.stringify(inventory)
-);
-
-
-}
-
-
-
-
-
-// ===============================
-// UPDATE BALANCE
-// ===============================
-
-
-function updateBalance(){
-
-
-balanceText.innerHTML =
-balance;
-
-
-saveData();
-
-
-}
-
-
-
-
-
-// ===============================
-// DRAW INVENTORY
-// ===============================
-
-
-function drawInventory(){
-
-
-inventoryBox.innerHTML="";
-
-
-
-if(inventory.length===0){
-
-
-inventoryBox.innerHTML =
-
-`
-<p style="color:#777">
-
-Инвентарь пуст...
-
-</p>
-`;
-
-return;
-
-}
-
-
-
-
-inventory.forEach((item,index)=>{
-
-
-let card =
-document.createElement("div");
-
-
-card.className="item";
-
-
-card.innerHTML =
-
-
-`
-
-<div class="item-icon">
-
-${item.emoji}
-
-</div>
-
-
-<h3>
-
-${item.name}
-
-</h3>
-
-
-<p style="color:${rarityColor(item.rarity)}">
-
-${item.price} Фст.
-
-</p>
-
-
-`;
-
-
-
-inventoryBox.appendChild(card);
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-updateBalance();
-
-drawInventory();
-  // ===============================
-// CASE OPENING SYSTEM
-// PART 3/6
-// ===============================
-
-
-
-function randomSkin(){
-
-
-let chance = Math.random()*100;
-
-
-
-// 1% легендарка
-
-if(chance <= 1){
-
-return skins[8];
-
-}
-
-
-// 5% нож
-
-if(chance <= 6){
-
-return skins[
-6 + Math.floor(Math.random()*2)
-];
-
-}
-
-
-// 15% дорогие
-
-if(chance <= 21){
-
-return skins[
-4 + Math.floor(Math.random()*2)
-];
-
-}
-
-
-// обычные
-
-return skins[
-Math.floor(
-Math.random()*4
-)
-];
-
-
-}
-
-
-
-
-
-function createTape(winItem){
-
-
-tape.innerHTML="";
-
-
-
-for(let i=0;i<50;i++){
-
-
-let item=randomSkin();
-
-
-
-if(i===42){
-
-item=winItem;
-
-}
-
-
-
-let div=document.createElement("div");
-
-
-div.className="skin";
-
-
-div.style.width="120px";
-
-div.style.height="120px";
-
-div.style.margin="0 5px";
-
-div.style.background="#222b3d";
-
-div.style.borderRadius="10px";
-
-div.style.display="flex";
-
-div.style.flexDirection="column";
-
-div.style.justifyContent="center";
-
-div.style.alignItems="center";
-
-div.style.borderBottom=
-
-"5px solid "+rarityColor(item.rarity);
-
-
-
-div.innerHTML=
-
-`
-
-<div style="font-size:45px">
-
-${item.emoji}
-
-</div>
-
-
-<span style="font-size:11px">
-
-${item.name}
-
-</span>
-
-`;
-
-
-
-tape.appendChild(div);
-
-
-}
-
-
-
-}
-
-
-
-
-
-function openCase(price){
-
-
-
-if(balance < price){
-
-
-alert(
-"Недостаточно средств!"
-);
-
-
-return;
-
-}
-
-
-
-balance -= price;
-
-
-updateBalance();
-
-
-
-let win =
-randomSkin();
-
-
-
-createTape(win);
-
-
-
-rouletteBox.style.display="block";
-
-
-
-tape.style.transition="none";
-
-
-tape.style.transform=
-"translateX(0px)";
-
-
-
-setTimeout(()=>{
-
-
-
-let move =
--42 * 130;
-
-
-
-move -= Math.random()*200;
-
-
-
-tape.style.transition =
-"transform 5s cubic-bezier(.1,.8,.2,1)";
-
-
-
-tape.style.transform =
-`translateX(${move}px)`;
-
-
-},100);
-
-
-
-
-
-setTimeout(()=>{
-
-
-inventory.unshift(win);
-
-
-
-drawInventory();
-
-
-saveData();
-
-
-
-alert(
-
-"🎉 Вы выиграли: "+
-win.name
-
-);
-
-
-
-},5200);
-
-
-
-}
-
-
-
-
-
-// ===============================
-// BUTTONS
-// ===============================
-
-
-
-document
-.querySelectorAll(".open-btn")
-.forEach(button=>{
-
-
-button.addEventListener(
-"click",
-()=>{
-
-
-let price =
-Number(
-button.dataset.price
-);
-
-
-
-openCase(price);
-
-
-
-}
-
-);
-
-
-});
-  // ===============================
-// INVENTORY SYSTEM
-// PART 4/6
-// ===============================
-
-
-
-function drawInventory(){
-
-
-inventoryBox.innerHTML="";
-
-
-
-if(inventory.length===0){
-
-
-inventoryBox.innerHTML=
-
-`
-
-<p style="color:#777">
-
-Инвентарь пуст...
-
-</p>
-
-`;
-
-return;
-
-
-}
-
-
-
-inventory.forEach((item,index)=>{
-
-
-
-let card =
-document.createElement("div");
-
-
-
-card.className="item";
-
-
-
-card.innerHTML =
-
-`
-
-<div class="item-icon">
-
-${item.emoji}
-
-</div>
-
-
-<h3>
-
-${item.name}
-
-</h3>
-
-
-<p style="
-color:${rarityColor(item.rarity)}
-">
-
-${item.price} Фст.
-
-</p>
-
-
-<button 
-class="sell-button"
-onclick="sellItem(${index})">
-
-Продать
-
-</button>
-
-
-`;
-
-
-
-inventoryBox.appendChild(card);
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-// ===============================
-// SELL ITEMS
-// ===============================
-
-
-
-function sellItem(index){
-
-
-
-let item =
-inventory[index];
-
-
-
-if(!item)
-return;
-
-
-
-balance += item.price;
-
-
-
-inventory.splice(
-index,
-1
-);
-
-
-
-updateBalance();
-
-
-drawInventory();
-
-
-saveData();
-
-
-
-alert(
-
-"💰 Продано за "+
-item.price+
-" Фст."
-
-);
-
-
-
-}
-
-
-
-
-
-// ===============================
-// SELL BUTTON STYLE
-// ===============================
-
-
-
-let sellStyle =
-document.createElement("style");
-
-
-
-sellStyle.innerHTML=`
-
-.sell-button{
-
-
-margin-top:10px;
-
-padding:8px 15px;
-
-border:none;
-
-border-radius:8px;
-
-background:#e53935;
-
-color:white;
-
-font-weight:bold;
-
-cursor:pointer;
-
-
-}
-
-
-.sell-button:hover{
-
-
-background:#ff5252;
-
-
-}
-
-
-`;
-
-
-
-document.head.appendChild(
-sellStyle
-);
-
-
-
-// обновляем после загрузки
-
-
-drawInventory();
-  // ===============================
-// UPGRADE SYSTEM
-// PART 5/6
-// ===============================
-
-
-
-let upgradeItem = null;
-
-let upgradeTarget = null;
-
-
-
-const upgradeList =
-document.getElementById(
-"upgrade-list"
-);
-
-
-const upgradeText =
-document.getElementById(
-"upgrade-text"
-);
-
-
-
-
-// создаём список целей
-
-
-function loadUpgradeTargets(){
-
-
-upgradeList.innerHTML="";
-
-
-
-skins.forEach((skin)=>{
-
-
-
-let div =
-document.createElement("div");
-
-
-
-div.className=
-"upgrade-card";
-
-
-
-div.innerHTML=
-
-`
-
-<div style="font-size:45px">
-
-${skin.emoji}
-
-</div>
-
-
-<b>
-
-${skin.name}
-
-</b>
-
-
-<br>
-
-<span>
-
-${skin.price} Фст.
-
-</span>
-
-`;
-
-
-
-div.onclick=()=>{
-
-
-upgradeTarget=skin;
-
-
-document
-.querySelectorAll(".upgrade-card")
-.forEach(x=>
-
-x.classList.remove("selected")
-
-);
-
-
-
-div.classList.add(
-"selected"
-);
-
-
-
-upgradeText.innerHTML=
-
-"Цель: "+
-skin.name;
-
-
-};
-
-
-
-upgradeList.appendChild(div);
-
-
-
-});
-
-
-}
-
-
-
-
-
-loadUpgradeTargets();
-
-
-
-
-// выбор предмета
-
-
-function chooseUpgradeItem(index){
-
-
-upgradeItem =
-inventory[index];
-
-
-
-upgradeText.innerHTML=
-
-`
-
-Выбран:
-
-${upgradeItem.name}
-
-<br>
-
-Теперь выберите цель
-
-`;
-
-
-
-}
-
-
-
-
-// переписываем инвентарь
-// чтобы можно было выбирать
-
-
-function drawInventory(){
-
-
-inventoryBox.innerHTML="";
-
-
-
-if(inventory.length===0){
-
-
-inventoryBox.innerHTML=
-
-"<p style='color:#777'>Инвентарь пуст</p>";
-
-return;
-
-
-}
-
-
-
-inventory.forEach((item,index)=>{
-
-
-let card =
-document.createElement("div");
-
-
-
-card.className="item";
-
-
-
-card.onclick=()=>{
-
-chooseUpgradeItem(index);
-
-};
-
-
-
-card.innerHTML=
-
-`
-
-<div class="item-icon">
-
-${item.emoji}
-
-</div>
-
-
-<h3>
-
-${item.name}
-
-</h3>
-
-
-<p>
-
-${item.price} Фст.
-
-</p>
-
-`;
-
-
-
-inventoryBox.appendChild(card);
-
-
-
-});
-
-
-}
-
-
-
-
-
-// запуск апгрейда
-
-
-document
-.getElementById(
-"upgrade-start"
-)
-.onclick=function(){
-
-
-
-if(!upgradeItem){
-
-alert(
-"Выберите свой предмет"
-);
-
-return;
-
-}
-
-
-
-if(!upgradeTarget){
-
-alert(
-"Выберите цель"
-);
-
-return;
-
-}
-
-
-
-
-let chance =
-
-(upgradeItem.price /
-upgradeTarget.price)
-*
-100;
-
-
-
-if(chance>95)
-
-chance=95;
-
-
-
-let roll =
-Math.random()*100;
-
-
-
-if(roll <= chance){
-
-
-
-let index =
-inventory.indexOf(
-upgradeItem
-);
-
-
-
-inventory[index]=
-upgradeTarget;
-
-
-
-alert(
-
-"🎉 Успех!\n"+
-upgradeTarget.name
-
-);
-
-
-
-}
-
-else{
-
-
-let index =
-inventory.indexOf(
-upgradeItem
-);
-
-
-
-inventory.splice(
-index,
-1
-);
-
-
-
-alert(
-"💥 Неудача. Предмет сгорел"
-);
-
-
-}
-
-
-
-upgradeItem=null;
-
-upgradeTarget=null;
-
-
-saveData();
-
-drawInventory();
-
-
-
-};
-  
-// ===============================
-// FINAL POLISH
-// PART 6/6
-// ===============================
-
-
-// Уведомления
-
-function notify(text){
-
-
-let box =
-document.createElement("div");
-
-
-box.className="notify";
-
-
-box.innerHTML=text;
-
-
-document.body.appendChild(box);
-
-
-
-setTimeout(()=>{
-
-
-box.classList.add("show");
-
-
-},50);
-
-
-
-setTimeout(()=>{
-
-
-box.classList.remove("show");
-
-
-setTimeout(()=>{
-
-box.remove();
-
-},300);
-
-
-
-},2500);
-
-
-
-}
-
-
-
-
-// заменяем alert
-
-window.alert=function(text){
-
-notify(text);
-
-};
-
-
-
-
-// звук открытия
-
-function playSound(){
-
-
-let audio =
-new Audio(
-"https://www.myinstants.com/media/sounds/click.mp3"
-);
-
-
-audio.volume=0.2;
-
-
-audio.play()
-.catch(()=>{});
-
-
-}
-
-
-
-// добавляем звук кнопкам
-
-document
-.querySelectorAll(".open-btn")
-.forEach(btn=>{
-
-
-btn.addEventListener(
-"click",
-playSound
-);
-
-
-});
-
-
-
-
-
-// дополнительные стили
-
-let finalStyle =
-document.createElement("style");
-
-
-finalStyle.innerHTML=`
-
-.notify{
-
-
-position:fixed;
-
-right:30px;
-
-top:30px;
-
-background:#1d2638;
-
-border-left:5px solid #ff9800;
-
-padding:20px 30px;
-
-border-radius:12px;
-
-font-weight:bold;
-
-transform:translateX(400px);
-
-transition:.3s;
-
-z-index:9999;
-
-box-shadow:0 0 20px #000;
-
-
-}
-
-
-
-.notify.show{
-
-
-transform:translateX(0);
-
-
-}
-
-
-
-
-
-@media(max-width:800px){
-
-
-
-header{
-
-
-flex-direction:column;
-
-height:auto;
-
-gap:15px;
-
-padding:20px;
-
-
-}
-
-
-
-nav{
-
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-
-}
-
-
-
-.hero h1{
-
-
-font-size:38px;
-
-
-}
-
-
-
-.cases{
-
-
-padding:20px;
-
-
-}
-
-
-
-}
-
-
-`;
-
-
-document.head.appendChild(
-finalStyle
-);
-
-
-
-
-// автосохранение каждые 5 секунд
-
-
-setInterval(()=>{
-
-
-saveData();
-
-
-},5000);
-
-
-
-// запуск
-
-updateBalance();
-
-drawInventory();
-
-
-console.log(
-"🎲 CaseNova успешно запущен!"
-);
-
+    (function() {
+        // ----- КОНФИГ СКИНОВ (как в кейсах) -----
+        const ITEMS = [
+            { name: 'MP9 | Зелёный', price: 2.50, rarity: 'common', icon: '🔫' },
+            { name: 'MAG-7 | Медь', price: 3.20, rarity: 'common', icon: '🔫' },
+            { name: 'Glock-18 | Вода', price: 5.10, rarity: 'uncommon', icon: '🔫' },
+            { name: 'M4A4 | Тренировка', price: 8.75, rarity: 'uncommon', icon: '🔫' },
+            { name: 'AK-47 | Красная линия', price: 15.40, rarity: 'rare', icon: '🔫' },
+            { name: 'AWP | Фуксия', price: 22.00, rarity: 'rare', icon: '🔫' },
+            { name: 'Кинжал | Теневая', price: 45.90, rarity: 'epic', icon: '🗡️' },
+            { name: 'Нож | Рубиновый', price: 89.99, rarity: 'legendary', icon: '🗡️' },
+            { name: 'Скин | Азимов', price: 120.00, rarity: 'legendary', icon: '🤖' },
+        ];
+
+        // Веса для редкостей (чем выше число, тем чаще выпадает)
+        const RARITY_WEIGHTS = {
+            common: 45,
+            uncommon: 30,
+            rare: 18,
+            epic: 5,
+            legendary: 2,
+        };
+
+        // ----- СОСТОЯНИЕ -----
+        let balance = 1000;
+        const OPEN_COST = 50;
+        const history = [];
+
+        // DOM-элементы
+        const track = document.getElementById('slotTrack');
+        const openBtn = document.getElementById('openBtn');
+        const balanceSpan = document.getElementById('balanceDisplay');
+        const historyContainer = document.getElementById('historyList');
+
+        // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
+        function getRarityClass(rarity) {
+            return `rarity-${rarity}`;
+        }
+
+        // Выбор случайного предмета с учётом весов редкостей
+        function getRandomItem() {
+            // 1) Выбираем редкость
+            const rarityKeys = Object.keys(RARITY_WEIGHTS);
+            const totalWeight = rarityKeys.reduce((sum, k) => sum + RARITY_WEIGHTS[k], 0);
+            let rand = Math.random() * totalWeight;
+            let selectedRarity = 'common';
+            for (const key of rarityKeys) {
+                rand -= RARITY_WEIGHTS[key];
+                if (rand <= 0) {
+                    selectedRarity = key;
+                    break;
+                }
+            }
+
+            // 2) Из всех предметов с этой редкостью выбираем случайный
+            const pool = ITEMS.filter(item => item.rarity === selectedRarity);
+            if (pool.length === 0) {
+                // fallback
+                return ITEMS[Math.floor(Math.random() * ITEMS.length)];
+            }
+            return pool[Math.floor(Math.random() * pool.length)];
+        }
+
+        // Генерация 5 слотов (для отображения)
+        function generateSlots(highlightIndex = -1) {
+            const items = [];
+            for (let i = 0; i < 5; i++) {
+                items.push(getRandomItem());
+            }
+            return items;
+        }
+
+        // Отрисовка слотов
+        function renderSlots(items, highlightIndex = -1) {
+            track.innerHTML = '';
+            items.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = `slot-item ${getRarityClass(item.rarity)}`;
+                if (idx === highlightIndex) div.classList.add('active');
+                div.innerHTML = `
+                    <span class="icon">${item.icon}</span>
+                    <div class="name">${item.name}</div>
+                    <div class="price">$${item.price.toFixed(2)}</div>
+                `;
+                track.appendChild(div);
+            });
+        }
+
+        // Обновление баланса на UI
+        function updateBalanceUI() {
+            balanceSpan.textContent = balance.toFixed(0);
+        }
+
+        // Добавление записи в историю
+        function addHistory(item) {
+            history.unshift(item); // свежее сверху
+            if (history.length > 15) history.pop();
+
+            // Очищаем и перерисовываем
+            historyContainer.innerHTML = '';
+            if (history.length === 0) {
+                historyContainer.innerHTML = `<div style="color:#5a677a; text-align:center; padding:12px; font-size:14px;">История пуста</div>`;
+                return;
+            }
+
+            history.forEach(h => {
+                const row = document.createElement('div');
+                row.className = 'history-item';
+                row.style.borderLeftColor = getRarityColor(h.rarity);
+                row.innerHTML = `
+                    <span class="h-name">${h.icon} ${h.name}</span>
+                    <span class="h-price">$${h.price.toFixed(2)}</span>
+                    <span class="h-rarity" style="color:${getRarityColor(h.rarity)}">${h.rarity}</span>
+                `;
+                historyContainer.appendChild(row);
+            });
+        }
+
+        // Цвет для редкости (история)
+        function getRarityColor(rarity) {
+            const map = {
+                common: '#b0b7c2',
+                uncommon: '#5b9e6b',
+                rare: '#3b7fc9',
+                epic: '#9b4bca',
+                legendary: '#d48c2b',
+            };
+            return map[rarity] || '#fff';
+        }
+
+        // ----- ОСНОВНАЯ ЛОГИКА ОТКРЫТИЯ -----
+        function openCase() {
+            if (balance < OPEN_COST) {
+                alert('Недостаточно средств! Пополни баланс (нажми F12 и введи balance = 1000)');
+                return;
+            }
+
+            // Списываем деньги
+            balance -= OPEN_COST;
+            updateBalanceUI();
+
+            // Блокируем кнопку на время анимации
+            openBtn.disabled = true;
+            openBtn.textContent = '🔄 ОТКРЫВАЕМ...';
+
+            // 1) Генерируем 5 предметов, последний (индекс 4) будет выигрышным
+            const items = generateSlots();
+            const winItem = getRandomItem(); // честный рандом
+            items[4] = winItem; // подменяем последний слот на выигрыш
+
+            // 2) Отрисовываем слоты (без подсветки)
+            renderSlots(items, -1);
+
+            // 3) Анимация: через 300 мс подсветим последний (выигрышный)
+            setTimeout(() => {
+                // перерисовываем с подсветкой индекса 4
+                renderSlots(items, 4);
+
+                // Добавляем в историю
+                addHistory(winItem);
+
+                // Разблокируем кнопку
+                openBtn.disabled = false;
+                openBtn.innerHTML = '<i class="fas fa-key"></i> ОТКРЫТЬ (50)';
+
+            }, 700);
+        }
+
+        // ----- ИНИЦИАЛИЗАЦИЯ (стартовые слоты) -----
+        function init() {
+            const starter = generateSlots();
+            renderSlots(starter, -1);
+            updateBalanceUI();
+            // добавляем пару примеров в историю
+            addHistory(ITEMS[2]);
+            addHistory(ITEMS[5]);
+            addHistory(ITEMS[7]);
+        }
+
+        // Вешаем обработчик
+        openBtn.addEventListener('click', openCase);
+
+        // Для теста — если баланс упал до 0, можно восстановить через консоль
+        window.__caseBattle = { setBalance: (v) => { balance = v; updateBalanceUI(); } };
+
+        // Запуск
+        init();
+    })();
 </script>
 
-
 </body>
-
 </html>
