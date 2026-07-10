@@ -69,7 +69,6 @@
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Arial', sans-serif;
-            position: relative;
         }
         .tab-btn:hover { color: #fff; background: #1a1f2a; }
         .tab-btn.active {
@@ -250,88 +249,126 @@
         }
         .empty-inv i { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.3; }
 
-        /* UPGRADE SECTION */
+        /* UPGRADE SECTION - как на скриншоте */
         .upgrade-section {
             max-width: 1200px;
-            margin: 25px auto 0;
+            margin: 0 auto;
             background: #141820;
             padding: 30px;
             border-radius: 16px;
             border: 1px solid #1f2635;
         }
-        .upgrade-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .upgrade-header h3 {
-            font-size: 22px;
-            background: linear-gradient(135deg, #ff6a00, #ee3c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .upgrade-info {
-            color: #6b7a8a;
-            font-size: 14px;
-        }
-        .upgrade-info strong { color: #fff; }
 
-        /* АНИМАЦИЯ СТРЕЛОЧКИ (как на CaseBattle) */
-        .upgrade-animation-container {
+        .upgrade-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ff6a00;
+            margin-bottom: 8px;
+        }
+        .upgrade-title small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6b7a8a;
+        }
+
+        .upgrade-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: stretch;
+            margin: 25px 0;
+        }
+
+        .upgrade-box {
             background: #0c0f16;
-            border-radius: 16px;
-            padding: 30px 20px;
-            margin: 20px 0;
+            border-radius: 12px;
+            padding: 20px;
             border: 2px solid #1f2635;
-            position: relative;
-            overflow: hidden;
             min-height: 200px;
         }
-        .upgrade-arrow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-            padding: 10px 0;
-        }
-        .upgrade-slot {
-            flex: 1;
+        .upgrade-box .box-title {
+            font-size: 13px;
+            color: #6b7a8a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
             text-align: center;
+        }
+        .upgrade-box .box-title strong {
+            color: #fff;
+        }
+
+        /* Входные скины (модель арбиса) */
+        .input-skins {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            min-height: 80px;
+            align-items: center;
+        }
+        .input-skin-item {
             background: #1a1f2a;
-            border-radius: 12px;
-            padding: 20px 10px;
-            border: 2px solid #2a2f3a;
-            transition: 0.3s;
-            min-height: 120px;
+            border-radius: 8px;
+            padding: 8px 10px;
+            text-align: center;
+            border-bottom: 3px solid #6b7a8a;
+            width: 80px;
+        }
+        .input-skin-item .icon { font-size: 28px; display: block; }
+        .input-skin-item .name { font-size: 9px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .input-skin-item .price { font-size: 8px; color: #6b7a8a; }
+        .input-skin-item .remove-btn {
+            background: #2a2f3a;
+            border: none;
+            color: #ff6a00;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-top: 3px;
+        }
+        .input-skin-item .remove-btn:hover { background: #ff6a00; color: #0a0c12; }
+
+        .input-placeholder {
+            color: #4a5568;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        /* Стрелка апгрейда */
+        .upgrade-arrow-center {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 10px;
+            padding: 0 10px;
         }
-        .upgrade-slot .icon { font-size: 40px; display: block; margin-bottom: 6px; }
-        .upgrade-slot .name { font-size: 13px; font-weight: 600; }
-        .upgrade-slot .price { font-size: 12px; color: #6b7a8a; margin-top: 4px; }
-        .upgrade-slot .slot-label {
-            font-size: 11px;
-            color: #4a5568;
-            margin-top: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .upgrade-arrow-icon {
+        .upgrade-arrow-center .arrow {
             font-size: 48px;
             color: #ff6a00;
             animation: arrowPulse 1.5s ease-in-out infinite;
-            flex-shrink: 0;
-            padding: 0 10px;
         }
-        .upgrade-arrow-icon.spinning {
-            animation: arrowSpin 0.8s ease-in-out infinite;
+        .upgrade-arrow-center .arrow.spinning {
+            animation: arrowSpin 0.6s ease-in-out infinite;
+        }
+        .upgrade-arrow-center .chance-display {
+            background: #1a1f2a;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #ff6a00;
+            text-align: center;
+            border: 1px solid #2a2f3a;
+        }
+        .upgrade-arrow-center .multiplier-display {
+            font-size: 12px;
+            color: #6b7a8a;
         }
 
         @keyframes arrowPulse {
@@ -339,61 +376,126 @@
             50% { transform: scale(1.2); opacity: 1; }
         }
         @keyframes arrowSpin {
-            0% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(10deg) scale(1.1); }
-            75% { transform: rotate(-10deg) scale(1.1); }
-            100% { transform: rotate(0deg) scale(1); }
+            0% { transform: rotate(-15deg) scale(1.1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+            100% { transform: rotate(-15deg) scale(1.1); }
         }
 
         /* Результат апгрейда */
-        .upgrade-result {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
+        .result-skin {
             text-align: center;
-            animation: fadeIn 0.5s;
+            padding: 15px;
         }
-        .upgrade-result.success {
-            background: rgba(76, 175, 80, 0.15);
-            border: 2px solid #4caf50;
+        .result-skin .icon { font-size: 48px; display: block; margin-bottom: 6px; }
+        .result-skin .name { font-size: 16px; font-weight: 700; }
+        .result-skin .price { font-size: 14px; color: #6b7a8a; margin-top: 4px; }
+        .result-skin .rarity-badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 6px;
         }
-        .upgrade-result.fail {
-            background: rgba(244, 67, 54, 0.15);
-            border: 2px solid #f44336;
-        }
-        .upgrade-result .result-icon { font-size: 48px; display: block; }
-        .upgrade-result .result-text { font-size: 18px; font-weight: bold; margin-top: 8px; }
+        .rarity-badge.legendary { background: rgba(235,75,75,0.3); color: #eb4b4b; }
+        .rarity-badge.epic { background: rgba(211,44,230,0.3); color: #d32ce6; }
+        .rarity-badge.rare { background: rgba(136,71,255,0.3); color: #8847ff; }
+        .rarity-badge.uncommon { background: rgba(75,105,255,0.3); color: #4b69ff; }
+        .rarity-badge.common { background: rgba(107,122,138,0.3); color: #6b7a8a; }
 
+        .result-placeholder {
+            color: #4a5568;
+            font-size: 14px;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Кнопки апгрейда */
+        .upgrade-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
         .btn-upgrade {
-            background: linear-gradient(135deg, #7b2fbe, #4a1a7a);
+            background: linear-gradient(135deg, #ff6a00, #ee3c00);
             color: #fff;
             border: none;
-            padding: 14px 35px;
+            padding: 14px 45px;
             font-size: 17px;
             font-weight: bold;
             border-radius: 10px;
             cursor: pointer;
             transition: 0.2s;
             font-family: 'Arial', sans-serif;
-            box-shadow: 0 4px 20px rgba(123, 47, 190, 0.3);
+            box-shadow: 0 4px 20px rgba(238, 60, 0, 0.3);
         }
         .btn-upgrade:hover { transform: scale(1.03); }
         .btn-upgrade:disabled { background: #2a2f3a; box-shadow: none; cursor: not-allowed; transform: none; }
 
+        .btn-clear {
+            background: #2a2f3a;
+            color: #fff;
+            border: none;
+            padding: 14px 30px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Arial', sans-serif;
+        }
+        .btn-clear:hover { background: #3a3f4a; }
+
+        /* Выбор скинов для апгрейда */
+        .upgrade-select-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #1a1f2a;
+        }
+        .upgrade-select-section .section-title {
+            color: #6b7a8a;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .upgrade-select-section .section-title strong {
+            color: #fff;
+        }
+
+        /* Результат апгрейда (успех/провал) */
+        .upgrade-result-overlay {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        .upgrade-result-overlay.success {
+            background: rgba(76, 175, 80, 0.15);
+            border: 2px solid #4caf50;
+        }
+        .upgrade-result-overlay.fail {
+            background: rgba(244, 67, 54, 0.15);
+            border: 2px solid #f44336;
+        }
+
         @media (max-width: 768px) {
-            .upgrade-arrow { flex-direction: column; }
-            .upgrade-arrow-icon { transform: rotate(90deg); }
-            .upgrade-arrow-icon.spinning { animation: arrowSpinVertical 0.8s ease-in-out infinite; }
-            @keyframes arrowSpinVertical {
-                0% { transform: rotate(90deg) scale(1); }
-                25% { transform: rotate(100deg) scale(1.1); }
-                75% { transform: rotate(80deg) scale(1.1); }
-                100% { transform: rotate(90deg) scale(1); }
+            .upgrade-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
+            .upgrade-arrow-center {
+                flex-direction: row;
+                padding: 10px 0;
+            }
+            .upgrade-arrow-center .arrow { font-size: 32px; }
             .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
             .skin-card { width: 80px; height: 90px; }
             .skin-card .icon { font-size: 28px; }
             .roulette-wrapper { height: 110px; }
+            .input-skin-item { width: 60px; }
+            .input-skin-item .icon { font-size: 22px; }
         }
     </style>
 </head>
@@ -435,7 +537,8 @@
             <div class="inventory-grid" id="inventoryGrid">
                 <div class="empty-inv">
                     <i class="fas fa-box-open"></i>
-                    Инвентарь пуст
+                    Инвентарь пуст<br>
+                    <span style="font-size:13px; color:#4a5568;">Открой кейс, чтобы получить скины</span>
                 </div>
             </div>
         </div>
@@ -444,42 +547,60 @@
     <!-- TAB: UPGRADE -->
     <div class="tab-content" id="tab-upgrade">
         <div class="upgrade-section">
-            <div class="upgrade-header">
-                <h3><i class="fas fa-arrow-up"></i> АПГРЕЙД СКИНОВ</h3>
-                <div class="upgrade-info">
-                    Выбрано: <strong id="upgradeSelectedCount">0</strong> скинов |
-                    Сумма: <strong id="upgradeTotalPrice">0.00</strong> $
+            <div class="upgrade-title">
+                МОДЕРНИЗАЦИЯ ОРУЖИЯ 2.0
+                <small>— Модель арбиса: 5 предметов</small>
+            </div>
+
+            <!-- Основная сетка апгрейда -->
+            <div class="upgrade-grid">
+                <!-- Входные скины -->
+                <div class="upgrade-box">
+                    <div class="box-title">📦 <strong>Модель арбиса:</strong> <span id="inputCount">0</span> предметов</div>
+                    <div class="input-skins" id="inputSkinsContainer">
+                        <div class="input-placeholder">Выберите скины для апгрейда</div>
+                    </div>
+                    <div style="margin-top:10px; text-align:center; font-size:12px; color:#4a5568;">
+                        <span id="inputTotalPrice">0.00</span> ₽
+                    </div>
+                </div>
+
+                <!-- Стрелка + шанс -->
+                <div class="upgrade-arrow-center">
+                    <div class="arrow" id="upgradeArrow">➡️</div>
+                    <div class="chance-display" id="chanceDisplay">—</div>
+                    <div class="multiplier-display" id="multiplierDisplay">x0</div>
+                </div>
+
+                <!-- Результат -->
+                <div class="upgrade-box">
+                    <div class="box-title">🎯 <strong>Оружие, которое можно получить</strong></div>
+                    <div id="resultContainer">
+                        <div class="result-placeholder">Ожидание</div>
+                    </div>
+                    <div id="upgradeResultMessage"></div>
                 </div>
             </div>
 
-            <!-- Анимация апгрейда -->
-            <div class="upgrade-animation-container" id="upgradeAnimation">
-                <div class="upgrade-arrow">
-                    <div class="upgrade-slot" id="upgradeFrom">
-                        <div class="slot-label">📦 ВХОД</div>
-                        <div style="color:#4a5568; font-size:14px; margin-top:10px;">Выбери скины</div>
-                    </div>
-                    <div class="upgrade-arrow-icon" id="arrowIcon">➡️</div>
-                    <div class="upgrade-slot" id="upgradeTo">
-                        <div class="slot-label">🎯 РЕЗУЛЬТАТ</div>
-                        <div style="color:#4a5568; font-size:14px; margin-top:10px;">Ожидание</div>
-                    </div>
-                </div>
-                <div id="upgradeResult"></div>
+            <!-- Кнопки -->
+            <div class="upgrade-actions">
+                <button class="btn-upgrade" id="upgradeBtn" disabled>
+                    <i class="fas fa-arrow-up"></i> ПРОГРАММА
+                </button>
+                <button class="btn-clear" id="clearUpgradeBtn">
+                    <i class="fas fa-times"></i> Очистить
+                </button>
+            </div>
+
+            <!-- Бесплатно (как на скриншоте) -->
+            <div style="text-align:center; margin-top:12px; color:#4a5568; font-size:13px;">
+                <span style="color:#4caf50;">● БЕСПЛАТНО</span>
             </div>
 
             <!-- Выбор скинов для апгрейда -->
-            <div style="margin-top:20px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:15px;">
-                    <span style="color:#6b7a8a;">Кликни на скин, чтобы добавить/убрать из апгрейда</span>
-                    <div>
-                        <button class="btn-upgrade" id="upgradeBtn" disabled>
-                            <i class="fas fa-arrow-up"></i> АПГРЕЙДНУТЬ
-                        </button>
-                        <button class="btn-sell" id="clearUpgradeBtn" style="padding:10px 20px; margin-left:8px;">
-                            <i class="fas fa-times"></i> Сброс
-                        </button>
-                    </div>
+            <div class="upgrade-select-section">
+                <div class="section-title">
+                    <i class="fas fa-hand-pointer"></i> Выберите скины для апгрейда: <strong id="upgradeSelectCount">0</strong> / 5 выбрано
                 </div>
                 <div class="inventory-grid" id="upgradeInventoryGrid">
                     <div class="empty-inv">
@@ -533,16 +654,20 @@
         const invCount = document.getElementById('invCount');
         const invTotalCount = document.getElementById('invTotalCount');
         const invTotalPrice = document.getElementById('invTotalPrice');
-        const upgradeSelectedCount = document.getElementById('upgradeSelectedCount');
-        const upgradeTotalPrice = document.getElementById('upgradeTotalPrice');
         const upgradeBtn = document.getElementById('upgradeBtn');
         const clearUpgradeBtn = document.getElementById('clearUpgradeBtn');
-        const upgradeFrom = document.getElementById('upgradeFrom');
-        const upgradeTo = document.getElementById('upgradeTo');
-        const upgradeResult = document.getElementById('upgradeResult');
-        const arrowIcon = document.getElementById('arrowIcon');
+        const inputSkinsContainer = document.getElementById('inputSkinsContainer');
+        const inputCount = document.getElementById('inputCount');
+        const inputTotalPrice = document.getElementById('inputTotalPrice');
+        const resultContainer = document.getElementById('resultContainer');
+        const upgradeResultMessage = document.getElementById('upgradeResultMessage');
+        const chanceDisplay = document.getElementById('chanceDisplay');
+        const multiplierDisplay = document.getElementById('multiplierDisplay');
+        const upgradeArrow = document.getElementById('upgradeArrow');
+        const upgradeSelectCount = document.getElementById('upgradeSelectCount');
 
         const CARD_WIDTH = 120;
+        const MIN_UPGRADE_ITEMS = 5; // как на скриншоте
 
         // ----- HELPERS -----
         function getRandomItem() {
@@ -582,7 +707,7 @@
             }
         }
 
-        // ----- RENDER INVENTORY (both grids) -----
+        // ----- RENDER FUNCTIONS -----
         function renderAllInventory() {
             // Update counters
             invCount.textContent = inventory.length;
@@ -590,19 +715,13 @@
             const total = inventory.reduce((sum, item) => sum + item.price, 0);
             invTotalPrice.textContent = total.toFixed(2);
 
-            // Update upgrade selection info
-            const selectedItems = inventory.filter(item => selectedForUpgrade.has(item.id));
-            upgradeSelectedCount.textContent = selectedItems.length;
-            const upgradeTotal = selectedItems.reduce((sum, item) => sum + item.price, 0);
-            upgradeTotalPrice.textContent = upgradeTotal.toFixed(2);
-            upgradeBtn.disabled = selectedItems.length < 2 || isUpgrading;
-
             // Render main inventory
             if (inventory.length === 0) {
                 inventoryGrid.innerHTML = `
                     <div class="empty-inv">
                         <i class="fas fa-box-open"></i>
-                        Инвентарь пуст
+                        Инвентарь пуст<br>
+                        <span style="font-size:13px; color:#4a5568;">Открой кейс, чтобы получить скины</span>
                     </div>
                 `;
             } else {
@@ -613,25 +732,9 @@
                 });
             }
 
-            // Render upgrade inventory (with selection)
-            const upgradeItems = inventory.filter(item => true);
-            if (upgradeItems.length === 0) {
-                upgradeInventoryGrid.innerHTML = `
-                    <div class="empty-inv">
-                        <i class="fas fa-box-open"></i>
-                        Нет скинов для апгрейда
-                    </div>
-                `;
-            } else {
-                upgradeInventoryGrid.innerHTML = '';
-                upgradeItems.forEach(item => {
-                    const div = createInventoryItem(item, true);
-                    upgradeInventoryGrid.appendChild(div);
-                });
-            }
-
-            // Update upgrade preview
-            updateUpgradePreview();
+            // Render upgrade selection
+            renderUpgradeSelection();
+            renderUpgradePreview();
         }
 
         function createInventoryItem(item, isUpgradeMode) {
@@ -671,6 +774,126 @@
             return div;
         }
 
+        function renderUpgradeSelection() {
+            const items = inventory.filter(item => true);
+            if (items.length === 0) {
+                upgradeInventoryGrid.innerHTML = `
+                    <div class="empty-inv">
+                        <i class="fas fa-box-open"></i>
+                        Нет скинов для апгрейда
+                    </div>
+                `;
+                return;
+            }
+
+            upgradeInventoryGrid.innerHTML = '';
+            items.forEach(item => {
+                const div = createInventoryItem(item, true);
+                upgradeInventoryGrid.appendChild(div);
+            });
+
+            upgradeSelectCount.textContent = selectedForUpgrade.size;
+        }
+
+        function renderUpgradePreview() {
+            const selectedItems = inventory.filter(item => selectedForUpgrade.has(item.id));
+            const count = selectedItems.length;
+            
+            inputCount.textContent = count;
+            const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            inputTotalPrice.textContent = totalPrice.toFixed(2);
+
+            // Render input skins
+            if (count === 0) {
+                inputSkinsContainer.innerHTML = `<div class="input-placeholder">Выберите скины для апгрейда</div>`;
+            } else {
+                inputSkinsContainer.innerHTML = '';
+                selectedItems.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'input-skin-item rarity-' + item.rarity;
+                    div.innerHTML = `
+                        <span class="icon">${item.icon}</span>
+                        <div class="name">${item.name}</div>
+                        <div class="price">${item.price.toFixed(2)} ₽</div>
+                        <button class="remove-btn" data-id="${item.id}">✕</button>
+                    `;
+                    div.querySelector('.remove-btn').addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        selectedForUpgrade.delete(id);
+                        renderAllInventory();
+                    });
+                    inputSkinsContainer.appendChild(div);
+                });
+            }
+
+            // Update button state
+            upgradeBtn.disabled = count < MIN_UPGRADE_ITEMS || isUpgrading;
+
+            // Calculate result
+            if (count >= MIN_UPGRADE_ITEMS) {
+                // Ищем скин, который дороже в 2x, 5x, 10x, 30x, 50x, 75x, 100x
+                const multipliers = [2, 5, 10, 30, 50, 75, 100];
+                let selectedMultiplier = 0;
+                let targetSkin = null;
+                
+                for (const mult of multipliers) {
+                    const targetPrice = totalPrice * mult;
+                    // Ищем скин с ценой в диапазоне ±10% от целевой
+                    const possible = SKINS.filter(s => s.price >= targetPrice * 0.85 && s.price <= targetPrice * 1.15);
+                    if (possible.length > 0) {
+                        selectedMultiplier = mult;
+                        targetSkin = possible[Math.floor(Math.random() * possible.length)];
+                        break;
+                    }
+                }
+
+                // Если не нашли, берём самый дорогой
+                if (!targetSkin) {
+                    targetSkin = SKINS.reduce((a, b) => a.price > b.price ? a : b);
+                    // Находим ближайший множитель
+                    const ratio = targetSkin.price / totalPrice;
+                    for (const mult of multipliers) {
+                        if (ratio >= mult * 0.8) {
+                            selectedMultiplier = mult;
+                            break;
+                        }
+                    }
+                    if (selectedMultiplier === 0) selectedMultiplier = multipliers[0];
+                }
+
+                // Показываем результат
+                const rarityLabel = targetSkin.rarity.toUpperCase();
+                resultContainer.innerHTML = `
+                    <div class="result-skin">
+                        <span class="icon">${targetSkin.icon}</span>
+                        <div class="name">${targetSkin.name}</div>
+                        <div class="price">${targetSkin.price.toFixed(2)} ₽</div>
+                        <span class="rarity-badge ${targetSkin.rarity}">${rarityLabel}</span>
+                    </div>
+                `;
+
+                // Шанс = 1 / множитель * 100
+                const chance = Math.min(100, Math.round((1 / selectedMultiplier) * 100));
+                chanceDisplay.textContent = `${chance}%`;
+                multiplierDisplay.textContent = `x${selectedMultiplier}`;
+
+                // Сохраняем данные для апгрейда
+                resultContainer.dataset.targetSkin = JSON.stringify(targetSkin);
+                resultContainer.dataset.chance = chance;
+                resultContainer.dataset.multiplier = selectedMultiplier;
+                resultContainer.dataset.totalPrice = totalPrice;
+
+                upgradeResultMessage.innerHTML = '';
+
+            } else {
+                resultContainer.innerHTML = `<div class="result-placeholder">Выберите ${MIN_UPGRADE_ITEMS} скинов</div>`;
+                chanceDisplay.textContent = '—';
+                multiplierDisplay.textContent = 'x0';
+                upgradeResultMessage.innerHTML = '';
+            }
+        }
+
         // ----- TOGGLE UPGRADE SELECTION -----
         function toggleUpgradeSelection(id) {
             if (isUpgrading) return;
@@ -684,89 +907,6 @@
                 selectedForUpgrade.add(id);
             }
             renderAllInventory();
-        }
-
-        // ----- UPDATE UPGRADE PREVIEW -----
-        function updateUpgradePreview() {
-            const selectedItems = inventory.filter(item => selectedForUpgrade.has(item.id));
-            
-            if (selectedItems.length === 0) {
-                upgradeFrom.innerHTML = `
-                    <div class="slot-label">📦 ВХОД</div>
-                    <div style="color:#4a5568; font-size:14px; margin-top:10px;">Выбери скины</div>
-                `;
-                upgradeTo.innerHTML = `
-                    <div class="slot-label">🎯 РЕЗУЛЬТАТ</div>
-                    <div style="color:#4a5568; font-size:14px; margin-top:10px;">Ожидание</div>
-                `;
-                upgradeResult.innerHTML = '';
-                arrowIcon.className = 'upgrade-arrow-icon';
-                return;
-            }
-
-            // Show selected items in "from" slot
-            let fromHTML = `<div class="slot-label">📦 ВХОД (${selectedItems.length})</div><div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:6px;">`;
-            selectedItems.forEach(item => {
-                fromHTML += `<span style="font-size:20px;" title="${item.name} ($${item.price.toFixed(2)})">${item.icon}</span>`;
-            });
-            fromHTML += `</div>`;
-            upgradeFrom.innerHTML = fromHTML;
-
-            // Calculate result
-            const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
-            // Ищем скин, который дороже в 2x, 3x, 4x и т.д.
-            const multipliers = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-            let targetMultiplier = 0;
-            let targetSkin = null;
-            
-            for (const mult of multipliers) {
-                const targetPrice = totalPrice * mult;
-                const possible = SKINS.filter(s => s.price >= targetPrice * 0.9 && s.price <= targetPrice * 1.1);
-                if (possible.length > 0) {
-                    targetMultiplier = mult;
-                    targetSkin = possible[Math.floor(Math.random() * possible.length)];
-                    break;
-                }
-            }
-
-            // If no exact match, find closest higher
-            if (!targetSkin) {
-                const minPrice = totalPrice * 2;
-                const possible = SKINS.filter(s => s.price >= minPrice);
-                if (possible.length > 0) {
-                    targetSkin = possible.reduce((a, b) => a.price < b.price ? a : b);
-                    targetMultiplier = Math.floor(targetSkin.price / totalPrice);
-                } else {
-                    targetSkin = SKINS[SKINS.length - 1];
-                    targetMultiplier = Math.floor(targetSkin.price / totalPrice);
-                }
-            }
-
-            // Show in "to" slot
-            upgradeTo.innerHTML = `
-                <div class="slot-label">🎯 РЕЗУЛЬТАТ</div>
-                <div class="icon">${targetSkin.icon}</div>
-                <div class="name">${targetSkin.name}</div>
-                <div class="price">$${targetSkin.price.toFixed(2)}</div>
-                <div style="font-size:11px; color:#ff6a00; margin-top:4px;">×${targetMultiplier} (${Math.round((targetSkin.price / totalPrice) * 100)}%)</div>
-            `;
-
-            // Show chance
-            const chance = Math.min(100, Math.round((1 / targetMultiplier) * 100));
-            upgradeResult.innerHTML = `
-                <div style="padding:10px; background:#1a1f2a; border-radius:8px; margin-top:8px;">
-                    <span style="color:#6b7a8a;">Шанс на апгрейд: </span>
-                    <strong style="color:#ff6a00; font-size:18px;">${chance}%</strong>
-                    <span style="color:#6b7a8a; font-size:12px; display:block; margin-top:4px;">
-                        (1/${targetMultiplier} ≈ ${chance}%)
-                    </span>
-                </div>
-            `;
-
-            // Store target for upgrade
-            upgradeTo.dataset.targetSkin = JSON.stringify(targetSkin);
-            upgradeTo.dataset.chance = chance;
-            upgradeTo.dataset.multiplier = targetMultiplier;
         }
 
         // ----- SELL ITEM -----
@@ -786,23 +926,24 @@
             }, 800);
         }
 
-        // ----- UPGRADE -----
+        // ----- PERFORM UPGRADE -----
         function performUpgrade() {
             if (isUpgrading) return;
             const selectedItems = inventory.filter(item => selectedForUpgrade.has(item.id));
-            if (selectedItems.length < 2) {
-                alert('Выбери минимум 2 скина для апгрейда!');
+            if (selectedItems.length < MIN_UPGRADE_ITEMS) {
+                alert(`Выбери минимум ${MIN_UPGRADE_ITEMS} скинов для апгрейда!`);
                 return;
             }
 
             isUpgrading = true;
             upgradeBtn.disabled = true;
-            arrowIcon.className = 'upgrade-arrow-icon spinning';
-            upgradeResult.innerHTML = '<div style="padding:15px; color:#ff6a00;">🔄 Апгрейд в процессе...</div>';
+            upgradeArrow.classList.add('spinning');
+            upgradeResultMessage.innerHTML = '<div style="padding:10px; color:#ff6a00;">🔄 Апгрейд в процессе...</div>';
 
             // Get target from preview
-            const targetData = JSON.parse(upgradeTo.dataset.targetSkin || 'null');
-            const chance = parseInt(upgradeTo.dataset.chance || '50');
+            const targetData = JSON.parse(resultContainer.dataset.targetSkin || 'null');
+            const chance = parseInt(resultContainer.dataset.chance || '50');
+            const totalPrice = parseFloat(resultContainer.dataset.totalPrice || '0');
             
             // Simulate delay for animation
             setTimeout(() => {
@@ -814,7 +955,7 @@
                     inventory = inventory.filter(item => !selectedForUpgrade.has(item.id));
                     selectedForUpgrade.clear();
                     
-                    // Add new item
+                    // Add new item (FIXED: теперь точно добавляется)
                     const newItem = {
                         ...targetData,
                         id: idCounter++
@@ -822,20 +963,23 @@
                     inventory.push(newItem);
                     
                     // Show success
-                    upgradeResult.innerHTML = `
-                        <div class="upgrade-result success">
-                            <span class="result-icon">🎉</span>
-                            <div class="result-text">АПГРЕЙД УСПЕШЕН!</div>
-                            <div style="font-size:24px; margin:8px 0;">${newItem.icon} ${newItem.name}</div>
-                            <div style="color:#6b7a8a;">$${newItem.price.toFixed(2)}</div>
+                    upgradeResultMessage.innerHTML = `
+                        <div class="upgrade-result-overlay success">
+                            <span style="font-size:32px;">🎉</span>
+                            <div style="font-weight:bold; color:#4caf50; font-size:18px;">АПГРЕЙД УСПЕШЕН!</div>
+                            <div style="font-size:20px; margin-top:4px;">${newItem.icon} ${newItem.name}</div>
+                            <div style="color:#6b7a8a;">${newItem.price.toFixed(2)} ₽</div>
                         </div>
                     `;
-                    upgradeTo.innerHTML = `
-                        <div class="slot-label">🎯 РЕЗУЛЬТАТ</div>
-                        <div class="icon">${newItem.icon}</div>
-                        <div class="name" style="color:#4caf50;">${newItem.name}</div>
-                        <div class="price">$${newItem.price.toFixed(2)}</div>
-                        <div style="font-size:11px; color:#4caf50; margin-top:4px;">✅ УСПЕШНО</div>
+                    // Обновляем результат
+                    resultContainer.innerHTML = `
+                        <div class="result-skin" style="border:2px solid #4caf50; border-radius:10px; padding:10px;">
+                            <span class="icon">${newItem.icon}</span>
+                            <div class="name" style="color:#4caf50;">${newItem.name}</div>
+                            <div class="price">${newItem.price.toFixed(2)} ₽</div>
+                            <span class="rarity-badge ${newItem.rarity}">${newItem.rarity.toUpperCase()}</span>
+                            <div style="color:#4caf50; font-size:12px; margin-top:4px;">✅ ПОЛУЧЕНО</div>
+                        </div>
                     `;
                 } else {
                     // Remove selected items (they're lost)
@@ -844,25 +988,27 @@
                     selectedForUpgrade.clear();
                     
                     // Show fail
-                    upgradeResult.innerHTML = `
-                        <div class="upgrade-result fail">
-                            <span class="result-icon">💔</span>
-                            <div class="result-text">АПГРЕЙД ПРОВАЛЕН</div>
-                            <div style="color:#6b7a8a; margin-top:8px;">Скины сгорели</div>
+                    upgradeResultMessage.innerHTML = `
+                        <div class="upgrade-result-overlay fail">
+                            <span style="font-size:32px;">💔</span>
+                            <div style="font-weight:bold; color:#f44336; font-size:18px;">АПГРЕЙД ПРОВАЛЕН</div>
+                            <div style="color:#6b7a8a;">Скины сгорели</div>
                         </div>
                     `;
-                    upgradeTo.innerHTML = `
-                        <div class="slot-label">🎯 РЕЗУЛЬТАТ</div>
-                        <div style="color:#f44336; font-size:24px; margin-top:10px;">❌</div>
-                        <div style="color:#6b7a8a;">Сгорело</div>
+                    resultContainer.innerHTML = `
+                        <div class="result-skin" style="border:2px solid #f44336; border-radius:10px; padding:10px;">
+                            <span style="font-size:48px;">❌</span>
+                            <div style="color:#f44336; font-weight:bold;">Сгорело</div>
+                            <div style="color:#6b7a8a; font-size:12px;">-${totalPrice.toFixed(2)} ₽</div>
+                        </div>
                     `;
                 }
                 
-                arrowIcon.className = 'upgrade-arrow-icon';
+                upgradeArrow.classList.remove('spinning');
                 isUpgrading = false;
                 renderAllInventory();
                 
-            }, 2000);
+            }, 2500);
         }
 
         // ----- OPEN CASE -----
@@ -957,17 +1103,8 @@
         function init() {
             generateTapeItems();
             
-            // Demo items
-            const demoItems = [
-                { ...SKINS[5], id: idCounter++ },
-                { ...SKINS[6], id: idCounter++ },
-                { ...SKINS[7], id: idCounter++ },
-                { ...SKINS[8], id: idCounter++ },
-                { ...SKINS[9], id: idCounter++ },
-                { ...SKINS[4], id: idCounter++ },
-                { ...SKINS[3], id: idCounter++ },
-            ];
-            inventory = demoItems;
+            // Стартовый инвентарь ПУСТОЙ — скины только из кейсов
+            inventory = [];
             renderAllInventory();
             updateBalanceUI();
 
