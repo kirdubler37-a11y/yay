@@ -16,7 +16,6 @@
             --text2: rgba(255, 255, 255, 0.45); --border: rgba(255, 255, 255, 0.06);
             --r: 16px; --glow-o: 0 0 30px rgba(255, 102, 0, 0.3);
             --glow-p: 0 0 30px rgba(147, 51, 234, 0.3);
-            --glow-g: 0 0 30px rgba(255, 184, 0, 0.3);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -30,18 +29,34 @@
         @keyframes glowPulse { 0%,100% { box-shadow: 0 0 20px rgba(255,102,0,0.2); } 50% { box-shadow: 0 0 40px rgba(255,102,0,0.5); } }
         @keyframes pulse { 0%,100% { box-shadow: 0 0 6px var(--green); } 50% { box-shadow: 0 0 22px var(--green); } }
 
-        /* LAYOUT */
         .app { display: flex; width: 100%; min-height: 100vh; }
-        .sidebar-left { width: 220px; background: rgba(6,8,18,0.95); border-right: 1px solid var(--border); padding: 20px 14px; display: flex; flex-direction: column; gap: 16px; z-index: 50; backdrop-filter: blur(30px); }
-        .sidebar-left h3 { font-family: 'Orbitron',sans-serif; font-size: 12px; color: var(--gold); text-align: center; letter-spacing: 2px; }
-        .stat-card { background: rgba(20,26,42,0.7); border-radius: 12px; padding: 14px; text-align: center; border: 1px solid var(--border); transition: 0.3s; }
-        .stat-card:hover { border-color: var(--accent); }
-        .stat-card .stat-icon { font-size: 28px; margin-bottom: 4px; }
-        .stat-card .stat-value { font-size: 22px; font-weight: 900; color: var(--gold); }
-        .stat-card .stat-label { font-size: 10px; color: var(--text2); margin-top: 2px; }
-        .main-area { flex: 1; padding: 20px; margin-right: 270px; margin-bottom: 80px; }
-        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 270px; height: 60px; background: rgba(6,8,18,0.95); border-top: 1px solid var(--border); backdrop-filter: blur(30px); display: flex; align-items: center; justify-content: center; gap: 20px; padding: 0 20px; z-index: 50; font-size: 12px; color: var(--text2); }
-        .bottom-bar strong { color: #fff; }
+        .sidebar-left {
+            width: 240px; background: rgba(6,8,18,0.95); border-right: 1px solid var(--border);
+            padding: 20px 14px; display: flex; flex-direction: column; gap: 12px; z-index: 50;
+            backdrop-filter: blur(30px); overflow-y: auto;
+        }
+        .sidebar-left h3 { font-family: 'Orbitron',sans-serif; font-size: 11px; color: var(--gold); text-align: center; letter-spacing: 2px; margin-bottom: 4px; }
+        .top-drops { display: flex; flex-direction: column; gap: 6px; }
+        .top-drop-item {
+            background: rgba(20,26,42,0.7); border-radius: 10px; padding: 10px;
+            border: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
+            transition: 0.3s;
+        }
+        .top-drop-item:hover { border-color: var(--accent); background: rgba(20,26,42,0.9); }
+        .top-drop-item .rank { font-size: 18px; font-weight: 900; color: var(--gold); min-width: 24px; text-align: center; }
+        .top-drop-item .rank.gold { color: #ffd700; } .top-drop-item .rank.silver { color: #c0c0c0; } .top-drop-item .rank.bronze { color: #cd7f32; }
+        .top-drop-item .icon { font-size: 26px; }
+        .top-drop-item .info { flex: 1; min-width: 0; }
+        .top-drop-item .name { font-weight: 600; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .top-drop-item .user { color: var(--gold); font-size: 8px; }
+        .top-drop-item .price { color: var(--text2); font-size: 9px; }
+
+        .quick-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .qs-item { background: rgba(20,26,42,0.7); border-radius: 10px; padding: 10px; text-align: center; border: 1px solid var(--border); }
+        .qs-item .val { font-size: 18px; font-weight: 900; color: var(--gold); }
+        .qs-item .lbl { font-size: 9px; color: var(--text2); }
+
+        .main-area { flex: 1; padding: 20px; margin-right: 270px; }
         .live-feed { position: fixed; right: 0; top: 0; width: 270px; height: 100vh; background: rgba(6,8,18,0.97); border-left: 1px solid var(--border); z-index: 200; display: flex; flex-direction: column; padding: 16px; overflow: hidden; }
         .live-feed h3 { font-family: 'Orbitron',sans-serif; font-size: 11px; background: linear-gradient(135deg,var(--gold),#ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); letter-spacing: 3px; }
         .live-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
@@ -50,7 +65,6 @@
         .live-item .icon { font-size: 22px; } .live-item .info { flex: 1; } .live-item .name { font-weight: 600; font-size: 9px; } .live-item .user { color: var(--gold); font-size: 8px; } .live-item .price { color: var(--text2); font-size: 8px; }
         @keyframes slideIn { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* TOP BAR */
         .online { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 1000; background: var(--card); padding: 8px 24px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
         .online .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 12px var(--green); animation: pulse 2s infinite; }
         .header { max-width: 1050px; margin: 60px auto 16px; padding: 16px 28px; background: var(--card); backdrop-filter: blur(30px); border-radius: var(--r); border: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
@@ -62,28 +76,24 @@
         .btn:hover { transform: translateY(-2px); } .btn:hover::after { left: 100%; }
         .btn-p { background: linear-gradient(135deg,var(--accent2),#7c3aed); color: #fff; box-shadow: var(--glow-p); }
         .btn-r { background: rgba(255,60,60,0.15); border: 1px solid rgba(255,60,60,0.3); color: var(--red); }
-        .btn-g { background: linear-gradient(135deg,#ffd700,#ffb800); color: #000; font-weight: 800; box-shadow: var(--glow-g); }
+        .btn-g { background: linear-gradient(135deg,#ffd700,#ffb800); color: #000; font-weight: 800; box-shadow: 0 0 30px rgba(255,184,0,0.3); }
 
-        /* NAV */
         .nav { max-width: 1050px; margin: 0 auto 16px; display: flex; gap: 4px; flex-wrap: wrap; background: rgba(12,16,28,0.8); border-radius: 14px; padding: 5px; border: 1px solid var(--border); }
         .nav-btn { background: transparent; border: none; color: var(--text2); padding: 9px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter',sans-serif; display: flex; align-items: center; gap: 6px; }
         .nav-btn.active { color: #fff; background: linear-gradient(135deg,rgba(255,102,0,0.3),rgba(147,51,234,0.2)); border: 1px solid rgba(255,102,0,0.2); box-shadow: var(--glow-o); }
 
-        /* PAGES */
         .page { display: none; animation: fadeSlide 0.5s ease; } .page.active { display: block; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        /* CASE GRID */
-        .case-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(165px,1fr)); gap: 16px; max-width: 1050px; margin: 0 auto; }
-        .case-card { background: linear-gradient(145deg,rgba(18,24,38,0.9),rgba(14,18,30,0.9)); border: 2px solid var(--border); border-radius: var(--r); padding: 26px 14px; cursor: pointer; transition: 0.4s; text-align: center; position: relative; overflow: hidden; }
-        .case-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle,rgba(255,102,0,0.1),transparent 70%); opacity: 0; transition: 0.4s; }
+        .case-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(170px,1fr)); gap: 16px; max-width: 1050px; margin: 0 auto; }
+        .case-card { background: linear-gradient(145deg,rgba(18,24,38,0.9),rgba(14,18,30,0.9)); border: 2px solid var(--border); border-radius: var(--r); padding: 28px 14px; cursor: pointer; transition: 0.4s; text-align: center; position: relative; overflow: hidden; }
+        .case-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle,rgba(255,102,0,0.08),transparent 70%); opacity: 0; transition: 0.4s; }
         .case-card:hover::before { opacity: 1; }
         .case-card:hover { border-color: rgba(255,102,0,0.5); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.6),var(--glow-o); }
-        .case-card .ci { font-size: 48px; display: block; margin-bottom: 10px; } .case-card .cn { font-weight: 700; font-size: 14px; } .case-card .cp { color: var(--gold); font-size: 15px; font-weight: 700; }
-        .case-card .cev { font-size: 11px; margin-top: 4px; font-weight: 600; } .case-card .cev.good { color: #4caf50; } .case-card .cev.mid { color: #ff9800; } .case-card .cev.bad { color: #f44336; }
+        .case-card .ci { font-size: 50px; display: block; margin-bottom: 10px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.1)); }
+        .case-card .cn { font-weight: 700; font-size: 14px; } .case-card .cp { color: var(--gold); font-size: 16px; font-weight: 700; margin-top: 4px; }
         .case-card .yolo-badge { position: absolute; top: 10px; right: 10px; background: #ff4444; color: #fff; font-size: 9px; padding: 3px 8px; border-radius: 10px; font-weight: 800; animation: glowPulse 2s infinite; }
 
-        /* CASE PAGE */
         .case-page { max-width: 800px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 20px 80px rgba(0,0,0,0.7); }
         .back-btn { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: #fff; padding: 8px 16px; border-radius: 14px; cursor: pointer; font-size: 12px; margin-bottom: 16px; }
         .roulette { position: relative; width: 100%; height: 190px; background: #060810; margin: 16px auto; overflow: hidden; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); box-shadow: inset 0 0 60px rgba(0,0,0,0.8); }
@@ -111,17 +121,23 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .modal { background: #141a28; padding: 32px; border-radius: 22px; text-align: center; max-width: 420px; width: 90%; border: 1px solid rgba(255,255,255,0.1); } .modal input { width: 100%; padding: 12px; margin-bottom: 10px; background: rgba(10,14,22,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; font-size: 14px; } .modal input:focus { border-color: var(--accent); outline: none; }
 
-        @media (max-width: 768px) { .sidebar-left { display: none; } .bottom-bar { right: 200px; } .live-feed { width: 200px; } .main-area { margin-right: 200px; } .skin { width: 88px; height: 110px; } .roulette { height: 145px; } }
+        @media (max-width: 768px) { .sidebar-left { display: none; } .live-feed { width: 200px; } .main-area { margin-right: 200px; } .skin { width: 88px; height: 110px; } .roulette { height: 145px; } }
     </style>
 </head>
 <body>
 <div class="app">
 <div class="sidebar-left" id="sidebarLeft">
-    <h3>📊 СТАТИСТИКА</h3>
-    <div class="stat-card"><div class="stat-icon">👤</div><div class="stat-value" id="sbOnline">0</div><div class="stat-label">Онлайн</div></div>
-    <div class="stat-card"><div class="stat-icon">💎</div><div class="stat-value" id="sbCases">0</div><div class="stat-label">Открыто сегодня</div></div>
-    <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-value" id="sbTop">-</div><div class="stat-label">Топ дроп дня</div></div>
-    <div class="stat-card"><div class="stat-icon">🔥</div><div class="stat-value" id="sbJackpot">0</div><div class="stat-label">Джекпотов</div></div>
+    <h3>🏆 ТОП ДРОПЫ ДНЯ</h3>
+    <div class="top-drops" id="topDropsList">
+        <div style="color:var(--text2);text-align:center;padding:20px;">Загрузка...</div>
+    </div>
+    <h3 style="margin-top:8px;">📊 БЫСТРАЯ СТАТИСТИКА</h3>
+    <div class="quick-stats">
+        <div class="qs-item"><div class="val" id="qsOnline">0</div><div class="lbl">Онлайн</div></div>
+        <div class="qs-item"><div class="val" id="qsCases">0</div><div class="lbl">Кейсов сегодня</div></div>
+        <div class="qs-item"><div class="val" id="qsJackpots">0</div><div class="lbl">Джекпотов</div></div>
+        <div class="qs-item"><div class="val" id="qsPlayers">0</div><div class="lbl">Игроков</div></div>
+    </div>
 </div>
 <div class="main-area" id="mainArea">
 
@@ -142,19 +158,12 @@
 </div>
 
 <div class="page active" id="p-cases"><div class="case-grid" id="caseGrid"></div></div>
-<div class="page" id="p-case-open"><div class="case-page"><button class="back-btn" onclick="nav('cases')">← Назад</button><h2 id="caseTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:8px;">Стоимость: <span id="casePrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin"></i> | Шанс окупа: <span id="caseROI" style="color:#4caf50;"></span></div><div class="roulette"><div class="ptr"></div><div class="tape" id="tape"></div></div><button class="btn-open" id="openBtn">🔑 ОТКРЫТЬ КЕЙС</button><div id="result" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div class="pool"><h4>🎯 Содержимое кейса</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
+<div class="page" id="p-case-open"><div class="case-page"><button class="back-btn" onclick="nav('cases')">← Назад</button><h2 id="caseTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:8px;">Стоимость: <span id="casePrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin"></i></div><div class="roulette"><div class="ptr"></div><div class="tape" id="tape"></div></div><button class="btn-open" id="openBtn">🔑 ОТКРЫТЬ КЕЙС</button><div id="result" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div class="pool"><h4>🎯 Содержимое кейса</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
 <div class="page" id="p-inventory"><div class="section"><h2>🎒 Инвентарь</h2><div style="color:var(--text2);margin:10px 0;">Предметов: <strong id="invCount">0</strong> | Стоимость: <strong id="invTotal">0</strong> <i class="fas fa-coins coin"></i></div><div class="inv-grid" id="invGrid"></div></div></div>
 <div class="page" id="p-upgrade"><div class="section"><h2>⚡ АПГРЕЙД</h2><div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;" id="chanceSel"><button class="btn-sm btn-sell active" data-c="50" data-m="2">50% ×2</button><button class="btn-sm btn-sell" data-c="25" data-m="4">25% ×4</button><button class="btn-sm btn-sell" data-c="75" data-m="1.33">75% ×1.33</button><button class="btn-sm btn-sell" data-c="10" data-m="10">10% ×10</button></div><div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;margin:15px 0;"><div style="background:rgba(10,14,24,0.8);border-radius:14px;padding:20px;text-align:center;border:1px solid var(--border);"><h4>📦 ВХОД</h4><div id="upInp">-</div><div style="margin-top:10px;color:var(--gold);">Сумма: <span id="upSum">0</span> <i class="fas fa-coins coin"></i></div></div><div style="font-size:40px;color:var(--accent);display:flex;align-items:center;">⚡</div><div style="background:rgba(10,14,24,0.8);border-radius:14px;padding:20px;text-align:center;border:1px solid var(--border);"><h4>🎯 РЕЗУЛЬТАТ</h4><div id="upRes">-</div></div></div><button class="btn-open" id="upgradeBtn" disabled style="max-width:200px;">АПГРЕЙД</button><button class="btn btn-r" id="clearUp">Очистить</button><div class="inv-grid" id="upInvGrid" style="max-height:200px;"></div></div></div>
 <div class="page" id="p-contract"><div class="section"><h2>📜 КОНТРАКТЫ</h2><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:14px 20px;background:rgba(10,14,24,0.7);border-radius:14px;"><div>Выбрано: <strong id="conCount" style="color:var(--gold);">0</strong>/10</div><div>Сумма: <strong id="conSum" style="color:var(--gold);">0</strong> <i class="fas fa-coins coin"></i></div><button class="btn btn-p" id="contractBtn" disabled>КОНТРАКТ</button></div><div id="conRes" style="display:none;padding:20px;background:rgba(76,175,80,0.08);border-radius:14px;text-align:center;"></div><div class="inv-grid" id="conInvGrid" style="max-height:200px;"></div></div></div>
 <div class="page" id="p-profile"><div class="section" id="profContent"></div></div>
 
-</div>
-<div class="bottom-bar" id="bottomBar">
-    <span>🎯 <strong id="bbTopSkin">-</strong> — топ дроп дня</span>
-    <span>|</span>
-    <span>💎 Открыто кейсов сегодня: <strong id="bbOpened">0</strong></span>
-    <span>|</span>
-    <span>🏆 Джекпотов сегодня: <strong id="bbJackpots">0</strong></span>
 </div>
 <div class="live-feed"><h3>🔥 LIVE DROP</h3><div class="live-list" id="liveList"></div></div>
 </div>
@@ -170,75 +179,88 @@ const myId='u_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);
 let today=new Date().toDateString();
 
 setInterval(()=>onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP}),5000);
-onlineR.on('value',s=>{const d=s.val()||{};const n=Date.now();let c=0;for(const id in d){if(d[id].t&&(n-d[id].t<15000))c++;else onlineR.child(id).remove();}ge('onlineCount').textContent=c;ge('sbOnline').textContent=c;});
+onlineR.on('value',s=>{const d=s.val()||{};const n=Date.now();let c=0;for(const id in d){if(d[id].t&&(n-d[id].t<15000))c++;else onlineR.child(id).remove();}ge('onlineCount').textContent=c;ge('qsOnline').textContent=c;});
 window.addEventListener('beforeunload',()=>{onlineR.child(myId).remove();});
 
 dropsR.orderByChild('time').limitToLast(30).on('value',s=>{const drops=[];s.forEach(c=>{const d=c.val();if(d)drops.push(d);});drops.sort((a,b)=>(b.time||0)-(a.time||0));ge('liveList').innerHTML=drops.length?drops.map(d=>`<div class="live-item ${d.rarity||''}"><span class="icon">${d.icon||'🎁'}</span><div class="info"><div class="name">${d.skin||'?'}</div><div class="user">${d.user||'?'}</div></div><div class="price">${(d.price||0)} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';});
 
-statsR.child(today).on('value',s=>{const d=s.val()||{};ge('sbCases').textContent=d.cases||0;ge('sbTop').textContent=d.topSkin||'-';ge('sbJackpot').textContent=d.jackpots||0;ge('bbOpened').textContent=d.cases||0;ge('bbTopSkin').textContent=d.topSkin||'-';ge('bbJackpots').textContent=d.jackpots||0;});
-function updateStats(price,skin){statsR.child(today).transaction(d=>{if(!d)d={cases:0,jackpots:0,topSkin:'-',topPrice:0};d.cases=(d.cases||0)+1;if(price>=500){d.jackpots=(d.jackpots||0)+1;}if(price>(d.topPrice||0)){d.topSkin=skin;d.topPrice=price;}return d;});}
+statsR.child(today).on('value',s=>{const d=s.val()||{};ge('qsCases').textContent=d.cases||0;ge('qsJackpots').textContent=d.jackpots||0;ge('qsPlayers').textContent=d.players||0;
+    const top=d.topDrops?Object.values(d.topDrops).sort((a,b)=>b.price-a.price).slice(0,5):[];
+    ge('topDropsList').innerHTML=top.length?top.map((t,i)=>`<div class="top-drop-item"><span class="rank ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">#${i+1}</span><span class="icon">${t.icon||'🎁'}</span><div class="info"><div class="name">${t.skin||'?'}</div><div class="user">${t.user||'?'}</div></div><div class="price">${t.price}🪙</div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:10px;">Нет данных</div>';
+});
+function updateStats(price,skin,icon,user){statsR.child(today).transaction(d=>{if(!d)d={cases:0,jackpots:0,players:0,topDrops:{}};d.cases=(d.cases||0)+1;if(price>=500)d.jackpots=(d.jackpots||0)+1;if(user){d.players=d.players||0;d.topDrops=d.topDrops||{};const key=Date.now()+'_'+Math.random().toString(36).substr(2,4);d.topDrops[key]={skin,icon,price,user};}return d;});}
 function dropLater(skin,icon,price,rarity){setTimeout(()=>{dropsR.push({skin,icon,price,rarity,user:curUser||'Аноним',time:firebase.database.ServerValue.TIMESTAMP});},6000);}
 
 const SFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(t){this.init();const ctx=this.ctx,now=ctx.currentTime;const tone=(f,d,v=.1,w='sine',dl=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=w;o.frequency.setValueAtTime(f,now+dl);g.gain.setValueAtTime(v,now+dl);g.gain.exponentialRampToValueAtTime(.001,now+dl+d);o.start(now+dl);o.stop(now+dl+d)};const noise=(d=.3,v=.05)=>{const bs=ctx.sampleRate*d,b=ctx.createBuffer(1,bs,ctx.sampleRate),dt=b.getChannelData(0);for(let i=0;i<bs;i++)dt[i]=(Math.random()*2-1)*Math.exp(-i/bs*5);const s=ctx.createBufferSource(),g=ctx.createGain();s.buffer=b;s.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(v,now);g.gain.exponentialRampToValueAtTime(.001,now+d);s.start(now);s.stop(now+d)};switch(t){case'case_open':noise(.4,.06);tone(800,.15,.08,'square',.05);break;case'case_scroll':noise(.05,.02);tone(2000,.02,.03,'square');break;case'case_stop':noise(.2,.06);tone(150,.25,.1,'triangle');break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>tone(f,.3,.1),i*80));break;case'sell':tone(1200,.05,.06,'triangle');break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.2,.1),i*60));break;case'upgrade_fail':tone(300,.4,.12,'sawtooth');break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>tone(f,.04,.05,'square'),i*40));break;case'click':tone(2000,.04,.05,'square');break}}};
 document.addEventListener('click',()=>SFX.init(),{once:true});
 
 // ============================================================
-// СКИНЫ
+// 60+ СКИНОВ CS2 (реальные названия и цены)
 // ============================================================
-const SKINS=[{n:"★ Керамбит | Doppler Sapphire",r:"legendary",i:"🔪",p:8500},{n:"★ Gloves | Vice",r:"legendary",i:"🧤",p:3200},{n:"AK-47 | Case Hardened Blue Gem",r:"legendary",i:"💎",p:2800},{n:"★ Butterfly Knife | Fade",r:"legendary",i:"🦋",p:2200},{n:"AWP | Gungnir",r:"legendary",i:"⚡",p:1200},{n:"★ Talon Knife | Tiger Tooth",r:"legendary",i:"🐯",p:1100},{n:"★ Skeleton Knife | Slaughter",r:"legendary",i:"💀",p:950},{n:"M4A4 | Howl",r:"legendary",i:"🐺",p:890},{n:"AWP | Dragon Lore",r:"legendary",i:"🐉",p:850},{n:"AK-47 | Fire Serpent",r:"legendary",i:"🐍",p:680},{n:"Desert Eagle | Blaze",r:"legendary",i:"🔥",p:520},{n:"AK-47 | Vulcan",r:"epic",i:"🌋",p:145},{n:"AWP | Asiimov",r:"epic",i:"🤖",p:85},{n:"AK-47 | Neon Rider",r:"epic",i:"🏍️",p:55},{n:"M4A1-S | Cyrex",r:"epic",i:"🔴",p:48},{n:"AWP | Fever Dream",r:"epic",i:"🌡️",p:42},{n:"M4A4 | Desolate Space",r:"epic",i:"👾",p:38},{n:"Deagle | Crimson Web",r:"epic",i:"🕸️",p:35},{n:"SSG 08 | Dragonfire",r:"epic",i:"🐉",p:32},{n:"USP-S | Orion",r:"epic",i:"🌌",p:28},{n:"P250 | Mehndi",r:"epic",i:"🎨",p:18},{n:"AK-47 | Redline",r:"rare",i:"🔴",p:42},{n:"AWP | Redline",r:"rare",i:"🔴",p:35},{n:"Glock | Water Elemental",r:"rare",i:"💧",p:15},{n:"Five-SeveN | Case Hardened",r:"rare",i:"🔵",p:12},{n:"USP-S | Guardian",r:"rare",i:"🛡️",p:8},{n:"MP7 | Nemesis",r:"rare",i:"🐍",p:7},{n:"P250 | Cartel",r:"rare",i:"💀",p:6},{n:"M4A1-S | Nitro",r:"uncommon",i:"💨",p:4},{n:"AK-47 | Blue Laminate",r:"uncommon",i:"🔷",p:5},{n:"USP-S | Stainless",r:"uncommon",i:"🔩",p:3},{n:"AWP | Safari Mesh",r:"uncommon",i:"🦒",p:2},{n:"Glock | Candy Apple",r:"uncommon",i:"🍎",p:2},{n:"MP9 | Sand Dashed",r:"common",i:"🏜️",p:1},{n:"Nova | Forest",r:"common",i:"🍃",p:1},{n:"P90 | Ash Wood",r:"common",i:"🪵",p:1},{n:"MAC-10 | Silver",r:"common",i:"🥈",p:1}];
+const SKINS=[
+    {n:"★ Karambit | Doppler Sapphire",r:"legendary",i:"🔪",p:9500},{n:"★ Sport Gloves | Vice",r:"legendary",i:"🧤",p:3200},{n:"★ Butterfly Knife | Fade",r:"legendary",i:"🦋",p:2400},{n:"AK-47 | Case Hardened (661)",r:"legendary",i:"💎",p:2800},{n:"★ M9 Bayonet | Crimson Web",r:"legendary",i:"🗡️",p:1800},{n:"AWP | Dragon Lore",r:"legendary",i:"🐉",p:1200},{n:"★ Skeleton Knife | Slaughter",r:"legendary",i:"💀",p:950},{n:"M4A4 | Howl",r:"legendary",i:"🐺",p:890},{n:"AWP | Gungnir",r:"legendary",i:"⚡",p:1100},{n:"AK-47 | Fire Serpent",r:"legendary",i:"🐍",p:750},{n:"Desert Eagle | Blaze",r:"legendary",i:"🔥",p:520},{n:"Glock-18 | Fade",r:"legendary",i:"🌈",p:380},{n:"USP-S | Kill Confirmed",r:"legendary",i:"💀",p:280},{n:"AWP | Medusa",r:"legendary",i:"🐍",p:650},{n:"★ Specialist Gloves | Crimson Kimono",r:"legendary",i:"🧤",p:2600},
+    {n:"AK-47 | Vulcan",r:"epic",i:"🌋",p:145},{n:"M4A1-S | Cyrex",r:"epic",i:"🔴",p:48},{n:"AWP | Asiimov",r:"epic",i:"🤖",p:85},{n:"Desert Eagle | Crimson Web",r:"epic",i:"🕸️",p:35},{n:"USP-S | Orion",r:"epic",i:"🌌",p:28},{n:"P250 | Mehndi",r:"epic",i:"🎨",p:18},{n:"SSG 08 | Dragonfire",r:"epic",i:"🐉",p:32},{n:"AUG | Akihabara Accept",r:"epic",i:"🎌",p:95},{n:"FAMAS | Commemoration",r:"epic",i:"🎖️",p:22},{n:"Galil AR | Chatterbox",r:"epic",i:"💀",p:15},{n:"P90 | Asiimov",r:"epic",i:"🤖",p:25},{n:"MP9 | Bulldozer",r:"epic",i:"🚜",p:12},{n:"AK-47 | Neon Rider",r:"epic",i:"🏍️",p:55},{n:"AWP | Fever Dream",r:"epic",i:"🌡️",p:42},{n:"M4A4 | Desolate Space",r:"epic",i:"👾",p:38},{n:"Five-SeveN | Hyper Beast",r:"epic",i:"👹",p:28},
+    {n:"AK-47 | Redline",r:"rare",i:"🔴",p:42},{n:"AWP | Redline",r:"rare",i:"🔴",p:35},{n:"Glock-18 | Water Elemental",r:"rare",i:"💧",p:15},{n:"USP-S | Guardian",r:"rare",i:"🛡️",p:8},{n:"P250 | Cartel",r:"rare",i:"💀",p:6},{n:"Five-SeveN | Case Hardened",r:"rare",i:"🔵",p:12},{n:"Tec-9 | Toxic",r:"rare",i:"☣️",p:5},{n:"MAC-10 | Graven",r:"rare",i:"👹",p:4},{n:"MP7 | Nemesis",r:"rare",i:"🐍",p:7},{n:"UMP-45 | Blaze",r:"rare",i:"🔥",p:9},{n:"M4A4 | Evil Daimyo",r:"rare",i:"👺",p:6},{n:"PP-Bizon | Judgement of Anubis",r:"rare",i:"⚖️",p:4},
+    {n:"M4A1-S | Nitro",r:"uncommon",i:"💨",p:4},{n:"AK-47 | Blue Laminate",r:"uncommon",i:"🔷",p:5},{n:"AWP | Safari Mesh",r:"uncommon",i:"🦒",p:2},{n:"Glock-18 | Candy Apple",r:"uncommon",i:"🍎",p:2},{n:"USP-S | Stainless",r:"uncommon",i:"🔩",p:3},{n:"P250 | Valence",r:"uncommon",i:"🔶",p:1},{n:"Desert Eagle | Naga",r:"uncommon",i:"🐍",p:3},{n:"MP9 | Dark Age",r:"uncommon",i:"🏰",p:1},{n:"MAG-7 | Heaven Guard",r:"uncommon",i:"😇",p:2},{n:"Nova | Tempest",r:"uncommon",i:"🌊",p:2},{n:"XM1014 | Blue Steel",r:"uncommon",i:"🔫",p:2},
+    {n:"MP9 | Sand Dashed",r:"common",i:"🏜️",p:1},{n:"MAG-7 | Metallic DDPAT",r:"common",i:"🔫",p:1},{n:"Nova | Forest Leaves",r:"common",i:"🍃",p:1},{n:"P90 | Ash Wood",r:"common",i:"🪵",p:1},{n:"MAC-10 | Silver",r:"common",i:"🥈",p:1},{n:"MP7 | Groundwater",r:"common",i:"💧",p:1},{n:"UMP-45 | Urban DDPAT",r:"common",i:"🏙️",p:1},{n:"PP-Bizon | Sand Dashed",r:"common",i:"🏜️",p:1},
+];
 
 // ============================================================
-// ГЕНЕРАТОР КЕЙСОВ (цена → подбор скинов под нужный процент окупа)
+// 18 КЕЙСОВ (сбалансированные шансы)
 // ============================================================
-function buildCase(name,icon,price,roiPct,isYolo=false){
-    const targetAvg=Math.round(price*(1-roiPct/100));
+function buildCase(name,icon,price,yolo=false){
     let pool=[];
-    if(isYolo){
-        // YOLO: 3-4 супер-дорогих + мусор
-        const jackpots=SKINS.filter(s=>s.r==='legendary'&&s.p>=price*3).slice(0,4);
-        const trash=SKINS.filter(s=>s.p<=Math.round(price*0.1)).slice(0,12);
+    if(yolo){
+        const jackpots=SKINS.filter(s=>s.r==='legendary'&&s.p>=price*4).slice(0,4);
+        const trash=SKINS.filter(s=>s.r==='common'||s.r==='uncommon').slice(0,14);
         pool=[...jackpots,...trash];
     }else{
-        // Обычный кейс: подбираем скины чтобы средняя была ≈ targetAvg
-        const candidates=SKINS.filter(s=>s.p>=targetAvg*0.2&&s.p<=targetAvg*3);
-        candidates.sort((a,b)=>Math.abs(a.p-targetAvg)-Math.abs(b.p-targetAvg));
-        pool=candidates.slice(0,18);
-        // Добавляем несколько дорогих для шанса окупа
-        const bigWins=SKINS.filter(s=>s.p>=price*1.5&&s.p<=price*8).slice(0,3);
-        pool=[...bigWins,...pool.slice(0,15)];
+        const targetAvg=Math.round(price*0.82);
+        const all=SKINS.filter(s=>s.p>=targetAvg*0.15&&s.p<=targetAvg*4);
+        all.sort((a,b)=>Math.abs(a.p-targetAvg)-Math.abs(b.p-targetAvg));
+        pool=all.slice(0,20);
+        if(pool.filter(s=>s.r==='legendary').length<2){
+            const extra=SKINS.filter(s=>s.r==='legendary'&&s.p<=price*5).slice(0,3);
+            pool=[...extra,...pool.slice(0,18)];
+        }
     }
     const avg=Math.round(pool.reduce((s,sk)=>s+sk.p,0)/pool.length);
-    const roi=Math.round((1-avg/price)*100);
-    return{id:name,n:name,i:icon,p:price,avg,roi,isYolo,s:pool};
+    return{id:name,n:name,i:icon,p:price,avg,s:pool,isYolo:yolo};
 }
 
 const CASES=[
-    buildCase('👑 Премиум','👑',500,18),
-    buildCase('💚 Gamma Doppler','💚',800,20),
-    buildCase('🔥 Operation Bravo','🔥',600,17),
-    buildCase('🧤 Glove Case','🧤',450,16),
-    buildCase('🌈 Chroma','🌈',250,15),
-    buildCase('📦 Стандарт','📦',120,14),
-    buildCase('🎯 Снайперский','🎯',180,16),
-    buildCase('🐍 Snakebite','🐍',80,12),
-    buildCase('🚀 Стартовый','🚀',35,10),
-    buildCase('💸 Бюджет','💸',25,25),
-    buildCase('💀 YOLO','💀',200,0,true),
-    buildCase('🎰 Всё или ничего','🎰',150,0,true),
-    buildCase('💎 Элитный','💎',1000,22),
-    buildCase('🔪 Ножевой','🔪',700,19),
+    buildCase('👑 Премиум','👑',550),buildCase('💚 Gamma Doppler','💚',850),buildCase('🔥 Operation Bravo','🔥',650),
+    buildCase('🧤 Glove Case','🧤',500),buildCase('🌈 Chroma 3','🌈',280),buildCase('📦 Стандартный','📦',130),
+    buildCase('🎯 Снайперский','🎯',200),buildCase('🐍 Snakebite','🐍',90),buildCase('🚀 Стартовый','🚀',40),
+    buildCase('💸 Бюджетный','💸',28),buildCase('💀 YOLO','💀',220,true),buildCase('🎰 Всё или ничего','🎰',180,true),
+    buildCase('💎 Элитный','💎',1100),buildCase('🔪 Ножевой','🔪',750),buildCase('🌊 Clutch Case','🌊',160),
+    buildCase('⚡ Prisma 2','💠',140),buildCase('🔥 Danger Zone','⚠️',100),buildCase('🎪 Мега-микс','🎪',350),
 ];
 
 let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1,ch=50,mult=2;
 const ge=id=>document.getElementById(id);
-function rndItem(cs){if(CASES[caseI]?.isYolo){const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*3);if(r<1&&bigs.length>0)return bigs[0];if(r<3&&bigs.length>1)return bigs[1];if(r<6&&bigs.length>2)return bigs[2];return cs.filter(s=>s.p<=CASES[caseI].p*0.15)[Math.floor(Math.random()*cs.filter(s=>s.p<=CASES[caseI].p*0.15).length)]||cs[cs.length-1];}const w={legendary:1,epic:15,rare:30,uncommon:30,common:24};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
+function rndItem(cs){
+    if(CASES[caseI]?.isYolo){
+        const r=Math.random()*100;
+        const bigs=cs.filter(s=>s.p>=CASES[caseI].p*4);
+        if(r<0.5&&bigs.length>0)return bigs[0];
+        if(r<1.5&&bigs.length>1)return bigs[1];
+        if(r<3&&bigs.length>2)return bigs[2];
+        if(r<5&&bigs.length>3)return bigs[3];
+        return cs.filter(s=>s.r==='common'||s.r==='uncommon')[Math.floor(Math.random()*cs.filter(s=>s.r==='common'||s.r==='uncommon').length)]||cs[cs.length-1];
+    }
+    const w={legendary:0.5,epic:8,rare:25,uncommon:33,common:33.5};
+    const r=Math.random()*100;let cum=0;
+    for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}
+    return cs[Math.floor(Math.random()*cs.length)];
+}
 function skinByPrice(tp){let b=SKINS[0],bd=Infinity;for(const s of SKINS){const d=Math.abs(s.p-tp);if(d<bd){bd=d;b=s;}}return b;}
 function genTape(win,cs){const tape=ge('tape');if(!tape)return;let h='';for(let i=0;i<40;i++){let item=(i===32&&win)?win:rndItem(cs);h+=`<div class="skin ${item.r}"><div class="si">${item.i}</div><div class="sn">${item.n}</div><div class="sp">${item.p} <i class="fas fa-coins coin"></i></div></div>`;}tape.innerHTML=h;tape.style.transition='none';tape.style.transform='translateX(800px)';}
 function spin(){return new Promise(resolve=>{const tape=ge('tape'),cont=document.querySelector('.roulette');if(!tape||!cont){resolve();return;}const ww=cont.offsetWidth||800,target=-(32*129)+(ww/2)-64;tape.offsetHeight;let clicks=0;const ci=setInterval(()=>{SFX.play('case_scroll');clicks++;if(clicks>30)clearInterval(ci);},100);tape.style.transition='transform 3.2s cubic-bezier(0.08,0.85,0.15,1)';tape.style.transform=`translateX(${target+(Math.random()*30-15)}px)`;setTimeout(()=>{clearInterval(ci);SFX.play('case_stop');resolve();},3400);});}
-async function openCase(){if(!curUser){alert('❌ Сначала войди!');showReg();return;}if(spinning)return;const c=CASES[caseI];if(bal<c.p){alert(`❌ Нужно ${c.p} 🪙`);return;}spinning=true;ge('openBtn').disabled=true;ge('openBtn').textContent='🎰 КРУТИМ...';bal-=c.p;updBal();SFX.play('case_open');const win=rndItem(c.s);genTape(win,c.s);await new Promise(r=>setTimeout(r,300));await spin();inv.push({...win,id:idC++});hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});dropLater(win.n,win.i,win.p,win.r);updateStats(win.p,win.n);if(win.r==='legendary')SFX.play('legendary');const profit=win.p-c.p;ge('result').style.display='block';ge('result').innerHTML=`🎉 ${win.i} <strong>${win.n}</strong> (${win.p} 🪙) | ${profit>=0?'+'+profit:profit} 🪙`;ge('result').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,60,60,0.1)';ge('result').style.color=profit>=0?'#4caf50':'#ff4444';renderAll();saveGame();spinning=false;ge('openBtn').disabled=false;ge('openBtn').textContent='🔑 ОТКРЫТЬ КЕЙС';}
+async function openCase(){if(!curUser){alert('❌ Сначала войди!');showReg();return;}if(spinning)return;const c=CASES[caseI];if(bal<c.p){alert(`❌ Нужно ${c.p} 🪙`);return;}spinning=true;ge('openBtn').disabled=true;ge('openBtn').textContent='🎰 КРУТИМ...';bal-=c.p;updBal();SFX.play('case_open');const win=rndItem(c.s);genTape(win,c.s);await new Promise(r=>setTimeout(r,300));await spin();inv.push({...win,id:idC++});hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});dropLater(win.n,win.i,win.p,win.r);updateStats(win.p,win.n,win.i,curUser);if(win.r==='legendary')SFX.play('legendary');const profit=win.p-c.p;ge('result').style.display='block';ge('result').innerHTML=`🎉 ${win.i} <strong>${win.n}</strong> (${win.p} 🪙) | ${profit>=0?'+'+profit:profit} 🪙`;ge('result').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,60,60,0.1)';ge('result').style.color=profit>=0?'#4caf50':'#ff4444';renderAll();saveGame();spinning=false;ge('openBtn').disabled=false;ge('openBtn').textContent='🔑 ОТКРЫТЬ КЕЙС';}
 function nav(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));if(p==='cases'){ge('p-cases').classList.add('active');renderCases();}else{ge('p-'+p).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(p))renderAll();if(p==='profile')renderProf();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-p="${p}"]`);if(nb)nb.classList.add('active');SFX.play('click');}
-function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('caseROI').textContent=c.roi+'%';ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}"><span class="pi">${s.i}</span><div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
-function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCP(${i})">${c.isYolo?'<div class="yolo-badge">YOLO</div>':''}<span class="ci">${c.i}</span><div class="cn">${c.n}</div><div class="cp">${c.p} <i class="fas fa-coins coin"></i></div><div class="cev ${c.roi>=20?'good':c.roi>=10?'mid':'bad'}">Окуп: ${c.roi}% | Средний: ${c.avg}🪙</div></div>`).join('');}
+function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}"><span class="pi">${s.i}</span><div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
+function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCP(${i})">${c.isYolo?'<div class="yolo-badge">YOLO</div>':''}<span class="ci">${c.i}</span><div class="cn">${c.n}</div><div class="cp">${c.p} <i class="fas fa-coins coin"></i></div></div>`).join('');}
 function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Пусто</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');}renderUpInv();renderConInv();upUI();conUI();}
 function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
