@@ -6,8 +6,7 @@
     <title>CS-SKINS | Кейсы + Апгрейд + Контракты</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ===== ВЕСЬ CSS ТОТ ЖЕ, ЧТО В ПРЕДЫДУЩЕМ ФАЙЛЕ ===== */
-        /* (я не буду дублировать 500 строк CSS, он такой же) */
+        /* ===== ВЕСЬ CSS ТОТ ЖЕ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -47,6 +46,7 @@
         }
         .balance i { margin-right: 8px; }
         .balance span { color: #fff; }
+
         .tabs {
             display: flex;
             gap: 10px;
@@ -854,24 +854,35 @@
     <script>
     (function() {
         // ============================================================
-        //  СКИНЫ
+        //  СКИНЫ — РАСШИРЕННЫЙ ПУЛ (39 штук)
         // ============================================================
         const ALL_SKINS = [
-            // LEGENDARY (красные) — 6 шт
+            // === LEGENDARY (красные) — 14 шт (включая 10 ножей) ===
             { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
             { name: "AK-47 | Золотой Коллекционер", rarity: "legendary", icon: "✨", price: 620.00 },
             { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 490.00 },
-            { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
             { name: "AWP | Gungnir", rarity: "legendary", icon: "⚡", price: 720.00 },
+            // НОЖИ (10 шт)
+            { name: "Керамбит | Рубиновый", rarity: "legendary", icon: "🔪", price: 1200.00 },
             { name: "M9 Bayonet | Слизь", rarity: "legendary", icon: "🗡️", price: 580.00 },
-            // EPIC (фиолетовые) — 6 шт
+            { name: "Bayonet | Дамский", rarity: "legendary", icon: "🗡️", price: 420.00 },
+            { name: "Флип | Нож", rarity: "legendary", icon: "🔪", price: 350.00 },
+            { name: "Gut Knife | Лес", rarity: "legendary", icon: "🔪", price: 280.00 },
+            { name: "Huntsman Knife | Ночь", rarity: "legendary", icon: "🗡️", price: 390.00 },
+            { name: "Bowie Knife | Кровь", rarity: "legendary", icon: "🔪", price: 450.00 },
+            { name: "Falchion Knife | Лёд", rarity: "legendary", icon: "🗡️", price: 320.00 },
+            { name: "Shadow Daggers | Тень", rarity: "legendary", icon: "🗡️", price: 250.00 },
+            { name: "Navaja Knife | Сера", rarity: "legendary", icon: "🔪", price: 200.00 },
+
+            // === EPIC (фиолетовые) — 6 шт ===
             { name: "AK-47 | Вулканический", rarity: "epic", icon: "🌋", price: 145.00 },
             { name: "Desert Eagle | Код красный", rarity: "epic", icon: "🔫", price: 98.00 },
             { name: "M4A1-S | Кибер", rarity: "epic", icon: "💻", price: 75.00 },
             { name: "AWP | Электричество", rarity: "epic", icon: "⚡", price: 120.00 },
             { name: "USP-S | Убийца", rarity: "epic", icon: "🎯", price: 62.00 },
             { name: "SSG 08 | Смерть", rarity: "epic", icon: "💀", price: 50.00 },
-            // RARE (синие) — 8 шт
+
+            // === RARE (синие) — 7 шт ===
             { name: "Glock-18 | Королева", rarity: "rare", icon: "👸", price: 35.00 },
             { name: "USP-S | Сайрекс", rarity: "rare", icon: "⚡", price: 28.00 },
             { name: "AK-47 | Красная линия", rarity: "rare", icon: "🔴", price: 42.00 },
@@ -879,28 +890,22 @@
             { name: "Desert Eagle | Мечта", rarity: "rare", icon: "🌙", price: 25.00 },
             { name: "AWP | Фуксия", rarity: "rare", icon: "🌸", price: 45.00 },
             { name: "P250 | Вспышка", rarity: "rare", icon: "💥", price: 18.00 },
-            { name: "MP9 | Роза", rarity: "rare", icon: "🌹", price: 22.00 },
-            // UNCOMMON (зелёные) — 8 шт
+
+            // === UNCOMMON (зелёные) — 6 шт ===
             { name: "M4A4 | Тренировка", rarity: "uncommon", icon: "🏋️", price: 12.00 },
             { name: "AK-47 | Водяной", rarity: "uncommon", icon: "💧", price: 15.00 },
             { name: "Glock-18 | Вода", rarity: "uncommon", icon: "🌊", price: 9.00 },
             { name: "USP-S | Лесной", rarity: "uncommon", icon: "🌲", price: 8.00 },
             { name: "Five-SeveN | Серебро", rarity: "uncommon", icon: "🔩", price: 11.00 },
             { name: "SSG 08 | Абисс", rarity: "uncommon", icon: "🌊", price: 14.00 },
-            { name: "P250 | Металл", rarity: "uncommon", icon: "⚙️", price: 6.50 },
-            { name: "MP7 | Иней", rarity: "uncommon", icon: "❄️", price: 7.50 },
-            // COMMON (серые) — 11 шт
+
+            // === COMMON (серые) — 6 шт ===
             { name: "MP9 | Зелёный", rarity: "common", icon: "🔫", price: 2.50 },
             { name: "MAG-7 | Медь", rarity: "common", icon: "🔫", price: 3.20 },
             { name: "Nova | Лес", rarity: "common", icon: "🔫", price: 1.80 },
             { name: "P90 | Пепел", rarity: "common", icon: "🔫", price: 2.00 },
             { name: "MAC-10 | Серебро", rarity: "common", icon: "🔫", price: 1.50 },
             { name: "MP7 | Трава", rarity: "common", icon: "🔫", price: 1.20 },
-            { name: "UMP-45 | Дым", rarity: "common", icon: "🔫", price: 1.80 },
-            { name: "PP-Bizon | Лес", rarity: "common", icon: "🔫", price: 1.40 },
-            { name: "Galil | Кара", rarity: "common", icon: "🔫", price: 2.00 },
-            { name: "FAMAS | Армия", rarity: "common", icon: "🔫", price: 2.20 },
-            { name: "MP5 | Тень", rarity: "common", icon: "🔫", price: 1.60 },
         ];
 
         // ============================================================
@@ -987,13 +992,14 @@
                 name: '🗡️ НОЖЕВОЙ КЕЙС',
                 icon: '🗡️',
                 price: 75,
-                description: 'Только ножи',
-                skins: ALL_SKINS.filter(s => s.name.includes('Керамбит') || s.name.includes('M9') || s.name.includes('Bayonet'))
+                description: 'Окупаемость ~10%',
+                // В ножевом кейсе ВСЕ скины, но с жёсткими весами
+                skins: ALL_SKINS
             }
         ];
 
         // ============================================================
-        //  НОВЫЕ ЖЁСТКИЕ ВЕСА
+        //  ЖЁСТКИЕ ВЕСА — КАЗИНО ВСЕГДА В ПЛЮСЕ
         // ============================================================
         function getRarityWeights() {
             const currentCase = CASES[currentCaseIndex];
@@ -1015,7 +1021,8 @@
                 case 'pistol':
                     return { legendary: 1, epic: 4, rare: 15, uncommon: 30, common: 50 };
                 case 'knife':
-                    return { legendary: 100, epic: 0, rare: 0, uncommon: 0, common: 0 };
+                    // НОЖЕВОЙ КЕЙС — 90% шанс на дешёвые скины, 10% на ножи
+                    return { legendary: 2, epic: 3, rare: 5, uncommon: 30, common: 60 };
                 default:
                     return { legendary: 2, epic: 6, rare: 12, uncommon: 25, common: 55 };
             }
