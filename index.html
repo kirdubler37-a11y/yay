@@ -253,15 +253,343 @@
     const SoundFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(type){this.init();const ctx=this.ctx,now=ctx.currentTime;const playTone=(freq,dur,vol=.12,type='sine',delay=0)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(freq,now+delay);g.gain.setValueAtTime(vol,now+delay);g.gain.exponentialRampToValueAtTime(.001,now+delay+dur);o.start(now+delay);o.stop(now+delay+dur)};const noiseBurst=(dur=.3,vol=.06)=>{const bufferSize=ctx.sampleRate*dur,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4);const noise=ctx.createBufferSource(),ng=ctx.createGain();noise.buffer=buffer;noise.connect(ng);ng.connect(ctx.destination);ng.gain.setValueAtTime(vol,now);ng.gain.exponentialRampToValueAtTime(.001,now+dur);noise.start(now);noise.stop(now+dur)};switch(type){case'case_open':noiseBurst(.35,.06);playTone(800,.12,.08,'square',.05);playTone(1100,.08,.05,'square',.15);playTone(1400,.06,.03,'sine',.25);break;case'case_scroll':noiseBurst(.06,.02);playTone(1500,.02,.03,'triangle',.01);break;case'legendary':[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.1),i*100));noiseBurst(.6,.04);break;case'sell':playTone(1200,.06,.06,'triangle');playTone(800,.06,.06,'triangle',.06);playTone(600,.06,.06,'triangle',.12);break;case'upgrade_success':[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,.1),i*80));noiseBurst(.4,.03);break;case'upgrade_fail':playTone(250,.4,.12,'sawtooth');playTone(200,.3,.08,'square',.1);noiseBurst(.5,.05);break;case'contract':[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>playTone(f,.05,.05,'square'),i*50));noiseBurst(.25,.03);break}}};
 
     // ============================================================
-    //  СКИНЫ И КЕЙСЫ
-    // ============================================================
-    const ALL_SKINS=[{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"AK-47 | Case Hardened (661)",rarity:"legendary",icon:"🔵",price:2800},{name:"M4A4 | Howl",rarity:"legendary",icon:"🐺",price:890},{name:"AWP | Gungnir",rarity:"legendary",icon:"⚡",price:1200},{name:"Desert Eagle | Blaze",rarity:"legendary",icon:"🔥",price:520},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},{name:"AWP | Medusa",rarity:"legendary",icon:"🐍",price:750},{name:"M4A1-S | Knight",rarity:"legendary",icon:"⚔️",price:420},{name:"Glock-18 | Fade",rarity:"legendary",icon:"🌈",price:350},{name:"USP-S | Kill Confirmed",rarity:"legendary",icon:"💀",price:280},{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500},{name:"★ Butterfly Knife | Fade",rarity:"legendary",icon:"🦋",price:2200},{name:"AK-47 | Vulcan",rarity:"epic",icon:"🌋",price:145},{name:"M4A1-S | Cyrex",rarity:"epic",icon:"🔴",price:48},{name:"AWP | Asiimov",rarity:"epic",icon:"🤖",price:85},{name:"Desert Eagle | Crimson Web",rarity:"epic",icon:"🕸️",price:35},{name:"USP-S | Orion",rarity:"epic",icon:"🌌",price:28},{name:"P250 | Mehndi",rarity:"epic",icon:"🎨",price:18},{name:"AK-47 | Redline",rarity:"rare",icon:"🔴",price:42},{name:"M4A4 | Desolate Space",rarity:"rare",icon:"👾",price:28},{name:"AWP | Redline",rarity:"rare",icon:"🔴",price:35},{name:"Glock-18 | Water Elemental",rarity:"rare",icon:"💧",price:15},{name:"USP-S | Guardian",rarity:"rare",icon:"🛡️",price:8},{name:"P250 | Cartel",rarity:"rare",icon:"💀",price:6},{name:"M4A1-S | Nitro",rarity:"uncommon",icon:"💨",price:3.5},{name:"AK-47 | Blue Laminate",rarity:"uncommon",icon:"🔷",price:5},{name:"AWP | Safari Mesh",rarity:"uncommon",icon:"🦒",price:2},{name:"Glock-18 | Candy Apple",rarity:"uncommon",icon:"🍎",price:1.5},{name:"USP-S | Stainless",rarity:"uncommon",icon:"🔩",price:2.5},{name:"P250 | Valence",rarity:"uncommon",icon:"🔶",price:1.2},{name:"MP9 | Sand Dashed",rarity:"common",icon:"🏜️",price:0.15},{name:"MAG-7 | Metallic DDPAT",rarity:"common",icon:"🔫",price:0.2},{name:"Nova | Forest Leaves",rarity:"common",icon:"🍃",price:0.12},{name:"P90 | Ash Wood",rarity:"common",icon:"🪵",price:0.18},{name:"MAC-10 | Silver",rarity:"common",icon:"🥈",price:0.15}];
-    const CASES=[{id:'dreams',name:'🌙 Dreams & Nightmares',icon:'💎',price:85,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,6),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5)]},{id:'gamma',name:'💚 Gamma Doppler',icon:'💚',price:120,skins:[...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(0,3),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4)]},{id:'bravo',name:'🔥 Operation Bravo',icon:'🔥',price:250,skins:[{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},...ALL_SKINS.filter(s=>s.name.includes('★')),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,5)]},{id:'standard',name:'📦 Стандартный',icon:'📦',price:45,skins:[...ALL_SKINS.filter(s=>s.rarity==='legendary').slice(3,6),...ALL_SKINS.filter(s=>s.rarity==='epic').slice(0,4),...ALL_SKINS.filter(s=>s.rarity==='rare').slice(0,5),...ALL_SKINS.filter(s=>s.rarity==='uncommon').slice(0,4)]},{id:'starter',name:'🚀 Стартовый',icon:'🚀',price:15,skins:[...ALL_SKINS.filter(s=>s.rarity==='epic').slice(3,7),...ALL_SKINS.filter(s=>s.rarity==='rare'),...ALL_SKINS.filter(s=>s.rarity==='uncommon')]},{id:'yolo',name:'💀 YOLO',icon:'💀',price:100,skins:[{name:"★ Керамбит | Doppler (Sapphire)",rarity:"legendary",icon:"🔪",price:8500},{name:"AWP | Dragon Lore",rarity:"legendary",icon:"🐉",price:850},{name:"AK-47 | Fire Serpent",rarity:"legendary",icon:"🐍",price:680},...ALL_SKINS.filter(s=>s.rarity==='common')]}];
+//  СКИНЫ (80+ штук с реальными ценами)
+// ============================================================
+const ALL_SKINS = [
+    // 🔴 LEGENDARY (Covert) — 25 шт
+    { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
+    { name: "AK-47 | Case Hardened (Blue Gem)", rarity: "legendary", icon: "💎", price: 2800.00 },
+    { name: "M4A4 | Howl", rarity: "legendary", icon: "🐺", price: 890.00 },
+    { name: "AWP | Gungnir", rarity: "legendary", icon: "⚡", price: 1200.00 },
+    { name: "Desert Eagle | Blaze", rarity: "legendary", icon: "🔥", price: 520.00 },
+    { name: "AK-47 | Fire Serpent", rarity: "legendary", icon: "🐍", price: 680.00 },
+    { name: "AWP | Medusa", rarity: "legendary", icon: "🐍", price: 750.00 },
+    { name: "M4A1-S | Knight", rarity: "legendary", icon: "⚔️", price: 420.00 },
+    { name: "Glock-18 | Fade", rarity: "legendary", icon: "🌈", price: 350.00 },
+    { name: "USP-S | Kill Confirmed", rarity: "legendary", icon: "💀", price: 280.00 },
+    { name: "AWP | Lightning Strike", rarity: "legendary", icon: "⚡", price: 190.00 },
+    { name: "SSG 08 | Blood in the Water", rarity: "legendary", icon: "🦈", price: 110.00 },
+    { name: "★ Керамбит | Doppler Sapphire", rarity: "legendary", icon: "🔪", price: 8500.00 },
+    { name: "★ M9 Bayonet | Crimson Web", rarity: "legendary", icon: "🗡️", price: 1800.00 },
+    { name: "★ Butterfly Knife | Fade", rarity: "legendary", icon: "🦋", price: 2200.00 },
+    { name: "★ Karambit | Marble Fade", rarity: "legendary", icon: "🔪", price: 1600.00 },
+    { name: "★ Skeleton Knife | Slaughter", rarity: "legendary", icon: "💀", price: 950.00 },
+    { name: "★ Talon Knife | Tiger Tooth", rarity: "legendary", icon: "🐯", price: 1100.00 },
+    { name: "★ Sport Gloves | Vice", rarity: "legendary", icon: "🧤", price: 3200.00 },
+    { name: "★ Specialist Gloves | Crimson Kimono", rarity: "legendary", icon: "🧤", price: 2800.00 },
+    { name: "★ Driver Gloves | King Snake", rarity: "legendary", icon: "🧤", price: 1900.00 },
+    { name: "AK-47 | Gold Arabesque", rarity: "legendary", icon: "🌟", price: 1500.00 },
+    { name: "AWP | The Prince", rarity: "legendary", icon: "👑", price: 1800.00 },
+    { name: "M4A1-S | Welcome to the Jungle", rarity: "legendary", icon: "🌴", price: 650.00 },
+    { name: "USP-S | The Traitor", rarity: "legendary", icon: "🗡️", price: 320.00 },
 
-    function getRarityWeights(cs){const rc={};cs.forEach(s=>{rc[s.rarity]=(rc[s.rarity]||0)+1});let w={};if(rc.legendary&&rc.legendary>=5)w={legendary:3,epic:rc.epic?12:0,rare:rc.rare?25:0,uncommon:rc.uncommon?30:0,common:rc.common?30:0};else if(rc.legendary&&rc.legendary>=3)w={legendary:2,epic:rc.epic?10:0,rare:rc.rare?25:0,uncommon:rc.uncommon?33:0,common:rc.common?30:0};else if(rc.legendary)w={legendary:1,epic:rc.epic?8:0,rare:rc.rare?20:0,uncommon:rc.uncommon?35:0,common:rc.common?36:0};else if(rc.epic)w={legendary:0,epic:15,rare:rc.rare?30:0,uncommon:rc.uncommon?30:0,common:rc.common?25:0};else w={legendary:0,epic:0,rare:rc.rare?35:0,uncommon:rc.uncommon?40:0,common:rc.common?25:0};const t=Object.values(w).reduce((a,b)=>a+b,0);if(t>0)for(const k in w)w[k]=(w[k]/t)*100;return w;}
-    function getRandomItem(cs){if(CASES[currentCaseIndex].id==='yolo'){const r=Math.random()*100;if(r<1)return cs.find(s=>s.name.includes('Sapphire'))||cs[0];else if(r<4)return cs.find(s=>s.name.includes('Dragon Lore'))||cs[0];else if(r<8)return cs.find(s=>s.name.includes('Fire Serpent'))||cs[0];else{const c=cs.filter(s=>s.rarity==='common');return c[Math.floor(Math.random()*c.length)];}}const w=getRarityWeights(cs),r=Math.random()*100;let cum=0,sr='common';for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){sr=ra;break;}}const p=cs.filter(s=>s.rarity===sr);return p.length?p[Math.floor(Math.random()*p.length)]:cs[Math.floor(Math.random()*cs.length)];}
-    function getSkinByPrice(tp){let b=ALL_SKINS[0],bd=Infinity;for(const s of ALL_SKINS){const d=Math.abs(s.price-tp);if(d<bd){bd=d;b=s;}}return b;}
+    // 🟣 EPIC (Classified) — 20 шт
+    { name: "AK-47 | Vulcan", rarity: "epic", icon: "🌋", price: 145.00 },
+    { name: "M4A1-S | Cyrex", rarity: "epic", icon: "🔴", price: 48.00 },
+    { name: "AWP | Asiimov", rarity: "epic", icon: "🤖", price: 85.00 },
+    { name: "Desert Eagle | Crimson Web", rarity: "epic", icon: "🕸️", price: 35.00 },
+    { name: "USP-S | Orion", rarity: "epic", icon: "🌌", price: 28.00 },
+    { name: "P250 | Mehndi", rarity: "epic", icon: "🎨", price: 18.00 },
+    { name: "SSG 08 | Dragonfire", rarity: "epic", icon: "🐉", price: 32.00 },
+    { name: "AUG | Akihabara Accept", rarity: "epic", icon: "🎌", price: 95.00 },
+    { name: "FAMAS | Commemoration", rarity: "epic", icon: "🎖️", price: 22.00 },
+    { name: "Galil AR | Chatterbox", rarity: "epic", icon: "💀", price: 15.00 },
+    { name: "P90 | Asiimov", rarity: "epic", icon: "🤖", price: 25.00 },
+    { name: "MP9 | Bulldozer", rarity: "epic", icon: "🚜", price: 12.00 },
+    { name: "M4A4 | Desolate Space", rarity: "epic", icon: "👾", price: 38.00 },
+    { name: "AK-47 | Neon Rider", rarity: "epic", icon: "🏍️", price: 55.00 },
+    { name: "AWP | Fever Dream", rarity: "epic", icon: "🌡️", price: 42.00 },
+    { name: "Five-SeveN | Hyper Beast", rarity: "epic", icon: "👹", price: 28.00 },
+    { name: "Tec-9 | Fuel Injector", rarity: "epic", icon: "⛽", price: 15.00 },
+    { name: "MAC-10 | Neon Rider", rarity: "epic", icon: "🏍️", price: 12.00 },
+    { name: "MP7 | Bloodsport", rarity: "epic", icon: "🩸", price: 18.00 },
+    { name: "PP-Bizon | Judgement of Anubis", rarity: "epic", icon: "⚖️", price: 10.00 },
 
+    // 🔵 RARE (Restricted) — 15 шт
+    { name: "AK-47 | Redline", rarity: "rare", icon: "🔴", price: 42.00 },
+    { name: "AWP | Redline", rarity: "rare", icon: "🔴", price: 35.00 },
+    { name: "Glock-18 | Water Elemental", rarity: "rare", icon: "💧", price: 15.00 },
+    { name: "USP-S | Guardian", rarity: "rare", icon: "🛡️", price: 8.00 },
+    { name: "P250 | Cartel", rarity: "rare", icon: "💀", price: 6.00 },
+    { name: "Five-SeveN | Case Hardened", rarity: "rare", icon: "🔵", price: 12.00 },
+    { name: "Tec-9 | Toxic", rarity: "rare", icon: "☣️", price: 5.00 },
+    { name: "MAC-10 | Graven", rarity: "rare", icon: "👹", price: 4.50 },
+    { name: "MP7 | Nemesis", rarity: "rare", icon: "🐍", price: 7.00 },
+    { name: "UMP-45 | Blaze", rarity: "rare", icon: "🔥", price: 9.00 },
+    { name: "M4A4 | Evil Daimyo", rarity: "rare", icon: "👺", price: 6.50 },
+    { name: "P90 | Trigon", rarity: "rare", icon: "🔺", price: 4.00 },
+    { name: "MAG-7 | Heat", rarity: "rare", icon: "🔥", price: 3.50 },
+    { name: "Nova | Antique", rarity: "rare", icon: "🏛️", price: 5.50 },
+    { name: "XM1014 | Seasons", rarity: "rare", icon: "🌦️", price: 4.00 },
+
+    // ⚪ UNCOMMON (Mil-Spec) — 12 шт
+    { name: "M4A1-S | Nitro", rarity: "uncommon", icon: "💨", price: 3.50 },
+    { name: "AK-47 | Blue Laminate", rarity: "uncommon", icon: "🔷", price: 5.00 },
+    { name: "AWP | Safari Mesh", rarity: "uncommon", icon: "🦒", price: 2.00 },
+    { name: "Glock-18 | Candy Apple", rarity: "uncommon", icon: "🍎", price: 1.50 },
+    { name: "USP-S | Stainless", rarity: "uncommon", icon: "🔩", price: 2.50 },
+    { name: "P250 | Valence", rarity: "uncommon", icon: "🔶", price: 1.20 },
+    { name: "Desert Eagle | Naga", rarity: "uncommon", icon: "🐍", price: 3.00 },
+    { name: "MP9 | Dark Age", rarity: "uncommon", icon: "🏰", price: 1.00 },
+    { name: "MAG-7 | Heaven Guard", rarity: "uncommon", icon: "😇", price: 1.80 },
+    { name: "Nova | Tempest", rarity: "uncommon", icon: "🌊", price: 1.50 },
+    { name: "XM1014 | Blue Steel", rarity: "uncommon", icon: "🔫", price: 2.00 },
+    { name: "SCAR-20 | Cardiac", rarity: "uncommon", icon: "❤️", price: 1.20 },
+
+    // ⚫ COMMON (Consumer) — 10 шт
+    { name: "MP9 | Sand Dashed", rarity: "common", icon: "🏜️", price: 0.15 },
+    { name: "MAG-7 | Metallic DDPAT", rarity: "common", icon: "🔫", price: 0.20 },
+    { name: "Nova | Forest Leaves", rarity: "common", icon: "🍃", price: 0.12 },
+    { name: "P90 | Ash Wood", rarity: "common", icon: "🪵", price: 0.18 },
+    { name: "MAC-10 | Silver", rarity: "common", icon: "🥈", price: 0.15 },
+    { name: "MP7 | Groundwater", rarity: "common", icon: "💧", price: 0.10 },
+    { name: "UMP-45 | Urban DDPAT", rarity: "common", icon: "🏙️", price: 0.14 },
+    { name: "PP-Bizon | Sand Dashed", rarity: "common", icon: "🏜️", price: 0.08 },
+    { name: "Galil AR | Sage Spray", rarity: "common", icon: "🌿", price: 0.12 },
+    { name: "FAMAS | Colony", rarity: "common", icon: "🐜", price: 0.10 },
+];
+
+// ============================================================
+//  КЕЙСЫ (15 шт, сбалансированные)
+// ============================================================
+const CASES = [
+    // 1. ПРЕМИУМ КЕЙС — дорогой, высокий шанс легендарок
+    {
+        id: 'premium',
+        name: '👑 Премиум',
+        icon: '👑',
+        price: 350,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(0, 10),
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(12, 18),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 8),
+        ]
+    },
+    // 2. Dreams & Nightmares — легендарки + эпики
+    {
+        id: 'dreams',
+        name: '🌙 Dreams & Nightmares',
+        icon: '🌙',
+        price: 180,
+        skins: [
+            ...ALL_SKINS.filter(s => ['AWP | Gungnir', 'AK-47 | Case Hardened (Blue Gem)', '★ Butterfly Knife | Fade', 'M4A4 | Howl', 'Desert Eagle | Blaze'].some(n => s.name.includes(n))),
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(10, 14),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 4),
+        ]
+    },
+    // 3. Gamma Doppler — ножи + перчатки
+    {
+        id: 'gamma',
+        name: '💚 Gamma Doppler',
+        icon: '💚',
+        price: 250,
+        skins: [
+            ...ALL_SKINS.filter(s => s.name.includes('★') || s.name.includes('Gloves')),
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(0, 5),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 6),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 4),
+        ]
+    },
+    // 4. Operation Bravo — классика
+    {
+        id: 'bravo',
+        name: '🔥 Operation Bravo',
+        icon: '🔥',
+        price: 300,
+        skins: [
+            { name: "AK-47 | Fire Serpent", rarity: "legendary", icon: "🐍", price: 680.00 },
+            ...ALL_SKINS.filter(s => s.name.includes('★')).slice(0, 4),
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(5, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 7),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5),
+        ]
+    },
+    // 5. Glove Case — перчатки + ножи
+    {
+        id: 'glove',
+        name: '🧤 Glove Case',
+        icon: '🧤',
+        price: 200,
+        skins: [
+            ...ALL_SKINS.filter(s => s.name.includes('Gloves')),
+            ...ALL_SKINS.filter(s => s.name.includes('★')).slice(0, 5),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5),
+        ]
+    },
+    // 6. Chroma Case
+    {
+        id: 'chroma',
+        name: '🌈 Chroma',
+        icon: '🌈',
+        price: 120,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(0, 6),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 10),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 6),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 4),
+        ]
+    },
+    // 7. Стандартный
+    {
+        id: 'standard',
+        name: '📦 Стандартный',
+        icon: '📦',
+        price: 80,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(6, 10),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(4, 10),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 6),
+        ]
+    },
+    // 8. Snakebite
+    {
+        id: 'snakebite',
+        name: '🐍 Snakebite',
+        icon: '🐍',
+        price: 55,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(8, 10),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(6, 14),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 6),
+            ...ALL_SKINS.filter(s => s.rarity === 'common').slice(0, 3),
+        ]
+    },
+    // 9. Prisma 2
+    {
+        id: 'prisma2',
+        name: '💠 Prisma 2',
+        icon: '💠',
+        price: 70,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'legendary').slice(4, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 7),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 5),
+            ...ALL_SKINS.filter(s => s.rarity === 'common').slice(0, 3),
+        ]
+    },
+    // 10. Fracture
+    {
+        id: 'fracture',
+        name: '💥 Fracture',
+        icon: '💥',
+        price: 45,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(8, 14),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'common').slice(0, 4),
+        ]
+    },
+    // 11. Стартовый — дешёвый, для новичков
+    {
+        id: 'starter',
+        name: '🚀 Стартовый',
+        icon: '🚀',
+        price: 25,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(14, 18),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 10),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 8),
+            ...ALL_SKINS.filter(s => s.rarity === 'common').slice(0, 5),
+        ]
+    },
+    // 12. YOLO — высокий риск, высокий профит
+    {
+        id: 'yolo',
+        name: '💀 YOLO',
+        icon: '💀',
+        price: 100,
+        skins: [
+            { name: "★ Керамбит | Doppler Sapphire", rarity: "legendary", icon: "🔪", price: 8500.00 },
+            { name: "AWP | Dragon Lore", rarity: "legendary", icon: "🐉", price: 850.00 },
+            { name: "AK-47 | Fire Serpent", rarity: "legendary", icon: "🐍", price: 680.00 },
+            { name: "★ Sport Gloves | Vice", rarity: "legendary", icon: "🧤", price: 3200.00 },
+            ...ALL_SKINS.filter(s => s.rarity === 'common'),
+        ]
+    },
+    // 13. Бюджетный — очень дешёвый, с шансом на rare
+    {
+        id: 'budget',
+        name: '💸 Бюджетный',
+        icon: '💸',
+        price: 12,
+        skins: [
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(6, 15),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon'),
+            ...ALL_SKINS.filter(s => s.rarity === 'common'),
+        ]
+    },
+    // 14. Пистолетный
+    {
+        id: 'pistol',
+        name: '🔫 Пистолетный',
+        icon: '🔫',
+        price: 35,
+        skins: [
+            ...ALL_SKINS.filter(s => s.name.includes('Desert') || s.name.includes('Glock') || s.name.includes('USP') || s.name.includes('P250') || s.name.includes('Five')),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5),
+            ...ALL_SKINS.filter(s => s.rarity === 'uncommon').slice(0, 5),
+        ]
+    },
+    // 15. Снайперский
+    {
+        id: 'sniper',
+        name: '🎯 Снайперский',
+        icon: '🎯',
+        price: 90,
+        skins: [
+            ...ALL_SKINS.filter(s => s.name.includes('AWP') || s.name.includes('SSG') || s.name.includes('SCAR')),
+            ...ALL_SKINS.filter(s => s.rarity === 'epic').slice(0, 5),
+            ...ALL_SKINS.filter(s => s.rarity === 'rare').slice(0, 5),
+        ]
+    },
+];
+
+// ============================================================
+//  ШАНСЫ (зависят от количества легендарок в кейсе)
+// ============================================================
+function getRarityWeights(cs) {
+    const rc = {};
+    cs.forEach(s => { rc[s.rarity] = (rc[s.rarity] || 0) + 1; });
+    
+    let w = {};
+    const totalLegendary = rc.legendary || 0;
+    
+    if (totalLegendary >= 8) {
+        // Много легендарок (Премиум, Gamma)
+        w = { legendary: 5, epic: 20, rare: 35, uncommon: 25, common: 15 };
+    } else if (totalLegendary >= 5) {
+        // Среднее кол-во легендарок (Dreams, Bravo, Glove)
+        w = { legendary: 3, epic: 18, rare: 32, uncommon: 27, common: 20 };
+    } else if (totalLegendary >= 3) {
+        // Мало легендарок (Chroma, Prisma 2)
+        w = { legendary: 1.5, epic: 15, rare: 33, uncommon: 28, common: 22.5 };
+    } else if (totalLegendary >= 1) {
+        // 1-2 легендарки (Standard, Snakebite)
+        w = { legendary: 0.8, epic: 12, rare: 30, uncommon: 30, common: 27.2 };
+    } else if (rc.epic && rc.epic >= 5) {
+        // Только эпики и ниже (Fracture, Стартовый)
+        w = { legendary: 0, epic: 10, rare: 30, uncommon: 35, common: 25 };
+    } else {
+        // Бюджетные (Бюджетный, Пистолетный)
+        w = { legendary: 0, epic: 0, rare: 15, uncommon: 40, common: 45 };
+    }
+    
+    // YOLO — особые шансы
+    if (CASES[currentCaseIndex] && CASES[currentCaseIndex].id === 'yolo') {
+        w = { legendary: 4, epic: 0, rare: 0, uncommon: 0, common: 96 };
+    }
+    
+    // Нормализация
+    const t = Object.values(w).reduce((a, b) => a + b, 0);
+    if (t > 0) for (const k in w) w[k] = (w[k] / t) * 100;
+    return w;
+}
     // ============================================================
     //  СОСТОЯНИЕ
     // ============================================================
