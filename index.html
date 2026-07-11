@@ -160,7 +160,6 @@
         @keyframes sparkFloat{0%{transform:translateY(0) scale(1);opacity:.7}100%{transform:translateY(-140px) scale(0);opacity:0}}
         .up-result-card .ic-badge{display:inline-flex;align-items:center;justify-content:center;width:88px;height:88px;border-radius:50%;margin:6px auto 4px;background:rgba(255,255,255,0.04)}
         
-        /* Уведомления */
         .custom-notification {
             position: fixed;
             top: 80px;
@@ -422,7 +421,48 @@ function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>
 document.querySelectorAll('.chance-card').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.chance-card').forEach(x=>x.classList.remove('active'));this.classList.add('active');upChance=parseInt(this.dataset.c);upMult=parseFloat(this.dataset.m);if(ge('chanceBadgeVal'))ge('chanceBadgeVal').textContent=upMult.toFixed(1);drawWheel(upChance);upUI();});});
 function startUpgradeAnimation(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');const skinIds=si.map(i=>i.id);const tp=si.reduce((s,i)=>s+i.p,0);const targetSkin=skinByPrice(Math.round(tp*upMult));const upgradeState={skinIds:skinIds,totalPrice:tp,chance:upChance,targetSkin:targetSkin,startTime:firebase.database.ServerValue.TIMESTAMP,status:'in_progress'};usersR.child(curUser).child('upgrade_state').set(upgradeState);inv=inv.filter(i=>!skinIds.includes(i.id));sUp.clear();_upgradingSkins=skinIds;uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';drawWheel(upChance);spawnSparks(ge('upPhase2'));wheelAngle=0;wheelStopped=false;wheelSpeed=(16+Math.random()*8)*3.6;if(wheelInterval)clearInterval(wheelInterval);wheelInterval=setInterval(spinWheelTick,30);renderAll();saveGame();}
 function spinWheelTick(){if(wheelStopped)return;wheelAngle+=wheelSpeed;wheelSpeed*=0.975;const needle=ge('wheelNeedle');if(needle)needle.style.transform=`rotate(${wheelAngle}deg)`;if(wheelSpeed<1.2){wheelStopped=true;clearInterval(wheelInterval);wheelAngle+=(Math.random()-0.5)*6;if(needle)needle.style.transform=`rotate(${wheelAngle}deg)`;showUpgradeResult();}}
-function showUpgradeResult(){const finalAngle=((wheelAngle%360)+360)%360;const success=finalAngle<(upChance*3.6);const arena=ge('upPhase2');if(arena){arena.classList.add(success?'zoom-success':'shake-fail');if(success)spawnConfetti(ge('confettiLayer'));}setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{const state=sn.val();const ni={...state.targetSkin,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r,ni.img);usersR.child(curUser).child('upgrade_state').remove();_upgradingSkins=[];ge('upPhase3').innerHTML=`<div class="up-result-card ok"><div style="font-size:44px;">🎉</div><div style="font-size:22px;color:#4caf50;font-weight:800;">АПГРЕЙД УСПЕШЕН!</div><div class="ic-badge">${iconEl('icon-result',ni.img,ni.i)}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;"><i class="fas fa-rotate"></i> ЕЩЁ РАЗ</button></div>`;uping=false;renderAll();saveGame();});}else{SFX.play('upgrade_fail');usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{const state=sn.val();usersR.child(curUser).child('upgrade_state').remove();_upgradingSkins=[];ge('upPhase3').innerHTML=`<div class="up-result-card bad"><div style="font-size:44px;">💔</div><div style="font-size:22px;color:#ff4444;font-weight:800;">АПГРЕЙД ПРОВАЛЕН</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${state.totalPrice} 🪙)</div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;"><i class="fas fa-rotate"></i> ПОПРОБОВАТЬ СНОВА</button></div>`;uping=false;renderAll();saveGame();});}},400);}
+function showUpgradeResult(){
+    // Правильная логика: стрелка указывает на зеленую зону (успех) если она в пределах шанса
+    const finalAngle = ((wheelAngle % 360) + 360) % 360;
+    // Зеленая зона от 0 до upChance*3.6 градусов
+    const success = finalAngle < (upChance * 3.6);
+    const arena = ge('upPhase2');
+    if(arena){
+        arena.classList.add(success ? 'zoom-success' : 'shake-fail');
+        if(success) spawnConfetti(ge('confettiLayer'));
+    }
+    setTimeout(()=>{
+        ge('upPhase2').style.display='none';
+        ge('upPhase3').style.display='block';
+        if(success){
+            SFX.play('upgrade_success');
+            usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{
+                const state=sn.val();
+                const ni={...state.targetSkin,id:idC++};
+                inv.push(ni);
+                hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});
+                dropLater(ni.n,ni.i,ni.p,ni.r,ni.img);
+                usersR.child(curUser).child('upgrade_state').remove();
+                _upgradingSkins=[];
+                ge('upPhase3').innerHTML=`<div class="up-result-card ok"><div style="font-size:44px;">🎉</div><div style="font-size:22px;color:#4caf50;font-weight:800;">АПГРЕЙД УСПЕШЕН!</div><div class="ic-badge">${iconEl('icon-result',ni.img,ni.i)}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;"><i class="fas fa-rotate"></i> ЕЩЁ РАЗ</button></div>`;
+                uping=false;
+                renderAll();
+                saveGame();
+            });
+        }else{
+            SFX.play('upgrade_fail');
+            usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{
+                const state=sn.val();
+                usersR.child(curUser).child('upgrade_state').remove();
+                _upgradingSkins=[];
+                ge('upPhase3').innerHTML=`<div class="up-result-card bad"><div style="font-size:44px;">💔</div><div style="font-size:22px;color:#ff4444;font-weight:800;">АПГРЕЙД ПРОВАЛЕН</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${state.totalPrice} 🪙)</div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;"><i class="fas fa-rotate"></i> ПОПРОБОВАТЬ СНОВА</button></div>`;
+                uping=false;
+                renderAll();
+                saveGame();
+            });
+        }
+    }, 400);
+}
 ge('btnStartUpgrade').addEventListener('click',startUpgradeAnimation);
 
 function conUI(){const si=inv.filter(i=>sCon.has(i.id));ge('conCount').textContent=si.length;ge('conSum').textContent=si.reduce((s,i)=>s+i.p,0);ge('contractBtn').disabled=si.length<3||si.length>10||coning;}
@@ -451,8 +491,7 @@ function loadUser(u){
             localStorage.setItem('sv_last', u);
             nav('cases');
             
-            // ===== РЕАКТИВНЫЙ СЛУШАТЕЛЬ БАЛАНСА =====
-            // Автоматически обновляет баланс при изменениях в Firebase
+            // РЕАКТИВНЫЙ СЛУШАТЕЛЬ БАЛАНСА
             const balanceRef = usersR.child(u).child('sd').child('balance');
             balanceRef.off();
             balanceRef.on('value', snapshot => {
@@ -470,14 +509,13 @@ function loadUser(u){
                 }
             });
             
-            // ===== СЛУШАТЕЛЬ УВЕДОМЛЕНИЙ =====
+            // СЛУШАТЕЛЬ УВЕДОМЛЕНИЙ
             const notifRef = usersR.child(u).child('notifications');
             notifRef.off();
             notifRef.orderByChild('read').equalTo(false).on('child_added', snapshot => {
                 const notif = snapshot.val();
                 if(notif && notif.type === 'admin_gift' && !notif.read){
                     showNotif('🎁 Админ выдал тебе ' + notif.amount + ' 🪙!', 'success');
-                    // Обновляем баланс из Firebase
                     usersR.child(u).child('sd').child('balance').once('value').then(balSnap => {
                         const newBal = balSnap.val();
                         if(typeof newBal === 'number' && newBal !== bal){
@@ -509,13 +547,11 @@ async function giveCoins(){
         let foundUser = null;
         let foundData = null;
         
-        // Ищем по логину
         let snap = await usersR.child(t).once('value');
         if(snap.exists()){
             foundUser = t;
             foundData = snap.val();
         } else {
-            // Ищем по UID
             const querySnap = await usersR.orderByChild('uid').equalTo(t).once('value');
             if(querySnap.exists()){
                 const entries = Object.entries(querySnap.val());
@@ -534,10 +570,8 @@ async function giveCoins(){
         const oldBalance = typeof sd.balance === 'number' ? sd.balance : 1000;
         const newBalance = oldBalance + a;
         
-        // Обновляем баланс в Firebase
         await usersR.child(foundUser).child('sd').child('balance').set(newBalance);
         
-        // Если это текущий пользователь — обновляем локально
         if(foundUser === curUser){
             bal = newBalance;
             updBal();
@@ -550,7 +584,6 @@ async function giveCoins(){
         ge('admUser').value = '';
         ge('admAmt').value = '';
         
-        // Отправляем уведомление
         const notifRef = usersR.child(foundUser).child('notifications').push();
         await notifRef.set({
             type: 'admin_gift',
@@ -560,7 +593,6 @@ async function giveCoins(){
             read: false
         });
         
-        // Обновляем метку времени
         await usersR.child(foundUser).child('sd').update({
             _lastUpdate: firebase.database.ServerValue.TIMESTAMP
         });
