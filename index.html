@@ -18,6 +18,7 @@
         @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(255,102,0,0.2)}50%{box-shadow:0 0 40px rgba(255,102,0,0.5)}}
         @keyframes pulse{0%,100%{box-shadow:0 0 6px var(--green)}50%{box-shadow:0 0 22px var(--green)}}
         @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+        @keyframes floatUp{0%{transform:translateY(30px);opacity:0}100%{transform:translateY(0);opacity:1}}
         .app{display:flex;width:100%;min-height:100vh}
         .sidebar-left{width:240px;background:rgba(6,8,18,0.95);border-right:1px solid var(--border);padding:20px 14px;display:flex;flex-direction:column;gap:12px;z-index:50;backdrop-filter:blur(30px);overflow-y:auto}
         .sidebar-left h3{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--gold);text-align:center;letter-spacing:2px;margin-bottom:4px}
@@ -80,8 +81,6 @@
         .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center}
         .modal{background:#141a28;padding:32px;border-radius:22px;text-align:center;max-width:420px;width:90%;border:1px solid rgba(255,255,255,0.1)}.modal input{width:100%;padding:12px;margin-bottom:10px;background:rgba(10,14,22,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px}.modal input:focus{border-color:var(--accent);outline:none}
         .chance-btn{transition:0.3s;cursor:pointer}.chance-btn.active{background:var(--accent)!important;color:#fff!important;box-shadow:0 0 20px rgba(255,102,0,0.4)}
-        .btn-stop-upgrade{background:linear-gradient(135deg,#ff4444,#ff6600);color:#fff;border:none;padding:14px 40px;font-size:15px;font-weight:700;border-radius:12px;cursor:pointer;width:100%;max-width:280px;margin:15px auto;display:block;text-transform:uppercase;letter-spacing:1px;transition:0.3s}
-        .btn-stop-upgrade:hover{transform:scale(1.03)}.btn-stop-upgrade:disabled{background:#444;cursor:not-allowed;transform:none}
         @media(max-width:768px){.sidebar-left{display:none}.live-feed{width:200px}.main-area{margin-right:200px}.skin{width:88px;height:110px}.roulette{height:145px}}
     </style>
 </head>
@@ -116,35 +115,36 @@
 <div class="page" id="p-case-open"><div class="case-page"><button class="back-btn" onclick="nav('cases')">← Назад</button><h2 id="caseTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:8px;">Стоимость: <span id="casePrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin"></i></div><div class="roulette"><div class="ptr"></div><div class="tape" id="tape"></div></div><button class="btn-open" id="openBtn">🔑 ОТКРЫТЬ КЕЙС</button><div id="result" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div class="pool"><h4>🎯 Содержимое кейса</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
 <div class="page" id="p-inventory"><div class="section"><h2>🎒 Инвентарь</h2><div style="color:var(--text2);margin:10px 0;">Предметов: <strong id="invCount">0</strong> | Стоимость: <strong id="invTotal">0</strong> <i class="fas fa-coins coin"></i></div><div class="inv-grid" id="invGrid"></div></div></div>
 
-<!-- АПГРЕЙД -->
 <div class="page" id="p-upgrade">
     <div class="section">
-        <h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px;">⚡ ИНТЕРАКТИВНЫЙ АПГРЕЙД</h2>
+        <h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px;">⚡ АПГРЕЙД ОРУЖИЯ</h2>
         <div id="upPhase1">
             <p style="color:var(--text2);margin-bottom:10px;">1. Выберите скины из инвентаря (минимум 1):</p>
             <div class="inv-grid" id="upInvGrid" style="max-height:180px;"></div>
             <div style="text-align:center;margin:8px 0;color:var(--gold);">Сумма: <strong id="upSum">0</strong> <i class="fas fa-coins coin"></i></div>
             <p style="color:var(--text2);margin:15px 0 8px;">2. Выберите шанс на успех:</p>
             <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;" id="chanceBtns">
-                <button class="btn-sm btn-sell chance-btn active" data-c="30" data-m="3.3">30% ×3.3</button>
-                <button class="btn-sm btn-sell chance-btn" data-c="40" data-m="2.5">40% ×2.5</button>
-                <button class="btn-sm btn-sell chance-btn" data-c="50" data-m="2.0">50% ×2.0</button>
-                <button class="btn-sm btn-sell chance-btn" data-c="60" data-m="1.6">60% ×1.6</button>
+                <button class="btn-sm btn-sell chance-btn" data-c="25" data-m="4.0">25% ×4.0</button>
+                <button class="btn-sm btn-sell chance-btn active" data-c="50" data-m="2.0">50% ×2.0</button>
                 <button class="btn-sm btn-sell chance-btn" data-c="75" data-m="1.3">75% ×1.3</button>
             </div>
-            <div style="text-align:center;margin:8px 0;color:var(--text2);font-size:11px;">Целевой скин: <strong id="upTargetPreview" style="color:var(--gold);">—</strong></div>
+            <div style="text-align:center;margin:10px 0;padding:10px;background:rgba(10,14,24,0.7);border-radius:10px;">
+                <span style="color:var(--text2);">Возможный скин: </span>
+                <strong id="upTargetPreview" style="color:var(--gold);font-size:16px;">—</strong>
+            </div>
             <button class="btn-open" id="btnStartUpgrade" disabled>🎯 НАЧАТЬ АПГРЕЙД</button>
         </div>
         <div id="upPhase2" style="display:none;">
-            <p style="color:var(--text2);text-align:center;margin-bottom:10px;">Нажми <strong>СТОП</strong> когда стрелка будет в зелёной зоне!</p>
-            <div style="position:relative;height:50px;background:rgba(10,14,24,0.8);border-radius:25px;margin:20px 0;overflow:hidden;border:2px solid var(--border);">
-                <div id="greenZone" style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,rgba(76,175,80,0.4),rgba(76,175,80,0.7));border-radius:25px 0 0 25px;"></div>
-                <div id="skillArrow" style="position:absolute;top:-8px;width:4px;height:66px;background:#fff;box-shadow:0 0 20px #fff,0 0 40px rgba(255,255,255,0.5);border-radius:2px;left:0%;z-index:10;"></div>
-                <div id="zoneLine" style="position:absolute;top:0;left:50%;width:2px;height:100%;background:rgba(255,255,255,0.3);z-index:5;"></div>
+            <p style="color:var(--gold);text-align:center;font-weight:700;font-size:16px;margin-bottom:10px;">🎰 СТРЕЛКА ЗАМЕДЛЯЕТСЯ...</p>
+            <div style="position:relative;height:50px;background:rgba(10,14,24,0.8);border-radius:25px;margin:15px 0;overflow:hidden;border:2px solid var(--border);">
+                <div id="greenZone" style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,rgba(76,175,80,0.5),rgba(76,175,80,0.8));border-radius:25px 0 0 25px;"></div>
+                <div id="redZone" style="position:absolute;right:0;top:0;height:100%;background:linear-gradient(270deg,rgba(255,68,68,0.5),rgba(255,68,68,0.8));border-radius:0 25px 25px 0;"></div>
+                <div id="autoArrow" style="position:absolute;top:-6px;width:5px;height:62px;background:#fff;box-shadow:0 0 25px #fff,0 0 50px rgba(255,255,255,0.6);border-radius:3px;left:50%;z-index:10;"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text2);"><span style="color:#ff4444;">❌ ПРОВАЛ</span><span style="color:#4caf50;">✅ УСПЕХ</span></div>
-            <button class="btn-stop-upgrade" id="btnStopSkill" disabled>🛑 СТОП</button>
-            <div id="skillSpeedLabel" style="text-align:center;font-size:10px;color:var(--text2);margin-top:6px;"></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);padding:0 5px;">
+                <span style="color:#4caf50;">✅ УСПЕХ</span><span style="color:#ff4444;">❌ ПРОВАЛ</span>
+            </div>
+            <div id="arrowSpeedLabel" style="text-align:center;font-size:11px;color:var(--text2);margin-top:8px;"></div>
         </div>
         <div id="upPhase3" style="display:none;"></div>
     </div>
@@ -182,7 +182,7 @@ function buildCase(name,icon,price,yolo=false){const PROFIT_MARGIN=0.25;const ta
 const CASES=[buildCase('👑 Премиум','👑',550),buildCase('💚 Gamma Doppler','💚',850),buildCase('🔥 Operation Bravo','🔥',650),buildCase('🧤 Glove Case','🧤',500),buildCase('🌈 Chroma 3','🌈',280),buildCase('📦 Стандартный','📦',130),buildCase('🎯 Снайперский','🎯',200),buildCase('🐍 Snakebite','🐍',90),buildCase('🚀 Стартовый','🚀',40),buildCase('💸 Бюджетный','💸',25),buildCase('💀 YOLO','💀',200,true),buildCase('🎰 Всё или ничего','🎰',150,true),buildCase('💎 Элитный','💎',1000),buildCase('🔪 Ножевой','🔪',700)];
 
 let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1;
-let upChance=50,upMult=2.0,skillInterval=null,skillDirection=1,skillSpeed=8,skillPos=0,skillStopped=false;
+let upChance=50,upMult=2.0,arrowInterval=null,arrowPos=50,arrowSpeed=12,arrowStopped=false;
 const ge=id=>document.getElementById(id);
 
 function rndItem(cs){if(CASES[caseI]?.isYolo){const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*5);if(r<0.3&&bigs.length>0)return bigs[0];if(r<1&&bigs.length>1)return bigs[1];if(r<2&&bigs.length>2)return bigs[2];return cs.filter(s=>s.r==='common'||s.r==='uncommon')[Math.floor(Math.random()*cs.filter(s=>s.r==='common'||s.r==='uncommon').length)]||cs[cs.length-1];}const w={legendary:0.3,epic:6,rare:25,uncommon:34,common:34.7};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
@@ -202,15 +202,15 @@ function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAl
 function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?alert('Максимум 10!'):sCon.add(id));renderAll();}
 
 // ============================================================
-// ИНТЕРАКТИВНЫЙ СКИЛЛ-БАР АПГРЕЙД
+// АВТОМАТИЧЕСКИЙ БАР АПГРЕЙДА
 // ============================================================
-function resetUpgrade(){uping=false;skillStopped=false;skillPos=0;if(skillInterval)clearInterval(skillInterval);ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';sUp.clear();renderAll();}
+function resetUpgrade(){uping=false;arrowStopped=false;arrowPos=50;if(arrowInterval)clearInterval(arrowInterval);ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';sUp.clear();renderAll();}
 function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp;ge('btnStartUpgrade').disabled=si.length<1||uping;if(si.length>0){const ts=skinByPrice(Math.round(tp*upMult));ge('upTargetPreview').innerHTML=`${ts.i} ${ts.n} (~${ts.p} 🪙)`;}else{ge('upTargetPreview').textContent='—';}}
 document.querySelectorAll('.chance-btn').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');upChance=parseInt(this.dataset.c);upMult=parseFloat(this.dataset.m);upUI();});});
-function startSkillGame(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';ge('greenZone').style.width=upChance+'%';ge('zoneLine').style.left=upChance+'%';skillPos=Math.random()*100;skillDirection=Math.random()>0.5?1:-1;skillSpeed=3+Math.random()*5;skillStopped=false;ge('skillArrow').style.left=skillPos+'%';ge('btnStopSkill').disabled=false;ge('btnStopSkill').textContent='🛑 СТОП';ge('skillSpeedLabel').textContent='Скорость: '+skillSpeed.toFixed(1);if(skillInterval)clearInterval(skillInterval);skillInterval=setInterval(moveArrow,30);}
-function moveArrow(){if(skillStopped)return;skillPos+=skillDirection*skillSpeed;if(skillPos>=100){skillPos=100;skillDirection=-1;}if(skillPos<=0){skillPos=0;skillDirection=1;}skillSpeed*=0.998;if(skillSpeed<0.3)skillSpeed=0.3;ge('skillArrow').style.left=skillPos+'%';ge('skillSpeedLabel').textContent='Скорость: '+skillSpeed.toFixed(2);}
-function stopSkill(){if(skillStopped)return;skillStopped=true;clearInterval(skillInterval);ge('btnStopSkill').disabled=true;ge('btnStopSkill').textContent='⏳ ПРОВЕРКА...';const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);const success=skillPos<=upChance;setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');const ts=skinByPrice(Math.round(tp*upMult));inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();const ni={...ts,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:floatUp 0.5s ease"><div style="font-size:60px;">✅</div><div style="font-size:22px;color:#4caf50;font-weight:800;">УСПЕХ!</div><div style="color:var(--text2);">Стрелка: ${skillPos.toFixed(1)}% / Зона: ${upChance}%</div><div style="font-size:40px;margin-top:8px;">${ni.i}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:16px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ЕЩЁ РАЗ</button></div>`;}else{SFX.play('upgrade_fail');inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:shake 0.5s ease"><div style="font-size:60px;">❌</div><div style="font-size:22px;color:#ff4444;font-weight:800;">ПРОВАЛ</div><div style="color:var(--text2);">Стрелка: ${skillPos.toFixed(1)}% / Зона: ${upChance}%</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${tp} 🪙)</div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;}uping=false;renderAll();saveGame();},600);}
-ge('btnStartUpgrade').addEventListener('click',startSkillGame);ge('btnStopSkill').addEventListener('click',stopSkill);
+function startUpgradeAnimation(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';ge('greenZone').style.width=upChance+'%';ge('redZone').style.width=(100-upChance)+'%';arrowPos=Math.random()*100;arrowSpeed=8+Math.random()*8;arrowStopped=false;ge('autoArrow').style.left=arrowPos+'%';if(arrowInterval)clearInterval(arrowInterval);arrowInterval=setInterval(moveAutoArrow,40);}
+function moveAutoArrow(){if(arrowStopped)return;arrowPos+=arrowSpeed*(Math.random()>0.5?1:-1);if(arrowPos>95){arrowPos=95;arrowSpeed*=-0.7;}if(arrowPos<5){arrowPos=5;arrowSpeed*=-0.7;}arrowSpeed*=0.985;ge('autoArrow').style.left=arrowPos+'%';ge('arrowSpeedLabel').textContent='Скорость: '+Math.abs(arrowSpeed).toFixed(2);if(Math.abs(arrowSpeed)<0.15){arrowStopped=true;clearInterval(arrowInterval);showUpgradeResult();}}
+function showUpgradeResult(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);const success=arrowPos<=upChance;setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');const ts=skinByPrice(Math.round(tp*upMult));inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();const ni={...ts,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:floatUp 0.5s ease"><div style="font-size:55px;">🎉</div><div style="font-size:22px;color:#4caf50;font-weight:800;">АПГРЕЙД УСПЕШЕН!</div><div style="color:var(--text2);font-size:12px;">Стрелка остановилась на ${arrowPos.toFixed(1)}% (зона до ${upChance}%)</div><div style="font-size:40px;margin:10px 0;">${ni.i}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ЕЩЁ РАЗ</button></div>`;}else{SFX.play('upgrade_fail');inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:shake 0.5s ease"><div style="font-size:55px;">💔</div><div style="font-size:22px;color:#ff4444;font-weight:800;">АПГРЕЙД ПРОВАЛЕН</div><div style="color:var(--text2);font-size:12px;">Стрелка остановилась на ${arrowPos.toFixed(1)}% (зона до ${upChance}%)</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${tp} 🪙)</div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;}uping=false;renderAll();saveGame();},400);}
+ge('btnStartUpgrade').addEventListener('click',startUpgradeAnimation);
 
 function conUI(){const si=inv.filter(i=>sCon.has(i.id));ge('conCount').textContent=si.length;ge('conSum').textContent=si.reduce((s,i)=>s+i.p,0);ge('contractBtn').disabled=si.length<3||si.length>10||coning;}
 function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;SFX.play('contract');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*1.2+0.4));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`<div style="font-size:45px;">${ni.i}</div><div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
