@@ -23,7 +23,8 @@
         .top-drops{display:flex;flex-direction:column;gap:6px}
         .top-drop-item{background:rgba(20,26,42,0.7);border-radius:10px;padding:10px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:0.3s}
         .top-drop-item .rank{font-size:18px;font-weight:900;color:var(--gold);min-width:24px;text-align:center}
-        .top-drop-item .icon{font-size:26px}.top-drop-item .info{flex:1}.top-drop-item .name{font-weight:600;font-size:10px}.top-drop-item .user{color:var(--gold);font-size:8px}
+        .top-drop-item .icon{font-size:26px}.top-drop-item .info{flex:1}.top-drop-item .name{font-weight:600;font-size:10px}.top-drop-item .user{color:var(--gold);font-size:8px}.top-drop-item .price{color:var(--text2);font-size:9px}
+        .top-drop-item .price i{color:var(--gold);font-size:10px}
         .quick-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
         .qs-item{background:rgba(20,26,42,0.7);border-radius:10px;padding:10px;text-align:center;border:1px solid var(--border)}.qs-item .val{font-size:18px;font-weight:900;color:var(--gold)}.qs-item .lbl{font-size:9px;color:var(--text2)}
         .main-area{flex:1;padding:20px;margin-right:270px}
@@ -32,7 +33,8 @@
         .live-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
         .live-item{background:rgba(255,255,255,0.02);border-radius:10px;padding:8px 10px;font-size:10px;animation:slideIn 0.4s ease;border-left:3px solid transparent;display:flex;align-items:center;gap:8px}
         .live-item.legendary{border-left-color:#ff4444}.live-item.epic{border-left-color:#d32ce6}.live-item.rare{border-left-color:#8847ff}
-        .live-item .icon{font-size:22px}.live-item .info{flex:1}.live-item .name{font-weight:600;font-size:9px}.live-item .user{color:var(--gold);font-size:8px}
+        .live-item .icon{font-size:22px}.live-item .info{flex:1}.live-item .name{font-weight:600;font-size:9px}.live-item .user{color:var(--gold);font-size:8px}.live-item .price{color:var(--text2);font-size:8px}
+        .live-item .price i{color:var(--gold);font-size:9px}
         @keyframes slideIn{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
         .online{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:1000;background:var(--card);padding:8px 24px;border-radius:25px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
         .online .dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
@@ -119,7 +121,7 @@
 </div>
 
 <div class="modal-overlay" id="regModal" style="display:none;"><div class="modal"><h2>⭐ SKINVAULT</h2><input type="text" id="loginUser" placeholder="Логин"><input type="password" id="loginPass" placeholder="Пароль"><button class="btn btn-p" onclick="doLogin()" style="width:100%;margin-bottom:8px;background:linear-gradient(135deg,#ff6600,#ff3300);">🔑 ВОЙТИ</button><button class="btn btn-p" onclick="doRegister()" style="width:100%;">✅ РЕГИСТРАЦИЯ</button><div id="authErr" style="color:#ff4444;font-size:12px;margin-top:8px;display:none;"></div><button onclick="closeModals()" style="margin-top:10px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
-<div class="modal-overlay" id="adminModal" style="display:none;"><div class="modal"><h2 style="color:var(--gold);">⚡ АДМИН</h2><input type="text" id="admUser" placeholder="Ник"><input type="number" id="admAmt" placeholder="Сумма" min="1"><button class="btn btn-g" onclick="giveCoins()" style="width:100%;">💸 ВЫДАТЬ</button><div id="admMsg" style="font-size:12px;margin-top:8px;"></div><button onclick="closeModals()" style="margin-top:8px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
+<div class="modal-overlay" id="adminModal" style="display:none;"><div class="modal"><h2 style="color:var(--gold);">⚡ АДМИН</h2><input type="text" id="admUser" placeholder="Ник или ID"><input type="number" id="admAmt" placeholder="Сумма" min="1"><button class="btn btn-g" onclick="giveCoins()" style="width:100%;">💸 ВЫДАТЬ</button><div id="admMsg" style="font-size:12px;margin-top:8px;"></div><button onclick="closeModals()" style="margin-top:8px;background:transparent;border:none;color:var(--text2);">✕ Закрыть</button></div></div>
 
 <script>
 const fc={apiKey:"AIzaSyCiJGNpJByCCbwcufI-NFUFzXjo0HeGd8E",authDomain:"skinvalut.firebaseapp.com",databaseURL:"https://skinvalut-default-rtdb.firebaseio.com",projectId:"skinvalut",storageBucket:"skinvalut.firebasestorage.app",messagingSenderId:"560114772930",appId:"1:560114772930:web:8aa0a87f3c791b27d6845b"};
@@ -132,7 +134,7 @@ setInterval(()=>onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTA
 onlineR.on('value',s=>{const d=s.val()||{};const n=Date.now();let c=0;for(const id in d){if(d[id].t&&(n-d[id].t<15000))c++;else onlineR.child(id).remove();}ge('onlineCount').textContent=c;ge('qsOnline').textContent=c;});
 window.addEventListener('beforeunload',()=>{onlineR.child(myId).remove();});
 dropsR.orderByChild('time').limitToLast(30).on('value',s=>{const drops=[];s.forEach(c=>{const d=c.val();if(d)drops.push(d);});drops.sort((a,b)=>(b.time||0)-(a.time||0));ge('liveList').innerHTML=drops.length?drops.map(d=>`<div class="live-item ${d.rarity||''}"><span class="icon">${d.icon||'🎁'}</span><div class="info"><div class="name">${d.skin||'?'}</div><div class="user">${d.user||'?'}</div></div><div class="price">${(d.price||0)} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';});
-statsR.child(today).on('value',s=>{const d=s.val()||{};ge('qsCases').textContent=d.cases||0;ge('qsJackpots').textContent=d.jackpots||0;ge('qsPlayers').textContent=d.players||0;const top=d.topDrops?Object.values(d.topDrops).sort((a,b)=>b.price-a.price).slice(0,5):[];ge('topDropsList').innerHTML=top.length?top.map((t,i)=>`<div class="top-drop-item"><span class="rank">#${i+1}</span><span class="icon">${t.icon||'🎁'}</span><div class="info"><div class="name">${t.skin||'?'}</div><div class="user">${t.user||'?'}</div></div><div class="price">${t.price}🪙</div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:10px;">Нет данных</div>';});
+statsR.child(today).on('value',s=>{const d=s.val()||{};ge('qsCases').textContent=d.cases||0;ge('qsJackpots').textContent=d.jackpots||0;ge('qsPlayers').textContent=d.players||0;const top=d.topDrops?Object.values(d.topDrops).sort((a,b)=>b.price-a.price).slice(0,5):[];ge('topDropsList').innerHTML=top.length?top.map((t,i)=>`<div class="top-drop-item"><span class="rank">#${i+1}</span><span class="icon">${t.icon||'🎁'}</span><div class="info"><div class="name">${t.skin||'?'}</div><div class="user">${t.user||'?'}</div></div><div class="price">${t.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:10px;">Нет данных</div>';});
 function updateStats(price,skin,icon,user){statsR.child(today).transaction(d=>{if(!d)d={cases:0,jackpots:0,players:0,topDrops:{}};d.cases=(d.cases||0)+1;if(price>=500)d.jackpots=(d.jackpots||0)+1;if(user){d.players=d.players||0;d.topDrops=d.topDrops||{};const key=Date.now()+'_'+Math.random().toString(36).substr(2,4);d.topDrops[key]={skin,icon,price,user};}return d;});}
 function dropLater(skin,icon,price,rarity){setTimeout(()=>{dropsR.push({skin,icon,price,rarity,user:curUser||'Аноним',time:firebase.database.ServerValue.TIMESTAMP});},6000);}
 
@@ -144,7 +146,7 @@ const SKINS=[{n:"★ Karambit | Doppler Sapphire",r:"legendary",i:"🔪",p:9500}
 function buildCase(name,icon,price,yolo=false){const PROFIT_MARGIN=0.25;const targetAvg=Math.round(price*(1-PROFIT_MARGIN));let pool=[];if(yolo){const jackpots=SKINS.filter(s=>s.r==='legendary'&&s.p>=price*5).slice(0,3);const fillers=SKINS.filter(s=>s.r==='common'||s.r==='uncommon').slice(0,15);pool=[...jackpots,...fillers];}else{const candidates=SKINS.filter(s=>s.p>=targetAvg*0.2&&s.p<=targetAvg*4);candidates.sort((a,b)=>Math.abs(a.p-targetAvg)-Math.abs(b.p-targetAvg));pool=candidates.slice(0,20);if(pool.filter(s=>s.r==='legendary').length<1){const extra=SKINS.filter(s=>s.r==='legendary'&&s.p<=price*6).slice(0,2);pool=[...extra,...pool.slice(0,18)];}}const actualAvg=Math.round(pool.reduce((s,sk)=>s+sk.p,0)/pool.length);return{id:name,n:name,i:icon,p:price,avg:actualAvg,s:pool,isYolo:yolo};}
 const CASES=[buildCase('👑 Премиум','👑',550),buildCase('💚 Gamma Doppler','💚',850),buildCase('🔥 Operation Bravo','🔥',650),buildCase('🧤 Glove Case','🧤',500),buildCase('🌈 Chroma 3','🌈',280),buildCase('📦 Стандартный','📦',130),buildCase('🎯 Снайперский','🎯',200),buildCase('🐍 Snakebite','🐍',90),buildCase('🚀 Стартовый','🚀',40),buildCase('💸 Бюджетный','💸',25),buildCase('💀 YOLO','💀',200,true),buildCase('🎰 Всё или ничего','🎰',150,true),buildCase('💎 Элитный','💎',1000),buildCase('🔪 Ножевой','🔪',700)];
 
-let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1,ch=50,mult=2;
+let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1,ch=50,mult=2;
 const ge=id=>document.getElementById(id);
 function rndItem(cs){if(CASES[caseI]?.isYolo){const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*5);if(r<0.3&&bigs.length>0)return bigs[0];if(r<1&&bigs.length>1)return bigs[1];if(r<2&&bigs.length>2)return bigs[2];return cs.filter(s=>s.r==='common'||s.r==='uncommon')[Math.floor(Math.random()*cs.filter(s=>s.r==='common'||s.r==='uncommon').length)]||cs[cs.length-1];}const w={legendary:0.3,epic:6,rare:25,uncommon:34,common:34.7};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
 function skinByPrice(tp){let b=SKINS[0],bd=Infinity;for(const s of SKINS){const d=Math.abs(s.p-tp);if(d<bd){bd=d;b=s;}}return b;}
@@ -157,7 +159,7 @@ function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="ca
 function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Пусто</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');}renderUpInv();renderConInv();upUI();conUI();}
 function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
-function renderProf(){ge('profContent').innerHTML=`<h2>👤 ПРОФИЛЬ</h2><div style="padding:20px;background:rgba(10,14,24,0.7);border-radius:14px;margin:15px 0;"><div>Привет, <strong style="color:var(--gold);">${curUser||'Гость'}</strong>!</div><div>Баланс: <strong>${bal}</strong> <i class="fas fa-coins coin"></i></div><div>Скинов: <strong>${inv.length}</strong></div><div>Открыто кейсов: <strong>${hist.filter(h=>h.t==='case').length}</strong></div></div><h3>📋 ИСТОРИЯ</h3><div style="max-height:350px;overflow-y:auto;">${hist.length?hist.slice().reverse().slice(0,50).map(h=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(20,26,42,0.5);border-radius:8px;margin-bottom:3px;font-size:11px;"><span style="font-size:22px;">${h.t==='case'?'💎':h.t==='upgrade'?'⚡':'📜'}</span><div style="flex:1;"><div>${h.skin}</div><div style="font-size:9px;color:var(--text2);">${new Date(h.time).toLocaleString()}</div></div><div style="color:var(--gold);">${h.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="text-align:center;padding:30px;">Пусто</div>'}</div>`;}
+function renderProf(){ge('profContent').innerHTML=`<h2>👤 ПРОФИЛЬ</h2><div style="padding:20px;background:rgba(10,14,24,0.7);border-radius:14px;margin:15px 0;"><div>Привет, <strong style="color:var(--gold);">${curUser||'Гость'}</strong>!</div><div style="color:var(--text2);margin-top:4px;">ID: <strong style="color:#fff;">${curUserId||'—'}</strong></div><div>Баланс: <strong>${bal}</strong> <i class="fas fa-coins coin"></i></div><div>Скинов: <strong>${inv.length}</strong></div><div>Открыто кейсов: <strong>${hist.filter(h=>h.t==='case').length}</strong></div></div><h3>📋 ИСТОРИЯ</h3><div style="max-height:350px;overflow-y:auto;">${hist.length?hist.slice().reverse().slice(0,50).map(h=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(20,26,42,0.5);border-radius:8px;margin-bottom:3px;font-size:11px;"><span style="font-size:22px;">${h.t==='case'?'💎':h.t==='upgrade'?'⚡':'📜'}</span><div style="flex:1;"><div>${h.skin}</div><div style="font-size:9px;color:var(--text2);">${new Date(h.time).toLocaleString()}</div></div><div style="color:var(--gold);">${h.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="text-align:center;padding:30px;">Пусто</div>'}</div>`;}
 function sell(id){const idx=inv.findIndex(i=>i.id===id);if(idx===-1)return;bal+=inv[idx].p;updBal();inv.splice(idx,1);sUp.delete(id);sCon.delete(id);renderAll();saveGame();SFX.play('sell');}
 function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAll();}
 function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?alert('Максимум 10!'):sCon.add(id));renderAll();}
@@ -166,39 +168,73 @@ function doUpgrade(){if(uping)return;const si=inv.filter(i=>sUp.has(i.id));if(si
 function conUI(){const si=inv.filter(i=>sCon.has(i.id));ge('conCount').textContent=si.length;ge('conSum').textContent=si.reduce((s,i)=>s+i.p,0);ge('contractBtn').disabled=si.length<3||si.length>10||coning;}
 function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;SFX.play('contract');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*1.2+0.4));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`<div style="font-size:45px;">${ni.i}</div><div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
 function updBal(){ge('balDisplay').textContent=bal;}
-function loadUser(u){usersR.child(u).once('value').then(sn=>{const ud=sn.val();if(ud&&ud.sd){bal=ud.sd.balance||1000;inv=ud.sd.inventory||[];idC=ud.sd.idCounter||0;hist=ud.sd.history||[];curUser=u;renderAll();updBal();ge('regBtn').style.display='none';ge('userInfo').style.display='flex';ge('userName').textContent='👑 '+u;if(u==='Admin'){ge('adminBtn').style.display='block';ge('userName').textContent='⚡ Admin';}localStorage.setItem('sv_last',u);nav('cases');}});}
+
+// ЗАГРУЗКА ПОЛЬЗОВАТЕЛЯ (с ID)
+function loadUser(u){
+    usersR.child(u).once('value').then(sn=>{
+        const ud=sn.val();
+        if(ud&&ud.sd){
+            bal=ud.sd.balance||1000;
+            inv=ud.sd.inventory||[];
+            idC=ud.sd.idCounter||0;
+            hist=ud.sd.history||[];
+            curUser=u;
+            curUserId=ud.uid||u;
+            renderAll();updBal();
+            ge('regBtn').style.display='none';
+            ge('userInfo').style.display='flex';
+            ge('userName').textContent='👑 '+u;
+            if(u==='Admin'){ge('adminBtn').style.display='block';ge('userName').textContent='⚡ Admin';}
+            localStorage.setItem('sv_last',u);
+            nav('cases');
+        }
+    });
+}
 function saveGame(){if(!curUser)return;usersR.child(curUser).child('sd').set({balance:bal,inventory:inv,idCounter:idC,history:hist});}
 function showAdmin(){ge('adminModal').style.display='flex';ge('admUser').focus();}
 
-// ============================================================
-// АДМИН-ПАНЕЛЬ (ИСПРАВЛЕНА — РАБОТАЕТ 100%)
-// ============================================================
+// АДМИН-ПАНЕЛЬ (поиск по нику ИЛИ по ID)
 function giveCoins(){
     const t=ge('admUser').value.trim();
     const a=parseInt(ge('admAmt').value);
     const m=ge('admMsg');
     m.style.color='#ff4444';
-    if(!t){m.textContent='❌ Введи ник!';return;}
+    if(!t){m.textContent='❌ Введи ник или ID!';return;}
     if(!a||a<1||isNaN(a)){m.textContent='❌ Введи сумму!';return;}
 
+    // Сначала пробуем найти по нику
     usersR.child(t).once('value').then(sn=>{
-        if(!sn.exists()){
-            m.textContent='❌ Пользователь не найден!';
+        if(sn.exists()){
+            processGive(sn, t, a, m);
             return;
         }
-        const allData=sn.val();
-        const currentBalance=(allData.sd&&allData.sd.balance)?allData.sd.balance:1000;
-        const newBalance=currentBalance+a;
-        const updatedSd=allData.sd||{inventory:[],idCounter:0,history:[]};
-        updatedSd.balance=newBalance;
-
-        usersR.child(t).child('sd').set(updatedSd).then(()=>{
-            m.textContent='✅ Выдано '+a+' 🪙 для '+t+'! (Было: '+currentBalance+', Стало: '+newBalance+')';
-            m.style.color='#4caf50';
-            ge('admUser').value='';ge('admAmt').value='';
-            if(t===curUser){bal=newBalance;updBal();renderAll();}
-        }).catch(err=>{m.textContent='❌ Ошибка: '+err.message;});
+        // Если не нашли по нику — ищем по uid
+        usersR.orderByChild('uid').equalTo(t).once('value').then(snap=>{
+            if(snap.exists()){
+                const data=snap.val();
+                const username=Object.keys(data)[0];
+                const userSnap=snap.child(username);
+                processGive(userSnap, username, a, m);
+            }else{
+                m.textContent='❌ Пользователь не найден!';
+            }
+        });
     }).catch(err=>{m.textContent='❌ Ошибка соединения';});
+}
+
+function processGive(sn, username, amount, msgEl){
+    const allData=sn.val();
+    const currentBalance=(allData.sd&&allData.sd.balance)?allData.sd.balance:1000;
+    const newBalance=currentBalance+amount;
+    const updatedSd=allData.sd||{inventory:[],idCounter:0,history:[]};
+    updatedSd.balance=newBalance;
+
+    usersR.child(username).child('sd').set(updatedSd).then(()=>{
+        msgEl.textContent='✅ +'+amount+' 🪙 для '+username+'! (Было: '+currentBalance+', Стало: '+newBalance+')';
+        msgEl.style.color='#4caf50';
+        ge('admUser').value='';ge('admAmt').value='';
+        if(username===curUser){bal=newBalance;updBal();renderAll();}
+    }).catch(err=>{msgEl.textContent='❌ Ошибка: '+err.message;});
 }
 
 function hash(pw){let h=0;for(let i=0;i<pw.length;i++){h=((h<<5)-h)+pw.charCodeAt(i);h=h&h;}return'h_'+Math.abs(h).toString(16);}
@@ -206,12 +242,18 @@ function showReg(){ge('regModal').style.display='flex';ge('loginUser').focus();}
 function closeModals(){document.querySelectorAll('.modal-overlay').forEach(m=>m.style.display='none');}
 function doLogin(){const u=ge('loginUser').value.trim(),p=ge('loginPass').value,err=ge('authErr');if(!u||!p){err.textContent='❌ Заполни поля!';err.style.display='block';return;}usersR.child(u).once('value').then(sn=>{if(!sn.exists()){regDirect(u,p);return;}if(sn.val().pass!==hash(p)){err.textContent='❌ Неверный пароль!';err.style.display='block';return;}closeModals();loadUser(u);});}
 function doRegister(){const u=ge('loginUser').value.trim(),p=ge('loginPass').value,err=ge('authErr');if(!u||!p){err.textContent='❌ Заполни поля!';err.style.display='block';return;}if(u.length<3){err.textContent='❌ Минимум 3 символа!';err.style.display='block';return;}if(p.length<4){err.textContent='❌ Минимум 4 символа!';err.style.display='block';return;}regDirect(u,p);}
-function regDirect(u,p){usersR.child(u).once('value').then(sn=>{if(sn.exists()&&sn.val().pass){alert('❌ Логин занят!');return;}usersR.child(u).set({pass:hash(p),sd:{balance:1000,inventory:[],idCounter:0,history:[]}}).then(()=>{closeModals();loadUser(u);});});}
-function logout(){saveGame();curUser=null;ge('regBtn').style.display='block';ge('userInfo').style.display='none';ge('adminBtn').style.display='none';bal=1000;inv=[];idC=0;hist=[];sUp.clear();sCon.clear();renderAll();updBal();nav('cases');}
+function regDirect(u,p){
+    const uid='user_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);
+    usersR.child(u).once('value').then(sn=>{
+        if(sn.exists()&&sn.val().pass){alert('❌ Логин занят!');return;}
+        usersR.child(u).set({pass:hash(p),uid:uid,sd:{balance:1000,inventory:[],idCounter:0,history:[]}}).then(()=>{closeModals();loadUser(u);});
+    });
+}
+function logout(){saveGame();curUser=null;curUserId=null;ge('regBtn').style.display='block';ge('userInfo').style.display='none';ge('adminBtn').style.display='none';bal=1000;inv=[];idC=0;hist=[];sUp.clear();sCon.clear();renderAll();updBal();nav('cases');}
 function init(){const lu=localStorage.getItem('sv_last');if(lu){usersR.child(lu).once('value').then(sn=>{if(sn.exists())loadUser(lu);});}renderCases();renderAll();updBal();ge('openBtn').addEventListener('click',openCase);document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){nav(this.dataset.p);}));document.querySelectorAll('#chanceSel .btn-sm').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('#chanceSel .btn-sm').forEach(x=>x.classList.remove('active'));this.classList.add('active');ch=parseInt(this.dataset.c);mult=parseFloat(this.dataset.m);upUI();}));ge('upgradeBtn').addEventListener('click',doUpgrade);ge('contractBtn').addEventListener('click',doContract);ge('clearUp').addEventListener('click',()=>{sUp.clear();renderAll();});ge('regModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('adminModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('loginPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});}
 setInterval(()=>{if(curUser)saveGame();},10000);init();
 onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP});
-console.log('✅ SKINVAULT — АДМИН-ПАНЕЛЬ РАБОТАЕТ');
+console.log('✅ SKINVAULT — UID СИСТЕМА АКТИВИРОВАНА');
 </script>
 </body>
 </html>
