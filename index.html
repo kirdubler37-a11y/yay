@@ -22,9 +22,9 @@
         .sidebar-left{width:240px;background:rgba(6,8,18,0.95);border-right:1px solid var(--border);padding:20px 14px;display:flex;flex-direction:column;gap:12px;z-index:50;backdrop-filter:blur(30px);overflow-y:auto}
         .sidebar-left h3{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--gold);text-align:center;letter-spacing:2px;margin-bottom:4px}
         .top-drops{display:flex;flex-direction:column;gap:6px}
-        .top-drop-item{background:rgba(20,26,42,0.7);border-radius:10px;padding:10px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:0.3s}
+        .top-drop-item{background:rgba(20,26,42,0.7);border-radius:10px;padding:10px;border:1px solid var(--border);display:flex;align-items:center;gap:10px}
         .top-drop-item .rank{font-size:18px;font-weight:900;color:var(--gold);min-width:24px;text-align:center}
-        .top-drop-item .icon{font-size:26px}.top-drop-item .info{flex:1}.top-drop-item .name{font-weight:600;font-size:10px}.top-drop-item .user{color:var(--gold);font-size:8px}.top-drop-item .price{color:var(--text2);font-size:9px}.top-drop-item .price i{color:var(--gold);font-size:10px}
+        .top-drop-item .icon{font-size:26px}.top-drop-item .info{flex:1}.top-drop-item .name{font-weight:600;font-size:10px}.top-drop-item .user{color:var(--gold);font-size:8px}.top-drop-item .price{color:var(--text2);font-size:9px}.top-drop-item .price i{color:var(--gold)}
         .quick-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
         .qs-item{background:rgba(20,26,42,0.7);border-radius:10px;padding:10px;text-align:center;border:1px solid var(--border)}.qs-item .val{font-size:18px;font-weight:900;color:var(--gold)}.qs-item .lbl{font-size:9px;color:var(--text2)}
         .main-area{flex:1;padding:20px;margin-right:270px}
@@ -33,7 +33,7 @@
         .live-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
         .live-item{background:rgba(255,255,255,0.02);border-radius:10px;padding:8px 10px;font-size:10px;animation:slideIn 0.4s ease;border-left:3px solid transparent;display:flex;align-items:center;gap:8px}
         .live-item.legendary{border-left-color:#ff4444}.live-item.epic{border-left-color:#d32ce6}.live-item.rare{border-left-color:#8847ff}
-        .live-item .icon{font-size:22px}.live-item .info{flex:1}.live-item .name{font-weight:600;font-size:9px}.live-item .user{color:var(--gold);font-size:8px}.live-item .price{color:var(--text2);font-size:8px}.live-item .price i{color:var(--gold);font-size:9px}
+        .live-item .icon{font-size:22px}.live-item .info{flex:1}.live-item .name{font-weight:600;font-size:9px}.live-item .user{color:var(--gold);font-size:8px}.live-item .price{color:var(--text2);font-size:8px}.live-item .price i{color:var(--gold)}
         @keyframes slideIn{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
         .online{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:1000;background:var(--card);padding:8px 24px;border-radius:25px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
         .online .dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
@@ -79,27 +79,10 @@
         .section{max-width:800px;margin:0 auto;background:var(--card);padding:26px;border-radius:20px;border:1px solid rgba(255,255,255,0.08)}
         .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center}
         .modal{background:#141a28;padding:32px;border-radius:22px;text-align:center;max-width:420px;width:90%;border:1px solid rgba(255,255,255,0.1)}.modal input{width:100%;padding:12px;margin-bottom:10px;background:rgba(10,14,22,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px}.modal input:focus{border-color:var(--accent);outline:none}
-
-        /* UPGRADE STYLES */
-        .upgrade-targets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}
-        .upgrade-target{background:rgba(20,26,42,0.7);border-radius:14px;padding:16px 10px;text-align:center;border:2px solid var(--border);cursor:pointer;transition:0.3s;position:relative}
-        .upgrade-target:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.4)}
-        .upgrade-target.selected{border-color:var(--gold)!important;box-shadow:0 0 30px rgba(255,184,0,0.3)!important}
-        .upgrade-target .ut-icon{font-size:40px;display:block;margin-bottom:6px}
-        .upgrade-target .ut-name{font-weight:700;font-size:11px;margin-bottom:4px}
-        .upgrade-target .ut-price{color:var(--gold);font-size:13px;font-weight:700}
-        .upgrade-target .ut-chance{font-size:10px;color:var(--text2);margin-top:3px}
-        .progress-bar-container{background:rgba(10,14,24,0.8);border-radius:20px;height:40px;margin:20px 0;position:relative;overflow:hidden;border:1px solid var(--border)}
-        .progress-bar-fill{height:100%;background:linear-gradient(90deg,#ff4444,#ff9800,#4caf50);border-radius:20px;transition:width 0.05s linear;width:0%}
-        .progress-bar-marker{position:absolute;top:-5px;width:4px;height:50px;background:#fff;box-shadow:0 0 15px #fff;border-radius:2px;left:50%;transform:translateX(-50%);z-index:5}
-        .progress-bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text2);margin-top:4px}
-        .progress-bar-labels .fail{color:#ff4444}.progress-bar-labels .mid{color:#ff9800}.progress-bar-labels .success{color:#4caf50}
-        .btn-stop-upgrade{background:linear-gradient(135deg,#ff4444,#ff6600);color:#fff;border:none;padding:14px 40px;font-size:15px;font-weight:700;border-radius:12px;cursor:pointer;width:100%;max-width:280px;margin:10px auto;display:block;text-transform:uppercase;letter-spacing:1px;transition:0.3s}
+        .chance-btn{transition:0.3s;cursor:pointer}.chance-btn.active{background:var(--accent)!important;color:#fff!important;box-shadow:0 0 20px rgba(255,102,0,0.4)}
+        .btn-stop-upgrade{background:linear-gradient(135deg,#ff4444,#ff6600);color:#fff;border:none;padding:14px 40px;font-size:15px;font-weight:700;border-radius:12px;cursor:pointer;width:100%;max-width:280px;margin:15px auto;display:block;text-transform:uppercase;letter-spacing:1px;transition:0.3s}
         .btn-stop-upgrade:hover{transform:scale(1.03)}.btn-stop-upgrade:disabled{background:#444;cursor:not-allowed;transform:none}
-        .upgrade-result-anim{text-align:center;padding:20px;animation:floatUp 0.5s ease}
-        @keyframes floatUp{0%{transform:translateY(30px);opacity:0}100%{transform:translateY(0);opacity:1}}
-
-        @media(max-width:768px){.sidebar-left{display:none}.live-feed{width:200px}.main-area{margin-right:200px}.skin{width:88px;height:110px}.roulette{height:145px}.upgrade-targets{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){.sidebar-left{display:none}.live-feed{width:200px}.main-area{margin-right:200px}.skin{width:88px;height:110px}.roulette{height:145px}}
     </style>
 </head>
 <body>
@@ -132,26 +115,41 @@
 <div class="page active" id="p-cases"><div class="case-grid" id="caseGrid"></div></div>
 <div class="page" id="p-case-open"><div class="case-page"><button class="back-btn" onclick="nav('cases')">← Назад</button><h2 id="caseTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:8px;">Стоимость: <span id="casePrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin"></i></div><div class="roulette"><div class="ptr"></div><div class="tape" id="tape"></div></div><button class="btn-open" id="openBtn">🔑 ОТКРЫТЬ КЕЙС</button><div id="result" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div class="pool"><h4>🎯 Содержимое кейса</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
 <div class="page" id="p-inventory"><div class="section"><h2>🎒 Инвентарь</h2><div style="color:var(--text2);margin:10px 0;">Предметов: <strong id="invCount">0</strong> | Стоимость: <strong id="invTotal">0</strong> <i class="fas fa-coins coin"></i></div><div class="inv-grid" id="invGrid"></div></div></div>
-<div class="page" id="p-upgrade"><div class="section"><h2 style="font-family:'Orbitron',sans-serif;">⚡ ИНТЕРАКТИВНЫЙ АПГРЕЙД</h2>
-    <div id="upgradePhase1">
-        <p style="color:var(--text2);margin-bottom:10px;">Выберите скины из инвентаря (минимум 1):</p>
-        <div class="inv-grid" id="upInvGrid" style="max-height:200px;"></div>
-        <div style="text-align:center;margin:10px 0;color:var(--gold);">Сумма: <strong id="upSum">0</strong> <i class="fas fa-coins coin"></i></div>
-        <button class="btn-open" id="btnShowTargets" disabled>🎯 ВЫБРАТЬ ЦЕЛЬ</button>
+
+<!-- АПГРЕЙД -->
+<div class="page" id="p-upgrade">
+    <div class="section">
+        <h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px;">⚡ ИНТЕРАКТИВНЫЙ АПГРЕЙД</h2>
+        <div id="upPhase1">
+            <p style="color:var(--text2);margin-bottom:10px;">1. Выберите скины из инвентаря (минимум 1):</p>
+            <div class="inv-grid" id="upInvGrid" style="max-height:180px;"></div>
+            <div style="text-align:center;margin:8px 0;color:var(--gold);">Сумма: <strong id="upSum">0</strong> <i class="fas fa-coins coin"></i></div>
+            <p style="color:var(--text2);margin:15px 0 8px;">2. Выберите шанс на успех:</p>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;" id="chanceBtns">
+                <button class="btn-sm btn-sell chance-btn active" data-c="30" data-m="3.3">30% ×3.3</button>
+                <button class="btn-sm btn-sell chance-btn" data-c="40" data-m="2.5">40% ×2.5</button>
+                <button class="btn-sm btn-sell chance-btn" data-c="50" data-m="2.0">50% ×2.0</button>
+                <button class="btn-sm btn-sell chance-btn" data-c="60" data-m="1.6">60% ×1.6</button>
+                <button class="btn-sm btn-sell chance-btn" data-c="75" data-m="1.3">75% ×1.3</button>
+            </div>
+            <div style="text-align:center;margin:8px 0;color:var(--text2);font-size:11px;">Целевой скин: <strong id="upTargetPreview" style="color:var(--gold);">—</strong></div>
+            <button class="btn-open" id="btnStartUpgrade" disabled>🎯 НАЧАТЬ АПГРЕЙД</button>
+        </div>
+        <div id="upPhase2" style="display:none;">
+            <p style="color:var(--text2);text-align:center;margin-bottom:10px;">Нажми <strong>СТОП</strong> когда стрелка будет в зелёной зоне!</p>
+            <div style="position:relative;height:50px;background:rgba(10,14,24,0.8);border-radius:25px;margin:20px 0;overflow:hidden;border:2px solid var(--border);">
+                <div id="greenZone" style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,rgba(76,175,80,0.4),rgba(76,175,80,0.7));border-radius:25px 0 0 25px;"></div>
+                <div id="skillArrow" style="position:absolute;top:-8px;width:4px;height:66px;background:#fff;box-shadow:0 0 20px #fff,0 0 40px rgba(255,255,255,0.5);border-radius:2px;left:0%;z-index:10;"></div>
+                <div id="zoneLine" style="position:absolute;top:0;left:50%;width:2px;height:100%;background:rgba(255,255,255,0.3);z-index:5;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text2);"><span style="color:#ff4444;">❌ ПРОВАЛ</span><span style="color:#4caf50;">✅ УСПЕХ</span></div>
+            <button class="btn-stop-upgrade" id="btnStopSkill" disabled>🛑 СТОП</button>
+            <div id="skillSpeedLabel" style="text-align:center;font-size:10px;color:var(--text2);margin-top:6px;"></div>
+        </div>
+        <div id="upPhase3" style="display:none;"></div>
     </div>
-    <div id="upgradePhase2" style="display:none;">
-        <p style="color:var(--text2);margin-bottom:10px;">Выберите цель (шанс зависит от разницы в цене):</p>
-        <div class="upgrade-targets" id="upgradeTargets"></div>
-        <button class="btn btn-r" onclick="cancelUpgrade()" style="margin-top:8px;">← Назад к выбору скинов</button>
-    </div>
-    <div id="upgradePhase3" style="display:none;">
-        <p style="color:var(--text2);text-align:center;margin-bottom:10px;">Нажмите <strong>СТОП</strong> когда полоса будет в зелёной зоне!</p>
-        <div class="progress-bar-container"><div class="progress-bar-fill" id="progressFill"></div><div class="progress-bar-marker" id="progressMarker"></div></div>
-        <div class="progress-bar-labels"><span class="fail">❌ ПРОВАЛ</span><span class="mid">⚠️ ШАНС</span><span class="success">✅ УСПЕХ</span></div>
-        <button class="btn-stop-upgrade" id="btnStopUpgrade" disabled>🛑 СТОП</button>
-    </div>
-    <div id="upgradePhase4" style="display:none;"></div>
-</div></div>
+</div>
+
 <div class="page" id="p-contract"><div class="section"><h2>📜 КОНТРАКТЫ</h2><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:14px 20px;background:rgba(10,14,24,0.7);border-radius:14px;"><div>Выбрано: <strong id="conCount" style="color:var(--gold);">0</strong>/10</div><div>Сумма: <strong id="conSum" style="color:var(--gold);">0</strong> <i class="fas fa-coins coin"></i></div><button class="btn btn-p" id="contractBtn" disabled>КОНТРАКТ</button></div><div id="conRes" style="display:none;padding:20px;background:rgba(76,175,80,0.08);border-radius:14px;text-align:center;"></div><div class="inv-grid" id="conInvGrid" style="max-height:200px;"></div></div></div>
 <div class="page" id="p-profile"><div class="section" id="profContent"></div></div>
 </div>
@@ -167,7 +165,6 @@ firebase.initializeApp(fc);
 const db=firebase.database(),onlineR=db.ref('online'),dropsR=db.ref('drops'),usersR=db.ref('users'),statsR=db.ref('stats');
 const myId='u_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);
 let today=new Date().toDateString();
-
 setInterval(()=>onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP}),5000);
 onlineR.on('value',s=>{const d=s.val()||{};const n=Date.now();let c=0;for(const id in d){if(d[id].t&&(n-d[id].t<15000))c++;else onlineR.child(id).remove();}ge('onlineCount').textContent=c;ge('qsOnline').textContent=c;});
 window.addEventListener('beforeunload',()=>{onlineR.child(myId).remove();});
@@ -181,11 +178,13 @@ document.addEventListener('click',()=>SFX.init(),{once:true});
 
 const SKINS=[{n:"★ Karambit | Doppler Sapphire",r:"legendary",i:"🔪",p:9500},{n:"★ Sport Gloves | Vice",r:"legendary",i:"🧤",p:3200},{n:"★ Butterfly Knife | Fade",r:"legendary",i:"🦋",p:2400},{n:"AK-47 | Case Hardened (661)",r:"legendary",i:"💎",p:2800},{n:"★ M9 Bayonet | Crimson Web",r:"legendary",i:"🗡️",p:1800},{n:"AWP | Dragon Lore",r:"legendary",i:"🐉",p:1200},{n:"★ Skeleton Knife | Slaughter",r:"legendary",i:"💀",p:950},{n:"M4A4 | Howl",r:"legendary",i:"🐺",p:890},{n:"AWP | Gungnir",r:"legendary",i:"⚡",p:1100},{n:"AK-47 | Fire Serpent",r:"legendary",i:"🐍",p:750},{n:"Desert Eagle | Blaze",r:"legendary",i:"🔥",p:520},{n:"Glock-18 | Fade",r:"legendary",i:"🌈",p:380},{n:"USP-S | Kill Confirmed",r:"legendary",i:"💀",p:280},{n:"AWP | Medusa",r:"legendary",i:"🐍",p:650},{n:"★ Specialist Gloves | Crimson Kimono",r:"legendary",i:"🧤",p:2600},{n:"AK-47 | Vulcan",r:"epic",i:"🌋",p:145},{n:"M4A1-S | Cyrex",r:"epic",i:"🔴",p:48},{n:"AWP | Asiimov",r:"epic",i:"🤖",p:85},{n:"Desert Eagle | Crimson Web",r:"epic",i:"🕸️",p:35},{n:"USP-S | Orion",r:"epic",i:"🌌",p:28},{n:"P250 | Mehndi",r:"epic",i:"🎨",p:18},{n:"SSG 08 | Dragonfire",r:"epic",i:"🐉",p:32},{n:"AUG | Akihabara Accept",r:"epic",i:"🎌",p:95},{n:"FAMAS | Commemoration",r:"epic",i:"🎖️",p:22},{n:"Galil AR | Chatterbox",r:"epic",i:"💀",p:15},{n:"P90 | Asiimov",r:"epic",i:"🤖",p:25},{n:"MP9 | Bulldozer",r:"epic",i:"🚜",p:12},{n:"AK-47 | Neon Rider",r:"epic",i:"🏍️",p:55},{n:"AWP | Fever Dream",r:"epic",i:"🌡️",p:42},{n:"M4A4 | Desolate Space",r:"epic",i:"👾",p:38},{n:"Five-SeveN | Hyper Beast",r:"epic",i:"👹",p:28},{n:"AK-47 | Redline",r:"rare",i:"🔴",p:42},{n:"AWP | Redline",r:"rare",i:"🔴",p:35},{n:"Glock-18 | Water Elemental",r:"rare",i:"💧",p:15},{n:"USP-S | Guardian",r:"rare",i:"🛡️",p:8},{n:"P250 | Cartel",r:"rare",i:"💀",p:6},{n:"Five-SeveN | Case Hardened",r:"rare",i:"🔵",p:12},{n:"Tec-9 | Toxic",r:"rare",i:"☣️",p:5},{n:"MAC-10 | Graven",r:"rare",i:"👹",p:4},{n:"MP7 | Nemesis",r:"rare",i:"🐍",p:7},{n:"UMP-45 | Blaze",r:"rare",i:"🔥",p:9},{n:"M4A4 | Evil Daimyo",r:"rare",i:"👺",p:6},{n:"PP-Bizon | Judgement of Anubis",r:"rare",i:"⚖️",p:4},{n:"M4A1-S | Nitro",r:"uncommon",i:"💨",p:4},{n:"AK-47 | Blue Laminate",r:"uncommon",i:"🔷",p:5},{n:"AWP | Safari Mesh",r:"uncommon",i:"🦒",p:2},{n:"Glock-18 | Candy Apple",r:"uncommon",i:"🍎",p:2},{n:"USP-S | Stainless",r:"uncommon",i:"🔩",p:3},{n:"P250 | Valence",r:"uncommon",i:"🔶",p:1},{n:"Desert Eagle | Naga",r:"uncommon",i:"🐍",p:3},{n:"MP9 | Dark Age",r:"uncommon",i:"🏰",p:1},{n:"MAG-7 | Heaven Guard",r:"uncommon",i:"😇",p:2},{n:"Nova | Tempest",r:"uncommon",i:"🌊",p:2},{n:"XM1014 | Blue Steel",r:"uncommon",i:"🔫",p:2},{n:"MP9 | Sand Dashed",r:"common",i:"🏜️",p:1},{n:"MAG-7 | Metallic DDPAT",r:"common",i:"🔫",p:1},{n:"Nova | Forest Leaves",r:"common",i:"🍃",p:1},{n:"P90 | Ash Wood",r:"common",i:"🪵",p:1},{n:"MAC-10 | Silver",r:"common",i:"🥈",p:1},{n:"MP7 | Groundwater",r:"common",i:"💧",p:1},{n:"UMP-45 | Urban DDPAT",r:"common",i:"🏙️",p:1},{n:"PP-Bizon | Sand Dashed",r:"common",i:"🏜️",p:1}];
 
-function buildCase(name,icon,price,yolo=false){const PROFIT_MARGIN=0.25;const targetAvg=Math.round(price*(1-PROFIT_MARGIN));let pool=[];if(yolo){const jackpots=SKINS.filter(s=>s.r==='legendary'&&s.p>=price*5).slice(0,3);const fillers=SKINS.filter(s=>s.r==='common'||s.r==='uncommon').slice(0,15);pool=[...jackpots,...fillers];}else{const candidates=SKINS.filter(s=>s.p>=targetAvg*0.2&&s.p<=targetAvg*4);candidates.sort((a,b)=>Math.abs(a.p-targetAvg)-Math.abs(b.p-targetAvg));pool=candidates.slice(0,20);if(pool.filter(s=>s.r==='legendary').length<1){const extra=SKINS.filter(s=>s.r==='legendary'&&s.p<=price*6).slice(0,2);pool=[...extra,...pool.slice(0,18)];}}const actualAvg=Math.round(pool.reduce((s,sk)=>s+sk.p,0)/pool.length);return{id:name,n:name,i:icon,p:price,avg:actualAvg,s:pool,isYolo:yolo};}
+function buildCase(name,icon,price,yolo=false){const PROFIT_MARGIN=0.25;const targetAvg=Math.round(price*(1-PROFIT_MARGIN));let pool=[];if(yolo){const jackpots=SKINS.filter(s=>s.r==='legendary'&&s.p>=price*5).slice(0,3);const fillers=SKINS.filter(s=>s.r==='common'||s.r==='uncommon').slice(0,15);pool=[...jackpots,...fillers];}else{const candidates=SKINS.filter(s=>s.p>=targetAvg*0.2&&s.p<=targetAvg*4);candidates.sort((a,b)=>Math.abs(a.p-targetAvg)-Math.abs(b.p-targetAvg));pool=candidates.slice(0,20);if(pool.filter(s=>s.r==='legendary').length<1){const extra=SKINS.filter(s=>s.r==='legendary'&&s.p<=price*6).slice(0,2);pool=[...extra,...pool.slice(0,18)];}}return{id:name,n:name,i:icon,p:price,s:pool,isYolo:yolo};}
 const CASES=[buildCase('👑 Премиум','👑',550),buildCase('💚 Gamma Doppler','💚',850),buildCase('🔥 Operation Bravo','🔥',650),buildCase('🧤 Glove Case','🧤',500),buildCase('🌈 Chroma 3','🌈',280),buildCase('📦 Стандартный','📦',130),buildCase('🎯 Снайперский','🎯',200),buildCase('🐍 Snakebite','🐍',90),buildCase('🚀 Стартовый','🚀',40),buildCase('💸 Бюджетный','💸',25),buildCase('💀 YOLO','💀',200,true),buildCase('🎰 Всё или ничего','🎰',150,true),buildCase('💎 Элитный','💎',1000),buildCase('🔪 Ножевой','🔪',700)];
 
-let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1,selectedTarget=null,progressInterval=null,progressValue=0;
+let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1;
+let upChance=50,upMult=2.0,skillInterval=null,skillDirection=1,skillSpeed=8,skillPos=0,skillStopped=false;
 const ge=id=>document.getElementById(id);
+
 function rndItem(cs){if(CASES[caseI]?.isYolo){const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*5);if(r<0.3&&bigs.length>0)return bigs[0];if(r<1&&bigs.length>1)return bigs[1];if(r<2&&bigs.length>2)return bigs[2];return cs.filter(s=>s.r==='common'||s.r==='uncommon')[Math.floor(Math.random()*cs.filter(s=>s.r==='common'||s.r==='uncommon').length)]||cs[cs.length-1];}const w={legendary:0.3,epic:6,rare:25,uncommon:34,common:34.7};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
 function skinByPrice(tp){let b=SKINS[0],bd=Infinity;for(const s of SKINS){const d=Math.abs(s.p-tp);if(d<bd){bd=d;b=s;}}return b;}
 function genTape(win,cs){const tape=ge('tape');if(!tape)return;let h='';for(let i=0;i<40;i++){let item=(i===32&&win)?win:rndItem(cs);h+=`<div class="skin ${item.r}"><div class="si">${item.i}</div><div class="sn">${item.n}</div><div class="sp">${item.p} <i class="fas fa-coins coin"></i></div></div>`;}tape.innerHTML=h;tape.style.transition='none';tape.style.transform='translateX(800px)';}
@@ -194,7 +193,7 @@ async function openCase(){if(!curUser){alert('❌ Сначала войди!');s
 function nav(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));if(p==='cases'){ge('p-cases').classList.add('active');renderCases();}else{ge('p-'+p).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(p))renderAll();if(p==='profile')renderProf();if(p==='upgrade')resetUpgrade();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-p="${p}"]`);if(nb)nb.classList.add('active');}
 function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}"><span class="pi">${s.i}</span><div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
 function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCP(${i})">${c.isYolo?'<div class="yolo-badge">YOLO</div>':''}<span class="ci">${c.i}</span><div class="cn">${c.n}</div><div class="cp">${c.p} <i class="fas fa-coins coin"></i></div></div>`).join('');}
-function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Пусто</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');}renderUpInv();renderConInv();upUI();conUI();}
+function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Пусто</div>';ge('upInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';ge('conInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');renderUpInv();renderConInv();}upUI();conUI();}
 function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}"><span class="ii">${i.i}</span><div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderProf(){ge('profContent').innerHTML=`<h2>👤 ПРОФИЛЬ</h2><div style="padding:20px;background:rgba(10,14,24,0.7);border-radius:14px;margin:15px 0;"><div>Привет, <strong style="color:var(--gold);">${curUser||'Гость'}</strong>!</div><div style="color:var(--text2);margin-top:4px;">ID: <strong style="color:#fff;">${curUserId||'—'}</strong></div><div>Баланс: <strong>${bal}</strong> <i class="fas fa-coins coin"></i></div><div>Скинов: <strong>${inv.length}</strong></div><div>Открыто кейсов: <strong>${hist.filter(h=>h.t==='case').length}</strong></div></div><h3>📋 ИСТОРИЯ</h3><div style="max-height:350px;overflow-y:auto;">${hist.length?hist.slice().reverse().slice(0,50).map(h=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(20,26,42,0.5);border-radius:8px;margin-bottom:3px;font-size:11px;"><span style="font-size:22px;">${h.t==='case'?'💎':h.t==='upgrade'?'⚡':'📜'}</span><div style="flex:1;"><div>${h.skin}</div><div style="font-size:9px;color:var(--text2);">${new Date(h.time).toLocaleString()}</div></div><div style="color:var(--gold);">${h.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="text-align:center;padding:30px;">Пусто</div>'}</div>`;}
@@ -203,97 +202,15 @@ function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAl
 function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?alert('Максимум 10!'):sCon.add(id));renderAll();}
 
 // ============================================================
-// ИНТЕРАКТИВНЫЙ АПГРЕЙД
+// ИНТЕРАКТИВНЫЙ СКИЛЛ-БАР АПГРЕЙД
 // ============================================================
-function resetUpgrade(){
-    uping=false;selectedTarget=null;progressValue=0;
-    if(progressInterval)clearInterval(progressInterval);
-    ge('upgradePhase1').style.display='block';
-    ge('upgradePhase2').style.display='none';
-    ge('upgradePhase3').style.display='none';
-    ge('upgradePhase4').style.display='none';
-    sUp.clear();renderAll();
-}
-function cancelUpgrade(){ge('upgradePhase2').style.display='none';ge('upgradePhase1').style.display='block';selectedTarget=null;}
-function upUI(){
-    const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);
-    ge('upSum').textContent=tp;ge('btnShowTargets').disabled=si.length<1||uping;
-}
-function showTargets(){
-    const si=inv.filter(i=>sUp.has(i.id));
-    if(si.length<1)return alert('Выберите минимум 1 скин!');
-    const tp=si.reduce((s,i)=>s+i.p,0);
-    // Генерируем 3 случайные цели
-    const targets=[];
-    for(let i=0;i<3;i++){
-        const mult=1.5+Math.random()*3.5; // множитель 1.5-5x
-        const targetPrice=Math.round(tp*mult);
-        const ts=skinByPrice(targetPrice);
-        const priceDiff=targetPrice/tp;
-        // Шанс зависит от разницы в цене (чем дороже цель - тем меньше шанс)
-        const chance=Math.max(5,Math.min(90,Math.round(100/priceDiff)));
-        targets.push({skin:ts,chance:chance,mult:mult.toFixed(1)});
-    }
-    ge('upgradeTargets').innerHTML=targets.map((t,i)=>`
-        <div class="upgrade-target" onclick="selectTarget(${i})" id="target${i}">
-            <span class="ut-icon">${t.skin.i}</span>
-            <div class="ut-name">${t.skin.n}</div>
-            <div class="ut-price">${t.skin.p} <i class="fas fa-coins coin"></i></div>
-            <div class="ut-chance">Шанс: ${t.chance}% | ×${t.mult}</div>
-        </div>
-    `).join('');
-    window._upgradeTargets=targets;
-    ge('upgradePhase1').style.display='none';
-    ge('upgradePhase2').style.display='block';
-}
-function selectTarget(i){
-    document.querySelectorAll('.upgrade-target').forEach(t=>t.classList.remove('selected'));
-    ge('target'+i).classList.add('selected');
-    selectedTarget=window._upgradeTargets[i];
-    startProgressBar();
-}
-function startProgressBar(){
-    ge('upgradePhase2').style.display='none';
-    ge('upgradePhase3').style.display='block';
-    progressValue=0;
-    ge('progressFill').style.width='0%';
-    ge('btnStopUpgrade').disabled=false;
-    ge('btnStopUpgrade').textContent='🛑 СТОП';
-    if(progressInterval)clearInterval(progressInterval);
-    progressInterval=setInterval(()=>{
-        progressValue+=Math.random()*4+1;
-        if(progressValue>100)progressValue=0;
-        ge('progressFill').style.width=progressValue+'%';
-    },50);
-}
-function stopProgress(){
-    clearInterval(progressInterval);
-    ge('btnStopUpgrade').disabled=true;
-    ge('btnStopUpgrade').textContent='⏳ ОБРАБОТКА...';
-    const target=selectedTarget;
-    const si=inv.filter(i=>sUp.has(i.id));
-    const tp=si.reduce((s,i)=>s+i.p,0);
-    uping=true;
-    // Проверяем результат
-    const success=progressValue>=(100-target.chance)&&progressValue<=(target.chance+10);
-    setTimeout(()=>{
-        ge('upgradePhase3').style.display='none';
-        ge('upgradePhase4').style.display='block';
-        if(success&&target){
-            SFX.play('upgrade_success');
-            inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();
-            const ni={...target.skin,id:idC++};inv.push(ni);
-            hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});
-            dropLater(ni.n,ni.i,ni.p,ni.r);
-            ge('upgradePhase4').innerHTML=`<div class="upgrade-result-anim"><div style="font-size:60px;">✅</div><div style="font-size:24px;color:#4caf50;font-weight:800;">УСПЕХ!</div><div style="font-size:40px;">${ni.i}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:15px;">🔄 ЕЩЁ РАЗ</button></div>`;
-        }else{
-            SFX.play('upgrade_fail');
-            inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();
-            ge('upgradePhase4').innerHTML=`<div class="upgrade-result-anim" style="animation:shake 0.5s ease"><div style="font-size:60px;">❌</div><div style="font-size:24px;color:#ff4444;font-weight:800;">ПРОВАЛ</div><div style="color:var(--text2);">Скины сгорели (-${tp} 🪙)</div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:15px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;
-        }
-        uping=false;renderAll();saveGame();
-    },800);
-}
+function resetUpgrade(){uping=false;skillStopped=false;skillPos=0;if(skillInterval)clearInterval(skillInterval);ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';sUp.clear();renderAll();}
+function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp;ge('btnStartUpgrade').disabled=si.length<1||uping;if(si.length>0){const ts=skinByPrice(Math.round(tp*upMult));ge('upTargetPreview').innerHTML=`${ts.i} ${ts.n} (~${ts.p} 🪙)`;}else{ge('upTargetPreview').textContent='—';}}
+document.querySelectorAll('.chance-btn').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');upChance=parseInt(this.dataset.c);upMult=parseFloat(this.dataset.m);upUI();});});
+function startSkillGame(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';ge('greenZone').style.width=upChance+'%';ge('zoneLine').style.left=upChance+'%';skillPos=Math.random()*100;skillDirection=Math.random()>0.5?1:-1;skillSpeed=3+Math.random()*5;skillStopped=false;ge('skillArrow').style.left=skillPos+'%';ge('btnStopSkill').disabled=false;ge('btnStopSkill').textContent='🛑 СТОП';ge('skillSpeedLabel').textContent='Скорость: '+skillSpeed.toFixed(1);if(skillInterval)clearInterval(skillInterval);skillInterval=setInterval(moveArrow,30);}
+function moveArrow(){if(skillStopped)return;skillPos+=skillDirection*skillSpeed;if(skillPos>=100){skillPos=100;skillDirection=-1;}if(skillPos<=0){skillPos=0;skillDirection=1;}skillSpeed*=0.998;if(skillSpeed<0.3)skillSpeed=0.3;ge('skillArrow').style.left=skillPos+'%';ge('skillSpeedLabel').textContent='Скорость: '+skillSpeed.toFixed(2);}
+function stopSkill(){if(skillStopped)return;skillStopped=true;clearInterval(skillInterval);ge('btnStopSkill').disabled=true;ge('btnStopSkill').textContent='⏳ ПРОВЕРКА...';const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);const success=skillPos<=upChance;setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');const ts=skinByPrice(Math.round(tp*upMult));inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();const ni={...ts,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:floatUp 0.5s ease"><div style="font-size:60px;">✅</div><div style="font-size:22px;color:#4caf50;font-weight:800;">УСПЕХ!</div><div style="color:var(--text2);">Стрелка: ${skillPos.toFixed(1)}% / Зона: ${upChance}%</div><div style="font-size:40px;margin-top:8px;">${ni.i}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:16px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ЕЩЁ РАЗ</button></div>`;}else{SFX.play('upgrade_fail');inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:shake 0.5s ease"><div style="font-size:60px;">❌</div><div style="font-size:22px;color:#ff4444;font-weight:800;">ПРОВАЛ</div><div style="color:var(--text2);">Стрелка: ${skillPos.toFixed(1)}% / Зона: ${upChance}%</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${tp} 🪙)</div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;}uping=false;renderAll();saveGame();},600);}
+ge('btnStartUpgrade').addEventListener('click',startSkillGame);ge('btnStopSkill').addEventListener('click',stopSkill);
 
 function conUI(){const si=inv.filter(i=>sCon.has(i.id));ge('conCount').textContent=si.length;ge('conSum').textContent=si.reduce((s,i)=>s+i.p,0);ge('contractBtn').disabled=si.length<3||si.length>10||coning;}
 function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;SFX.play('contract');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*1.2+0.4));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`<div style="font-size:45px;">${ni.i}</div><div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
@@ -310,10 +227,9 @@ function doLogin(){const u=ge('loginUser').value.trim(),p=ge('loginPass').value,
 function doRegister(){const u=ge('loginUser').value.trim(),p=ge('loginPass').value,err=ge('authErr');if(!u||!p){err.textContent='❌ Заполни поля!';err.style.display='block';return;}if(u.length<3){err.textContent='❌ Минимум 3 символа!';err.style.display='block';return;}if(p.length<4){err.textContent='❌ Минимум 4 символа!';err.style.display='block';return;}regDirect(u,p);}
 function regDirect(u,p){const uid='user_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);usersR.child(u).once('value').then(sn=>{if(sn.exists()&&sn.val().pass){alert('❌ Логин занят!');return;}usersR.child(u).set({pass:hash(p),uid:uid,sd:{balance:1000,inventory:[],idCounter:0,history:[]}}).then(()=>{closeModals();loadUser(u);});});}
 function logout(){saveGame();curUser=null;curUserId=null;ge('regBtn').style.display='block';ge('userInfo').style.display='none';ge('adminBtn').style.display='none';bal=1000;inv=[];idC=0;hist=[];sUp.clear();sCon.clear();resetUpgrade();renderAll();updBal();nav('cases');}
-function init(){const lu=localStorage.getItem('sv_last');if(lu){usersR.child(lu).once('value').then(sn=>{if(sn.exists())loadUser(lu);});}renderCases();renderAll();updBal();ge('openBtn').addEventListener('click',openCase);ge('btnShowTargets').addEventListener('click',showTargets);ge('btnStopUpgrade').addEventListener('click',stopProgress);document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){nav(this.dataset.p);}));ge('contractBtn').addEventListener('click',doContract);ge('regModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('adminModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('loginPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});}
+function init(){const lu=localStorage.getItem('sv_last');if(lu){usersR.child(lu).once('value').then(sn=>{if(sn.exists())loadUser(lu);});}renderCases();renderAll();updBal();ge('openBtn').addEventListener('click',openCase);document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){nav(this.dataset.p);}));ge('contractBtn').addEventListener('click',doContract);ge('regModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('adminModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('loginPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});}
 setInterval(()=>{if(curUser)saveGame();},10000);init();
 onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP});
-console.log('✅ SKINVAULT — ИНТЕРАКТИВНЫЙ АПГРЕЙД АКТИВИРОВАН');
 </script>
 </body>
 </html>
