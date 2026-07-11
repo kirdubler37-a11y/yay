@@ -129,8 +129,7 @@
                 <button class="btn-sm btn-sell chance-btn" data-c="75" data-m="1.3">75% ×1.3</button>
             </div>
             <div style="text-align:center;margin:10px 0;padding:10px;background:rgba(10,14,24,0.7);border-radius:10px;">
-                <span style="color:var(--text2);">Возможный скин: </span>
-                <strong id="upTargetPreview" style="color:var(--gold);font-size:16px;">—</strong>
+                <span style="color:var(--text2);">Возможный скин: </span><strong id="upTargetPreview" style="color:var(--gold);font-size:16px;">—</strong>
             </div>
             <button class="btn-open" id="btnStartUpgrade" disabled>🎯 НАЧАТЬ АПГРЕЙД</button>
         </div>
@@ -141,9 +140,7 @@
                 <div id="redZone" style="position:absolute;right:0;top:0;height:100%;background:linear-gradient(270deg,rgba(255,68,68,0.5),rgba(255,68,68,0.8));border-radius:0 25px 25px 0;"></div>
                 <div id="autoArrow" style="position:absolute;top:-6px;width:5px;height:62px;background:#fff;box-shadow:0 0 25px #fff,0 0 50px rgba(255,255,255,0.6);border-radius:3px;left:50%;z-index:10;"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);padding:0 5px;">
-                <span style="color:#4caf50;">✅ УСПЕХ</span><span style="color:#ff4444;">❌ ПРОВАЛ</span>
-            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);padding:0 5px;"><span style="color:#4caf50;">✅ УСПЕХ</span><span style="color:#ff4444;">❌ ПРОВАЛ</span></div>
             <div id="arrowSpeedLabel" style="text-align:center;font-size:11px;color:var(--text2);margin-top:8px;"></div>
         </div>
         <div id="upPhase3" style="display:none;"></div>
@@ -182,7 +179,7 @@ function buildCase(name,icon,price,yolo=false){const PROFIT_MARGIN=0.25;const ta
 const CASES=[buildCase('👑 Премиум','👑',550),buildCase('💚 Gamma Doppler','💚',850),buildCase('🔥 Operation Bravo','🔥',650),buildCase('🧤 Glove Case','🧤',500),buildCase('🌈 Chroma 3','🌈',280),buildCase('📦 Стандартный','📦',130),buildCase('🎯 Снайперский','🎯',200),buildCase('🐍 Snakebite','🐍',90),buildCase('🚀 Стартовый','🚀',40),buildCase('💸 Бюджетный','💸',25),buildCase('💀 YOLO','💀',200,true),buildCase('🎰 Всё или ничего','🎰',150,true),buildCase('💎 Элитный','💎',1000),buildCase('🔪 Ножевой','🔪',700)];
 
 let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1;
-let upChance=50,upMult=2.0,arrowInterval=null,arrowPos=50,arrowSpeed=12,arrowStopped=false;
+let upChance=50,upMult=2.0,arrowInterval=null,arrowPos=5,arrowSpeed=8,arrowDirection=1,arrowStopped=false;
 const ge=id=>document.getElementById(id);
 
 function rndItem(cs){if(CASES[caseI]?.isYolo){const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*5);if(r<0.3&&bigs.length>0)return bigs[0];if(r<1&&bigs.length>1)return bigs[1];if(r<2&&bigs.length>2)return bigs[2];return cs.filter(s=>s.r==='common'||s.r==='uncommon')[Math.floor(Math.random()*cs.filter(s=>s.r==='common'||s.r==='uncommon').length)]||cs[cs.length-1];}const w={legendary:0.3,epic:6,rare:25,uncommon:34,common:34.7};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
@@ -202,13 +199,13 @@ function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAl
 function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?alert('Максимум 10!'):sCon.add(id));renderAll();}
 
 // ============================================================
-// АВТОМАТИЧЕСКИЙ БАР АПГРЕЙДА
+// АПГРЕЙД С ПЛАВНОЙ СТРЕЛКОЙ
 // ============================================================
-function resetUpgrade(){uping=false;arrowStopped=false;arrowPos=50;if(arrowInterval)clearInterval(arrowInterval);ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';sUp.clear();renderAll();}
+function resetUpgrade(){uping=false;arrowStopped=false;arrowPos=5;if(arrowInterval)clearInterval(arrowInterval);ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';sUp.clear();renderAll();}
 function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp;ge('btnStartUpgrade').disabled=si.length<1||uping;if(si.length>0){const ts=skinByPrice(Math.round(tp*upMult));ge('upTargetPreview').innerHTML=`${ts.i} ${ts.n} (~${ts.p} 🪙)`;}else{ge('upTargetPreview').textContent='—';}}
 document.querySelectorAll('.chance-btn').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');upChance=parseInt(this.dataset.c);upMult=parseFloat(this.dataset.m);upUI();});});
-function startUpgradeAnimation(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';ge('greenZone').style.width=upChance+'%';ge('redZone').style.width=(100-upChance)+'%';arrowPos=Math.random()*100;arrowSpeed=8+Math.random()*8;arrowStopped=false;ge('autoArrow').style.left=arrowPos+'%';if(arrowInterval)clearInterval(arrowInterval);arrowInterval=setInterval(moveAutoArrow,40);}
-function moveAutoArrow(){if(arrowStopped)return;arrowPos+=arrowSpeed*(Math.random()>0.5?1:-1);if(arrowPos>95){arrowPos=95;arrowSpeed*=-0.7;}if(arrowPos<5){arrowPos=5;arrowSpeed*=-0.7;}arrowSpeed*=0.985;ge('autoArrow').style.left=arrowPos+'%';ge('arrowSpeedLabel').textContent='Скорость: '+Math.abs(arrowSpeed).toFixed(2);if(Math.abs(arrowSpeed)<0.15){arrowStopped=true;clearInterval(arrowInterval);showUpgradeResult();}}
+function startUpgradeAnimation(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';ge('greenZone').style.width=upChance+'%';ge('redZone').style.width=(100-upChance)+'%';arrowPos=5;arrowDirection=1;arrowSpeed=6+Math.random()*6;arrowStopped=false;ge('autoArrow').style.left=arrowPos+'%';ge('arrowSpeedLabel').textContent='Скорость: '+arrowSpeed.toFixed(1);if(arrowInterval)clearInterval(arrowInterval);arrowInterval=setInterval(moveAutoArrow,35);}
+function moveAutoArrow(){if(arrowStopped)return;arrowPos+=arrowDirection*Math.abs(arrowSpeed);if(arrowPos>=95){arrowPos=95;arrowDirection=-1;arrowSpeed*=0.85;}if(arrowPos<=5){arrowPos=5;arrowDirection=1;arrowSpeed*=0.85;}arrowSpeed*=0.992;ge('autoArrow').style.left=arrowPos+'%';ge('arrowSpeedLabel').textContent='Скорость: '+Math.abs(arrowSpeed).toFixed(2);if(Math.abs(arrowSpeed)<0.08){arrowStopped=true;clearInterval(arrowInterval);arrowPos+=(Math.random()-0.5)*3;arrowPos=Math.max(0,Math.min(100,arrowPos));ge('autoArrow').style.left=arrowPos+'%';showUpgradeResult();}}
 function showUpgradeResult(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);const success=arrowPos<=upChance;setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');const ts=skinByPrice(Math.round(tp*upMult));inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();const ni={...ts,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:floatUp 0.5s ease"><div style="font-size:55px;">🎉</div><div style="font-size:22px;color:#4caf50;font-weight:800;">АПГРЕЙД УСПЕШЕН!</div><div style="color:var(--text2);font-size:12px;">Стрелка остановилась на ${arrowPos.toFixed(1)}% (зона до ${upChance}%)</div><div style="font-size:40px;margin:10px 0;">${ni.i}</div><div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ЕЩЁ РАЗ</button></div>`;}else{SFX.play('upgrade_fail');inv=inv.filter(i=>!sUp.has(i.id));sUp.clear();ge('upPhase3').innerHTML=`<div style="text-align:center;padding:20px;animation:shake 0.5s ease"><div style="font-size:55px;">💔</div><div style="font-size:22px;color:#ff4444;font-weight:800;">АПГРЕЙД ПРОВАЛЕН</div><div style="color:var(--text2);font-size:12px;">Стрелка остановилась на ${arrowPos.toFixed(1)}% (зона до ${upChance}%)</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${tp} 🪙)</div><button class="btn-open" onclick="resetUpgrade()" style="margin-top:12px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;}uping=false;renderAll();saveGame();},400);}
 ge('btnStartUpgrade').addEventListener('click',startUpgradeAnimation);
 
@@ -217,9 +214,14 @@ function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if
 function updBal(){ge('balDisplay').textContent=bal;}
 function loadUser(u){usersR.child(u).once('value').then(sn=>{const ud=sn.val();if(ud&&ud.sd){bal=ud.sd.balance||1000;inv=ud.sd.inventory||[];idC=ud.sd.idCounter||0;hist=ud.sd.history||[];curUser=u;curUserId=ud.uid||u;renderAll();updBal();ge('regBtn').style.display='none';ge('userInfo').style.display='flex';ge('userName').textContent='👑 '+u;if(u==='Admin'){ge('adminBtn').style.display='block';ge('userName').textContent='⚡ Admin';}localStorage.setItem('sv_last',u);nav('cases');}});}
 function saveGame(){if(!curUser)return;usersR.child(curUser).child('sd').set({balance:bal,inventory:inv,idCounter:idC,history:hist});}
-function showAdmin(){ge('adminModal').style.display='flex';ge('admUser').focus();}
-function giveCoins(){const t=ge('admUser').value.trim(),a=parseInt(ge('admAmt').value),m=ge('admMsg');m.style.color='#ff4444';if(!t){m.textContent='❌ Введи ник или ID!';return;}if(!a||a<1||isNaN(a)){m.textContent='❌ Введи сумму!';return;}usersR.child(t).once('value').then(sn=>{if(sn.exists()){processGive(sn,t,a,m);return;}usersR.orderByChild('uid').equalTo(t).once('value').then(snap=>{if(snap.exists()){const data=snap.val();const username=Object.keys(data)[0];processGive(snap.child(username),username,a,m);}else{m.textContent='❌ Пользователь не найден!';}});}).catch(err=>{m.textContent='❌ Ошибка соединения';});}
-function processGive(sn,username,amount,msgEl){const allData=sn.val();const cb=(allData.sd&&allData.sd.balance)?allData.sd.balance:1000;const nb=cb+amount;const usd=allData.sd||{inventory:[],idCounter:0,history:[]};usd.balance=nb;usersR.child(username).child('sd').set(usd).then(()=>{msgEl.textContent='✅ +'+amount+' 🪙 для '+username+'!';msgEl.style.color='#4caf50';ge('admUser').value='';ge('admAmt').value='';if(username===curUser){bal=nb;updBal();renderAll();}}).catch(err=>{msgEl.textContent='❌ Ошибка: '+err.message;});}
+
+// ============================================================
+// АДМИН-ПАНЕЛЬ (ПОЛНЫЙ ФИКС)
+// ============================================================
+function showAdmin(){ge('adminModal').style.display='flex';ge('admUser').focus();ge('admMsg').textContent='';}
+function giveCoins(){const t=ge('admUser').value.trim();const a=parseInt(ge('admAmt').value);const m=ge('admMsg');m.style.color='#ff4444';if(!t){m.textContent='❌ Введи ник или ID!';return;}if(!a||a<1||isNaN(a)){m.textContent='❌ Введи сумму!';return;}usersR.child(t).once('value').then(sn=>{if(sn.exists()){addCoinsToUser(t,sn.val(),a,m);return;}return usersR.orderByChild('uid').equalTo(t).once('value');}).then(snap=>{if(snap&&snap.exists&&snap.exists()){const data=snap.val();const username=Object.keys(data)[0];addCoinsToUser(username,data[username],a,m);}else if(snap&&!snap.exists){m.textContent='❌ Пользователь не найден!';}}).catch(err=>{console.error(err);m.textContent='❌ Ошибка соединения';});}
+function addCoinsToUser(username,userData,amount,msg){const sd=userData.sd||{};const cb=(typeof sd.balance==='number')?sd.balance:1000;const nb=cb+amount;const usd={balance:nb,inventory:sd.inventory||[],idCounter:sd.idCounter||0,history:sd.history||[]};usersR.child(username).child('sd').set(usd).then(()=>{msg.textContent='✅ +'+amount+' 🪙 для '+username+'! (Было: '+cb+', Стало: '+nb+')';msg.style.color='#4caf50';ge('admUser').value='';ge('admAmt').value='';if(username===curUser){bal=nb;updBal();renderAll();}}).catch(err=>{msg.textContent='❌ Ошибка: '+err.message;});}
+
 function hash(pw){let h=0;for(let i=0;i<pw.length;i++){h=((h<<5)-h)+pw.charCodeAt(i);h=h&h;}return'h_'+Math.abs(h).toString(16);}
 function showReg(){ge('regModal').style.display='flex';ge('loginUser').focus();}
 function closeModals(){document.querySelectorAll('.modal-overlay').forEach(m=>m.style.display='none');}
@@ -230,6 +232,7 @@ function logout(){saveGame();curUser=null;curUserId=null;ge('regBtn').style.disp
 function init(){const lu=localStorage.getItem('sv_last');if(lu){usersR.child(lu).once('value').then(sn=>{if(sn.exists())loadUser(lu);});}renderCases();renderAll();updBal();ge('openBtn').addEventListener('click',openCase);document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',function(){nav(this.dataset.p);}));ge('contractBtn').addEventListener('click',doContract);ge('regModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('adminModal').addEventListener('click',function(e){if(e.target===this)closeModals();});ge('loginPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});}
 setInterval(()=>{if(curUser)saveGame();},10000);init();
 onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP});
+console.log('✅ SKINVAULT — ВСЁ РАБОТАЕТ');
 </script>
 </body>
 </html>
