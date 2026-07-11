@@ -209,238 +209,89 @@ let today=new Date().toDateString();
 setInterval(()=>onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP}),5000);
 onlineR.on('value',s=>{const d=s.val()||{};const n=Date.now();let c=0;for(const id in d){if(d[id].t&&(n-d[id].t<15000))c++;else onlineR.child(id).remove();}ge('onlineCount').textContent=c;ge('qsOnline').textContent=c;});
 window.addEventListener('beforeunload',()=>{onlineR.child(myId).remove();});
-dropsR.orderByChild('time').limitToLast(30).on('value',s=>{const drops=[];s.forEach(c=>{const d=c.val();if(d)drops.push(d);});drops.sort((a,b)=>(b.time||0)-(a.time||0));ge('liveList').innerHTML=drops.length?drops.map(d=>`<div class="live-item ${d.rarity||''}">${iconEl('icon',skinImg(d.skin),d.icon||'🎁')}<div class="info"><div class="name">${d.skin||'?'}</div><div class="user">${d.user||'?'}</div></div><div class="price">${(d.price||0)} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';});
-statsR.child(today).on('value',s=>{const d=s.val()||{};ge('qsCases').textContent=d.cases||0;ge('qsJackpots').textContent=d.jackpots||0;ge('qsPlayers').textContent=d.players||0;const top=d.topDrops?Object.values(d.topDrops).sort((a,b)=>b.price-a.price).slice(0,5):[];ge('topDropsList').innerHTML=top.length?top.map((t,i)=>`<div class="top-drop-item"><span class="rank">#${i+1}</span>${iconEl('icon',skinImg(t.skin),t.icon||'🎁')}<div class="info"><div class="name">${t.skin||'?'}</div><div class="user">${t.user||'?'}</div></div><div class="price">${t.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:10px;">Нет данных</div>';});
+dropsR.orderByChild('time').limitToLast(30).on('value',s=>{const drops=[];s.forEach(c=>{const d=c.val();if(d)drops.push(d);});drops.sort((a,b)=>(b.time||0)-(a.time||0));ge('liveList').innerHTML=drops.length?drops.map(d=>`<div class="live-item ${d.rarity||''}">${iconEl('icon',d.img,d.icon||'🎁')}<div class="info"><div class="name">${d.skin||'?'}</div><div class="user">${d.user||'?'}</div></div><div class="price">${(d.price||0)} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:30px;">Ожидание...</div>';});
+statsR.child(today).on('value',s=>{const d=s.val()||{};ge('qsCases').textContent=d.cases||0;ge('qsJackpots').textContent=d.jackpots||0;ge('qsPlayers').textContent=d.players||0;const top=d.topDrops?Object.values(d.topDrops).sort((a,b)=>b.price-a.price).slice(0,5):[];ge('topDropsList').innerHTML=top.length?top.map((t,i)=>`<div class="top-drop-item"><span class="rank">#${i+1}</span>${iconEl('icon',t.img,t.icon||'🎁')}<div class="info"><div class="name">${t.skin||'?'}</div><div class="user">${t.user||'?'}</div></div><div class="price">${t.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="color:var(--text2);text-align:center;padding:10px;">Нет данных</div>';});
 function updateStats(price,skin,icon,user){statsR.child(today).transaction(d=>{if(!d)d={cases:0,jackpots:0,players:0,topDrops:{}};d.cases=(d.cases||0)+1;if(price>=500)d.jackpots=(d.jackpots||0)+1;if(user){d.players=d.players||0;d.topDrops=d.topDrops||{};const key=Date.now()+'_'+Math.random().toString(36).substr(2,4);d.topDrops[key]={skin,icon,price,user};}return d;});}
 function dropLater(skin,icon,price,rarity){setTimeout(()=>{dropsR.push({skin,icon,price,rarity,user:curUser||'Аноним',time:firebase.database.ServerValue.TIMESTAMP});},6000);}
 
 const SFX={ctx:null,init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},play(t){this.init();const ctx=this.ctx,now=ctx.currentTime;const tone=(f,d,v=.1)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(f,now);g.gain.setValueAtTime(v,now);g.gain.exponentialRampToValueAtTime(.001,now+d);o.start(now);o.stop(now+d)};if(t==='case_open'){tone(800,.15,.08);setTimeout(()=>tone(1100,.1,.06),100);}if(t==='case_scroll')tone(2000,.02,.03);if(t==='case_stop')tone(150,.25,.1);if(t==='legendary'){[523,659,784,1047,1318].forEach((f,i)=>setTimeout(()=>tone(f,.3,.1),i*80));}if(t==='sell')tone(1200,.05,.06);if(t==='upgrade_success'){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.2,.1),i*60));}if(t==='upgrade_fail')tone(300,.4,.12);if(t==='contract'){[400,500,600,700,800].forEach((f,i)=>setTimeout(()=>tone(f,.04,.05),i*40));}}};
 document.addEventListener('click',()=>SFX.init(),{once:true});
 
-// ===== РЕАЛЬНЫЕ ИЗОБРАЖЕНИЯ СКИНОВ И КЕЙСОВ (CSGO-API, зеркало официальных иконок Valve) =====
-const CS_API_SKINS_URL='https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins_not_grouped.json';
+// ===== РЕАЛЬНЫЕ КЕЙСЫ И СКИНЫ CS2 (CSGO-API — зеркало официальных данных/иконок Valve) =====
+// Кейсы и их содержимое (включая ножи/перчатки) тянутся напрямую из crates.json,
+// поэтому названия и картинки гарантированно совпадают — никакого сопоставления по имени.
 const CS_API_CRATES_URL='https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/crates.json';
-let SKIN_IMG={},CRATE_IMG={},IMG_READY=false;
-async function loadRealImages(){
-    try{
-        const [sres,cres]=await Promise.all([fetch(CS_API_SKINS_URL),fetch(CS_API_CRATES_URL)]);
-        const sdata=await sres.json(),cdata=await cres.json();
-        sdata.forEach(s=>{if(s.name&&s.image){const base=s.name.replace(/\s*\(.*?\)\s*$/,'').trim().toLowerCase();if(!SKIN_IMG[base])SKIN_IMG[base]=s.image;}});
-        cdata.forEach(c=>{if(c.name&&c.image)CRATE_IMG[c.name.trim().toLowerCase()]=c.image;});
-        IMG_READY=true;
-    }catch(e){console.warn('Не удалось загрузить реальные изображения CS2:',e);}
+let DATA_READY=false;
+// tag, точное имя кейса у Valve, базовая цена в нашей игровой валюте
+const TARGET_CASES=[
+    {tag:'pr',  name:'Prisma Case',                 price:60},
+    {tag:'sh',  name:'Shadow Case',                 price:80},
+    {tag:'ch',  name:'Chroma Case',                 price:180},
+    {tag:'dz',  name:'Danger Zone Case',             price:220},
+    {tag:'fal', name:'Falchion Case',                price:260},
+    {tag:'gm',  name:'Gamma Case',                   price:300},
+    {tag:'sp',  name:'Spectrum Case',                price:320},
+    {tag:'gl',  name:'Glove Case',                   price:480},
+    {tag:'br',  name:'Operation Bravo Case',         price:600},
+    {tag:'kw',  name:'Kilowatt Case',                price:600},
+    {tag:'dn',  name:'Dreams & Nightmares Case',     price:650}
+];
+function mapRarity(rarityName){
+    const n=(rarityName||'').toLowerCase();
+    if(n.includes('covert'))return'legendary';
+    if(n.includes('classified'))return'epic';
+    if(n.includes('restricted'))return'rare';
+    if(n.includes('mil-spec'))return'uncommon';
+    return'common';
 }
-function skinImg(name){return SKIN_IMG[(name||'').trim().toLowerCase()];}
-function crateImg(name){const clean=(name||'').replace(/^[^\w]*/,'').trim().toLowerCase();return CRATE_IMG[clean];}
+function tierEmoji(name,tier){
+    if(tier==='legendary'){if(/glove|wraps/i.test(name||''))return'🧤';return'🔪';}
+    if(/knife|karambit|bayonet|dagger/i.test(name||''))return'🔪';
+    return'🔫';
+}
+function calcPrice(basePrice,tier){
+    const MULT={common:0.25,uncommon:0.7,rare:1.8,epic:5,legendary:22};
+    return Math.max(1,Math.round(basePrice*MULT[tier]*(0.75+Math.random()*0.5)));
+}
+async function loadCaseData(){
+    try{
+        const res=await fetch(CS_API_CRATES_URL);
+        const crates=await res.json();
+        const newSkins=[],newCases=[];
+        TARGET_CASES.forEach(w=>{
+            const crate=crates.find(c=>(c.name||'').trim().toLowerCase()===w.name.toLowerCase());
+            if(!crate)return;
+            const pool=[];
+            (crate.contains||[]).forEach(it=>{
+                if(!it.name)return;
+                const tier=mapRarity(it.rarity&&it.rarity.name);
+                pool.push({n:it.name,r:tier,i:tierEmoji(it.name,tier),p:calcPrice(w.price,tier),c:w.tag,img:it.image||null});
+            });
+            (crate.contains_rare||[]).forEach(it=>{
+                if(!it.name)return;
+                pool.push({n:it.name,r:'legendary',i:tierEmoji(it.name,'legendary'),p:Math.round(w.price*(16+Math.random()*10)),c:w.tag,img:it.image||null});
+            });
+            if(!pool.length)return;
+            newSkins.push(...pool);
+            newCases.push({id:w.name,n:w.name,i:'📦',p:w.price,s:pool,isYolo:false,img:crate.image||null});
+        });
+        if(newCases.length){SKINS=newSkins;CASES=newCases;DATA_READY=true;}
+    }catch(e){console.warn('Не удалось загрузить данные кейсов CS2, используем офлайн-заглушку:',e);}
+    if(!DATA_READY){
+        SKINS=[{n:'AK-47 | Redline',r:'epic',i:'🔫',p:80,c:'off'},{n:'AWP | Asiimov',r:'legendary',i:'🎯',p:300,c:'off'},{n:'Glock-18 | Fade',r:'rare',i:'🔫',p:30,c:'off'}];
+        CASES=[{id:'offline',n:'Офлайн-набор',i:'📦',p:50,s:SKINS,isYolo:false,img:null}];
+    }
+}
 function iconImgError(imgEl,cls,emoji){try{const d=document.createElement('div');d.className=cls;d.textContent=emoji;imgEl.parentElement.replaceWith(d);}catch(e){}}
 window.iconImgError=iconImgError;
 function iconEl(cls,url,emoji){
     if(url)return `<div class="${cls} imgwrap"><img src="${url}" alt="" loading="lazy" onerror="iconImgError(this,'${cls}','${(emoji||'🎁').replace(/'/g,"\\'")}')"></div>`;
     return `<div class="${cls}">${emoji||'🎁'}</div>`;
 }
+function findSkinByName(name){return SKINS.find(s=>s.n===name);}
 
-// ===== РЕАЛЬНЫЕ СКИНЫ CS2, сгруппированы по настоящим кейсам (поле c = ключ кейса) =====
-const SKINS=[
-// --- Kilowatt Case (kw) — реальный кейс, первый в CS2, 06.02.2024 ---
-{n:"AK-47 | Inheritance",r:"legendary",i:"🪖",p:680,c:"kw"},
-{n:"AWP | Chrome Cannon",r:"legendary",i:"🎯",p:720,c:"kw"},
-{n:"★ Kukri Knife | Crimson Web",r:"legendary",i:"🔪",p:9500,c:"kw"},
-{n:"USP-S | Jawbreaker",r:"epic",i:"🔫",p:145,c:"kw"},
-{n:"M4A1-S | Black Lotus",r:"epic",i:"🔫",p:160,c:"kw"},
-{n:"Zeus x27 | Olympus",r:"epic",i:"⚡",p:60,c:"kw"},
-{n:"M4A4 | Etch Lord",r:"rare",i:"🪖",p:42,c:"kw"},
-{n:"MP7 | Just Smile",r:"rare",i:"🔫",p:38,c:"kw"},
-{n:"Glock-18 | Block-18",r:"rare",i:"🔫",p:28,c:"kw"},
-{n:"Five-SeveN | Hybrid",r:"rare",i:"🔫",p:22,c:"kw"},
-{n:"Sawed-Off | Analog Input",r:"rare",i:"💥",p:18,c:"kw"},
-{n:"Tec-9 | Slag",r:"uncommon",i:"🔫",p:3,c:"kw"},
-{n:"XM1014 | Irezumi",r:"uncommon",i:"💥",p:4,c:"kw"},
-{n:"UMP-45 | Motorized",r:"uncommon",i:"🔫",p:3,c:"kw"},
-{n:"SSG 08 | Dezastre",r:"uncommon",i:"🎯",p:3,c:"kw"},
-{n:"MAC-10 | Light Box",r:"uncommon",i:"🔫",p:3,c:"kw"},
-{n:"Dual Berettas | Hideout",r:"common",i:"🔫",p:1,c:"kw"},
-// --- Dreams & Nightmares Case (dn) — реальный кейс, 20.01.2022 ---
-{n:"AK-47 | Nightwish",r:"legendary",i:"🪖",p:750,c:"dn"},
-{n:"MP9 | Starlight Protector",r:"legendary",i:"🔫",p:640,c:"dn"},
-{n:"★ Butterfly Knife | Gamma Doppler",r:"legendary",i:"🦋",p:8100,c:"dn"},
-{n:"USP-S | Ticket to Hell",r:"epic",i:"🔫",p:135,c:"dn"},
-{n:"Dual Berettas | Melondrama",r:"epic",i:"🔫",p:120,c:"dn"},
-{n:"M4A1-S | Night Terror",r:"epic",i:"🔫",p:95,c:"dn"},
-{n:"PP-Bizon | Space Cat",r:"rare",i:"🔫",p:32,c:"dn"},
-{n:"XM1014 | Zombie Offensive",r:"rare",i:"💥",p:28,c:"dn"},
-{n:"MAG-7 | Foresight",r:"rare",i:"💥",p:24,c:"dn"},
-{n:"MP7 | Abyssal Apparition",r:"rare",i:"🔫",p:38,c:"dn"},
-{n:"Five-SeveN | Scrawl",r:"uncommon",i:"🔫",p:4,c:"dn"},
-{n:"MAC-10 | Ensnared",r:"uncommon",i:"🔫",p:3,c:"dn"},
-{n:"G3SG1 | Dream Glade",r:"uncommon",i:"🎯",p:5,c:"dn"},
-{n:"Nova | Dark Sigil",r:"uncommon",i:"💥",p:3,c:"dn"},
-{n:"FAMAS | Meow-36",r:"uncommon",i:"🔫",p:3,c:"dn"},
-{n:"Sawed-Off | Spirit Board",r:"uncommon",i:"💥",p:3,c:"dn"},
-{n:"P2000 | Lifted Spirits",r:"common",i:"🔫",p:2,c:"dn"},
-// --- Chroma Case (ch) ---
-{n:"AK-47 | Cartel",r:"legendary",i:"🪖",p:340,c:"ch"},
-{n:"M4A1-S | Golden Coil",r:"legendary",i:"🔫",p:290,c:"ch"},
-{n:"★ Karambit | Doppler",r:"legendary",i:"🔪",p:7200,c:"ch"},
-{n:"MAC-10 | Tatter",r:"epic",i:"🔫",p:20,c:"ch"},
-{n:"Five-SeveN | Fowl Play",r:"epic",i:"🔫",p:26,c:"ch"},
-{n:"Sawed-Off | Full Stop",r:"epic",i:"💥",p:18,c:"ch"},
-{n:"P250 | Splash",r:"rare",i:"🔫",p:8,c:"ch"},
-{n:"PP-Bizon | Photic Zone",r:"rare",i:"🔫",p:6,c:"ch"},
-{n:"USP-S | Lead Conduit",r:"rare",i:"🔫",p:9,c:"ch"},
-{n:"MP7 | Skulls",r:"rare",i:"🔫",p:7,c:"ch"},
-{n:"Galil AR | Eco",r:"rare",i:"🪖",p:5,c:"ch"},
-{n:"Nova | Tempest",r:"uncommon",i:"💥",p:2,c:"ch"},
-{n:"MP9 | Deadly Poison",r:"uncommon",i:"🔫",p:2,c:"ch"},
-{n:"Dual Berettas | Urban Shock",r:"uncommon",i:"🔫",p:1,c:"ch"},
-{n:"SG 553 | Ultraviolet",r:"uncommon",i:"🪖",p:2,c:"ch"},
-{n:"P90 | Off World",r:"uncommon",i:"🔫",p:1,c:"ch"},
-{n:"G3SG1 | Demeter",r:"common",i:"🎯",p:1,c:"ch"},
-// --- Danger Zone Case (dz) ---
-{n:"AWP | Neo-Noir",r:"legendary",i:"🎯",p:410,c:"dz"},
-{n:"M4A4 | Buzz Kill",r:"legendary",i:"🔫",p:260,c:"dz"},
-{n:"★ Skeleton Knife | Slaughter",r:"legendary",i:"💀",p:4200,c:"dz"},
-{n:"Glock-18 | Moonrise",r:"epic",i:"🔫",p:32,c:"dz"},
-{n:"MAC-10 | Malachite",r:"epic",i:"🔫",p:14,c:"dz"},
-{n:"PP-Bizon | High Roller",r:"epic",i:"🔫",p:22,c:"dz"},
-{n:"SSG 08 | Necropos",r:"rare",i:"🎯",p:9,c:"dz"},
-{n:"MP7 | Whiteout",r:"rare",i:"🔫",p:7,c:"dz"},
-{n:"Nova | Wild Six",r:"rare",i:"💥",p:6,c:"dz"},
-{n:"P250 | Nuclear Threat",r:"rare",i:"🔫",p:11,c:"dz"},
-{n:"Tec-9 | Brother",r:"rare",i:"🔫",p:5,c:"dz"},
-{n:"P2000 | Imperial Dragon",r:"uncommon",i:"🔫",p:3,c:"dz"},
-{n:"MP9 | Featherweight",r:"uncommon",i:"🔫",p:2,c:"dz"},
-{n:"XM1014 | Slipstream",r:"uncommon",i:"💥",p:2,c:"dz"},
-{n:"UMP-45 | Arctic Wolf",r:"uncommon",i:"🔫",p:1,c:"dz"},
-{n:"R8 Revolver | Bone Forged",r:"uncommon",i:"🔫",p:2,c:"dz"},
-{n:"CZ75-Auto | Circaetus",r:"common",i:"🔫",p:1,c:"dz"},
-// --- Glove Case (gl) ---
-{n:"AWP | Fade",r:"legendary",i:"🎯",p:520,c:"gl"},
-{n:"AK-47 | Fuel Injector",r:"legendary",i:"🪖",p:230,c:"gl"},
-{n:"★ Sport Gloves | Vice",r:"legendary",i:"🧤",p:3200,c:"gl"},
-{n:"★ Specialist Gloves | Crimson Kimono",r:"legendary",i:"🧤",p:2600,c:"gl"},
-{n:"★ Driver Gloves | King Snake",r:"legendary",i:"🧤",p:1900,c:"gl"},
-{n:"★ Moto Gloves | Spearmint",r:"legendary",i:"🧤",p:900,c:"gl"},
-{n:"★ Hand Wraps | Cobalt Skulls",r:"legendary",i:"🧤",p:1600,c:"gl"},
-{n:"★ Bloodhound Gloves | Bronzed",r:"legendary",i:"🧤",p:1100,c:"gl"},
-{n:"★ Hydra Gloves | Case Hardened",r:"legendary",i:"🧤",p:2100,c:"gl"},
-{n:"M4A4 | The Emperor",r:"epic",i:"🔫",p:35,c:"gl"},
-{n:"USP-S | Orion",r:"epic",i:"🔫",p:28,c:"gl"},
-{n:"MP7 | Nightfall",r:"epic",i:"🔫",p:19,c:"gl"},
-{n:"SG 553 | Cyrex",r:"rare",i:"🪖",p:9,c:"gl"},
-{n:"Glock-18 | Wasteland Rebel",r:"rare",i:"🔫",p:11,c:"gl"},
-{n:"P250 | Muertos",r:"rare",i:"🔫",p:6,c:"gl"},
-{n:"Five-SeveN | Monkey Business",r:"rare",i:"🔫",p:8,c:"gl"},
-{n:"Nova | Koi",r:"rare",i:"💥",p:5,c:"gl"},
-{n:"MAC-10 | Heat",r:"uncommon",i:"🔫",p:2,c:"gl"},
-{n:"P90 | Trigon",r:"uncommon",i:"🔫",p:2,c:"gl"},
-{n:"Dual Berettas | Contractor",r:"uncommon",i:"🔫",p:1,c:"gl"},
-{n:"MP9 | Rose Iron",r:"uncommon",i:"🔫",p:1,c:"gl"},
-{n:"Tec-9 | Fubar",r:"common",i:"🔫",p:1,c:"gl"},
-// --- Falchion Case (fal) ---
-{n:"AWP | Man-o'-war",r:"legendary",i:"🎯",p:360,c:"fal"},
-{n:"M4A1-S | Hyper Beast",r:"legendary",i:"🔫",p:210,c:"fal"},
-{n:"★ Falchion Knife | Marble Fade",r:"legendary",i:"🔪",p:3800,c:"fal"},
-{n:"P2000 | Ocean Foam",r:"epic",i:"🔫",p:16,c:"fal"},
-{n:"CZ75-Auto | Yellow Jacket",r:"epic",i:"🔫",p:21,c:"fal"},
-{n:"MAG-7 | Bulldozer",r:"epic",i:"💥",p:14,c:"fal"},
-{n:"Five-SeveN | Case Hardened",r:"rare",i:"🔫",p:12,c:"fal"},
-{n:"MP9 | Ruby Poison Dart",r:"rare",i:"🔫",p:8,c:"fal"},
-{n:"PP-Bizon | Osiris",r:"rare",i:"🔫",p:9,c:"fal"},
-{n:"Galil AR | Firefight",r:"rare",i:"🪖",p:6,c:"fal"},
-{n:"SSG 08 | Turbo Peek",r:"rare",i:"🎯",p:7,c:"fal"},
-{n:"Nova | Gila",r:"uncommon",i:"💥",p:2,c:"fal"},
-{n:"P250 | Undertow",r:"uncommon",i:"🔫",p:2,c:"fal"},
-{n:"Tec-9 | Rust Leaf",r:"uncommon",i:"🔫",p:1,c:"fal"},
-{n:"UMP-45 | Riot",r:"uncommon",i:"🔫",p:2,c:"fal"},
-{n:"Dual Berettas | Marina",r:"common",i:"🔫",p:1,c:"fal"},
-// --- Gamma Case (gm) ---
-{n:"AWP | Wildfire",r:"legendary",i:"🎯",p:390,c:"gm"},
-{n:"M4A1-S | Mecha Industries",r:"legendary",i:"🔫",p:230,c:"gm"},
-{n:"★ Flip Knife | Gamma Doppler",r:"legendary",i:"🔪",p:4500,c:"gm"},
-{n:"Sawed-Off | Origami",r:"epic",i:"💥",p:15,c:"gm"},
-{n:"Tec-9 | Titanium Bit",r:"epic",i:"🔫",p:12,c:"gm"},
-{n:"MP7 | Powercore",r:"epic",i:"🔫",p:24,c:"gm"},
-{n:"SG 553 | Colony IV",r:"rare",i:"🪖",p:9,c:"gm"},
-{n:"USP-S | Torque",r:"rare",i:"🔫",p:8,c:"gm"},
-{n:"Nova | Clean Kill",r:"rare",i:"💥",p:5,c:"gm"},
-{n:"Five-SeveN | Angry Mob",r:"rare",i:"🔫",p:7,c:"gm"},
-{n:"MAC-10 | Graven",r:"rare",i:"🔫",p:6,c:"gm"},
-{n:"P250 | Cartel",r:"uncommon",i:"🔫",p:3,c:"gm"},
-{n:"Dual Berettas | Pyre",r:"uncommon",i:"🔫",p:1,c:"gm"},
-{n:"MP9 | Airlock",r:"uncommon",i:"🔫",p:2,c:"gm"},
-{n:"XM1014 | Teclu Burner",r:"uncommon",i:"💥",p:2,c:"gm"},
-{n:"CZ75-Auto | Tigris",r:"common",i:"🔫",p:1,c:"gm"},
-// --- Operation Bravo Case (br) ---
-{n:"AWP | Electric Hive",r:"legendary",i:"🎯",p:610,c:"br"},
-{n:"M4A4 | Poseidon",r:"legendary",i:"🔫",p:480,c:"br"},
-{n:"★ M9 Bayonet | Crimson Web",r:"legendary",i:"🗡️",p:3600,c:"br"},
-{n:"Five-SeveN | Kimono",r:"epic",i:"🔫",p:18,c:"br"},
-{n:"Sawed-Off | Serenity",r:"epic",i:"💥",p:13,c:"br"},
-{n:"MP7 | Armor Core",r:"epic",i:"🔫",p:20,c:"br"},
-{n:"MAC-10 | Curse",r:"rare",i:"🔫",p:8,c:"br"},
-{n:"XM1014 | Blaze",r:"rare",i:"💥",p:9,c:"br"},
-{n:"Nova | Antique",r:"rare",i:"💥",p:5,c:"br"},
-{n:"CZ75-Auto | Twist",r:"rare",i:"🔫",p:6,c:"br"},
-{n:"Dual Berettas | Retribution",r:"rare",i:"🔫",p:4,c:"br"},
-{n:"Tec-9 | Fuel Injector",r:"uncommon",i:"🔫",p:3,c:"br"},
-{n:"P250 | Franklin",r:"uncommon",i:"🔫",p:2,c:"br"},
-{n:"MP9 | Rust Coat",r:"uncommon",i:"🔫",p:1,c:"br"},
-{n:"SSG 08 | Blue Spruce",r:"uncommon",i:"🎯",p:2,c:"br"},
-{n:"UMP-45 | Grand Prix",r:"common",i:"🔫",p:1,c:"br"},
-// --- Spectrum Case (sp) ---
-{n:"AWP | Lightning Strike",r:"legendary",i:"🎯",p:450,c:"sp"},
-{n:"M4A1-S | Chantico's Fire",r:"legendary",i:"🔫",p:270,c:"sp"},
-{n:"★ M9 Bayonet | Marble Fade",r:"legendary",i:"🗡️",p:2900,c:"sp"},
-{n:"AK-47 | Frontside Misty",r:"epic",i:"🪖",p:52,c:"sp"},
-{n:"P90 | Shallow Grave",r:"epic",i:"🔫",p:22,c:"sp"},
-{n:"MP7 | Bloodsport",r:"epic",i:"🔫",p:34,c:"sp"},
-{n:"PP-Bizon | Fuel Rod",r:"rare",i:"🔫",p:6,c:"sp"},
-{n:"Five-SeveN | Retrobution",r:"rare",i:"🔫",p:8,c:"sp"},
-{n:"Glock-18 | Reactor",r:"rare",i:"🔫",p:10,c:"sp"},
-{n:"Nova | Bloomstick",r:"rare",i:"💥",p:5,c:"sp"},
-{n:"SG 553 | Aerial",r:"rare",i:"🪖",p:7,c:"sp"},
-{n:"MAC-10 | Pinstripe",r:"uncommon",i:"🔫",p:2,c:"sp"},
-{n:"XM1014 | Banana Leaf",r:"uncommon",i:"💥",p:1,c:"sp"},
-{n:"Dual Berettas | Colony",r:"uncommon",i:"🔫",p:1,c:"sp"},
-{n:"CZ75-Auto | Vendetta",r:"uncommon",i:"🔫",p:2,c:"sp"},
-{n:"MP9 | Storm",r:"common",i:"🔫",p:1,c:"sp"},
-// --- Стартовые наборы (не официальные кейсы, недорогие консюмер/мил-спек скины) ---
-{n:"P250 | Sand Dune",r:"rare",i:"🔫",p:6,c:"st1"},
-{n:"Glock-18 | Sand Dune",r:"rare",i:"🔫",p:5,c:"st1"},
-{n:"AK-47 | Safari Mesh",r:"epic",i:"🪖",p:14,c:"st1"},
-{n:"M4A1-S | Boreal Forest",r:"epic",i:"🔫",p:11,c:"st1"},
-{n:"Nova | Forest Leaves",r:"uncommon",i:"💥",p:2,c:"st1"},
-{n:"MP9 | Sand Dashed",r:"uncommon",i:"🔫",p:1,c:"st1"},
-{n:"P90 | Ash Wood",r:"common",i:"🔫",p:1,c:"st1"},
-{n:"MAC-10 | Silver",r:"common",i:"🔫",p:1,c:"st1"},
-{n:"MP7 | Groundwater",r:"common",i:"🔫",p:1,c:"st1"},
-{n:"UMP-45 | Urban DDPAT",r:"common",i:"🔫",p:1,c:"st1"},
-{n:"AWP | Safari Mesh",r:"rare",i:"🎯",p:9,c:"st2"},
-{n:"USP-S | Stainless",r:"epic",i:"🔫",p:13,c:"st2"},
-{n:"Desert Eagle | Naga",r:"epic",i:"🔫",p:16,c:"st2"},
-{n:"Five-SeveN | Forest Night",r:"rare",i:"🔫",p:5,c:"st2"},
-{n:"P250 | Valence",r:"uncommon",i:"🔫",p:2,c:"st2"},
-{n:"MP9 | Dark Age",r:"uncommon",i:"🔫",p:1,c:"st2"},
-{n:"MAG-7 | Heaven Guard",r:"uncommon",i:"💥",p:2,c:"st2"},
-{n:"XM1014 | Blue Steel",r:"common",i:"💥",p:1,c:"st2"},
-{n:"PP-Bizon | Sand Dashed",r:"common",i:"🔫",p:1,c:"st2"},
-{n:"MAC-10 | Combat Jacket",r:"common",i:"🔫",p:1,c:"st2"}
-];
-
-function buildCase(name,icon,price,caseTag){const pool=SKINS.filter(s=>s.c===caseTag);return{id:name,n:name,i:icon,p:price,s:pool,isYolo:false};}
-const CASES=[
-buildCase('📦 Стартовый набор','📦',25,'st1'),
-buildCase('💸 Бюджетный набор','💸',45,'st2'),
-buildCase('🌈 Chroma Case','🌈',180,'ch'),
-buildCase('☢️ Danger Zone Case','☢️',220,'dz'),
-buildCase('🔪 Falchion Case','🔪',260,'fal'),
-buildCase('💚 Gamma Case','💚',300,'gm'),
-buildCase('🔥 Operation Bravo Case','🔥',350,'br'),
-buildCase('🌀 Spectrum Case','🌀',320,'sp'),
-buildCase('🧤 Glove Case','🧤',480,'gl'),
-buildCase('⚡ Kilowatt Case','⚡',600,'kw'),
-buildCase('🌙 Dreams & Nightmares Case','🌙',650,'dn')
-];
+let SKINS=[]; // наполняется динамически из реальных данных кейсов (loadCaseData)
+let CASES=[]; // наполняется динамически из реальных данных кейсов (loadCaseData)
 
 let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1;
 let upChance=50,upMult=2.0,wheelInterval=null,wheelAngle=0,wheelSpeed=0,wheelStopped=false,_upgradingSkins=[];
@@ -448,16 +299,16 @@ const ge=id=>document.getElementById(id);
 
 function rndItem(cs){if(CASES[caseI]?.isYolo){const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*5);if(r<0.3&&bigs.length>0)return bigs[0];if(r<1&&bigs.length>1)return bigs[1];if(r<2&&bigs.length>2)return bigs[2];return cs.filter(s=>s.r==='common'||s.r==='uncommon')[Math.floor(Math.random()*cs.filter(s=>s.r==='common'||s.r==='uncommon').length)]||cs[cs.length-1];}const w={legendary:0.3,epic:6,rare:25,uncommon:34,common:34.7};const r=Math.random()*100;let cum=0;for(const[ra,wt]of Object.entries(w)){cum+=wt;if(r<=cum){const p=cs.filter(s=>s.r===ra);if(p.length)return p[Math.floor(Math.random()*p.length)];}}return cs[Math.floor(Math.random()*cs.length)];}
 function skinByPrice(tp){let b=SKINS[0],bd=Infinity;for(const s of SKINS){const d=Math.abs(s.p-tp);if(d<bd){bd=d;b=s;}}return b;}
-function genTape(win,cs){const tape=ge('tape');if(!tape)return;let h='';for(let i=0;i<40;i++){let item=(i===32&&win)?win:rndItem(cs);h+=`<div class="skin ${item.r}">${iconEl('si',skinImg(item.n),item.i)}<div class="sn">${item.n}</div><div class="sp">${item.p} <i class="fas fa-coins coin"></i></div></div>`;}tape.innerHTML=h;tape.style.transition='none';tape.style.transform='translateX(800px)';}
+function genTape(win,cs){const tape=ge('tape');if(!tape)return;let h='';for(let i=0;i<40;i++){let item=(i===32&&win)?win:rndItem(cs);h+=`<div class="skin ${item.r}">${iconEl('si',item.img,item.i)}<div class="sn">${item.n}</div><div class="sp">${item.p} <i class="fas fa-coins coin"></i></div></div>`;}tape.innerHTML=h;tape.style.transition='none';tape.style.transform='translateX(800px)';}
 function spin(){return new Promise(resolve=>{const tape=ge('tape'),cont=document.querySelector('.roulette');if(!tape||!cont){resolve();return;}const ww=cont.offsetWidth||800,target=-(32*129)+(ww/2)-64;tape.offsetHeight;let clicks=0;const ci=setInterval(()=>{SFX.play('case_scroll');clicks++;if(clicks>30)clearInterval(ci);},100);tape.style.transition='transform 3.2s cubic-bezier(0.08,0.85,0.15,1)';tape.style.transform=`translateX(${target+(Math.random()*30-15)}px)`;setTimeout(()=>{clearInterval(ci);SFX.play('case_stop');resolve();},3400);});}
 async function openCase(){if(!curUser){alert('❌ Сначала войди!');showReg();return;}if(spinning)return;const c=CASES[caseI];if(bal<c.p){alert(`❌ Нужно ${c.p} 🪙`);return;}spinning=true;ge('openBtn').disabled=true;ge('openBtn').textContent='🎰 КРУТИМ...';bal-=c.p;updBal();SFX.play('case_open');const win=rndItem(c.s);genTape(win,c.s);await new Promise(r=>setTimeout(r,300));await spin();inv.push({...win,id:idC++});hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});dropLater(win.n,win.i,win.p,win.r);updateStats(win.p,win.n,win.i,curUser);if(win.r==='legendary')SFX.play('legendary');const profit=win.p-c.p;ge('result').style.display='block';ge('result').innerHTML=`🎉 ${win.i} <strong>${win.n}</strong> (${win.p} 🪙) | ${profit>=0?'+'+profit:profit} 🪙`;ge('result').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,60,60,0.1)';ge('result').style.color=profit>=0?'#4caf50':'#ff4444';renderAll();saveGame();spinning=false;ge('openBtn').disabled=false;ge('openBtn').textContent='🔑 ОТКРЫТЬ КЕЙС';}
 
 function nav(p){if(uping&&p!=='upgrade'){return;}document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));if(p==='cases'){ge('p-cases').classList.add('active');renderCases();}else{ge('p-'+p).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(p))renderAll();if(p==='profile')renderProf();if(p==='upgrade')resetUpgradeUI();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-p="${p}"]`);if(nb)nb.classList.add('active');}
-function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}">${iconEl('pi',skinImg(s.n),s.i)}<div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
-function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCP(${i})">${c.isYolo?'<div class="yolo-badge">YOLO</div>':''}${iconEl('ci',crateImg(c.n),c.i)}<div class="cn">${c.n}</div><div class="cp">${c.p} <i class="fas fa-coins coin"></i></div></div>`).join('');}
-function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Пусто</div>';ge('upInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';ge('conInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item">${iconEl('ii',skinImg(i.n),i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');renderUpInv();renderConInv();}upUI();conUI();}
-function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}">${iconEl('ii',skinImg(i.n),i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
-function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}">${iconEl('ii',skinImg(i.n),i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
+function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}">${iconEl('pi',s.img,s.i)}<div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
+function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>`<div class="case-card" onclick="openCP(${i})">${c.isYolo?'<div class="yolo-badge">YOLO</div>':''}${iconEl('ci',c.img,c.i)}<div class="cn">${c.n}</div><div class="cp">${c.p} <i class="fas fa-coins coin"></i></div></div>`).join('');}
+function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);">📦 Пусто</div>';ge('upInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';ge('conInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item">${iconEl('ii',i.img,i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');renderUpInv();renderConInv();}upUI();conUI();}
+function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}">${iconEl('ii',i.img,i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
+function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}">${iconEl('ii',i.img,i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderProf(){ge('profContent').innerHTML=`<h2>👤 ПРОФИЛЬ</h2><div style="padding:20px;background:rgba(10,14,24,0.7);border-radius:14px;margin:15px 0;"><div>Привет, <strong style="color:var(--gold);">${curUser||'Гость'}</strong>!</div><div style="color:var(--text2);margin-top:4px;">ID: <strong style="color:#fff;">${curUserId||'—'}</strong></div><div>Баланс: <strong>${bal}</strong> <i class="fas fa-coins coin"></i></div><div>Скинов: <strong>${inv.length}</strong></div><div>Открыто кейсов: <strong>${hist.filter(h=>h.t==='case').length}</strong></div></div><h3>📋 ИСТОРИЯ</h3><div style="max-height:350px;overflow-y:auto;">${hist.length?hist.slice().reverse().slice(0,50).map(h=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(20,26,42,0.5);border-radius:8px;margin-bottom:3px;font-size:11px;"><span style="font-size:22px;">${h.t==='case'?'💎':h.t==='upgrade'?'⚡':'📜'}</span><div style="flex:1;"><div>${h.skin}</div><div style="font-size:9px;color:var(--text2);">${new Date(h.time).toLocaleString()}</div></div><div style="color:var(--gold);">${h.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="text-align:center;padding:30px;">Пусто</div>'}</div>`;}
 function sell(id){const idx=inv.findIndex(i=>i.id===id);if(idx===-1)return;bal+=inv[idx].p;updBal();inv.splice(idx,1);sUp.delete(id);sCon.delete(id);renderAll();saveGame();SFX.play('sell');}
 function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAll();}
@@ -469,15 +320,15 @@ function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?a
 function spawnConfetti(container){if(!container)return;const colors=['#ffd700','#ff6600','#a855f7','#00e676','#fff'];for(let i=0;i<28;i++){const p=document.createElement('div');p.className='confetti-piece';const ang=Math.random()*Math.PI*2,dist=60+Math.random()*90;p.style.setProperty('--dx',(Math.cos(ang)*dist)+'px');p.style.setProperty('--dy',(Math.sin(ang)*dist-40)+'px');p.style.setProperty('--rot',(Math.random()*720-360)+'deg');p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=(Math.random()*0.15)+'s';container.appendChild(p);setTimeout(()=>p.remove(),1300);}}
 function drawWheel(chance){const svg=ge('wheelSvg');if(!svg)return;const cx=50,cy=50,rO=48,rI=30;const angDeg=chance*3.6;function pt(deg,r){const rad=(deg-90)*Math.PI/180;return[cx+r*Math.cos(rad),cy+r*Math.sin(rad)];}function arcPath(a0,a1,r0,r1){const[x0,y0]=pt(a0,r1),[x1,y1]=pt(a1,r1),[x2,y2]=pt(a1,r0),[x3,y3]=pt(a0,r0);const large=(a1-a0)>180?1:0;return`M${x0},${y0} A${r1},${r1} 0 ${large} 1 ${x1},${y1} L${x2},${y2} A${r0},${r0} 0 ${large} 0 ${x3},${y3} Z`;}let ticks='';for(let d=0;d<360;d+=30){const[tx1,ty1]=pt(d,rO);const[tx2,ty2]=pt(d,rO-4);ticks+=`<line x1="${tx1}" y1="${ty1}" x2="${tx2}" y2="${ty2}" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>`;}svg.innerHTML=`<defs><radialGradient id="bgGrad" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#141224"/><stop offset="100%" stop-color="#08060f"/></radialGradient></defs><circle cx="50" cy="50" r="49" fill="url(#bgGrad)"/><path d="${arcPath(0,angDeg,rI,rO)}" fill="#00e676" opacity="0.9"/><path d="${arcPath(angDeg,360,rI,rO)}" fill="#ff3b3b" opacity="0.9"/>${ticks}<circle cx="50" cy="50" r="${rI}" fill="#0c0a16"/>`;}
 function resetUpgradeUI(){uping=false;wheelStopped=false;wheelAngle=0;wheelSpeed=0;if(wheelInterval)clearInterval(wheelInterval);_upgradingSkins=[];if(curUser){usersR.child(curUser).child('upgrade_state').remove();}ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';const arena=ge('upPhase2');if(arena)arena.classList.remove('zoom-success','shake-fail');const cl=ge('confettiLayer');if(cl)cl.innerHTML='';const needle=ge('wheelNeedle');if(needle)needle.style.transform='rotate(0deg)';drawWheel(upChance);if(ge('chanceBadgeVal'))ge('chanceBadgeVal').textContent=upMult.toFixed(1);sUp.clear();renderAll();}
-function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp;ge('btnStartUpgrade').disabled=si.length<1||uping;if(si.length>0){const ts=skinByPrice(Math.round(tp*upMult));const img=skinImg(ts.n);ge('upTargetPreview').innerHTML=`${img?`<img src="${img}" style="height:22px;vertical-align:middle;margin-right:4px;object-fit:contain;" onerror="this.style.display='none'">`:''}${ts.i} ${ts.n} (~${ts.p} 🪙)`;}else{ge('upTargetPreview').textContent='—';}}
+function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp;ge('btnStartUpgrade').disabled=si.length<1||uping;if(si.length>0){const ts=skinByPrice(Math.round(tp*upMult));const img=ts.img;ge('upTargetPreview').innerHTML=`${img?`<img src="${img}" style="height:22px;vertical-align:middle;margin-right:4px;object-fit:contain;" onerror="this.style.display='none'">`:''}${ts.i} ${ts.n} (~${ts.p} 🪙)`;}else{ge('upTargetPreview').textContent='—';}}
 document.querySelectorAll('.chance-btn').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.chance-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');upChance=parseInt(this.dataset.c);upMult=parseFloat(this.dataset.m);if(ge('chanceBadgeVal'))ge('chanceBadgeVal').textContent=upMult.toFixed(1);drawWheel(upChance);upUI();});});
 function startUpgradeAnimation(){const si=inv.filter(i=>sUp.has(i.id));if(si.length<1)return alert('Выберите минимум 1 скин!');const skinIds=si.map(i=>i.id);const tp=si.reduce((s,i)=>s+i.p,0);const targetSkin=skinByPrice(Math.round(tp*upMult));const upgradeState={skinIds:skinIds,totalPrice:tp,chance:upChance,targetSkin:targetSkin,startTime:firebase.database.ServerValue.TIMESTAMP,status:'in_progress'};usersR.child(curUser).child('upgrade_state').set(upgradeState);inv=inv.filter(i=>!skinIds.includes(i.id));sUp.clear();_upgradingSkins=skinIds;uping=true;ge('upPhase1').style.display='none';ge('upPhase2').style.display='block';ge('upPhase3').style.display='none';drawWheel(upChance);wheelAngle=0;wheelStopped=false;wheelSpeed=(16+Math.random()*8)*3.6;if(wheelInterval)clearInterval(wheelInterval);wheelInterval=setInterval(spinWheelTick,30);renderAll();saveGame();}
 function spinWheelTick(){if(wheelStopped)return;wheelAngle+=wheelSpeed;wheelSpeed*=0.975;const needle=ge('wheelNeedle');if(needle)needle.style.transform=`rotate(${wheelAngle}deg)`;if(wheelSpeed<1.2){wheelStopped=true;clearInterval(wheelInterval);wheelAngle+=(Math.random()-0.5)*6;if(needle)needle.style.transform=`rotate(${wheelAngle}deg)`;showUpgradeResult();}}
-function showUpgradeResult(){const finalAngle=((wheelAngle%360)+360)%360;const success=finalAngle<(upChance*3.6);const arena=ge('upPhase2');if(arena){arena.classList.add(success?'zoom-success':'shake-fail');if(success)spawnConfetti(ge('confettiLayer'));}setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{const state=sn.val();const ni={...state.targetSkin,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);usersR.child(curUser).child('upgrade_state').remove();_upgradingSkins=[];ge('upPhase3').innerHTML=`<div class="up-result-card ok"><div style="font-size:55px;">🎉</div><div style="font-size:22px;color:#4caf50;font-weight:800;">АПГРЕЙД УСПЕШЕН!</div>${iconEl('icon-result',skinImg(ni.n),ni.i)}<div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;">🔄 ЕЩЁ РАЗ</button></div>`;uping=false;renderAll();saveGame();});}else{SFX.play('upgrade_fail');usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{const state=sn.val();usersR.child(curUser).child('upgrade_state').remove();_upgradingSkins=[];ge('upPhase3').innerHTML=`<div class="up-result-card bad"><div style="font-size:55px;">💔</div><div style="font-size:22px;color:#ff4444;font-weight:800;">АПГРЕЙД ПРОВАЛЕН</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${state.totalPrice} 🪙)</div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;uping=false;renderAll();saveGame();});}},400);}
+function showUpgradeResult(){const finalAngle=((wheelAngle%360)+360)%360;const success=finalAngle<(upChance*3.6);const arena=ge('upPhase2');if(arena){arena.classList.add(success?'zoom-success':'shake-fail');if(success)spawnConfetti(ge('confettiLayer'));}setTimeout(()=>{ge('upPhase2').style.display='none';ge('upPhase3').style.display='block';if(success){SFX.play('upgrade_success');usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{const state=sn.val();const ni={...state.targetSkin,id:idC++};inv.push(ni);hist.push({t:'upgrade',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);usersR.child(curUser).child('upgrade_state').remove();_upgradingSkins=[];ge('upPhase3').innerHTML=`<div class="up-result-card ok"><div style="font-size:55px;">🎉</div><div style="font-size:22px;color:#4caf50;font-weight:800;">АПГРЕЙД УСПЕШЕН!</div>${iconEl('icon-result',ni.img,ni.i)}<div style="font-weight:700;">${ni.n}</div><div style="color:var(--gold);font-size:18px;">${ni.p} <i class="fas fa-coins coin"></i></div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;">🔄 ЕЩЁ РАЗ</button></div>`;uping=false;renderAll();saveGame();});}else{SFX.play('upgrade_fail');usersR.child(curUser).child('upgrade_state').once('value').then(sn=>{const state=sn.val();usersR.child(curUser).child('upgrade_state').remove();_upgradingSkins=[];ge('upPhase3').innerHTML=`<div class="up-result-card bad"><div style="font-size:55px;">💔</div><div style="font-size:22px;color:#ff4444;font-weight:800;">АПГРЕЙД ПРОВАЛЕН</div><div style="color:var(--text2);margin-top:8px;">Скины сгорели (-${state.totalPrice} 🪙)</div><button class="btn-open" onclick="resetUpgradeUI()" style="margin-top:12px;">🔄 ПОПРОБОВАТЬ СНОВА</button></div>`;uping=false;renderAll();saveGame();});}},400);}
 ge('btnStartUpgrade').addEventListener('click',startUpgradeAnimation);
 
 function conUI(){const si=inv.filter(i=>sCon.has(i.id));ge('conCount').textContent=si.length;ge('conSum').textContent=si.reduce((s,i)=>s+i.p,0);ge('contractBtn').disabled=si.length<3||si.length>10||coning;}
-function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;SFX.play('contract');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*1.2+0.4));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`${iconEl('icon-result2',skinImg(ni.n),ni.i)}<div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
+function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if(si.length<3||si.length>10)return alert('Выберите 3-10!');coning=true;ge('contractBtn').disabled=true;SFX.play('contract');setTimeout(()=>{const tp=si.reduce((s,i)=>s+i.p,0);const rs=skinByPrice(tp*(Math.random()*1.2+0.4));inv=inv.filter(i=>!sCon.has(i.id));sCon.clear();const ni={...rs,id:idC++};inv.push(ni);hist.push({t:'contract',skin:ni.n,price:ni.p,time:new Date().toISOString()});dropLater(ni.n,ni.i,ni.p,ni.r);ge('conRes').style.display='block';ge('conRes').innerHTML=`${iconEl('icon-result2',ni.img,ni.i)}<div>${ni.n}</div><div style="color:var(--gold);">${ni.p} <i class="fas fa-coins coin"></i></div>`;coning=false;renderAll();saveGame();},2000);}
 function updBal(){ge('balDisplay').textContent=bal;}
 function loadUser(u){usersR.child(u).once('value').then(sn=>{const ud=sn.val();if(ud&&ud.sd){bal=ud.sd.balance||1000;inv=ud.sd.inventory||[];idC=ud.sd.idCounter||0;hist=ud.sd.history||[];curUser=u;curUserId=ud.uid||u;renderAll();updBal();ge('regBtn').style.display='none';ge('userInfo').style.display='flex';ge('userName').textContent='👑 '+u;if(u==='Admin'){ge('adminBtn').style.display='block';ge('userName').textContent='⚡ Admin';}localStorage.setItem('sv_last',u);nav('cases');}});}
 function saveGame(){if(!curUser)return;usersR.child(curUser).child('sd').set({balance:bal,inventory:inv,idCounter:idC,history:hist});}
@@ -495,8 +346,8 @@ function init(){const lu=localStorage.getItem('sv_last');if(lu){usersR.child(lu)
 // АВТОСОХРАНЕНИЕ КАЖДУЮ СЕКУНДУ
 // ============================================================
 setInterval(()=>{if(curUser)saveGame();},1000);
-init();
-loadRealImages().then(()=>{renderCases();renderAll();if(ge('p-case-open').classList.contains('active')){openCP(caseI);}});
+ge('caseGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text2);">🔄 Загружаем реальные кейсы CS2...</div>';
+loadCaseData().then(()=>{init();});
 onlineR.child(myId).set({t:firebase.database.ServerValue.TIMESTAMP});
 console.log('✅ SKINVAULT — FIREBASE-PROTECTED UPGRADE | AUTOSAVE: 1s | REAL CS2 IMAGES: CSGO-API');
 </script>
