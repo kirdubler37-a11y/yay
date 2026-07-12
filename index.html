@@ -402,7 +402,6 @@ async function loadCaseData(){
                 const tier=mapRarity(it.rarity&&it.rarity.name);
                 pool.push({n:it.name,r:tier,i:tierEmoji(it.name,tier),p:calcPrice(w.price,tier),c:w.tag,img:it.image||null});
             });
-            // Ножи/перчатки — отдельная категория "mythic", шанс на них считается отдельно и очень низкий
             (crate.contains_rare||[]).forEach(it=>{
                 if(!it.name)return;
                 pool.push({n:it.name,r:'mythic',i:tierEmoji(it.name,'mythic'),p:calcPrice(w.price,'mythic'),c:w.tag,img:it.image||null});
@@ -447,8 +446,6 @@ function showNotif(msg, type=''){
     }, 3500);
 }
 
-// Реальные шансы дропа CS2: Mil-Spec ~79.92%, Restricted ~15.98%, Classified ~3.2%, Covert ~0.64%,
-// редкий предмет (нож/перчатки) — отдельный супер-редкий шанс ~0.26%, не пересекается с обычным roll.
 function rndItem(cs){
     if(CASES[caseI]?.isYolo){
         const r=Math.random()*100;const bigs=cs.filter(s=>s.p>=CASES[caseI].p*5);
@@ -492,12 +489,10 @@ function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?a
 
 function spawnConfetti(container){if(!container)return;const colors=['#ffd700','#ff6600','#a855f7','#00e676','#fff'];for(let i=0;i<28;i++){const p=document.createElement('div');p.className='confetti-piece';const ang=Math.random()*Math.PI*2,dist=60+Math.random()*90;p.style.setProperty('--dx',(Math.cos(ang)*dist)+'px');p.style.setProperty('--dy',(Math.sin(ang)*dist-40)+'px');p.style.setProperty('--rot',(Math.random()*720-360)+'deg');p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=(Math.random()*0.15)+'s';container.appendChild(p);setTimeout(()=>p.remove(),1300);}}
 function spawnSparks(container){if(!container)return;for(let i=0;i<10;i++){const s=document.createElement('div');const size=2+Math.random()*3;s.className='spark';s.style.width=size+'px';s.style.height=size+'px';s.style.left=(20+Math.random()*60)+'%';s.style.bottom='30px';s.style.animationDuration=(1.6+Math.random()*1.4)+'s';s.style.animationDelay=(Math.random()*1.5)+'s';container.appendChild(s);}}
-// Диск апгрейда: 0° = север (совпадает с точкой покоя стрелки), зелёная зона [0, chance*3.6) идёт по часовой стрелке — успех, остальное красное — провал.
 function drawWheel(chance){const svg=ge('wheelSvg');if(!svg)return;const cx=50,cy=50,rO=48,rI=30;const angDeg=chance*3.6;function pt(deg,r){const rad=(deg-90)*Math.PI/180;return[cx+r*Math.cos(rad),cy+r*Math.sin(rad)];}function arcPath(a0,a1,r0,r1){const[x0,y0]=pt(a0,r1),[x1,y1]=pt(a1,r1),[x2,y2]=pt(a1,r0),[x3,y3]=pt(a0,r0);const large=(a1-a0)>180?1:0;return`M${x0},${y0} A${r1},${r1} 0 ${large} 1 ${x1},${y1} L${x2},${y2} A${r0},${r0} 0 ${large} 0 ${x3},${y3} Z`;}let ticks='';for(let d=0;d<360;d+=30){const[tx1,ty1]=pt(d,rO);const[tx2,ty2]=pt(d,rO-4);ticks+=`<line x1="${tx1}" y1="${ty1}" x2="${tx2}" y2="${ty2}" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>`;}svg.innerHTML=`<defs><radialGradient id="bgGrad" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#141224"/><stop offset="100%" stop-color="#08060f"/></radialGradient><linearGradient id="okGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00e676"/><stop offset="100%" stop-color="#00b85e"/></linearGradient><linearGradient id="failGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff5b5b"/><stop offset="100%" stop-color="#c9302c"/></linearGradient></defs><circle cx="50" cy="50" r="49" fill="url(#bgGrad)"/><path d="${arcPath(0,angDeg,rI,rO)}" fill="url(#okGrad)"/><path d="${arcPath(angDeg,360,rI,rO)}" fill="url(#failGrad)"/>${ticks}<circle cx="50" cy="50" r="${rI}" fill="#0c0a16"/>`;}
 function renderUpSelectedStrip(){const strip=ge('upSelectedStrip');if(!strip)return;const si=inv.filter(i=>sUp.has(i.id));if(!si.length){strip.innerHTML='<div class="up-empty-hint">Пока ничего не выбрано — отметь скины ниже</div>';return;}strip.innerHTML=si.map(i=>`<div class="up-chip">${i.img?`<img src="${i.img}" onerror="this.style.display='none'">`:''}<span>${i.n}</span><span class="cprice">${i.p}🪙</span></div>`).join('');}
 function resetUpgradeUI(){uping=false;_upgradingSkins=[];if(curUser){usersR.child(curUser).child('upgrade_state').remove();}ge('upPhase1').style.display='block';ge('upPhase2').style.display='none';ge('upPhase3').style.display='none';const arena=ge('upPhase2');if(arena)arena.classList.remove('zoom-success','shake-fail');const cl=ge('confettiLayer');if(cl)cl.innerHTML='';const needle=ge('wheelNeedle');if(needle){needle.style.transition='none';needle.style.transform='rotate(0deg)';}sUp.clear();setUpChance(upChance||50);renderAll();}
 function upUI(){const si=inv.filter(i=>sUp.has(i.id));const tp=si.reduce((s,i)=>s+i.p,0);ge('upSum').textContent=tp+' 🪙';ge('upChanceVal').textContent=upChance+'%';ge('btnStartUpgrade').disabled=si.length<1||uping;renderUpSelectedStrip();if(si.length>0){const ts=skinByPrice(Math.round(tp*upMult));const img=ge('upTargetImg');if(ts.img){img.src=ts.img;img.style.display='block';}else{img.style.display='none';}ge('upTargetName').textContent=ts.n;ge('upTargetPrice').textContent='~'+ts.p+' 🪙';}else{ge('upTargetImg').style.display='none';ge('upTargetName').textContent='—';ge('upTargetPrice').textContent='';}}
-// Единая формула множителя: mult = (100/chance) * 0.975 — небольшой edge ~2.5%, одинаковый для пресетов и своего процента
 function multForChance(pct){return Math.max(1.02,(100/pct)*0.975);}
 function setUpChance(pct){
     pct=Math.max(5,Math.min(95,Math.round(pct)));
@@ -514,9 +509,6 @@ document.querySelectorAll('.chance-card').forEach(b=>{b.addEventListener('click'
 const upCustomRangeEl=ge('upCustomRange');
 if(upCustomRangeEl){upCustomRangeEl.addEventListener('input',function(){setUpChance(parseInt(this.value));});}
 
-// Результат (успех/провал) определяется по честному upChance ДО начала анимации — стрелка просто
-// красиво доезжает до угла, соответствующего уже решённому исходу. Раньше физика крутилась "сама по
-// себе", а исход считался постфактум по её случайной остановке — это и приводило к путанице с цветами.
 function startUpgradeAnimation(){
     const si=inv.filter(i=>sUp.has(i.id));
     if(si.length<1)return alert('Выберите минимум 1 скин!');
@@ -545,7 +537,7 @@ function startUpgradeAnimation(){
     const needle=ge('wheelNeedle');
     needle.style.transition='none';
     needle.style.transform='rotate(0deg)';
-    void needle.offsetWidth; // форсируем reflow, чтобы сброс угла применился до старта transition
+    void needle.offsetWidth;
     needle.style.transition='transform 4s cubic-bezier(0.1,0.7,0.15,1)';
     requestAnimationFrame(()=>{needle.style.transform=`rotate(${finalRotation}deg)`;});
 
@@ -596,7 +588,14 @@ function doContract(){if(coning)return;const si=inv.filter(i=>sCon.has(i.id));if
 function updBal(){ge('balDisplay').textContent=bal;}
 
 function loadUser(u){
+    if(!u) return;
+    
     usersR.child(u).once('value').then(sn => {
+        if(!sn.exists()) {
+            console.warn('Пользователь не найден:', u);
+            return;
+        }
+        
         const ud = sn.val();
         if(ud && ud.sd){
             bal = ud.sd.balance || 1000;
@@ -653,7 +652,11 @@ function loadUser(u){
                     snapshot.ref.update({ read: true });
                 }
             });
+        } else {
+            console.warn('Нет данных sd для пользователя:', u);
         }
+    }).catch(err => {
+        console.error('Ошибка загрузки пользователя:', err);
     });
 }
 
@@ -673,31 +676,41 @@ async function giveCoins(){
         let foundUser = null;
         let foundData = null;
         
-        let snap = await usersR.child(t).once('value');
+        // Сначала пробуем прямой поиск по нику
+        const snap = await usersR.child(t).once('value');
         if(snap.exists()){
             foundUser = t;
             foundData = snap.val();
         } else {
+            // Если не найден по нику, ищем по UID
             const querySnap = await usersR.orderByChild('uid').equalTo(t).once('value');
             if(querySnap.exists()){
                 const entries = Object.entries(querySnap.val());
-                foundUser = entries[0][0];
-                foundData = entries[0][1];
+                if(entries && entries.length > 0){
+                    foundUser = entries[0][0];
+                    foundData = entries[0][1];
+                }
             }
         }
         
         if(!foundUser || !foundData){
-            m.textContent = '❌ Пользователь не найден!';
+            m.textContent = '❌ Пользователь "' + t + '" не найден! Проверь ник или ID.';
             m.style.color = '#ff4444';
             return;
         }
         
+        // Проверяем, есть ли у пользователя баланс
         const sd = foundData.sd || {};
         const oldBalance = typeof sd.balance === 'number' ? sd.balance : 1000;
         const newBalance = oldBalance + a;
         
+        // Обновляем баланс
         await usersR.child(foundUser).child('sd').child('balance').set(newBalance);
+        await usersR.child(foundUser).child('sd').update({
+            _lastUpdate: firebase.database.ServerValue.TIMESTAMP
+        });
         
+        // Если это текущий пользователь - обновляем локально
         if(foundUser === curUser){
             bal = newBalance;
             updBal();
@@ -705,11 +718,7 @@ async function giveCoins(){
             showNotif('💰 +' + a + ' 🪙 начислено!', 'success');
         }
         
-        m.textContent = '✅ +' + a + ' 🪙 для ' + foundUser + '! (Было: ' + oldBalance + ', Стало: ' + newBalance + ')';
-        m.style.color = '#4caf50';
-        ge('admUser').value = '';
-        ge('admAmt').value = '';
-        
+        // Отправляем уведомление
         const notifRef = usersR.child(foundUser).child('notifications').push();
         await notifRef.set({
             type: 'admin_gift',
@@ -719,17 +728,18 @@ async function giveCoins(){
             read: false
         });
         
-        await usersR.child(foundUser).child('sd').update({
-            _lastUpdate: firebase.database.ServerValue.TIMESTAMP
-        });
+        m.textContent = '✅ +' + a + ' 🪙 для ' + foundUser + '! (Было: ' + oldBalance + ', Стало: ' + newBalance + ')';
+        m.style.color = '#4caf50';
+        ge('admUser').value = '';
+        ge('admAmt').value = '';
         
         if(foundUser !== curUser){
             showNotif('✅ ' + a + ' 🪙 отправлено пользователю ' + foundUser, 'success');
         }
         
     } catch(err){
-        console.error(err);
-        m.textContent = '❌ Ошибка: ' + err.message;
+        console.error('Ошибка в giveCoins:', err);
+        m.textContent = '❌ Ошибка: ' + (err.message || 'Неизвестная ошибка');
         m.style.color = '#ff4444';
     }
 }
