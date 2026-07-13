@@ -137,6 +137,8 @@
         .si.imgwrap{width:80px;height:80px;margin:0 auto}
         .pi.imgwrap{width:40px;height:40px;margin:0 auto}
         .ii.imgwrap{width:52px;height:52px;margin:0 auto}
+        .mi.imgwrap{width:40px;height:40px;margin:0 auto}
+        .pbd-icon.imgwrap{width:56px;height:56px;margin:0;flex-shrink:0}
         .icon.imgwrap{width:30px;height:30px;flex-shrink:0}
         .icon-result.imgwrap{width:90px;height:90px;margin:10px auto}
         .icon-result{font-size:40px;margin:10px 0}
@@ -212,6 +214,61 @@
         }
         .custom-notification.success{border-color:#00e676;box-shadow:0 0 40px rgba(0,230,118,0.3)}
         .custom-notification.error{border-color:#ff4444;box-shadow:0 0 40px rgba(255,68,68,0.3)}
+
+        .multi-panel{background:linear-gradient(160deg,rgba(20,16,32,0.75),rgba(10,8,18,0.85));border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:16px 18px;margin:14px 0}
+        .multi-panel-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .multi-panel-title i{color:var(--accent)}
+        .multi-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+        .multi-btn{flex:1;min-width:56px;background:rgba(255,255,255,0.03);border:1.5px solid var(--border);color:#fff;padding:10px 8px;border-radius:12px;font-family:'Orbitron',sans-serif;font-weight:800;font-size:13px;cursor:pointer;transition:.25s}
+        .multi-btn:hover{border-color:rgba(255,102,0,0.4);transform:translateY(-2px)}
+        .multi-btn.active{background:linear-gradient(160deg,rgba(255,102,0,0.25),rgba(255,184,0,0.08));border-color:var(--accent);color:var(--gold);box-shadow:0 0 20px rgba(255,102,0,0.3)}
+        .multi-custom-row{display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.22);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:10px 16px}
+        .multi-custom-lbl{font-size:11px;color:var(--text2);font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:6px}
+        .multi-custom-lbl i{color:var(--accent)}
+        .multi-total-row{margin-top:12px;text-align:center;font-size:13px;color:var(--text2);font-weight:600;background:rgba(0,0,0,0.2);border-radius:12px;padding:8px}
+        .multi-results{margin-top:16px;background:rgba(8,10,18,0.7);border-radius:14px;padding:16px;border:1px solid var(--border)}
+        .multi-results-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;font-weight:700}
+        .multi-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px;max-height:340px;overflow-y:auto}
+        .multi-result-item{background:rgba(20,26,42,0.85);border-radius:10px;padding:10px 6px;text-align:center;border-bottom:3px solid rgba(255,255,255,0.1);font-size:9px;animation:floatUp .35s ease}
+        .multi-result-item .mi{font-size:30px}
+        .multi-result-item.legendary{border-bottom-color:#eb4b4b}.multi-result-item.mythic{border-bottom-color:#ffd700;box-shadow:0 0 18px rgba(255,215,0,0.25)}.multi-result-item.epic{border-bottom-color:#d32ce6}.multi-result-item.rare{border-bottom-color:#8847ff}.multi-result-item.uncommon{border-bottom-color:#4b69ff}.multi-result-item.common{border-bottom-color:#5e98d9}
+
+        .prof-wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+        .prof-hero{position:relative;background:linear-gradient(135deg,rgba(147,51,234,0.28),rgba(255,102,0,0.14) 60%,rgba(10,8,18,0.9));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:30px 28px;overflow:hidden;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+        .prof-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");opacity:.6;pointer-events:none}
+        .prof-avatar{width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:900;font-size:28px;color:#fff;box-shadow:0 0 30px rgba(255,102,0,0.4);flex-shrink:0;position:relative;z-index:1;border:3px solid rgba(255,255,255,0.15)}
+        .prof-id-block{position:relative;z-index:1;flex:1;min-width:180px}
+        .prof-name{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+        .prof-id{color:var(--text2);font-size:11px;margin-top:4px;letter-spacing:.5px}
+        .prof-bal-chip{position:relative;z-index:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,184,0,0.3);border-radius:16px;padding:12px 22px;text-align:center}
+        .prof-bal-chip .lbl{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+        .prof-bal-chip .val{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--gold)}
+        .prof-stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+        .prof-stat-card{background:linear-gradient(160deg,rgba(20,16,32,0.75),rgba(10,8,18,0.85));border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:16px;text-align:center;transition:.25s}
+        .prof-stat-card:hover{transform:translateY(-3px);border-color:rgba(255,102,0,0.35)}
+        .prof-stat-card i{font-size:18px;color:var(--accent);margin-bottom:8px;display:block}
+        .prof-stat-card .val{font-family:'Orbitron',sans-serif;font-weight:900;font-size:20px;color:#fff}
+        .prof-stat-card .lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1.2px;margin-top:4px}
+        .prof-best-drop{display:flex;align-items:center;gap:14px;background:linear-gradient(120deg,rgba(255,184,0,0.14),rgba(147,51,234,0.08));border:1px solid rgba(255,184,0,0.28);border-radius:18px;padding:16px 20px}
+        .prof-best-drop .pbd-icon{width:56px;height:56px;flex-shrink:0;font-size:40px;display:flex;align-items:center;justify-content:center}
+        .prof-best-drop .pbd-lbl{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px}
+        .prof-best-drop .pbd-name{font-weight:700;font-size:14px;color:#fff}
+        .prof-best-drop .pbd-price{color:var(--gold);font-weight:800;font-size:13px}
+        .prof-section-title{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+        .prof-section-title i{color:var(--gold)}
+        .prof-history{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:20px}
+        .prof-hist-list{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+        .prof-hist-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(20,26,42,0.55);border-radius:12px;border-left:3px solid var(--border);transition:.2s}
+        .prof-hist-item:hover{background:rgba(20,26,42,0.9)}
+        .prof-hist-item.case{border-left-color:var(--accent)}
+        .prof-hist-item.upgrade{border-left-color:var(--accent2)}
+        .prof-hist-item.contract{border-left-color:var(--gold)}
+        .prof-hist-item .phi-icon{width:30px;text-align:center;font-size:18px;flex-shrink:0}
+        .prof-hist-item .phi-info{flex:1;min-width:0}
+        .prof-hist-item .phi-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .prof-hist-item .phi-time{font-size:9px;color:var(--text2)}
+        .prof-hist-item .phi-price{color:var(--gold);font-weight:700;font-size:12px;white-space:nowrap}
+        .prof-hist-empty{text-align:center;padding:30px;color:var(--text2)}
     </style>
 </head>
 <body>
@@ -243,7 +300,25 @@
 </div>
 
 <div class="page active" id="p-cases"><div class="cases-hero"><h1><i class="fas fa-gem"></i> Открой свой кейс</h1><p>Реальные скины CS2 · честные шансы · мгновенный дроп</p></div><div class="case-grid" id="caseGrid"></div></div>
-<div class="page" id="p-case-open"><div class="case-page"><button class="back-btn" onclick="nav('cases')">← Назад</button><h2 id="caseTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:8px;">Стоимость: <span id="casePrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin"></i></div><div class="roulette"><div class="ptr"></div><div class="tape" id="tape"></div></div><button class="btn-open" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС</button><div id="result" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div class="pool"><h4><i class="fas fa-bullseye"></i> Содержимое кейса</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
+<div class="page" id="p-case-open"><div class="case-page"><button class="back-btn" onclick="nav('cases')">← Назад</button><h2 id="caseTitle" style="font-family:'Orbitron',sans-serif;font-size:20px;"></h2><div style="color:var(--text2);margin-bottom:8px;">Стоимость: <span id="casePrice" style="color:var(--gold);"></span> <i class="fas fa-coins coin"></i></div>
+<div class="multi-panel">
+    <div class="multi-panel-title"><i class="fas fa-layer-group"></i> Сколько открыть за раз?</div>
+    <div class="multi-btns" id="multiBtns">
+        <button class="multi-btn active" data-n="1">×1</button>
+        <button class="multi-btn" data-n="2">×2</button>
+        <button class="multi-btn" data-n="3">×3</button>
+        <button class="multi-btn" data-n="5">×5</button>
+        <button class="multi-btn" data-n="10">×10</button>
+        <button class="multi-btn" data-n="25">×25</button>
+    </div>
+    <div class="multi-custom-row">
+        <div class="multi-custom-lbl"><i class="fas fa-sliders"></i> Своё число</div>
+        <input type="range" id="multiCustomRange" class="up-slider" min="1" max="100" step="1" value="1">
+        <div class="up-custom-val"><span id="multiCustomValTxt">1</span></div>
+    </div>
+    <div class="multi-total-row">Итого: <strong id="multiTotalCount">1</strong> кейс(ов) · <strong id="multiTotalPrice" style="color:var(--gold);">0</strong> <i class="fas fa-coins coin"></i></div>
+</div>
+<div class="roulette"><div class="ptr"></div><div class="tape" id="tape"></div></div><button class="btn-open" id="openBtn"><i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС</button><div id="result" style="text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px;padding:12px;border-radius:10px;"></div><div id="multiResults" class="multi-results" style="display:none;"></div><div class="pool"><h4><i class="fas fa-bullseye"></i> Содержимое кейса</h4><div class="pool-grid" id="poolContent"></div></div></div></div>
 <div class="page" id="p-inventory"><div class="section"><h2><i class="fas fa-briefcase"></i> Инвентарь</h2><div style="color:var(--text2);margin:10px 0;">Предметов: <strong id="invCount">0</strong> | Стоимость: <strong id="invTotal">0</strong> <i class="fas fa-coins coin"></i></div><div class="inv-grid" id="invGrid"></div></div></div>
 
 <div class="page" id="p-upgrade">
@@ -302,7 +377,7 @@
 </div>
 
 <div class="page" id="p-contract"><div class="section"><h2><i class="fas fa-file-contract"></i> КОНТРАКТЫ</h2><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:14px 20px;background:rgba(10,14,24,0.7);border-radius:14px;"><div>Выбрано: <strong id="conCount" style="color:var(--gold);">0</strong>/10</div><div>Сумма: <strong id="conSum" style="color:var(--gold);">0</strong> <i class="fas fa-coins coin"></i></div><button class="btn btn-p" id="contractBtn" disabled>КОНТРАКТ</button></div><div id="conRes" style="display:none;padding:20px;background:rgba(76,175,80,0.08);border-radius:14px;text-align:center;"></div><div class="inv-grid" id="conInvGrid" style="max-height:200px;"></div></div></div>
-<div class="page" id="p-profile"><div class="section" id="profContent"></div></div>
+<div class="page" id="p-profile"><div id="profContent"></div></div>
 </div>
 <div class="live-feed"><h3><i class="fas fa-fire"></i> LIVE DROP</h3><div class="live-list" id="liveList"></div></div>
 </div>
@@ -368,7 +443,20 @@ const TARGET_CASES=[
     {tag:'dn',   name:'Dreams & Nightmares Case',         price:680},
     {tag:'wo',   name:'Winter Offensive Weapon Case',     price:900},
     {tag:'hu',   name:'Huntsman Weapon Case',             price:950},
-    {tag:'es13', name:'eSports 2013 Case',                price:1300}
+    {tag:'es13', name:'eSports 2013 Case',                price:1300},
+    {tag:'op9',  name:'Operation Bloodhound Case',        price:120},
+    {tag:'anub', name:'Anubis Collection Package',        price:210},
+    {tag:'ancn', name:'Ancient Collection Package',       price:190},
+    {tag:'dust', name:'Dust II Collection Package',       price:170},
+    {tag:'ovpk', name:'Overpass Collection Package',      price:175},
+    {tag:'vtpk', name:'Vertigo Collection Package',       price:165},
+    {tag:'inpk', name:'Inferno Collection Package',       price:180},
+    {tag:'mrpk', name:'Mirage Collection Package',        price:185},
+    {tag:'nkpk', name:'Nuke Collection Package',          price:178},
+    {tag:'trpk', name:'Train Collection Package',         price:160},
+    {tag:'cachC',name:'Cache Collection Package',         price:155},
+    {tag:'gala', name:'Gallery Case',                     price:520},
+    {tag:'dream2',name:'Dreams & Nightmares 2 Case',      price:700}
 ];
 function mapRarity(rarityName){
     const n=(rarityName||'').toLowerCase();
@@ -428,7 +516,7 @@ function findSkinByName(name){return SKINS.find(s=>s.n===name);}
 let SKINS=[]; 
 let CASES=[]; 
 
-let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1;
+let bal=1000,inv=[],idC=0,spinning=!1,caseI=0,curUser=null,curUserId=null,hist=[],sUp=new Set,sCon=new Set,uping=!1,coning=!1,multiCount=1;
 let upChance=50,upMult=2.0,_upgradingSkins=[];
 const ge=id=>document.getElementById(id);
 
@@ -473,16 +561,152 @@ function rndItem(cs){
 function skinByPrice(tp){let b=SKINS[0],bd=Infinity;const pool=SKINS.filter(s=>s.r!=='mythic');for(const s of (pool.length?pool:SKINS)){const d=Math.abs(s.p-tp);if(d<bd){bd=d;b=s;}}return b;}
 function genTape(win,cs){const tape=ge('tape');if(!tape)return;let h='';for(let i=0;i<40;i++){let item=(i===32&&win)?win:rndItem(cs);h+=`<div class="skin ${item.r}">${iconEl('si',item.img,item.i)}<div class="sn">${item.n}</div><div class="sp">${item.p} <i class="fas fa-coins coin"></i></div></div>`;}tape.innerHTML=h;tape.style.transition='none';tape.style.transform='translateX(800px)';}
 function spin(){return new Promise(resolve=>{const tape=ge('tape'),cont=document.querySelector('.roulette');if(!tape||!cont){resolve();return;}const ww=cont.offsetWidth||800,target=-(32*129)+(ww/2)-64;tape.offsetHeight;let clicks=0;const ci=setInterval(()=>{SFX.play('case_scroll');clicks++;if(clicks>30)clearInterval(ci);},100);tape.style.transition='transform 3.2s cubic-bezier(0.08,0.85,0.15,1)';tape.style.transform=`translateX(${target+(Math.random()*30-15)}px)`;setTimeout(()=>{clearInterval(ci);SFX.play('case_stop');resolve();},3400);});}
-async function openCase(){if(!curUser){alert('❌ Сначала войди!');showReg();return;}if(spinning)return;const c=CASES[caseI];if(bal<c.p){alert(`❌ Нужно ${c.p} 🪙`);return;}spinning=true;ge('openBtn').disabled=true;ge('openBtn').innerHTML='<i class="fas fa-dice"></i> КРУТИМ...';bal-=c.p;updBal();SFX.play('case_open');const win=rndItem(c.s);genTape(win,c.s);await new Promise(r=>setTimeout(r,300));await spin();inv.push({...win,id:idC++});hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});dropLater(win.n,win.i,win.p,win.r,win.img);updateStats(win.p,win.n,win.i,curUser,win.img);if(win.r==='legendary'||win.r==='mythic')SFX.play('legendary');const profit=win.p-c.p;ge('result').style.display='block';ge('result').innerHTML=`🎉 ${win.i} <strong>${win.n}</strong> (${win.p} 🪙) | ${profit>=0?'+'+profit:profit} 🪙`;ge('result').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,60,60,0.1)';ge('result').style.color=profit>=0?'#4caf50':'#ff4444';renderAll();saveGame();spinning=false;ge('openBtn').disabled=false;ge('openBtn').innerHTML='<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';}
+async function openCase(){
+    if(!curUser){alert('❌ Сначала войди!');showReg();return;}
+    if(spinning)return;
+    if(multiCount>1){await openCaseMulti(multiCount);return;}
+    const c=CASES[caseI];if(bal<c.p){alert(`❌ Нужно ${c.p} 🪙`);return;}
+    spinning=true;ge('openBtn').disabled=true;ge('openBtn').innerHTML='<i class="fas fa-dice"></i> КРУТИМ...';
+    ge('multiResults').style.display='none';
+    bal-=c.p;updBal();SFX.play('case_open');
+    const win=rndItem(c.s);genTape(win,c.s);
+    await new Promise(r=>setTimeout(r,300));await spin();
+    inv.push({...win,id:idC++});
+    hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});
+    dropLater(win.n,win.i,win.p,win.r,win.img);
+    updateStats(win.p,win.n,win.i,curUser,win.img);
+    if(win.r==='legendary'||win.r==='mythic')SFX.play('legendary');
+    const profit=win.p-c.p;
+    ge('result').style.display='block';
+    ge('result').innerHTML=`🎉 ${win.i} <strong>${win.n}</strong> (${win.p} 🪙) | ${profit>=0?'+'+profit:profit} 🪙`;
+    ge('result').style.background=profit>=0?'rgba(76,175,80,0.1)':'rgba(255,60,60,0.1)';
+    ge('result').style.color=profit>=0?'#4caf50':'#ff4444';
+    renderAll();saveGame();
+    spinning=false;ge('openBtn').disabled=false;ge('openBtn').innerHTML='<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
+}
+
+async function openCaseMulti(n){
+    const c=CASES[caseI];
+    const totalCost=c.p*n;
+    if(bal<totalCost){alert(`❌ Нужно ${totalCost} 🪙 на ${n} кейс(ов)`);return;}
+    spinning=true;
+    ge('openBtn').disabled=true;
+    ge('openBtn').innerHTML=`<i class="fas fa-dice"></i> ОТКРЫВАЕМ ${n}...`;
+    ge('result').style.display='none';
+    ge('multiResults').style.display='none';
+    bal-=totalCost;updBal();
+    SFX.play('case_open');
+
+    const wins=[];
+    for(let i=0;i<n;i++)wins.push(rndItem(c.s));
+
+    const showcase=wins.slice().sort((a,b)=>b.p-a.p)[0];
+    genTape(showcase,c.s);
+    await new Promise(r=>setTimeout(r,200));
+    await spin();
+
+    let totalWon=0,bestRarityRank=0;
+    const rarityRank={common:0,uncommon:1,rare:2,epic:3,legendary:4,mythic:5};
+    wins.forEach(win=>{
+        inv.push({...win,id:idC++});
+        hist.push({t:'case',skin:win.n,price:win.p,time:new Date().toISOString()});
+        dropLater(win.n,win.i,win.p,win.r,win.img);
+        updateStats(win.p,win.n,win.i,curUser,win.img);
+        totalWon+=win.p;
+        if((rarityRank[win.r]||0)>bestRarityRank)bestRarityRank=rarityRank[win.r]||0;
+    });
+    if(bestRarityRank>=4)SFX.play('legendary');
+
+    const profit=totalWon-totalCost;
+    const mr=ge('multiResults');
+    mr.style.display='block';
+    mr.innerHTML=`<div class="multi-results-head"><span>📦 Открыто: ${n} кейс(ов)</span><span style="color:${profit>=0?'#4caf50':'#ff4444'};">${profit>=0?'+'+profit:profit} 🪙 (получено ${totalWon} 🪙)</span></div><div class="multi-results-grid">${wins.map(w=>`<div class="multi-result-item ${w.r}">${iconEl('mi',w.img,w.i)}<div style="font-weight:700;margin-top:4px;">${w.n}</div><div style="color:var(--gold);">${w.p} 🪙</div></div>`).join('')}</div>`;
+
+    renderAll();saveGame();
+    spinning=false;
+    ge('openBtn').disabled=false;
+    ge('openBtn').innerHTML='<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
+}
+
+function setMultiCount(n){
+    n=Math.max(1,Math.min(100,Math.round(n)));
+    multiCount=n;
+    const range=ge('multiCustomRange');if(range)range.value=n;
+    const txt=ge('multiCustomValTxt');if(txt)txt.textContent=n;
+    document.querySelectorAll('.multi-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.n)===n));
+    updateMultiTotal();
+}
+function updateMultiTotal(){
+    const c=CASES[caseI];
+    if(!c)return;
+    ge('multiTotalCount').textContent=multiCount;
+    ge('multiTotalPrice').textContent=c.p*multiCount;
+    ge('openBtn').innerHTML=multiCount>1?`<i class="fas fa-dice"></i> ОТКРЫТЬ ×${multiCount}`:'<i class="fas fa-key"></i> ОТКРЫТЬ КЕЙС';
+}
+document.querySelectorAll('.multi-btn').forEach(b=>{b.addEventListener('click',function(){setMultiCount(parseInt(this.dataset.n));});});
+const multiCustomRangeEl=ge('multiCustomRange');
+if(multiCustomRangeEl){multiCustomRangeEl.addEventListener('input',function(){setMultiCount(parseInt(this.value));});}
 
 function nav(p){if(uping&&p!=='upgrade'){return;}document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));if(p==='cases'){ge('p-cases').classList.add('active');renderCases();}else{ge('p-'+p).classList.add('active');if(['inventory','upgrade','contract','profile'].includes(p))renderAll();if(p==='profile')renderProf();if(p==='upgrade')resetUpgradeUI();}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const nb=document.querySelector(`[data-p="${p}"]`);if(nb)nb.classList.add('active');}
-function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}">${iconEl('pi',s.img,s.i)}<div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');nav('case-open');}
+function openCP(i){caseI=i;const c=CASES[i];ge('caseTitle').textContent=c.i+' '+c.n;ge('casePrice').textContent=c.p;ge('result').style.display='none';ge('multiResults').style.display='none';ge('poolContent').innerHTML=c.s.map(s=>`<div class="pool-item ${s.r}">${iconEl('pi',s.img,s.i)}<div>${s.n.split('|')[1]||s.n}</div><div style="color:var(--gold);">${s.p} <i class="fas fa-coins coin"></i></div></div>`).join('');setMultiCount(1);nav('case-open');}
 function caseTier(p){if(p>=500)return'elite';if(p>=150)return'mid';return'budget';}
 function renderCases(){ge('caseGrid').innerHTML=CASES.map((c,i)=>{const tier=caseTier(c.p);const tag=tier==='elite'?'<div class="tier-tag elite">★ ELITE</div>':tier==='mid'?'<div class="tier-tag mid">HOT</div>':'';return`<div class="case-card tier-${tier}" onclick="openCP(${i})">${c.isYolo?'<div class="yolo-badge">YOLO</div>':tag}${iconEl('ci',c.img,c.i)}<div class="cn">${c.n}</div><div class="cp">${c.p} <i class="fas fa-coins coin"></i></div></div>`;}).join('');}
 function renderAll(){ge('invCount').textContent=inv.length;ge('invTotal').textContent=inv.reduce((s,i)=>s+i.p,0);if(inv.length===0){ge('invGrid').innerHTML='<div style="text-align:center;padding:50px;color:var(--text2);"><i class="fas fa-box-open" style="font-size:28px;display:block;margin-bottom:8px;"></i>Пусто</div>';ge('upInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';ge('conInvGrid').innerHTML='<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}else{ge('invGrid').innerHTML=inv.map(i=>`<div class="inv-item">${iconEl('ii',i.img,i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="sell(${i.id})">Продать</button></div>`).join('');renderUpInv();renderConInv();}upUI();conUI();}
 function renderUpInv(){ge('upInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sUp.has(i.id);return`<div class="inv-item" style="${s?'border-color:#ff6600;box-shadow:0 0 20px rgba(255,102,0,0.2)':''}">${iconEl('ii',i.img,i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tUp(${i.id})" style="background:${s?'rgba(255,102,0,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
 function renderConInv(){ge('conInvGrid').innerHTML=inv.length?inv.map(i=>{const s=sCon.has(i.id);return`<div class="inv-item" style="${s?'border-color:#9333ea;box-shadow:0 0 20px rgba(147,51,234,0.2)':''}">${iconEl('ii',i.img,i.i)}<div class="in">${i.n}</div><div class="ip">${i.p} <i class="fas fa-coins coin"></i></div><button class="btn-sm btn-sell" onclick="tCon(${i.id})" style="background:${s?'rgba(147,51,234,0.6)':'rgba(30,36,50,0.9)'}">${s?'✓':'Выбрать'}</button></div>`;}).join(''):'<div style="text-align:center;color:var(--text2);padding:20px;">Нет скинов</div>';}
-function renderProf(){ge('profContent').innerHTML=`<h2><i class="fas fa-user"></i> ПРОФИЛЬ</h2><div style="padding:20px;background:rgba(10,14,24,0.7);border-radius:14px;margin:15px 0;"><div>Привет, <strong style="color:var(--gold);">${curUser||'Гость'}</strong>!</div><div style="color:var(--text2);margin-top:4px;">ID: <strong style="color:#fff;">${curUserId||'—'}</strong></div><div>Баланс: <strong>${bal}</strong> <i class="fas fa-coins coin"></i></div><div>Скинов: <strong>${inv.length}</strong></div><div>Открыто кейсов: <strong>${hist.filter(h=>h.t==='case').length}</strong></div></div><h3>📋 ИСТОРИЯ</h3><div style="max-height:350px;overflow-y:auto;">${hist.length?hist.slice().reverse().slice(0,50).map(h=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(20,26,42,0.5);border-radius:8px;margin-bottom:3px;font-size:11px;"><span style="font-size:22px;">${h.t==='case'?'💎':h.t==='upgrade'?'⚡':'📜'}</span><div style="flex:1;"><div>${h.skin}</div><div style="font-size:9px;color:var(--text2);">${new Date(h.time).toLocaleString()}</div></div><div style="color:var(--gold);">${h.price} <i class="fas fa-coins coin"></i></div></div>`).join(''):'<div style="text-align:center;padding:30px;">Пусто</div>'}</div>`;}
+function renderProf(){
+    const initials=(curUser||'Г').slice(0,2).toUpperCase();
+    const casesOpened=hist.filter(h=>h.t==='case').length;
+    const upgradesWon=hist.filter(h=>h.t==='upgrade').length;
+    const contractsMade=hist.filter(h=>h.t==='contract').length;
+    const jackpots=hist.filter(h=>h.price>=500).length;
+    const invTotal=inv.reduce((s,i)=>s+i.p,0);
+    const bestDrop=hist.length?hist.reduce((best,h)=>(!best||h.price>best.price)?h:best,null):null;
+    const bestItem=bestDrop?findSkinByName(bestDrop.skin):null;
+    const rarityIcon=bestItem?bestItem.i:'🎁';
+    const rarityImg=bestItem?bestItem.img:null;
+
+    const histHTML=hist.length?hist.slice().reverse().slice(0,60).map(h=>{
+        const typeIcon=h.t==='case'?'📦':h.t==='upgrade'?'⚡':'📜';
+        const typeLbl=h.t==='case'?'Кейс':h.t==='upgrade'?'Апгрейд':'Контракт';
+        return `<div class="prof-hist-item ${h.t}"><div class="phi-icon">${typeIcon}</div><div class="phi-info"><div class="phi-name">${h.skin} <span style="color:var(--text2);font-weight:400;">· ${typeLbl}</span></div><div class="phi-time">${new Date(h.time).toLocaleString()}</div></div><div class="phi-price">${h.price} 🪙</div></div>`;
+    }).join(''):'<div class="prof-hist-empty"><i class="fas fa-box-open" style="font-size:24px;display:block;margin-bottom:8px;"></i>История пуста — открой первый кейс!</div>';
+
+    ge('profContent').innerHTML=`
+    <div class="prof-wrap">
+        <div class="prof-hero">
+            <div class="prof-avatar">${initials}</div>
+            <div class="prof-id-block">
+                <div class="prof-name"><i class="fas fa-star" style="color:var(--gold);font-size:16px;"></i> ${curUser||'Гость'}</div>
+                <div class="prof-id">ID: ${curUserId||'—'}</div>
+            </div>
+            <div class="prof-bal-chip"><div class="lbl">Баланс</div><div class="val">${bal} 🪙</div></div>
+        </div>
+
+        <div class="prof-stats-grid">
+            <div class="prof-stat-card"><i class="fas fa-box-open"></i><div class="val">${casesOpened}</div><div class="lbl">Кейсов открыто</div></div>
+            <div class="prof-stat-card"><i class="fas fa-briefcase"></i><div class="val">${inv.length}</div><div class="lbl">Скинов в инвентаре</div></div>
+            <div class="prof-stat-card"><i class="fas fa-sack-dollar"></i><div class="val">${invTotal}</div><div class="lbl">Стоимость инвентаря</div></div>
+            <div class="prof-stat-card"><i class="fas fa-bolt"></i><div class="val">${upgradesWon}</div><div class="lbl">Успешных апгрейдов</div></div>
+            <div class="prof-stat-card"><i class="fas fa-file-contract"></i><div class="val">${contractsMade}</div><div class="lbl">Контрактов</div></div>
+            <div class="prof-stat-card"><i class="fas fa-trophy"></i><div class="val">${jackpots}</div><div class="lbl">Джекпотов (≥500)</div></div>
+        </div>
+
+        ${bestDrop?`<div class="prof-best-drop">
+            ${iconEl('pbd-icon',rarityImg,rarityIcon)}
+            <div>
+                <div class="pbd-lbl">Лучший дроп</div>
+                <div class="pbd-name">${bestDrop.skin}</div>
+                <div class="pbd-price">${bestDrop.price} 🪙</div>
+            </div>
+        </div>`:''}
+
+        <div class="prof-history">
+            <div class="prof-section-title"><i class="fas fa-clock-rotate-left"></i> История</div>
+            <div class="prof-hist-list">${histHTML}</div>
+        </div>
+    </div>`;
+}
 function sell(id){const idx=inv.findIndex(i=>i.id===id);if(idx===-1)return;bal+=inv[idx].p;updBal();inv.splice(idx,1);sUp.delete(id);sCon.delete(id);renderAll();saveGame();SFX.play('sell');}
 function tUp(id){if(uping)return;sUp.has(id)?sUp.delete(id):sUp.add(id);renderAll();}
 function tCon(id){if(coning)return;sCon.has(id)?sCon.delete(id):(sCon.size>=10?alert('Максимум 10!'):sCon.add(id));renderAll();}
@@ -616,7 +840,6 @@ function loadUser(u){
             localStorage.setItem('sv_last', u);
             nav('cases');
             
-            // РЕАКТИВНЫЙ СЛУШАТЕЛЬ БАЛАНСА
             const balanceRef = usersR.child(u).child('sd').child('balance');
             balanceRef.off();
             balanceRef.on('value', snapshot => {
@@ -634,7 +857,6 @@ function loadUser(u){
                 }
             });
             
-            // СЛУШАТЕЛЬ УВЕДОМЛЕНИЙ
             const notifRef = usersR.child(u).child('notifications');
             notifRef.off();
             notifRef.orderByChild('read').equalTo(false).on('child_added', snapshot => {
@@ -676,13 +898,11 @@ async function giveCoins(){
         let foundUser = null;
         let foundData = null;
         
-        // Сначала пробуем прямой поиск по нику
         const snap = await usersR.child(t).once('value');
         if(snap.exists()){
             foundUser = t;
             foundData = snap.val();
         } else {
-            // Если не найден по нику, ищем по UID
             const querySnap = await usersR.orderByChild('uid').equalTo(t).once('value');
             if(querySnap.exists()){
                 const entries = Object.entries(querySnap.val());
@@ -699,18 +919,15 @@ async function giveCoins(){
             return;
         }
         
-        // Проверяем, есть ли у пользователя баланс
         const sd = foundData.sd || {};
         const oldBalance = typeof sd.balance === 'number' ? sd.balance : 1000;
         const newBalance = oldBalance + a;
         
-        // Обновляем баланс
         await usersR.child(foundUser).child('sd').child('balance').set(newBalance);
         await usersR.child(foundUser).child('sd').update({
             _lastUpdate: firebase.database.ServerValue.TIMESTAMP
         });
         
-        // Если это текущий пользователь - обновляем локально
         if(foundUser === curUser){
             bal = newBalance;
             updBal();
@@ -718,7 +935,6 @@ async function giveCoins(){
             showNotif('💰 +' + a + ' 🪙 начислено!', 'success');
         }
         
-        // Отправляем уведомление
         const notifRef = usersR.child(foundUser).child('notifications').push();
         await notifRef.set({
             type: 'admin_gift',
